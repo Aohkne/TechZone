@@ -138,7 +138,7 @@
 
         <!-- Category -->
         <div class="category__container">
-            <div class="category__title">Category</div>
+            <div class="category__title">khoa</div>
 
             <div class="category__list">
                 <div class="row">
