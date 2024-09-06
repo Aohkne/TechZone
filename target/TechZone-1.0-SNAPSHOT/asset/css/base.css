@@ -1,0 +1,33 @@
+:root {
+    --white-color: #fff;
+    --black-color: #181818;
+    --text-color: #181818;
+
+    --primary-yellow-color: #FDC62E;
+    --primary-black-color: #242424;
+    --primary-red-color: #F42C37;
+    --primary-green-color: #2CD06F;
+    --primary-blue-color: #157CFF;
+    --primary-gray-color: #EDEDED;
+
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    /* 16px ~ 100% */
+    /* 
+        đưa về =62.5% tương đương với 1 rem = 10px 
+        nếu muốn đưa về 12px thì chỉ cần ghi 1.2rem 
+        */
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Calibri', 'Roboto', sans-serif, Helvetica;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
