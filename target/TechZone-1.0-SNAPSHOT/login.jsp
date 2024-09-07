@@ -32,21 +32,31 @@
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form action="#">
+                <form action="Login" method="post">
+                    <%
+                        String loginError = (String) session.getAttribute("loginError");
+                        if (loginError != null) {
+                    %>
+                    <div class="alert alert-danger"><%= loginError%></div>
+                    <%
+                            session.removeAttribute("loginError"); // Remove error after displaying
+                        }
+                    %>
+                    <br>
                     <h1>Sign in</h1>
                     <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="email" name="email" placeholder="Email" required=""/>
+                    <input type="password" name="password" placeholder="Password" required=""/>
                     <label for="remember" class="checkbox-label">
                         <input type="checkbox" name="remember" id="remember" />
                         <span class="checkmark"></span>
                         <a>Save Information</a>
                     </label>
                     <a href="#">Forgot your password?</a>
-                    <button>Sign In</button>
+                    <button type="submit" name="btnLogin">Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">

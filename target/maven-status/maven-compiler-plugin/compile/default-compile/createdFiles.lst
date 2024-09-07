@@ -1,4 +1,6 @@
+Controllers\Home.class
 Controllers\Login.class
 DAOs\AccountDAO.class
 DB\DBConnection.class
 Models\Users.class
+Controllers\Login$1.class

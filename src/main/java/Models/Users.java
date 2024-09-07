@@ -33,6 +33,13 @@ public class Users {
         this.avartar = avartar;
         this.status_user = status_user;
     }
+
+    public Users(String email, String password) {
+        this.password = password;
+        this.email = email;
+    }
+
+    
     
 
     public Users(String username, String password, String email, int phone, String address, int role, Date create_at, String avartar, boolean status_user) {

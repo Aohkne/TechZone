@@ -26,7 +26,7 @@ public class AccountDAO {
             String sql = "SELECT * FROM Users WHERE email = ? AND password = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, acc.getEmail());
-            pst.setString(2, md5Hash(acc.getPassword()));
+            pst.setString(2, acc.getPassword());
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 return true;
