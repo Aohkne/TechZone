@@ -67,7 +67,7 @@
 
                 <div class="user__account">
                     <div class="account__register">Register</div>
-                    <div class="account__login">Log in</div>
+                    <div href="/Login" class="account__login">Log in</div>
                 </div>
             </ul>
 
