@@ -66,8 +66,8 @@
 
 
                 <div class="user__account">
-                    <div class="account__register">Register</div>
-                    <div href="/Login" class="account__login">Log in</div>
+                    <div href="/Login" class="account__register">Register</div>
+                    <div class="account__login" onclick="window.location.href='/Login'">Log in</div>
                 </div>
             </ul>
 
