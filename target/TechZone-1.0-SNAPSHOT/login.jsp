@@ -19,16 +19,19 @@
     <body>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form action="#">
+                <form action="Login" method="post" enctype="multipart/form-data" id="registrationForm" onsubmit="return validateForm()">
                     <h1>Create Account</h1>
                     <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
+                    <input type="text" name="username" placeholder="Name" required=""  pattern="[A-Za-z0-9]+" 
+                           title="Username must contain only letters and numbers without spaces." />
+                    <input type="email" name="email" placeholder="Email" required=""/>
+                    <input type="password" name="password" placeholder="Password" required="" pattern=".{6,30}" 
+                           title="Password must be at least 6 to 30 characters long."/>
+
+                    <button type="submit" name="btnAddNew">Sign Up</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
@@ -102,6 +105,28 @@
                 container.classList.remove('right-panel-active');
             });
 
+
+            // Function to handle additional validation
+            function validateForm() {
+                const username = document.forms["registrationForm"]["username"].value;
+                const email = document.forms["registrationForm"]["email"].value;
+
+                // Validate that the username contains no diacritics (accents, etc.)
+                const diacriticRegex = /^[A-Za-z0-9]+$/;
+                if (!diacriticRegex.test(username)) {
+                    alert("Username must not contain special characters or spaces.");
+                    return false;
+                }
+
+                // Validate email confirmation - check if email is already registered or format is incorrect
+                if (!email.includes("@") || !email.includes(".")) {
+                    alert("Please enter a valid email address.");
+                    return false;
+                }
+
+                // Additional custom validations can go here
+                return true; // If all validations pass
+            }
         </script>
     </body>
 </html>

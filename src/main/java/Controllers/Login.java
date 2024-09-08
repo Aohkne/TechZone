@@ -118,13 +118,14 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AccountDAO dao = new AccountDAO();
+
         if (request.getParameter("btnLogin") != null) {
             String us = request.getParameter("email");
             String pwd = request.getParameter("password");
             String rememberMe = request.getParameter("remember"); // Get the checkbox value
 
             Users acc = new Users(us, pwd);
-            AccountDAO dao = new AccountDAO();
 
             if (dao.login(acc)) {
 //                String picture = acc.getPicture();
@@ -132,7 +133,7 @@ public class Login extends HttpServlet {
 //                session.setAttribute("email", us);
 //                session.setAttribute("picture", picture);
                 boolean check = acc.isStatus_user();
-                
+
                 if (!check) {
                     session.setAttribute("loginError", "Your account has been blocked.");
                     response.sendRedirect("/Login"); // Redirect back to the login page
@@ -151,38 +152,35 @@ public class Login extends HttpServlet {
             }
         } else {
             if (request.getParameter("btnAddNew") != null) {
+                String username = request.getParameter("username");
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
-                String name = request.getParameter("name");
-                String firstname = request.getParameter("firstName");
-                String lastname = request.getParameter("lastName");
-                Date birthday = java.sql.Date.valueOf(request.getParameter("birthday"));
 
-                String fileName = "";
-                String uploadPath = getServletContext().getRealPath("") + File.separator + "img";
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
+                // Hash the password
+                String hashedPassword = "";
+                try {
+
+                    hashedPassword = dao.md5Hash(password);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Handle the error, possibly redirect to an error page
+                    response.sendRedirect("/Login");
+                    return;
                 }
 
-                for (Part part : request.getParts()) {
-                    if (part.getName().equals("picture")) {
-                        fileName = (String) getFileName(part);
-                        part.write(uploadPath + File.separator + fileName);
-                    }
+                String avartar = "img/" + "avatar.png";
+                java.sql.Date create_at = new java.sql.Date(System.currentTimeMillis());
+
+                Users obj = new Users(username, hashedPassword, email, 2, create_at, avartar, true);
+                int count = dao.addNew(obj);
+                if (count > 0) {
+
+                    // Redirect to verification pending page or show a message
+                    response.sendRedirect("/Home");
+                } else {
+                    response.sendRedirect("/Login");
                 }
 
-                // Construct product object
-//                Account obj = new Account(email, password, name, firstname, lastname, "img/" + fileName, true, false, birthday);
-//                AccountDAO dao = new AccountDAO();
-//                int count = dao.addNew(obj);
-//                if (count > 0) {
-//
-//                    // Redirect to verification pending page or show a message
-//                    response.sendRedirect("/Login");
-//                } else {
-//                    response.sendRedirect("/Login/Signup");
-//                }
             } else if (request.getParameter("btnReturn") != null) {
                 response.sendRedirect("/Login");
             } else if (request.getParameter("btnNewPassword") != null) {
@@ -289,16 +287,5 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String getFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        String[] items = contentDisposition.split(";");
-        for (String item : items) {
-            if (item.trim().startsWith("filename")) {
-                return item.substring(item.indexOf("=") + 2, item.length() - 1);
-            }
-        }
-        return "";
-    }
 
 }
