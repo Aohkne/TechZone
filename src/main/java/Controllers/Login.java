@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -86,24 +86,24 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String path = request.getRequestURI();
 
-            if (path.equals("/Login")) {
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+        if (path.equals("/Login")) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        } else {
+            if (path.equals("/Login/Signup")) {
+                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+            } else if (path.equals("/Login/ForgotPassword")) {
+                request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
             } else {
-                if (path.equals("/Login/Signup")) {
-                    request.getRequestDispatcher("/signup.jsp").forward(request, response);
-                } else if (path.equals("/Login/ForgotPassword")) {
-                    request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
+                if (path.equals("/Login/ForgotPassword/EnterOtp")) {
+                    request.getRequestDispatcher("/EnterOtp.jsp").forward(request, response);
+                } else if (path.equals("/Login/ForgotPassword/NewPassword")) {
+                    request.getRequestDispatcher("/newPassword.jsp").forward(request, response);
                 } else {
-                    if (path.equals("/Login/ForgotPassword/EnterOtp")) {
-                        request.getRequestDispatcher("/EnterOtp.jsp").forward(request, response);
-                    } else if (path.equals("/Login/ForgotPassword/NewPassword")) {
-                        request.getRequestDispatcher("/newPassword.jsp").forward(request, response);
-                    } else {
 
-                    }
                 }
             }
-        
+        }
+
     }
 
     /**
@@ -121,7 +121,7 @@ public class Login extends HttpServlet {
         if (request.getParameter("btnLogin") != null) {
             String us = request.getParameter("email");
             String pwd = request.getParameter("password");
-            String rememberMe = request.getParameter("remember_me"); // Get the checkbox value
+            String rememberMe = request.getParameter("remember"); // Get the checkbox value
 
             Users acc = new Users(us, pwd);
             AccountDAO dao = new AccountDAO();
@@ -131,15 +131,19 @@ public class Login extends HttpServlet {
 //                System.out.println("Login successful, picture: " + picture); // Debug statement
 //                session.setAttribute("email", us);
 //                session.setAttribute("picture", picture);
-//
-//
-//                if ("true".equals(rememberMe)) {
-//                    Cookie userCookie = new Cookie("email", us);
-//                    userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
-//                    userCookie.setHttpOnly(true); // Recommended for security
-//                    response.addCookie(userCookie);
-//                }
-                System.out.println("kkkkk");
+                boolean check = acc.isStatus_user();
+                
+                if (!check) {
+                    session.setAttribute("loginError", "Your account has been blocked.");
+                    response.sendRedirect("/Login"); // Redirect back to the login page
+                    return;
+                }
+                if ("true".equals(rememberMe)) {
+                    Cookie userCookie = new Cookie("email", us);
+                    userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
+                    userCookie.setHttpOnly(true); // Recommended for security
+                    response.addCookie(userCookie);
+                }
                 response.sendRedirect("/Home");
             } else {
                 session.setAttribute("loginError", "Invalid email or password. Please try again.");
@@ -179,7 +183,6 @@ public class Login extends HttpServlet {
 //                } else {
 //                    response.sendRedirect("/Login/Signup");
 //                }
-
             } else if (request.getParameter("btnReturn") != null) {
                 response.sendRedirect("/Login");
             } else if (request.getParameter("btnNewPassword") != null) {

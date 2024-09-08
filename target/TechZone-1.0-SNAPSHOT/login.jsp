@@ -51,7 +51,7 @@
                     <input type="email" name="email" placeholder="Email" required=""/>
                     <input type="password" name="password" placeholder="Password" required=""/>
                     <label for="remember" class="checkbox-label">
-                        <input type="checkbox" name="remember" id="remember" />
+                        <input type="checkbox" name="remember" id="remember" value="true" />
                         <span class="checkmark"></span>
                         <a>Save Information</a>
                     </label>
