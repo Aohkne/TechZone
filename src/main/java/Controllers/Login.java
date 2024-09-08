@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -159,28 +160,29 @@ public class Login extends HttpServlet {
                 // Hash the password
                 String hashedPassword = "";
                 try {
-
                     hashedPassword = dao.md5Hash(password);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // Handle the error, possibly redirect to an error page
                     response.sendRedirect("/Login");
                     return;
                 }
 
-                String avartar = "img/" + "avatar.png";
+                String avatar = "img/avatar.png"; // Corrected spelling from 'avartar' to 'avatar'
                 java.sql.Date create_at = new java.sql.Date(System.currentTimeMillis());
 
-                Users obj = new Users(username, hashedPassword, email, 2, create_at, avartar, true);
+                // Create the Users object with phone and address set to null
+                Users obj = new Users(username, hashedPassword, email, null, null, 2, create_at, avatar, true);
+
+                // Insert the new user into the database
                 int count = dao.addNew(obj);
                 if (count > 0) {
-
-                    // Redirect to verification pending page or show a message
-                    response.sendRedirect("/Home");
+                    // Redirect to the home page or show a message
+                    session.setAttribute("loginError", "Created Account Success");
+                    response.sendRedirect("/Login");
                 } else {
+                    session.setAttribute("loginError", "Error occurred. Please try again.");
                     response.sendRedirect("/Login");
                 }
-
             } else if (request.getParameter("btnReturn") != null) {
                 response.sendRedirect("/Login");
             } else if (request.getParameter("btnNewPassword") != null) {

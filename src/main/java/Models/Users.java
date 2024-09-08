@@ -14,23 +14,23 @@ public class Users {
     private String username;
     private String password;
     private String email;
-    private int phone;
+    private Integer  phone;
     private String address;
     private int role;
     private Date create_at;
-    private String avartar;
+    private String avatar;
     private boolean status_user;
 
     public Users() {
     }
 
-    public Users(String username, String password, String email, int role, Date create_at, String avartar, boolean status_user) {
+    public Users(String username, String password, String email, int role, Date create_at, String avatar, boolean status_user) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
         this.create_at = create_at;
-        this.avartar = avartar;
+        this.avatar = avatar;
         this.status_user = status_user;
     }
 
@@ -42,7 +42,7 @@ public class Users {
     
     
 
-    public Users(String username, String password, String email, int phone, String address, int role, Date create_at, String avartar, boolean status_user) {
+    public Users(String username, String password, String email, Integer  phone, String address, int role, Date create_at, String avatar, boolean status_user) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -50,7 +50,7 @@ public class Users {
         this.address = address;
         this.role = role;
         this.create_at = create_at;
-        this.avartar = avartar;
+        this.avatar = avatar;
         this.status_user = status_user;
     }
 
@@ -78,11 +78,11 @@ public class Users {
         this.email = email;
     }
 
-    public int getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
@@ -110,12 +110,12 @@ public class Users {
         this.create_at = create_at;
     }
 
-    public String getAvartar() {
-        return avartar;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAvartar(String avartar) {
-        this.avartar = avartar;
+    public void setAvatar(String avartar) {
+        this.avatar = avartar;
     }
 
     public boolean isStatus_user() {

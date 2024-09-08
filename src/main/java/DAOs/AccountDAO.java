@@ -29,7 +29,7 @@ public class AccountDAO {
             pst.setString(2, md5Hash(acc.getPassword()));
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                 acc.setStatus_user(rs.getBoolean("status_user")); // Update status_user
+                acc.setStatus_user(rs.getBoolean("status_user")); // Update status_user
                 return true;
             }
         } catch (Exception ex) {
@@ -57,7 +57,7 @@ public class AccountDAO {
 
         if (conn != null) {
             try {
-                String sql = "SELECT user_id, username, password, phone, address, role, create_at, avartar, status_user FROM Users WHERE email = ?";
+                String sql = "SELECT user_id, username, password, phone, address, role, create_at, avatar, status_user FROM Users WHERE email = ?";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, email);
                 ResultSet rs = pst.executeQuery();
@@ -70,7 +70,7 @@ public class AccountDAO {
                     acc.setAddress(rs.getString("address"));
                     acc.setRole(rs.getInt("role"));
                     acc.setCreate_at(rs.getDate("create_at"));
-                    acc.setAvartar(rs.getString("avartar"));
+                    acc.setAvatar(rs.getString("avatar"));
                     acc.setStatus_user(rs.getBoolean("status_user"));
                 }
             } catch (SQLException ex) {
@@ -107,7 +107,7 @@ public class AccountDAO {
 
         if (conn != null) {
             try {
-                String sql = "Select avartar from Users where email =?";
+                String sql = "Select avatar from Users where email =?";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, email);
                 rs = pst.executeQuery();
@@ -130,7 +130,7 @@ public class AccountDAO {
 
         if (conn != null) {
             try {
-                String sql = "Select status_user from Account where user_id =?";
+                String sql = "Select status_user from Users where user_id =?";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setInt(1, user_id);
                 rs = pst.executeQuery();
@@ -174,22 +174,52 @@ public class AccountDAO {
         int count = 0;
         if (conn != null) {
             try {
-                String sql = "insert into Users values(?,?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO Users (username, password, email, phone, address, role, create_at, avatar, status_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Debug statements
+                System.out.println("Debug: Preparing to insert user: " + obj.getUsername());
+
                 pst.setString(1, obj.getUsername());
                 pst.setString(2, obj.getPassword());
                 pst.setString(3, obj.getEmail());
-                pst.setInt(4, obj.getPhone());
-                pst.setString(5, obj.getAddress());
+
+                if (obj.getPhone() != null) {
+                    pst.setInt(4, obj.getPhone());
+                    System.out.println("Debug: Phone is set to: " + obj.getPhone());
+                } else {
+                    pst.setNull(4, java.sql.Types.INTEGER);
+                    System.out.println("Debug: Phone is set to null");
+                }
+
+                if (obj.getAddress() != null) {
+                    pst.setString(5, obj.getAddress());
+                    System.out.println("Debug: Address is set to: " + obj.getAddress());
+                } else {
+                    pst.setNull(5, java.sql.Types.VARCHAR);
+                    System.out.println("Debug: Address is set to null");
+                }
+
                 pst.setInt(6, obj.getRole());
-                 pst.setDate(7, new java.sql.Date(obj.getCreate_at().getTime()));
-                pst.setString(8, obj.getAvartar());
+                pst.setDate(7, new java.sql.Date(obj.getCreate_at().getTime()));
+                pst.setString(8, obj.getAvatar());
                 pst.setBoolean(9, obj.isStatus_user());
-               
+
+                System.out.println("Debug: SQL prepared statement is ready to execute");
+
                 count = pst.executeUpdate();
+
+                if (count > 0) {
+                    System.out.println("Debug: Insert successful.");
+                } else {
+                    System.out.println("Debug: Insert failed.");
+                }
             } catch (SQLException ex) {
+                ex.printStackTrace(); // This will show you the SQL error details
                 count = 0;
             }
+        } else {
+            System.out.println("Debug: Database connection failed.");
         }
         return count;
     }
