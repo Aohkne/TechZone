@@ -186,54 +186,59 @@ public class Login extends HttpServlet {
             } else if (request.getParameter("btnReturn") != null) {
                 response.sendRedirect("/Login");
             } else if (request.getParameter("btnNewPassword") != null) {
-                System.out.println("ForgotPassword servlet called");
                 String email = request.getParameter("email");
-                RequestDispatcher dispatcher = null;
-                int otpvalue = 0;
-                HttpSession mySession = request.getSession();
+                if (dao.checkEmail(email)) {
+                    RequestDispatcher dispatcher = null;
+                    int otpvalue = 0;
+                    HttpSession mySession = request.getSession();
 
-                if (email != null || !email.equals("")) {
-                    // sending otp
-                    Random rand = new Random();
-                    otpvalue = rand.nextInt(1255650);
+                    if (email != null || !email.equals("")) {
+                        // sending otp
+                        Random rand = new Random();
+                        otpvalue = rand.nextInt(1255650);
 
-                    String to = email;// change accordingly
-                    // Get the session object
-                    Properties props = new Properties();
-                    props.put("mail.smtp.host", "smtp.gmail.com");
-                    props.put("mail.smtp.socketFactory.port", "465");
-                    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-                    props.put("mail.smtp.auth", "true");
-                    props.put("mail.smtp.port", "465");
-                    Session sessions = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-                        @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication("nguyengiachan.gr2020@gmail.com", "ujtdiivvwlcoviye");// Put your email
-                            // id and
-                            // password here
+                        String to = email;// change accordingly
+                        // Get the session object
+                        Properties props = new Properties();
+                        props.put("mail.smtp.host", "smtp.gmail.com");
+                        props.put("mail.smtp.socketFactory.port", "465");
+                        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                        props.put("mail.smtp.auth", "true");
+                        props.put("mail.smtp.port", "465");
+                        Session sessions = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                            @Override
+                            protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication("nguyengiachan.gr2020@gmail.com", "ujtdiivvwlcoviye");// Put your email
+                                // id and
+                                // password here
+                            }
+                        });
+                        // compose message
+                        try {
+                            MimeMessage message = new MimeMessage(sessions);
+                            message.setFrom(new InternetAddress(email));// change accordingly
+                            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                            message.setSubject("Hello");
+                            message.setText("your OTP is: " + otpvalue);
+                            // send message
+                            Transport.send(message);
+                            System.out.println("message sent successfully");
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
-                    });
-                    // compose message
-                    try {
-                        MimeMessage message = new MimeMessage(sessions);
-                        message.setFrom(new InternetAddress(email));// change accordingly
-                        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                        message.setSubject("Hello");
-                        message.setText("your OTP is: " + otpvalue);
-                        // send message
-                        Transport.send(message);
-                        System.out.println("message sent successfully");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
 
-                    request.setAttribute("message", "OTP is sent to your email id");
-                    //request.setAttribute("connection", con);
-                    mySession.setAttribute("otp", otpvalue);
-                    mySession.setAttribute("email", email);
-                    response.sendRedirect("/Login/ForgotPassword/EnterOtp");
-                    //request.setAttribute("status", "success");
+                        request.setAttribute("message", "OTP is sent to your email id");
+                        //request.setAttribute("connection", con);
+                        mySession.setAttribute("otp", otpvalue);
+                        mySession.setAttribute("email", email);
+                        response.sendRedirect("/Login/ForgotPassword/EnterOtp");
+                        //request.setAttribute("status", "success");
+                    }
+                } else {
+                    session.setAttribute("ForgotPasswordError", "Error occurred. Please try again.");
+                    response.sendRedirect("/Login/ForgotPassword");
                 }
+
             } else if (request.getParameter("btnResetPassword") != null) {
                 int value = Integer.parseInt(request.getParameter("otp"));
                 HttpSession sessionss = request.getSession();
@@ -252,27 +257,36 @@ public class Login extends HttpServlet {
                 }
 
             } else if (request.getParameter("ResetPassword") != null) {
+                String email = (String) session.getAttribute("email");
                 String newPassword = request.getParameter("password");
                 String confPassword = request.getParameter("confPassword");
                 RequestDispatcher dispatcher = null;
                 Connection conn = DBConnection.getConnection();
                 if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
+                    if (dao.CheckNewPassword(email).equals(newPassword)) {
+                        session.setAttribute("NewPasswordError", "Please enter a different password from the previous one");
+                        response.sendRedirect("/Login/ForgotPassword/NewPassword");
+                    } else {
+                        try {
+                            PreparedStatement pst = conn.prepareStatement("update Users set password = ? where email = ? ");
+                            pst.setString(1, dao.md5Hash(newPassword));
+                            pst.setString(2, (String) session.getAttribute("email"));
 
-                    try {
-                        PreparedStatement pst = conn.prepareStatement("update Account set password = ? where email = ? ");
-                        pst.setString(1, newPassword);
-                        pst.setString(2, (String) session.getAttribute("email"));
-
-                        int rowCount = pst.executeUpdate();
-                        if (rowCount > 0) {
-                            request.setAttribute("status", "resetSuccess");
-                        } else {
-                            request.setAttribute("status", "resetFailed");
+                            int rowCount = pst.executeUpdate();
+                            if (rowCount > 0) {
+                                request.setAttribute("status", "resetSuccess");
+                            } else {
+                                request.setAttribute("status", "resetFailed");
+                            }
+                            response.sendRedirect("/Login");
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        response.sendRedirect("/Login");
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+
+                } else {
+                    session.setAttribute("NewPasswordError", "Error occurred. Please try again.");
+                    response.sendRedirect("/Login/ForgotPassword/NewPassword");
                 }
             }
 

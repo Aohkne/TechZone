@@ -38,6 +38,42 @@ public class AccountDAO {
         return false;
     }
 
+    public boolean checkEmail(String email) {
+        Connection conn = DBConnection.getConnection();
+        try {
+            String sql = "SELECT * FROM Users WHERE email = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return false;
+    }
+
+     public String CheckNewPassword(String email) {
+        Connection conn = DBConnection.getConnection();
+        Users acc = null;
+        String password="";
+        if (conn != null) {
+            try {
+                String sql = "SELECT password FROM Users WHERE email = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, email);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    password = rs.getString("password");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return password;
+    }
+
     public void setVerifiedEmail(int user_id, boolean status_user) {
         Connection conn = DBConnection.getConnection();
         try {

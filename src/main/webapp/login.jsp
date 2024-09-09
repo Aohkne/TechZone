@@ -58,7 +58,7 @@
                         <span class="checkmark"></span>
                         <a>Save Information</a>
                     </label>
-                    <a href="#">Forgot your password?</a>
+                    <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
                 </form>
             </div>
