@@ -17,17 +17,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-import java.io.File;
-import java.security.NoSuchAlgorithmException;
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 
 import java.util.Properties;
 import java.util.Random;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -90,17 +88,21 @@ public class Login extends HttpServlet {
         if (path.equals("/Login")) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
-            if (path.equals("/Login/Signup")) {
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+            if (path.equals("/Login/Login")) {
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
             } else if (path.equals("/Login/ForgotPassword")) {
                 request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
+            } else if (path.equals("/Login/ForgotPassword")) {
+                request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
+            } else if (path.equals("/Login/EnterOtp_1")) {
+                request.getRequestDispatcher("/EnterOtp_1.jsp").forward(request, response);
             } else {
                 if (path.equals("/Login/ForgotPassword/EnterOtp")) {
                     request.getRequestDispatcher("/EnterOtp.jsp").forward(request, response);
                 } else if (path.equals("/Login/ForgotPassword/NewPassword")) {
                     request.getRequestDispatcher("/newPassword.jsp").forward(request, response);
                 } else {
-
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
                 }
             }
         }
@@ -167,21 +169,72 @@ public class Login extends HttpServlet {
                     return;
                 }
 
-                String avatar = "img/avatar.png"; // Corrected spelling from 'avartar' to 'avatar'
+                String avatar = "img/avatar.png"; // Default avatar
                 java.sql.Date create_at = new java.sql.Date(System.currentTimeMillis());
 
                 // Create the Users object with phone and address set to null
                 Users obj = new Users(username, hashedPassword, email, null, null, 2, create_at, avatar, true);
 
-                // Insert the new user into the database
-                int count = dao.addNew(obj);
-                if (count > 0) {
-                    // Redirect to the home page or show a message
-                    session.setAttribute("loginError", "Created Account Success");
-                    response.sendRedirect("/Login");
+                // sending otp
+                Random rand = new Random();
+                int otpvalue = rand.nextInt(1255650);
+
+                String to = email; // Recipient email
+
+                // Email sending logic
+                Properties props = new Properties();
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.socketFactory.port", "465");
+                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.port", "465");
+                Session sessions = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("nguyengiachan.gr2020@gmail.com", "ujtdiivvwlcoviye");
+                    }
+                });
+
+                try {
+                    MimeMessage message = new MimeMessage(sessions);
+                    message.setFrom(new InternetAddress("your-email@gmail.com")); // Correct email sender
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                    message.setSubject("Hello");
+                    message.setText("Your OTP is: " + otpvalue);
+                    Transport.send(message);
+                    System.out.println("Message sent successfully");
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+
+                session.setAttribute("otp", otpvalue);
+                session.setAttribute("email", email);
+                session.setAttribute("userObject", obj); // Store the user object for later use
+                response.sendRedirect("/Login/EnterOtp_1");
+
+            } else if (request.getParameter("btnCheckEmail") != null) {
+                String email = (String) session.getAttribute("email");
+                int otpValue = Integer.parseInt(request.getParameter("otp"));
+                Integer sessionOtp = (Integer) session.getAttribute("otp");
+
+                if (sessionOtp != null && otpValue == sessionOtp) {
+                    Users obj = (Users) session.getAttribute("userObject");
+                    if (obj != null) {
+                        int count = dao.addNew(obj);
+                        if (count > 0) {
+                            session.setAttribute("loginError", "Account created successfully.");
+                            response.sendRedirect("/Login");
+                        } else {
+                            session.setAttribute("loginError", "Error occurred. Please try again.");
+                            response.sendRedirect("/Login");
+                        }
+                    } else {
+                        session.setAttribute("loginError", "User object is missing. Please try again.");
+                        response.sendRedirect("/Login");
+                    }
                 } else {
-                    session.setAttribute("loginError", "Error occurred. Please try again.");
-                    response.sendRedirect("/Login");
+                    session.setAttribute("loginError", "Invalid OTP. Please try again.");
+                    response.sendRedirect("/Login/EnterOtp_1");
                 }
             } else if (request.getParameter("btnReturn") != null) {
                 response.sendRedirect("/Login");

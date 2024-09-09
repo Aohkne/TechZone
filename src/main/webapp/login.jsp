@@ -9,8 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Your page description here">
         <title>JSP Page</title>
-        <link href="asset/css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/css/login.css" rel="stylesheet" type="text/css"/>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -82,14 +84,13 @@
 
         <footer>
             <p>
-                Created with <i class="fa fa-heart"></i> by
-                <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-                - Read how I created this and how you can join the challenge
+                <i ></i> 
+                <a target="_blank" href="https://florin-pop.com"></a>
                 <a
                     target="_blank"
                     href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/"
-                    >here</a
-                >.
+                    ></a
+                >
             </p>
         </footer>
         <script>

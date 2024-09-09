@@ -74,13 +74,13 @@ public class AccountDAO {
         return password;
     }
 
-    public void setVerifiedEmail(int user_id, boolean status_user) {
+    public void setVerifiedEmail(String email, boolean status_user) {
         Connection conn = DBConnection.getConnection();
         try {
-            String sql = "UPDATE Users SET status_user = ? WHERE user_id = ?";
+            String sql = "UPDATE Users SET status_user = ? WHERE email = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setBoolean(1, status_user);
-            pst.setInt(2, user_id);
+            pst.setString(2, email);
             pst.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -302,4 +302,5 @@ public class AccountDAO {
         }
         return sb.toString();
     }
+    
 }
