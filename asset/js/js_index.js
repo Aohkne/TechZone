@@ -123,3 +123,57 @@ saleList.addEventListener('mousemove', (e) => {
     const walk = (x - startX) * 1;
     saleList.scrollLeft = scrollLeft - walk;
 });
+
+
+// Open - close notification
+
+let userItem = document.querySelectorAll('.user__item');
+let notificationBtn = userItem[0].querySelectorAll('.user__link')[0];
+let notificationPopup = document.querySelector('.notification__popup');
+
+show(notificationBtn, notificationPopup);
+
+//show hide Function
+/**
+ * Click : object that click
+ * Effect : object that show or hide
+*/
+function show(Click, Effect) {
+
+    Click.onclick = () => {
+
+        if (Effect.style.display == '' || Effect.style.display == 'none') {
+            Effect.style.display = 'block';
+        } else {
+            Effect.style.display = 'none';
+        }
+
+    }
+
+    //check if onclick != element before click or child of element
+    document.onclick = (event) => {
+        console.log(event.target);
+        console.log(Click);
+        console.log(Click.contains(event.target));
+        if (event.target != document.querySelector('#button_next') && !userItem[0].contains(event.target)) {
+            Effect.style.display = 'none';
+        }
+    }
+
+
+}
+
+
+// Hover cart
+let navSearchCartIcon = document.querySelector('.navSearch__cartIcon');
+let cartContainer = document.querySelector('.cart__container');
+
+
+navSearchCartIcon.addEventListener('click', () => {
+    if (cartContainer.style.display == 'block') {
+        cartContainer.style.display = 'none';
+    } else {
+        cartContainer.style.display = 'block';
+    }
+});
+

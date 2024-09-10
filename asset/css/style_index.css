@@ -25,7 +25,35 @@
     color: var(--primary-yellow-color);
 }
 
-.shopInfo__item {}
+.shopInfo__item {
+    position: relative;
+}
+
+.shopInfo__item:hover .download__popup {
+    display: block;
+}
+
+.download__popup {
+    display: none;
+    position: fixed;
+    left: 26px;
+    padding: 10px 5px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    box-shadow: 1px 1px 5px var(--primary-black-color);
+    transition: ease-in 0.5s;
+}
+
+.qr__img {
+    display: block;
+    margin: 0 auto 5px;
+    height: 150px;
+}
+
+.app__img {
+    display: block;
+    height: 35px;
+}
 
 .shopInfo__item:last-child .shopInfo__link {
     border: none;
@@ -63,6 +91,7 @@
 }
 
 .user__item {
+    position: relative;
     padding: 0 5px;
 }
 
@@ -71,9 +100,69 @@
     color: var(--primary-yellow-color);
 }
 
+.notification__popup {
+    display: none;
+    position: fixed;
+    top: 23px;
+    right: 180px;
+    background-color: var(--white-color);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    box-shadow: 1px 1px 5px var(--primary-black-color);
+}
+
+.notification__title {
+    background-color: var(--primary-black-color);
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    padding: 15px 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.notification__item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.notification__item:hover {
+    background-color: #ccc;
+}
+
+.notification__item:last-child {
+    border-bottom: none;
+}
+
+.notification__info {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.notification__heading {
+    margin: 5px 0;
+    color: var(--primary-black-color);
+    border-radius: 8px;
+    font-size: 1.8rem;
+    line-height: 2rem;
+    font-weight: 600
+}
+
+.notification__description {
+    color: #888;
+    font-size: 1.6rem;
+}
+
+.notification__time {
+    color: #888;
+    font-size: 1.6rem;
+    display: inline-block;
+    transform: translateY(-10px);
+}
+
 .account__register:hover,
-.account__login:hover,
-.user__item:hover {
+.account__login:hover {
     opacity: 0.8;
 }
 
@@ -138,20 +227,20 @@
 .navSearch__cart {
     display: flex;
     justify-content: center;
+    align-self: end;
 }
 
-.navSearch__cart i {
-    display: block;
-    margin-top: auto;
+
+.navSearch__cartIcon i {
     padding: 10px 0;
     font-size: 3rem;
     color: var(--primary-yellow-color);
     cursor: pointer;
 }
 
-.navSearch__cart i:hover {
-    opacity: 0.8;
-}
+
+
+
 
 
 /* Body */

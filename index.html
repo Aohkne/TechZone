@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="asset/css/base.css">
     <link rel="stylesheet" href="asset/css/grid.css">
     <link rel="stylesheet" href="asset/css/style_index.css">
+    <link rel="stylesheet" href="asset/css/css_all/cart.css">
     <link rel="stylesheet" href="asset/font/fontawesome-free-6.4.2-web/css/all.min.css">
 
 
@@ -31,11 +32,13 @@
             <ul class="nav__shopInfo">
 
                 <li class="shopInfo__item">
-                    <a class="shopInfo__link" href="">Seller</a>
-                </li>
-
-                <li class="shopInfo__item">
                     <a class="shopInfo__link" href="">Download</a>
+
+                    <!-- Download POPUP -->
+                    <div class="download__popup">
+                        <img src="./asset/img/img_index/img_qr/qr.png" alt="" class="qr__img">
+                        <img src="./asset/img/img_index/img_qr/app.png" alt="" class="app__img">
+                    </div>
                 </li>
 
                 <li class="shopInfo__item">
@@ -50,7 +53,40 @@
 
                 <li class="user__item">
                     <i class="fa-solid fa-bell"></i>
-                    <a class="user__link" href="">Notification</a>
+                    <a href="#" class="user__link" href="">Notification</a>
+
+                    <!-- Notification POPUP -->
+                    <div class="notification__popup">
+                        <div class="notification__title">
+                            Notification
+                        </div>
+
+                        <div class="notification__list">
+
+                            <div class="notification__item">
+                                <div class="notification__info">
+                                    <div class="notification__heading">Order successful</div>
+                                    <div class="notification__description">Order ipad 11 pro successfully!</div>
+                                </div>
+
+                                <div class="notification__time">24/08</div>
+                            </div>
+
+
+                            <div class="notification__item">
+                                <div class="notification__info">
+                                    <div class="notification__heading">Order successful</div>
+                                    <div class="notification__description">Order ipad 11 pro successfully!</div>
+                                </div>
+
+                                <div class="notification__time">24/08</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
                 </li>
 
                 <li class="user__item">
@@ -83,13 +119,112 @@
                 </div>
 
                 <div class="navSearch__cart col l-2">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <div class="navSearch__cartIcon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                </div>
+
+                <!-- Cart -->
+                <div class="cart__container">
+                    <div class="cart__title">Cart</div>
+
+                    <div class="cart__list">
+
+                        <div class="cart__item">
+
+                            <div class="row">
+
+                                <div class="cart__icon col l-1">
+                                    <input type="checkbox" name="" id="">
+                                </div>
+
+                                <div class="cart__img col l-5">
+                                    <img src="./asset/img/img_index/img_sale/laptopSale.png" alt="">
+                                </div>
+
+                                <div class="cart__content col l-6">
+                                    <div class="row">
+
+                                        <div class="cart__name col l-12">Air pod</div>
+
+                                        <div class="cart__description col l-12">
+
+                                            <div class="cart__price">đ 300.000</div>
+
+                                            <div class="cart__quantity">
+                                                <i class="fa-solid fa-plus"></i>
+                                                <div class="cart__num">1</div>
+                                                <i class="fa-solid fa-minus"></i>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="cart__item">
+
+                            <div class="row">
+
+                                <div class="cart__icon col l-1">
+                                    <input type="checkbox" name="" id="">
+                                </div>
+
+                                <div class="cart__img col l-5">
+                                    <img src="./asset/img/img_index/img_sale/laptopSale.png" alt="">
+                                </div>
+
+                                <div class="cart__content col l-6">
+                                    <div class="row">
+
+                                        <div class="cart__name col l-12">Air pod</div>
+
+                                        <div class="cart__description col l-12">
+
+                                            <div class="cart__price">đ 300.000</div>
+
+                                            <div class="cart__quantity">
+                                                <i class="fa-solid fa-plus"></i>
+                                                <div class="cart__num">1</div>
+                                                <i class="fa-solid fa-minus"></i>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="cart__footer">
+
+                        <div class="cartFooter__container">
+
+                            <div class="cart__icon">
+                                <input type="checkbox" name="" id=""> <span>All</span>
+                            </div>
+
+                            <div class="cart__totalPrice">Total: <span>đ 600.000</span></div>
+                        </div>
+
+                        <div class="cart__btn">
+                            <button>Order</button>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
         </div>
-
-
     </div>
 
     <!-- slider -->
