@@ -64,7 +64,7 @@
                                         <div class="col-9 px-0">
                                             <input type="password" name="confPassword"
                                                    placeholder="&#xf084; &nbsp; Confirm New Password"
-                                                   class="form-control border-info placeicon">
+                                                   class="form-control border-info placeicon" required="">
                                         </div>
                                     </div>
 

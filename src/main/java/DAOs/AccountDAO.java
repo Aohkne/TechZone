@@ -65,7 +65,8 @@ public class AccountDAO {
                 pst.setString(1, email);
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    password = rs.getString("password");
+                    password = rs.getString("password");   
+                    System.out.println(password);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();

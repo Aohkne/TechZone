@@ -33,27 +33,24 @@
                                     <i class="fa fa-lock fa-4x"></i>
                                 </h3>
                                 <h2 class="text-center">Enter OTP</h2>
-                                <%
-                                    if (request.getAttribute("message") != null) {
-                                        out.print("<p class='text-danger ml-1'>" + request.getAttribute("message") + "</p>");
-                                    }
-                                   
-//                                    if (session.getAttribute("email") == null || session.getAttribute("email").equals("")) {
-//                                        response.sendRedirect("/Login");
-//                                    }
-                                %>
+
 
                                 <div class="panel-body">
 
                                     <form id="register-form" action="Login" role="form" autocomplete="off"
                                           class="form" method="post">
 
+                                       <% String message = (String) session.getAttribute("messages");
+                                            if (message != null) {%>
+                                        <p class="text-danger ml-1"><%= message%></p>
+                                        <%  session.removeAttribute("messages"); // Xóa thông báo 
+                                            }%>
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-envelope color-blue"></i></span> <input
                                                     id="opt" name="otp" placeholder="Enter OTP"
-                                                    class="form-control" type="text" required="required">
+                                                    class="form-control" type="number" required="required">
                                             </div>
                                         </div>
                                         <div class="form-group">

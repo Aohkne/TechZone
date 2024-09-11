@@ -17,12 +17,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -174,7 +177,11 @@ public class Login extends HttpServlet {
 
                 // Create the Users object with phone and address set to null
                 Users obj = new Users(username, hashedPassword, email, null, null, 2, create_at, avatar, true);
-
+                if (dao.checkEmail(email)) {
+                    session.setAttribute("loginError", "Account was Exist.");
+                    response.sendRedirect("/Login");
+                    return;
+                }
                 // sending otp
                 Random rand = new Random();
                 int otpvalue = rand.nextInt(1255650);
@@ -233,7 +240,7 @@ public class Login extends HttpServlet {
                         response.sendRedirect("/Login");
                     }
                 } else {
-                    session.setAttribute("loginError", "Invalid OTP. Please try again.");
+                    session.setAttribute("messages", "Invalid OTP. Please try again.");
                     response.sendRedirect("/Login/EnterOtp_1");
                 }
             } else if (request.getParameter("btnReturn") != null) {
@@ -305,20 +312,29 @@ public class Login extends HttpServlet {
                     request.setAttribute("status", "success");
                     response.sendRedirect("/Login/ForgotPassword/NewPassword");
                 } else {
-                    request.setAttribute("message", "Wrong OTP, please try again.");
-                    response.sendRedirect("/Login/ForgotPassword");
+                    session.setAttribute("message", "Wrong OTP, please try again.");
+                    response.sendRedirect("/Login/ForgotPassword/EnterOtp");
                 }
 
             } else if (request.getParameter("ResetPassword") != null) {
                 String email = (String) session.getAttribute("email");
+                System.out.println(email);
                 String newPassword = request.getParameter("password");
                 String confPassword = request.getParameter("confPassword");
                 RequestDispatcher dispatcher = null;
+                String pass ="";
+                try {
+                    pass = dao.md5Hash(newPassword);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(pass);
                 Connection conn = DBConnection.getConnection();
                 if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
-                    if (dao.CheckNewPassword(email).equals(newPassword)) {
+                    if (dao.CheckNewPassword(email).equals(pass)) {
                         session.setAttribute("NewPasswordError", "Please enter a different password from the previous one");
                         response.sendRedirect("/Login/ForgotPassword/NewPassword");
+                        return;
                     } else {
                         try {
                             PreparedStatement pst = conn.prepareStatement("update Users set password = ? where email = ? ");
@@ -327,9 +343,9 @@ public class Login extends HttpServlet {
 
                             int rowCount = pst.executeUpdate();
                             if (rowCount > 0) {
-                                request.setAttribute("status", "resetSuccess");
+                                session.setAttribute("loginError", "resetSuccess");
                             } else {
-                                request.setAttribute("status", "resetFailed");
+                                session.setAttribute("loginError", "resetFailed");
                             }
                             response.sendRedirect("/Login");
                         } catch (Exception e) {
