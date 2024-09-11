@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Your page description here">
         <title>JSP Page</title>
-        <link href="../asset/css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="asset/css/login.css" rel="stylesheet" type="text/css"/>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -22,11 +22,7 @@
         <div class="container" id="container">
             <div class="form-container sign-up-container">
                 <form action="Login" method="post" enctype="multipart/form-data" id="registrationForm" onsubmit="return validateForm()">
-                    <h1>Create Account</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>
+                    <h1>Create Account</h1><br>
                     <input type="text" name="username" placeholder="Name" required=""  pattern="[A-Za-z0-9]+" 
                            title="Username must contain only letters and numbers without spaces." />
                     <input type="email" name="email" placeholder="Email" required=""/>
@@ -48,17 +44,14 @@
                         }
                     %>
                     <br>
-                    <h1>Sign in</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    </div>
-                    <span>or use your account</span>
+                    <h1>Login</h1>
+                    <br>
                     <input type="email" name="email" placeholder="Email" required=""/>
                     <input type="password" name="password" placeholder="Password" required=""/>
                     <label for="remember" class="checkbox-label">
                         <input type="checkbox" name="remember" id="remember" value="true" />
                         <span class="checkmark"></span>
-                        <a>Save Information</a>
+                        <a>Save Cookie</a>
                     </label>
                     <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
