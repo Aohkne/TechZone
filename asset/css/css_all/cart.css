@@ -1,16 +1,15 @@
 /*  Cart  */
+
+
 .cart__container {
     display: none;
     position: fixed;
-    right: 90px;
-    top: 125px;
+    right: 7.3%;
+    top: 17.5%;
     background-color: var(--white-color);
     border-radius: 5px;
     box-shadow: 1px 1px 5px var(--primary-black-color);
 }
-
-
-
 
 
 .cart__container::after {
