@@ -152,9 +152,6 @@ function show(Click, Effect) {
 
     //check if onclick != element before click or child of element
     document.onclick = (event) => {
-        console.log(event.target);
-        console.log(Click);
-        console.log(Click.contains(event.target));
         if (event.target != document.querySelector('#button_next') && !userItem[0].contains(event.target)) {
             Effect.style.display = 'none';
         }
