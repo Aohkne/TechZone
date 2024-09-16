@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* MAIN CONTENT */
+button:hover {
+    opacity: 0.8;
+}
+main {
+    background-color: #eeeeee;
+    flex-grow: 1;
+    padding: 10px 20px 0 280px;
+}
+/* Navbar */
+main nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+main nav .title {
+    font-size: 32px;
+    font-weight: 300;
+}
+main nav .search-bar {
+    display: flex;
+    align-items: center;
+}
+main nav .search-bar input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+}
+main nav .search-bar i {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+/* Cards */
+main .card-container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+main .card {
+    background-color: #ffffff;
+    width: 280px;
+    height: 130px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+main .card .card-name{
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: #999;
+    padding-top: 10px;
+    padding-right: 15px
+}
+main .card .card-value {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 50px;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+main .card .card-icon {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #ffffff;
+    top: -20px;
+    left: 10px;
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+}
+main .card hr {
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    border: 1px solid #eee;
+    width: 90%;
+}
+main .card .card-graph {
+    position: absolute;
+    bottom: 10px;
+    left: 34%;
+    color: #999;
+}
+
+main .card .card-graph:hover {
+    color: #000000;
+    cursor: pointer;
+}
+/* BUTTONS CONTAINER */
+.buttons-container {
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 500px;
+    gap: 10px;
+}
+.buttons-container button {
+    padding: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 300;
+    flex: 1;
+}
+/* brands TABLE */
+.brands-table .table-name {
+    text-align: center;
+    background: linear-gradient(60deg, #26c6da, #00acc1);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 5px;
+    color: #ffffff;
+    margin: 0 300px;
+    font-weight: 300;
+}
+table, th, tr, td {
+    background-color: #ffffff;
+    text-align: start;
+    padding: 20px;
+}
+.brands-table {
+    margin-top: 3rem;
+}
+.brands-table table {
+    width: 100%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 5px;
+    border-collapse: collapse;
+    overflow: hidden;
+    
+}
+tr {
+    border-bottom: 1px solid #eee;
+}
+.brands-table td i {
+    font-size: 32px;
+}
+table td button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    padding: 5px;
+}
+.brands-table table .operations {
+    width: 121px;
+}
