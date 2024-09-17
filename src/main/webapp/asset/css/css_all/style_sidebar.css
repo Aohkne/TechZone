@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    user-select: none;
+}
+html, body {
+    height: 100%;
+    background-color: #eeeeee;
+}
+body {
+    display: flex;
+    position: relative;
+}
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: #323130;
+    min-width: 260px;
+    height: 100%;
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 15px;
+    color: #ffffff;
+    border-bottom: 3px solid rgba(180, 180, 180, 0.3);;
+}
+.sidebar .list-container {
+    /* background-color: blue; */
+
+}
+.sidebar .list-container .list {
+    /* background-color: blue; */
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 30px 30px;
+}
+.sidebar .list-container .list li {
+    display: flex;
+    border-radius: 5px;
+}
+.sidebar .list-container .list li:hover {
+    background-color: #00acc1;
+    box-shadow: 0 0 10px #00acc1;
+    cursor: pointer;
+}
+.sidebar .list-container .list li a{
+    width: 100%;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    color: #ffffff;
+}
+.sidebar .list-container .list li a i{
+    text-decoration: none;
+    padding-right: 15px;
+}
+.sidebar .account {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+.sidebar .account .account-icon-name {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+.sidebar .account .account-icon-name:hover {
+    background-color: #888;
+    box-shadow: 0 0 10px #888;
+    cursor: pointer;
+}
+.sidebar .account .account-icon-name i {
+    background-color: #00acc1;
+    padding: 10px;
+    border-radius: 50%;
+}
