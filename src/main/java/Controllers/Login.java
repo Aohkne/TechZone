@@ -98,12 +98,12 @@ public class Login extends HttpServlet {
             } else if (path.equals("/Login/ForgotPassword")) {
                 request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
             } else if (path.equals("/Login/EnterOtp_1")) {
-                request.getRequestDispatcher("/EnterOtp_1.jsp").forward(request, response);
+                request.getRequestDispatcher("/verify_imformation/EnterOtp_1.jsp").forward(request, response);
             } else {
                 if (path.equals("/Login/ForgotPassword/EnterOtp")) {
-                    request.getRequestDispatcher("/EnterOtp.jsp").forward(request, response);
+                    request.getRequestDispatcher("/verify_imformation/EnterOtp.jsp").forward(request, response);
                 } else if (path.equals("/Login/ForgotPassword/NewPassword")) {
-                    request.getRequestDispatcher("/newPassword.jsp").forward(request, response);
+                    request.getRequestDispatcher("/verify_imformation/newPassword.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("/index.jsp").forward(request, response);
                 }
@@ -151,7 +151,12 @@ public class Login extends HttpServlet {
                     userCookie.setHttpOnly(true); // Recommended for security
                     response.addCookie(userCookie);
                 }
-                response.sendRedirect("/Home");
+                if (dao.getTypeByEmail(us) == 1) {
+                    response.sendRedirect("/Admin");
+                } else {
+                    response.sendRedirect("/Home");
+                }
+
             } else {
                 session.setAttribute("loginError", "Invalid email or password. Please try again.");
                 response.sendRedirect("/Login"); // Redirect back to the login page
@@ -322,7 +327,7 @@ public class Login extends HttpServlet {
                 String newPassword = request.getParameter("password");
                 String confPassword = request.getParameter("confPassword");
                 RequestDispatcher dispatcher = null;
-                String pass ="";
+                String pass = "";
                 try {
                     pass = dao.md5Hash(newPassword);
                 } catch (NoSuchAlgorithmException ex) {

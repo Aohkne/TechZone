@@ -183,10 +183,10 @@ public class AccountDAO {
         return verified_email;
     }
 
-    public Boolean getTypeByEmail(String email) {
+    public int getTypeByEmail(String email) {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
-        boolean type_id = false;
+        int type_id=0;
 
         if (conn != null) {
             try {
@@ -195,7 +195,7 @@ public class AccountDAO {
                 pst.setString(1, email);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    type_id = rs.getBoolean("role");
+                    type_id = rs.getInt("role");
                     System.out.println("Picture retrieved: " + type_id); // Debug statement
                 }
             } catch (SQLException ex) {
