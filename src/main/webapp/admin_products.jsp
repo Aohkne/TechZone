@@ -126,7 +126,7 @@
             <td>1</td>
             <td>
               <img
-                src="/asset/img/img_admin_products/iphone13.jpg"
+                src="./asset/img/img_all/img_product/img_phone/iphone13.jpg"
                 alt="IPhone 13"
                 class="product-img"
               />
@@ -157,7 +157,7 @@
             <td>2</td>
             <td>
               <img
-                src="/asset/img/img_admin_products/samsungA05.jpg"
+                src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
                 alt="Samsung A05"
                 class="product-img"
               />
@@ -188,7 +188,7 @@
             <td>3</td>
             <td>
               <img
-                src="/asset/img/img_admin_products/xiaomi13C.jpg"
+                src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
                 alt="Xiaomi 13C"
                 class="product-img"
               />
@@ -219,7 +219,7 @@
             <td>4</td>
             <td>
               <img
-                src="/asset/img/img_admin_products/oppoReno12.jpg"
+                src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
                 alt="Oppo Reno 12"
                 class="product-img"
               />
@@ -250,4 +250,5 @@
     </main>
   </body>
 </html>
+
 

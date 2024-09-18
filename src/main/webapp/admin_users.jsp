@@ -120,7 +120,7 @@
             <td>1</td>
             <td>
               <img
-                src="/asset/img/img_admin_users/cat_stare_full.jpg"
+                src="/asset/img/img_all/img_user/cat_stare_full.jpg"
                 alt="User Avatar"
                 class="user-img"
               />
@@ -144,7 +144,7 @@
             <td>2</td>
             <td>
               <img
-                src="/asset/img/img_admin_users/dog.jpg"
+                src="/asset/img/img_all/img_user/cat_stare_full.jpg"
                 alt="User Avatar"
                 class="user-img"
               />
@@ -168,7 +168,7 @@
             <td>3</td>
             <td>
               <img
-                src="/asset/img/img_admin_users/dog_khoa.jpg"
+                src="/asset/img/img_all/img_user/cat_stare_full.jpg"
                 alt="User Avatar"
                 class="user-img"
               />
@@ -192,7 +192,7 @@
             <td>4</td>
             <td>
               <img
-                src="/asset/img/img_admin_users/dog_chan.jpg"
+                src="/asset/img/img_all/img_user/cat_stare_full.jpg"
                 alt="User Avatar"
                 class="user-img"
               />
@@ -216,7 +216,7 @@
             <td>5</td>
             <td>
               <img
-                src="/asset/img/img_admin_users/chihuahua.jpg"
+                src="/asset/img/img_all/img_user/cat_stare_full.jpg"
                 alt="User Avatar"
                 class="user-img"
               />
@@ -240,4 +240,5 @@
     </main>
   </body>
 </html>
+
 
