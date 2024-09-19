@@ -177,7 +177,7 @@ public class Login extends HttpServlet {
                     return;
                 }
 
-                String avatar = "img/avatar.png"; // Default avatar
+                String avatar = "/asset/img/img_all/img_user/cat_stare_full.jpg"; // Default avatar
                 java.sql.Date create_at = new java.sql.Date(System.currentTimeMillis());
 
                 // Create the Users object with phone and address set to null

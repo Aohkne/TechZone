@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Your page description here">
         <title>JSP Page</title>
-        <link href="asset/css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="asset/css/style_login.css" rel="stylesheet" type="text/css"/>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"

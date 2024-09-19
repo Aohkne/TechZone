@@ -284,7 +284,7 @@ public class AccountDAO {
         if (conn != null) {
             try {
                 Statement st = conn.createStatement();
-                rs = st.executeQuery("SELECT username, email, phone, address, create_at FROM Users WHERE role = 1");
+                rs = st.executeQuery("SELECT avatar,username, email, phone, address, create_at FROM Users WHERE role = 2");
             } catch (SQLException ex) {
                 ex.printStackTrace();  // Log the exception
                 rs = null;
