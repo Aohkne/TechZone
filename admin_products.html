@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/asset/css/style_admin_products.css" />
     <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
     <script src="/asset/js/js_admin_products.js" defer></script>
-    <script src="/asset/js/js_all/js_delete-button.js"></script>
+    <script src="/asset/js/js_all/js_delete-button.js" defer></script>
     <script
       src="https://kit.fontawesome.com/d40f80c35f.js"
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="/asset/js/js_all/js_account.js" defer></script>
   </head>
   <body>
     <!-- SIDE BAR -->
@@ -54,10 +55,16 @@
           </li>
         </ul>
       </div>
-      <div class="account">
+      <div class="account dropdown-button">
         <div class="account-icon-name">
           <i class="fa-solid fa-user"></i>
           <p class="account-name">Nguyen Trong Quy</p>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -85,13 +92,22 @@
           <p class="card-graph">Graph Details</p>
         </div>
         <div class="buttons-container">
-          <button style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+          <button
+            class="add-btn"
+            style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+          >
             Add
           </button>
-          <button style="background: linear-gradient(60deg, #ef5350, #e53935)">
+          <button
+            class="delete-btn"
+            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+          >
             Delete
           </button>
-          <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
+          <button
+            class="sort-btn"
+            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+          >
             Sort
           </button>
         </div>
@@ -240,6 +256,70 @@
             </td>
           </tr>
         </table>
+      </div>
+      <!-- MODAL -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <h1>Add Product</h1>
+          <span class="close-btn">&times;</span>
+          <form action="" class="product-form">
+            <label>
+              Enter product ID
+              <input type="text" placeholder="Product ID" required />
+            </label>
+            <label>
+              Enter product name
+              <input type="text" placeholder="Product name" required />
+            </label>
+            <label>
+              Enter product price
+              <input type="text" placeholder="Product price" required />
+            </label>
+            <label>
+              Enter product sale price (optional)
+              <input type="text" placeholder="Product sale price" />
+            </label>
+            <label>
+              Enter product brand
+              <input type="text" placeholder="Product brand" required />
+            </label>
+            <label>
+              Enter product category
+              <input type="text" placeholder="Product category" required />
+            </label>
+            <label>
+              Enter product country
+              <input type="text" placeholder="Product country" required />
+            </label>
+            <label>
+              Enter product stock
+              <input type="text" placeholder="Product stock" required />
+            </label>
+            <label
+              >Choose the product image<input
+                type="file"
+                accept="image/png, image/jpeg"
+                style="border: none"
+                required
+            /></label>
+            <div class="add-cancel-btn">
+              <button
+                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                class="cancel-btn"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                class="accept-btn"
+              >
+                Add
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   </body>

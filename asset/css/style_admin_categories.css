@@ -164,3 +164,89 @@ table td button {
     color: #ffffff;
     padding: 5px;
 }
+/* MODAL */
+.modal {
+    position: fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 30px auto;
+    width: 40%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    overflow-y: auto;
+    height: 90%;
+}
+/* Modal content scrollbar */
+.modal-content::-webkit-scrollbar {
+    width: 20px;
+}
+.modal-content::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .14);
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .20);
+    height: 10px !important;
+}
+.modal-content .product-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    height: 88%;
+}
+.modal-content .product-form label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-content .product-form input{
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+.modal-content .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 28px;
+    line-height: 15px;
+    padding: 10px;
+    border-radius: 50%;
+}
+.modal-content .close-btn:hover {
+    background-color: rgba(0, 0, 0, .14);
+    cursor: pointer;
+}
+.modal-content .product-form .add-cancel-btn{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-left: auto;
+    margin-top: auto;
+}
+.add-cancel-btn .accept-btn, .cancel-btn{
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    padding: 10px;
+    flex: 1;
+}
