@@ -266,39 +266,79 @@
           <form action="" class="product-form">
             <label>
               Enter product ID
-              <input type="text" placeholder="Product ID" required />
+              <input
+                type="text"
+                id="product-id"
+                placeholder="Product ID"
+                required
+              />
             </label>
             <label>
               Enter product name
-              <input type="text" placeholder="Product name" required />
+              <input
+                type="text"
+                id="product-name"
+                placeholder="Product name"
+                required
+              />
             </label>
             <label>
               Enter product price
-              <input type="text" placeholder="Product price" required />
+              <input
+                type="number"
+                id="product-price"
+                placeholder="Product price"
+                required
+              />
             </label>
             <label>
               Enter product sale price (optional)
-              <input type="text" placeholder="Product sale price" />
+              <input
+                type="number"
+                id="product-sale-price"
+                placeholder="Product sale price"
+              />
             </label>
             <label>
               Enter product brand
-              <input type="text" placeholder="Product brand" required />
+              <select name="product-brand" id="product-brand">
+                <option value="Apple">Apple</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Oppo">Oppo</option>
+                <option value="Xiaomi">Xiaomi</option>
+              </select>
             </label>
             <label>
               Enter product category
-              <input type="text" placeholder="Product category" required />
+              <select name="product-category" id="product-category">
+                <option value="Phone">Phone</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Watch">Watch</option>
+              </select>
             </label>
             <label>
               Enter product country
-              <input type="text" placeholder="Product country" required />
+              <input
+                type="text"
+                id="product-country"
+                placeholder="Product country"
+                required
+              />
             </label>
             <label>
               Enter product stock
-              <input type="text" placeholder="Product stock" required />
+              <input
+                type="number"
+                id="product-stock"
+                placeholder="Product stock"
+                step="1"
+                required
+              />
             </label>
             <label
               >Choose the product image<input
                 type="file"
+                id="product-image"
                 accept="image/png, image/jpeg"
                 style="border: none"
                 required

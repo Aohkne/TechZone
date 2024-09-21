@@ -201,18 +201,18 @@ table td button {
     border: 1px solid rgba(0, 0, 0, .20);
     height: 10px !important;
 }
-.modal-content .product-form {
+.modal-content .category-form {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     height: 88%;
 }
-.modal-content .product-form label{
+.modal-content .category-form label{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.modal-content .product-form input{
+.modal-content .category-form input{
     padding: 10px;
     width: 100%;
     font-size: 16px;
@@ -233,7 +233,7 @@ table td button {
     background-color: rgba(0, 0, 0, .14);
     cursor: pointer;
 }
-.modal-content .product-form .add-cancel-btn{
+.modal-content .category-form .add-cancel-btn{
     width: 50%;
     display: flex;
     justify-content: flex-end;

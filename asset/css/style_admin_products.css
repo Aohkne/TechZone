@@ -211,7 +211,7 @@ table td button {
     flex-direction: column;
     gap: 10px;
 }
-.modal-content .product-form input{
+.modal-content .product-form input, select{
     padding: 10px;
     width: 100%;
     font-size: 16px;
