@@ -10,6 +10,10 @@
   box-shadow: 1px 1px 5px var(--primary-black-color);
 }
 
+.img__EmptyCart {
+  width: 500px;
+}
+
 .cart__container::after {
   position: absolute;
   content: "";
@@ -28,8 +32,7 @@
   padding-top: 5px;
 }
 
-.cart__list {
-}
+.cart__list {}
 
 .cart__item {
   background-color: var(--primary-black-color);
