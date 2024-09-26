@@ -129,7 +129,7 @@ public class Login extends HttpServlet {
         if (request.getParameter("btnLogin") != null) {
             String us = request.getParameter("email");
             String pwd = request.getParameter("password");
-            String rememberMe = request.getParameter("remember"); // Get the checkbox value
+//            String rememberMe = request.getParameter("remember"); // Get the checkbox value
 
             Users acc = new Users(us, pwd);
 
@@ -146,10 +146,11 @@ public class Login extends HttpServlet {
                     return;
                 }
 //                if ("true".equals(rememberMe)) {
-                    Cookie userCookie = new Cookie("email", us);
-                    userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
-                    userCookie.setHttpOnly(true); // Recommended for security
-                    response.addCookie(userCookie);
+                int id = dao.GetIdUser(us);
+                Cookie userCookie = new Cookie("id", id+"");
+                userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
+                userCookie.setHttpOnly(true); // Recommended for security
+                response.addCookie(userCookie);
 //                }
                 if (dao.getTypeByEmail(us) == 1) {
                     response.sendRedirect("/Admin");

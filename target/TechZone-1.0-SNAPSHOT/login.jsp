@@ -48,11 +48,11 @@
                     <br>
                     <input type="email" name="email" placeholder="Email" required=""/>
                     <input type="password" name="password" placeholder="Password" required=""/>
-                    <label for="remember" class="checkbox-label">
+<!--                    <label for="remember" class="checkbox-label" type="hidden">
                         <input type="checkbox" name="remember" id="remember" value="true" />
                         <span class="checkmark"></span>
                         <a>Save Cookie</a>
-                    </label>
+                    </label>-->
                     <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
                 </form>

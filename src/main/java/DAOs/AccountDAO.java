@@ -54,10 +54,10 @@ public class AccountDAO {
         return false;
     }
 
-     public String CheckNewPassword(String email) {
+    public String CheckNewPassword(String email) {
         Connection conn = DBConnection.getConnection();
         Users acc = null;
-        String password="";
+        String password = "";
         if (conn != null) {
             try {
                 String sql = "SELECT password FROM Users WHERE email = ?";
@@ -65,7 +65,7 @@ public class AccountDAO {
                 pst.setString(1, email);
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    password = rs.getString("password");   
+                    password = rs.getString("password");
                     System.out.println(password);
                 }
             } catch (SQLException ex) {
@@ -73,6 +73,47 @@ public class AccountDAO {
             }
         }
         return password;
+    }
+
+    public int GetIdUser(String email) {
+        Connection conn = DBConnection.getConnection();
+        Users acc = null;
+        int password = 0;
+        if (conn != null) {
+            try {
+                String sql = "SELECT user_id FROM Users WHERE email = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, email);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    password = rs.getInt("user_id");
+                    System.out.println(password);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return password;
+    }
+
+    public String GetNameAdmin(int id) {
+        Connection conn = DBConnection.getConnection();
+        String username = "";
+        if (conn != null) {
+            try {
+                String sql = "SELECT username FROM Users WHERE id = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, id);  // Sử dụng id thay vì email
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    username = rs.getString("username");
+                    System.out.println(username);  // In ra để kiểm tra
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return username;
     }
 
     public void setVerifiedEmail(String email, boolean status_user) {
@@ -186,7 +227,7 @@ public class AccountDAO {
     public int getTypeByEmail(String email) {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
-        int type_id=0;
+        int type_id = 0;
 
         if (conn != null) {
             try {
@@ -303,5 +344,5 @@ public class AccountDAO {
         }
         return sb.toString();
     }
-    
+
 }
