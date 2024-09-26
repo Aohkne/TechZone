@@ -298,7 +298,7 @@
                             <input type="hidden" value="P1">
                             <div class="product__content">
                                 <div class="product__img">
-                                    <img src="./asset/img/img_all/img_product/laptop.png" alt="" srcset="">
+                                    <img src="./asset/img/img_all/img_product/img_laptop/laptop.png" alt="" srcset="">
                                 </div>
                                 <div class="product__name">Name</div>
                                 <div class="product__price">485.000 VND</div>
@@ -312,7 +312,7 @@
                             <input type="hidden" value="P2">
                             <div class="product__content">
                                 <div class="product__img">
-                                    <img src="./asset/img/img_all/img_product/vr.png" alt="" srcset="">
+                                    <img src="./asset/img/img_all/img_product/img_vr/vr.png" alt="" srcset="">
                                 </div>
                                 <div class="product__name">Name</div>
                                 <div class="product__price">485.000 VND</div>
