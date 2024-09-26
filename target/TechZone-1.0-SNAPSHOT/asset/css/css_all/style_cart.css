@@ -10,6 +10,10 @@
   box-shadow: 1px 1px 5px var(--primary-black-color);
 }
 
+.img__EmptyCart {
+  width: 500px;
+}
+
 .cart__container::after {
   position: absolute;
   content: "";
@@ -28,8 +32,7 @@
   padding-top: 5px;
 }
 
-.cart__list {
-}
+.cart__list {}
 
 .cart__item {
   background-color: var(--primary-black-color);
@@ -37,6 +40,7 @@
   margin: 15px 0;
 }
 
+/* Check Box */
 .cart__icon {
   display: inline-block;
   margin: auto 0;
@@ -171,13 +175,18 @@ input[type="checkbox"]:checked::before {
   align-items: center;
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--black-color);
   background-color: var(--primary-yellow-color);
   border: none;
   cursor: pointer;
 }
 
-.cart__btn button:hover {
+.cart__btn button:hover,
+.cart__btn button:hover a {
   background-color: #b99122;
   color: var(--white-color);
+}
+
+.cart__btn a {
+  color: var(--black-color);
+  text-decoration: none;
 }

@@ -145,12 +145,12 @@ public class Login extends HttpServlet {
                     response.sendRedirect("/Login"); // Redirect back to the login page
                     return;
                 }
-                if ("true".equals(rememberMe)) {
+//                if ("true".equals(rememberMe)) {
                     Cookie userCookie = new Cookie("email", us);
                     userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
                     userCookie.setHttpOnly(true); // Recommended for security
                     response.addCookie(userCookie);
-                }
+//                }
                 if (dao.getTypeByEmail(us) == 1) {
                     response.sendRedirect("/Admin");
                 } else {

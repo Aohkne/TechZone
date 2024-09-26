@@ -12,15 +12,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Categories</title>
+        <!-- Style Admin Brands -->
         <link rel="stylesheet" href="/asset/css/style_admin_brands.css" />
+        <!-- Style Sidebar -->
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+        <!-- Scripts Admin Brands -->
         <script src="/asset/js/js_admin_brands.js" defer></script>
+        <!-- Scripts Delete button -->
         <script src="/asset/js/js_all/js_delete-button.js"></script>
+        <!-- Fontawesome icons -->
         <script
             src="https://kit.fontawesome.com/d40f80c35f.js"
             crossorigin="anonymous"
             defer
         ></script>
+        <!-- Script Account -->
+        <script src="/asset/js/js_all/js_account.js" defer></script>
     </head>
     <body>
         <!-- SIDE BAR -->
@@ -62,10 +69,16 @@
                     </li>
                 </ul>
             </div>
-            <div class="account">
+            <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
                     <p class="account-name">Nguyen Trong Quy</p>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,13 +106,22 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
-                    <button style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+                    <button
+                        class="add-btn"
+                        style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                        >
                         Add
                     </button>
-                    <button style="background: linear-gradient(60deg, #ef5350, #e53935)">
+                    <button
+                        class="delete-btn"
+                        style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                        >
                         Delete
                     </button>
-                    <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
+                    <button
+                        class="sort-btn"
+                        style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+                        >
                         Sort
                     </button>
                 </div>
@@ -115,22 +137,16 @@
                         <th class="description">Description</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <%
-                        BrandDAO dao = new BrandDAO();
-                        ResultSet rs = dao.getAllBrand();
-                        int count = 0;
-                        while (rs.next()) {
-                            count++;
-
-
-                    %>
-
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td><%= count%></td>
-                        <td><%= rs.getString("brand_name")%></td>
+                        <td>1</td>
+                        <td>Apple</td>
                         <td>
-                            <%= rs.getString("description")%>
+                            Apple Inc. designs, manufactures and markets smartphones, personal
+                            computers, tablets, wearables and accessories, and sells a variety
+                            of related services. Its product categories include iPhone, Mac,
+                            iPad, and Wearables, Home and Accessories. Its software platforms
+                            include iOS, iPadOS, macOS, watchOS, and tvOS.
                         </td>
                         <td>
                             <button
@@ -144,11 +160,131 @@
                             </button>
                         </td>
                     </tr>
-                    <%
-                        }
-                    %>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>2</td>
+                        <td>Samsung</td>
+                        <td>
+                            Samsung is a global leader in technology, opening new
+                            possibilities for people everywhere. Through relentless innovation
+                            and discovery, they are transforming the worlds of TVs,
+                            smartphones, wearable devices, tablets, digital appliances,
+                            network systems, medical devices, semiconductors, and LED
+                            solutions.
+                        </td>
+                        <td>
+                            <button
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                >
+                                Edit</button
+                            ><button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>3</td>
+                        <td>Xiaomi</td>
+                        <td>
+                            Xiaomi Corporation (/??a?mi/; Chinese: ????), commonly known
+                            as Xiaomi (registered as Xiaomi Inc.), is a Chinese designer and
+                            manufacturer of consumer electronics and related software, home
+                            appliances, automobiles and household hardware, with headquarters
+                            in Beijing, China.
+                        </td>
+                        <td>
+                            <button
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                >
+                                Edit</button
+                            ><button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>4</td>
+                        <td>Oppo</td>
+                        <td>
+                            Oppo (sometimes stylized as OPPO) is a Chinese consumer
+                            electronics manufacturer headquartered in Dongguan, Guangdong. Its
+                            major product lines include smartphones, smart devices, audio
+                            devices, power banks, and other electronic products.
+                        </td>
+                        <td>
+                            <button
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                >
+                                Edit</button
+                            ><button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
                 </table>
+            </div>
+            <!-- MODAL -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <h1>Add Brand</h1>
+                    <span class="close-btn">&times;</span>
+                    <form action="" class="brand-form">
+                        <label>
+                            Enter brand ID
+                            <input
+                                type="text"
+                                id="brand-id"
+                                placeholder="Brand ID"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter brand name
+                            <input
+                                type="text"
+                                id="brand-name"
+                                placeholder="Brand name"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter brand description
+                            <textarea
+                                placeholder="Brand description"
+                                id="brand-description"
+                                rows="15"
+                                style="padding: 10px"
+                                ></textarea>
+                        </label>
+
+                        <div class="add-cancel-btn">
+                            <button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                class="cancel-btn"
+                                >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                                class="accept-btn"
+                                >
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </main>
     </body>
 </html>
+

@@ -19,6 +19,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="/asset/js/js_all/js_account.js" defer></script>
   </head>
   <body>
     <!-- SIDE BAR -->
@@ -60,10 +61,16 @@
           </li>
         </ul>
       </div>
-      <div class="account">
+      <div class="account dropdown-button">
         <div class="account-icon-name">
           <i class="fa-solid fa-user"></i>
           <p class="account-name">Nguyen Trong Quy</p>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

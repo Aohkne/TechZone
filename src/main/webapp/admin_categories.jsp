@@ -19,6 +19,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="/asset/js/js_all/js_account.js" defer></script>
   </head>
   <body>
     <!-- SIDE BAR -->
@@ -60,10 +61,16 @@
           </li>
         </ul>
       </div>
-      <div class="account">
+      <div class="account dropdown-button">
         <div class="account-icon-name">
           <i class="fa-solid fa-user"></i>
           <p class="account-name">Nguyen Trong Quy</p>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -91,13 +98,22 @@
           <p class="card-graph">Graph Details</p>
         </div>
         <div class="buttons-container">
-          <button style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+          <button
+            class="add-btn"
+            style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+          >
             Add
           </button>
-          <button style="background: linear-gradient(60deg, #ef5350, #e53935)">
+          <button
+            class="delete-btn"
+            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+          >
             Delete
           </button>
-          <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
+          <button
+            class="sort-btn"
+            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+          >
             Sort
           </button>
         </div>
@@ -109,15 +125,20 @@
           <tr>
             <th><input type="checkbox" /></th>
             <th>Category ID</th>
-            <th>Category Icon</th>
             <th>Category Name</th>
+            <th>Description</th>
             <th class="operations">Operations</th>
           </tr>
           <tr>
             <td><input type="checkbox" /></td>
             <td>1</td>
-            <td><i class="fa-solid fa-mobile-screen-button"></i></td>
             <td>Phone</td>
+            <td>
+              A smartphone is a cellular telephone with an integrated computer
+              and other features not originally associated with telephones, such
+              as an operating system (OS), web browsing and the ability to run
+              software applications.
+            </td>
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -133,8 +154,14 @@
           <tr>
             <td><input type="checkbox" /></td>
             <td>2</td>
-            <td><i class="fa-solid fa-laptop"></i></td>
             <td>Laptop</td>
+            <td>
+              A laptop is a portable computer that can be easily carried around.
+              It's a device designed for personal use and can perform various
+              functions such as browsing the internet, creating documents,
+              playing games, etc. Laptops are generally smaller in size than
+              desktop computers and are battery powered.
+            </td>
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -150,8 +177,14 @@
           <tr>
             <td><input type="checkbox" /></td>
             <td>3</td>
-            <td><i class="fa-regular fa-clock"></i></td>
             <td>Watch</td>
+            <td>
+              A smartwatch is a watch that offers extra functionality and
+              connectivity on top of the features offered by standard watches.
+              They do this by including a computer system that carries out the
+              normal functionality we expect, but can also handle some extra
+              bells and whistles.
+            </td>
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -165,6 +198,58 @@
             </td>
           </tr>
         </table>
+      </div>
+      <!-- MODAL -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <h1>Add Category</h1>
+          <span class="close-btn">&times;</span>
+          <form action="" class="category-form">
+            <label>
+              Enter category ID
+              <input
+                type="text"
+                id="category-id"
+                placeholder="Category ID"
+                required
+              />
+            </label>
+            <label>
+              Enter category name
+              <input
+                type="text"
+                id="category-name"
+                placeholder="Category name"
+                required
+              />
+            </label>
+            <label>
+              Enter category description
+              <textarea
+                id="category-description"
+                placeholder="Category description"
+                rows="15"
+                style="padding: 10px"
+              ></textarea>
+            </label>
+            <div class="add-cancel-btn">
+              <button
+                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                class="cancel-btn"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                class="accept-btn"
+              >
+                Add
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   </body>

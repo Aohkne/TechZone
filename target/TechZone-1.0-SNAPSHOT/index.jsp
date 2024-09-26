@@ -20,12 +20,14 @@
         <link rel="stylesheet" href="asset/css/grid.css">
         <link rel="stylesheet" href="asset/css/style_index.css">
         <link rel="stylesheet" href="asset/css/css_all/style_cart.css">
+        <link rel="stylesheet" href="asset/css/css_all/style_chat.css">
         <link rel="stylesheet" href="asset/font/fontawesome-free-6.4.2-web/css/all.min.css">
 
 
         <!-- link js -->
         <script src="./asset/js/js_index.js" defer></script>
-        <script src=".//asset/js/js_all/js_cart.js" defer></script>
+        <script src="./asset/js/js_all/js_chat.js" defer></script>
+        <script src="./asset/js/js_all/js_cart.js" defer></script>
     </head>
 
     <body>
@@ -105,8 +107,8 @@
                     <div class="user__account">
                         <div class="account__register" onclick="window.location.href = '/Login'">Register</div>
                         <div class="account__login" onclick="window.location.href = '/Login'">Log in</div>
-
                     </div>
+                
                 </ul>
 
 
@@ -118,7 +120,9 @@
                 <div class="row">
 
                     <div class="navSearch__logo col l-2">
-                        <img src="./asset/img/img_all/logoImage.png" alt="">
+                        <a href="#">
+                            <img src="./asset/img/img_all/logoImage.png" alt="">
+                        </a>
                     </div>
 
                     <div class="navSearch__search col l-8">
@@ -138,6 +142,7 @@
                         <div class="cart__title">Cart</div>
 
                         <div class="cart__list">
+
 
                             <!-- <div class="cart__item">
     
@@ -186,19 +191,19 @@
 
 
                         <div class="cart__footer">
-
-                            <div class="cartFooter__container">
-
+                            <img class="img__EmptyCart" src="./asset/img/img_all/img_cart/emptyCart.png" alt="">
+                            <!-- <div class="cartFooter__container">
+    
                                 <div class="cart__icon">
                                     <input type="checkbox" name="" id=""> <span>All</span>
                                 </div>
-
+    
                                 <div class="cart__totalPrice">Total: <span>600.000 VND</span></div>
                             </div>
-
+    
                             <div class="cart__btn">
                                 <button>Order</button>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -404,6 +409,33 @@
 
             </div>
 
+            <!-- chat -->
+            <div class="chat__container">
+                <img src="./asset/img/img_all/img_cart/chat.png" alt="">
+
+                <div class="chat__content">
+                    <div class="chat__title">
+                        <span>Chat</span>
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="chat__list">
+                        <div class="chat__item admin">
+                            <span>How can I help you ?</span>
+                        </div>
+                        <div class="chat__item user">
+                            <span>???</span>
+                        </div>
+
+                    </div>
+                    <div class="chat__input">
+                        <input type="text" placeholder="Chat Something">
+                        <div class="chat__sent">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
@@ -451,7 +483,7 @@
                 </div>
 
 
-                <div class="footer__contact col l-4">
+                <div class="footer__contact col l-2">
                     <div class="contact__title">Contact</div>
 
                     <div class="contact__list">
@@ -467,8 +499,34 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div class="footer__category col l-2">
+                    <div class="footer__categoryTitle">Category</div>
+
+                    <div class="footer__categoryList">
+
+                        <div class="footer__categoryItem">
+                            <a href="">Earphone</a>
+                        </div>
+                        <div class="footer__categoryItem">
+                            <a href="">Watch</a>
+                        </div>
+                        <div class="footer__categoryItem">
+                            <a href="">Laptop</a>
+                        </div>
+                        <div class="footer__categoryItem">
+                            <a href="">Console</a>
+                        </div>
+                        <div class="footer__categoryItem">
+                            <a href="">Vr</a>
+                        </div>
+                        <div class="footer__categoryItem">
+                            <a href="">Speaker</a>
+                        </div>
 
 
+                    </div>
                 </div>
 
                 <div class="footer__survey col l-4">

@@ -637,7 +637,7 @@
     opacity: 0.8;
 }
 
-
+/* Contact */
 .footer__contact {}
 
 .contact__title {
@@ -666,6 +666,33 @@
 }
 
 
+/* Category */
+.footer__category {}
+
+.footer__categoryTitle {
+    display: flex;
+    align-items: end;
+    height: 80px;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    font-weight: 600;
+    color: var(--primary-yellow-color);
+}
+
+.footer__categoryLists {}
+
+.footer__categoryItem {
+    margin: 5px 0;
+
+    a {
+        text-decoration: none;
+        color: var(--primary-yellow-color);
+        font-size: 1.6rem;
+        line-height: 2rem;
+    }
+}
+
+/* Survey */
 .survey__title {
     display: flex;
     align-items: end;
