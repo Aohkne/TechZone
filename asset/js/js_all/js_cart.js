@@ -116,7 +116,9 @@ function updateCartList() {
         <div class="cart__totalPrice">Total: <span>${price}</span></div>
         </div>
         <div class="cart__btn">
-        <button>Order</button>
+        <button>
+          <a href="./user_cart.html" >Order</a>
+        </button>
       </div>  
   `;
 
@@ -137,7 +139,7 @@ function updateCartList() {
     };
   } else {
     cartFooter.innerHTML = `
-      <img class="img__EmptyCart" src="./asset/img/img_all/emptyCart.png" alt="">
+      <img class="img__EmptyCart" src="./asset/img/img_all/img_cart/emptyCart.png" alt="">
   `;
   }
 }
