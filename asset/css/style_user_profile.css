@@ -1,0 +1,204 @@
+/* Nav */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+
+.save-btn {
+    background-color: #242424;
+    /* Màu nền vàng */
+    color: #FDC62E;
+    /* Màu chữ đen */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-left: -52px;
+    /* Tạo khoảng cách giữa nút Save và các phần tử khác */
+}
+
+.save-btn:hover {
+    cursor: pointer;
+}
+
+.nav__container {
+    display: flex;
+    padding: 0 8px;
+    align-items: center;
+    background-color: #242424;
+    width: 33%;
+    border-radius: 14px;
+    margin: 10px 10px;
+
+}
+
+.nav__container i {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    margin-right: 2px;
+    color: #242424;
+    background-color: #FDC62E;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+}
+
+.nav__Btn {
+    display: inline-block;
+    padding-top: 2px;
+}
+
+.nav__Btn img {
+    height: 35px;
+}
+
+.nav__list {
+    margin: 50px 0;
+    height: 100vh;
+    border-right: 2px solid #ddd;
+    text-align: center;
+}
+
+
+
+.nav__list .list__item:last-child a {
+    color: red;
+}
+
+.nav__list .list__item:last-child a:hover {
+    background-color: transparent;
+}
+
+.nav__list li a:hover {
+    background-color: #FDC62E;
+}
+
+.nav__list li a {
+    display: block;
+    text-decoration: none;
+    color: #242424;
+    padding: 5px 10px;
+    border-radius: 8px;
+    width: 120px;
+    margin-left: 50px;
+}
+
+.list__item {
+    list-style-type: none;
+    margin-top: 70px;
+}
+
+/* Container */
+
+.profile {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    margin: 30px 40px;
+    padding-bottom: 50px;
+
+}
+
+.profile .profile__title {
+    font-weight: 900;
+}
+
+.profile .profile__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 80px;
+    font-weight: 900;
+}
+
+.profile__container {
+    display: flex;
+    align-items: center;
+    padding: 10px 80px;
+}
+
+
+.profile .profile__picture img {
+    width: 120px;
+}
+
+.profile .profile__edit {
+    background-color: #242424;
+    color: #FDC62E;
+    display: flex;
+    width: 70px;
+    height: 35px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.profile .edit-logo {}
+
+.profile .profile__edit:hover {
+    cursor: pointer;
+}
+
+.profile .profile__name {
+    font-weight: 800;
+}
+
+.profile .profile__location {
+    color: #ccc;
+}
+
+
+
+.profile__information-name,
+.profile__information-email,
+.profile__information-phone,
+.profile__information-address {
+    width: auto;
+}
+
+
+
+.profile .profile__username-title,
+.profile .profile__email-title,
+.profile .profile__phone-title,
+.profile .profile__address-title {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    width: 80%;
+    padding: 10px 80px;
+    line-height: 1.6;
+    font-weight: 800;
+    margin-top: 30px;
+}
+
+
+.username__title,
+.email__title,
+.phone__title,
+.address__title {
+    color: #a0a0a0;
+}
+
+.username,
+.email,
+.phone,
+.address {
+    width: 20%;
+}
+
+.profile__edit input {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+}
