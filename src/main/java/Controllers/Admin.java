@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import Models.Users;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -42,7 +45,7 @@ public class Admin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Admin</title>");            
+            out.println("<title>Servlet Admin</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Admin at " + request.getContextPath() + "</h1>");
@@ -63,11 +66,26 @@ public class Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path = request.getRequestURI();
-
+        String path = request.getRequestURI();  // Lấy URL hiện tại
+        
+        // Nếu đường dẫn là "/Admin", hiển thị trang quản trị
         if (path.equals("/Admin")) {
             request.getRequestDispatcher("/admin_dashboard.jsp").forward(request, response);
-        } 
+        } // Xử lý yêu cầu tìm kiếm người dùng
+        else if (path.equals("/searchUser")) {
+            // Lấy từ khóa tìm kiếm từ tham số request
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            AccountDAO dao = new AccountDAO();
+            List<Users> searchResults = dao.searchUsers(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
+        }
     }
 
     /**

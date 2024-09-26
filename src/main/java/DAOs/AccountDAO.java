@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -101,7 +103,7 @@ public class AccountDAO {
         String username = "";
         if (conn != null) {
             try {
-                String sql = "SELECT username FROM Users WHERE id = ?";
+                String sql = "SELECT username FROM Users WHERE user_id = ?";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setInt(1, id);  // Sử dụng id thay vì email
                 ResultSet rs = pst.executeQuery();
@@ -318,20 +320,69 @@ public class AccountDAO {
         return rs;
     }
 
-    public ResultSet getAllUser() {
-        Connection conn = DBConnection.getConnection();
+    public List<Users> getAllUser() {
+        List<Users> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
         ResultSet rs = null;
 
         if (conn != null) {
             try {
                 Statement st = conn.createStatement();
-                rs = st.executeQuery("SELECT avatar,username, email, phone, address, create_at FROM Users WHERE role = 2");
+                // Thực thi truy vấn SQL để lấy người dùng với role = 2
+                rs = st.executeQuery("SELECT avatar, username, email, phone, address, create_at FROM Users WHERE role = 2");
+
+                // Duyệt qua ResultSet và tạo đối tượng Users
+                while (rs.next()) {
+                    Users user = new Users(); // Tạo một đối tượng Users mới
+                    user.setAvatar(rs.getString("avatar")); // Thiết lập avatar
+                    user.setUsername(rs.getString("username")); // Thiết lập username
+                    user.setEmail(rs.getString("email")); // Thiết lập email
+                    user.setPhone(rs.getInt("phone")); // Thiết lập phone
+                    user.setAddress(rs.getString("address")); // Thiết lập address
+                    user.setCreate_at(rs.getDate("create_at")); // Thiết lập ngày tạo
+
+                    // Thêm người dùng vào danh sách
+                    userList.add(user);
+                }
             } catch (SQLException ex) {
-                ex.printStackTrace();  // Log the exception
-                rs = null;
+                ex.printStackTrace(); // Log lỗi
+            } finally {
+                // Đóng ResultSet và Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Log lỗi khi đóng
+                }
             }
         }
-        return rs;
+        return userList; // Trả về danh sách người dùng
+    }
+
+    public int GetTotalUser() {
+        Connection conn = DBConnection.getConnection();
+        int userCount = 0; // Change variable name to better reflect its purpose
+        if (conn != null) {
+            try {
+                // Query to count users with role=2
+                String sql = "SELECT COUNT(*) FROM Users WHERE role=2";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    userCount = rs.getInt(1); // Get the count of users
+                    System.out.println(userCount);  // Print to check the result
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return userCount;
     }
 
     public String md5Hash(String password) throws NoSuchAlgorithmException {
@@ -343,6 +394,47 @@ public class AccountDAO {
             sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
         }
         return sb.toString();
+    }
+
+    public List<Users> searchUsers(String query) {
+        List<Users> userList = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                String sql;
+                PreparedStatement pst;
+
+                // Kiểm tra nếu query không trống
+                if (query != null && !query.trim().isEmpty()) {
+                    sql = "SELECT * FROM Users WHERE (username LIKE ? OR email LIKE ?) and role=2";
+                    pst = conn.prepareStatement(sql);
+                    String searchQuery = "%" + query + "%"; // Thêm ký tự wildcard
+                    pst.setString(1, searchQuery);
+                    pst.setString(2, searchQuery);
+                } else {
+                    // Nếu không có từ khóa tìm kiếm, lấy tất cả người dùng
+                    sql = "SELECT * FROM Users";
+                    pst = conn.prepareStatement(sql);
+                }
+
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    Users user = new Users();
+                    user.setUsername(rs.getString("username"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhone(rs.getInt("phone"));
+                    user.setAddress(rs.getString("address"));
+                    user.setAvatar(rs.getString("avatar"));
+                    user.setCreate_at(rs.getDate("create_at"));
+                    userList.add(user);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return userList;
     }
 
 }

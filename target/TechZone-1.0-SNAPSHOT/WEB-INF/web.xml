@@ -23,6 +23,7 @@
     <servlet-mapping>
         <servlet-name>Admin</servlet-name>
         <url-pattern>/Admin</url-pattern>
+        <url-pattern>/searchUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
