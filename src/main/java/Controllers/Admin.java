@@ -129,7 +129,16 @@ public class Admin extends HttpServlet {
             // Chuyển tiếp đến trang hiển thị danh sách thương hiệu
             request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
             // Reset sortResults sau khi xử lý xong
-    request.setAttribute("sortResults", null);
+            request.setAttribute("sortResults", null);
+        } else if (request.getParameter("btnAddBrand") != null) {
+            String name = request.getParameter("brand-name");
+            String des = request.getParameter("description");
+
+           Brand newInfo = new Brand(name, des);
+           BrandDAO dao = new BrandDAO();
+           int count = dao.createBrand(newInfo);
+
+            response.sendRedirect("/Admin/Brand");
         }
 
     }

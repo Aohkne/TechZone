@@ -171,4 +171,21 @@ public class BrandDAO {
         return userList; // Trả về danh sách người dùng
     }
 
+    public int createBrand(Brand newProduct) {
+        Connection conn = DBConnection.getConnection();
+        int count;
+        try {
+            String sql = "INSERT INTO Brand (brand_name, description) VALUES (?, ?);";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, newProduct.getBrand_name());
+            pst.setString(2, newProduct.getDescription());
+     
+            count = pst.executeUpdate();
+        } catch (SQLException e) {
+            count = 0;
+        }
+        return count;
+    }
+
 }

@@ -137,12 +137,6 @@
                         >
                         Add
                     </button>
-                    <button
-                        class="delete-btn"
-                        style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                        >
-                        Delete
-                    </button>
                     <form action="/Admin/Brand" method="POST"> 
                         <button
                             class="sort-btn"
@@ -173,12 +167,9 @@
 
                         if (searchResults != null) {
                             allUsers = searchResults;
-                        } 
-                        else if (sortResults != null) {
+                        } else if (sortResults != null) {
                             allUsers = sortResults;
-                        }
-                        
-                        else {
+                        } else {
 
                             allUsers = daos.GetAllBrand();
                         }
@@ -225,20 +216,12 @@
                 <div class="modal-content">
                     <h1>Add Brand</h1>
                     <span class="close-btn">&times;</span>
-                    <form action="" class="brand-form">
-                        <label>
-                            Enter brand ID
-                            <input
-                                type="text"
-                                id="brand-id"
-                                placeholder="Brand ID"
-                                required
-                                />
-                        </label>
+                    <form action="/Admin/Brand" method="POST" class="brand-form" >
                         <label>
                             Enter brand name
                             <input
                                 type="text"
+                                name="brand-name"
                                 id="brand-name"
                                 placeholder="Brand name"
                                 required
@@ -248,24 +231,22 @@
                             Enter brand description
                             <textarea
                                 placeholder="Brand description"
+                                name="description"
                                 id="brand-description"
                                 rows="15"
                                 style="padding: 10px"
+                                required=""
                                 ></textarea>
                         </label>
 
                         <div class="add-cancel-btn">
-                            <button
+                            <button 
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                 class="cancel-btn"
                                 >
                                 Cancel
                             </button>
-                            <button
-                                type="submit"
-                                style="background: linear-gradient(60deg, #66bb6a, #43a047)"
-                                class="accept-btn"
-                                >
+                            <button type="submit" style="background: linear-gradient(60deg, #66bb6a, #43a047)" class="accept-btn" name="btnAddBrand">
                                 Add
                             </button>
                         </div>

@@ -207,8 +207,8 @@ table td button {
 .modal-content .brand-form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    height: 88%;
+    margin-top: 40px;
+    height: 78%;
 }
 .modal-content .brand-form label{
     display: flex;
@@ -237,10 +237,10 @@ table td button {
     cursor: pointer;
 }
 .modal-content .brand-form .add-cancel-btn{
-    width: 50%;
+    width: 45%;
     display: flex;
     justify-content: flex-end;
-    gap: 5px;
+    gap: 7px;
     margin-left: auto;
     margin-top: auto;
 }

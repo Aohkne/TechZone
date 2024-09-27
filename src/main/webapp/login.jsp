@@ -4,6 +4,7 @@
     Author     : HP
 --%>
 
+<%@page import="DAOs.AccountDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,37 @@
             />
     </head>
     <body>
+        <%
+            // Retrieve cookies from the request
+            Cookie[] cookies = request.getCookies();
+            int userId = -1; // Initialize userId
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("id".equals(cookie.getName())) {
+                        userId = Integer.parseInt(cookie.getValue());
+                        break;
+                    }
+                }
+            }
+
+            AccountDAO dao = new AccountDAO();
+            if (userId != -1) {
+                // Use the userId to find the user type (role)
+                int userType = dao.getTypeById(userId);
+                System.out.println(userType);
+
+                // Redirect based on the user type
+                if (userType == 1) {
+                    response.sendRedirect("/Admin");
+                } else {
+                    response.sendRedirect("/Home");
+                }
+            } else {
+                // If no cookie is found, redirect to login or handle accordingly
+            }
+
+        %>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
                 <form action="Login" method="post" enctype="multipart/form-data" id="registrationForm" onsubmit="return validateForm()">
@@ -34,8 +66,7 @@
             </div>
             <div class="form-container sign-in-container">
                 <form action="Login" method="post">
-                    <%
-                        String loginError = (String) session.getAttribute("loginError");
+                    <%                        String loginError = (String) session.getAttribute("loginError");
                         if (loginError != null) {
                     %>
                     <div class="alert alert-danger"><%= loginError%></div>
@@ -48,11 +79,11 @@
                     <br>
                     <input type="email" name="email" placeholder="Email" required=""/>
                     <input type="password" name="password" placeholder="Password" required=""/>
-<!--                    <label for="remember" class="checkbox-label" type="hidden">
-                        <input type="checkbox" name="remember" id="remember" value="true" />
-                        <span class="checkmark"></span>
-                        <a>Save Cookie</a>
-                    </label>-->
+                    <!--                    <label for="remember" class="checkbox-label" type="hidden">
+                                            <input type="checkbox" name="remember" id="remember" value="true" />
+                                            <span class="checkmark"></span>
+                                            <a>Save Cookie</a>
+                                        </label>-->
                     <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
                 </form>

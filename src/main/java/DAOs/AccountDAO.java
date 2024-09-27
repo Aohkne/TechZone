@@ -248,6 +248,28 @@ public class AccountDAO {
         }
         return type_id;
     }
+    public int getTypeById(int email) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+        int type_id = 0;
+
+        if (conn != null) {
+            try {
+                String sql = "Select role from Users where user_id =?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, email);
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    type_id = rs.getInt("role");
+                    System.out.println("Picture retrieved: " + type_id); // Debug statement
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Debugging statement
+                rs = null;
+            }
+        }
+        return type_id;
+    }
 
     public int addNew(Users obj) {
         Connection conn = DBConnection.getConnection();
