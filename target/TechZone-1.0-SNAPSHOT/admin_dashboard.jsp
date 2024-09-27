@@ -55,7 +55,7 @@
             >
           </li>
           <li>
-            <a href="admin_brands.jsp"
+            <a href="/Admin/Brand"
               ><i class="fa-solid fa-map"></i>Brands</a
             >
           </li>

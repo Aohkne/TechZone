@@ -4,6 +4,10 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.Brand"%>
+<%@page import="java.util.List"%>
+<%@page import="DAOs.AccountDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.BrandDAO"%>
 <!DOCTYPE html>
@@ -53,7 +57,7 @@
                         >
                     </li>
                     <li>
-                        <a href="admin_users.jsp"
+                        <a href="/Admin/Users"
                            ><i class="fa-solid fa-users"></i>Users</a
                         >
                     </li>
@@ -63,16 +67,33 @@
                         >
                     </li>
                     <li>
-                        <a href="admin_brands.jsp"
+                        <a href="/Admin/Brand"
                            ><i class="fa-solid fa-map"></i>Brands</a
                         >
                     </li>
                 </ul>
             </div>
+            <%
+                AccountDAO dao = new AccountDAO();
+                BrandDAO daos = new BrandDAO();
+                int userId = -1;
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if (cookie.getName().equals("id")) {
+                            userId = Integer.parseInt(cookie.getValue());
+                            break;
+                        }
+                    }
+                }
+                String name = dao.GetNameAdmin(userId);
+                System.out.println(name);
+                System.out.println(userId);
+            %>
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
-                    <p class="account-name">Nguyen Trong Quy</p>
+                    <p class="account-name"><%=name%></p>
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
@@ -87,15 +108,19 @@
             <nav>
                 <p class="title">Brands</p>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search" /><i
-                        class="fa-solid fa-magnifying-glass"
-                        ></i>
+                    <form method="POST" action="/Admin/Brand"> 
+                        <input type="text" name="query" placeholder="Search" required />
+                        <button type="submit" name="btnsearchBrand">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
             </nav>
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Brands</p>
-                    <p class="card-value">4</p>
+                    <% int counts = daos.GetTotalBrand();%>
+                    <p class="card-value"><%= counts%></p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -118,12 +143,16 @@
                         >
                         Delete
                     </button>
-                    <button
-                        class="sort-btn"
-                        style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
-                        >
-                        Sort
-                    </button>
+                    <form action="/Admin/Brand" method="POST"> 
+                        <button
+                            class="sort-btn"
+                            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+                            name="btnSort"
+                            type="submit">
+                            Sort
+                        </button>
+                    </form>
+
                 </div>
             </div>
             <!-- BRANDS TABLE -->
@@ -131,22 +160,40 @@
                 <h1 class="table-name">BRANDS LIST</h1>
                 <table>
                     <tr>
-                        <th><input type="checkbox" /></th>
+                        <!--                        <th><input type="checkbox" /></th>-->
                         <th class="id">ID</th>
                         <th class="name">Name</th>
                         <th class="description">Description</th>
                         <th class="operations">Operations</th>
                     </tr>
+                    <%
+                        List<Brand> searchResults = (List<Brand>) request.getAttribute("searchResults");
+                        List<Brand> sortResults = (List<Brand>) request.getAttribute("sortResults");
+                        List<Brand> allUsers = new ArrayList<>();
+
+                        if (searchResults != null) {
+                            allUsers = searchResults;
+                        } 
+                        else if (sortResults != null) {
+                            allUsers = sortResults;
+                        }
+                        
+                        else {
+
+                            allUsers = daos.GetAllBrand();
+                        }
+
+                        if (allUsers != null && !allUsers.isEmpty()) {
+                            int count = 0;
+                            for (Brand user : allUsers) {
+                                count++;
+                    %>
                     <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>1</td>
-                        <td>Apple</td>
+                        <!--                        <td><input type="checkbox" /></td>-->
+                        <td><%=count%></td>
+                        <td><%= user.getBrand_name()%></td>
                         <td>
-                            Apple Inc. designs, manufactures and markets smartphones, personal
-                            computers, tablets, wearables and accessories, and sells a variety
-                            of related services. Its product categories include iPhone, Mac,
-                            iPad, and Wearables, Home and Accessories. Its software platforms
-                            include iOS, iPadOS, macOS, watchOS, and tvOS.
+                            <%= user.getDescription()%>
                         </td>
                         <td>
                             <button
@@ -160,75 +207,16 @@
                             </button>
                         </td>
                     </tr>
+                    <%
+                        }
+                    } else {
+                    %>
                     <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>2</td>
-                        <td>Samsung</td>
-                        <td>
-                            Samsung is a global leader in technology, opening new
-                            possibilities for people everywhere. Through relentless innovation
-                            and discovery, they are transforming the worlds of TVs,
-                            smartphones, wearable devices, tablets, digital appliances,
-                            network systems, medical devices, semiconductors, and LED
-                            solutions.
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                >
-                                Edit</button
-                            ><button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
+                        <td colspan="9">No users found</td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>3</td>
-                        <td>Xiaomi</td>
-                        <td>
-                            Xiaomi Corporation (/??a?mi/; Chinese: ????), commonly known
-                            as Xiaomi (registered as Xiaomi Inc.), is a Chinese designer and
-                            manufacturer of consumer electronics and related software, home
-                            appliances, automobiles and household hardware, with headquarters
-                            in Beijing, China.
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                >
-                                Edit</button
-                            ><button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>4</td>
-                        <td>Oppo</td>
-                        <td>
-                            Oppo (sometimes stylized as OPPO) is a Chinese consumer
-                            electronics manufacturer headquartered in Dongguan, Guangdong. Its
-                            major product lines include smartphones, smart devices, audio
-                            devices, power banks, and other electronic products.
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                >
-                                Edit</button
-                            ><button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+                    <%
+                        }
+                    %>
                 </table>
             </div>
             <!-- MODAL -->

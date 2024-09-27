@@ -60,7 +60,7 @@
                         >
                     </li>
                     <li>
-                        <a href="admin_brands.jsp"
+                        <a href="/Admin/Brand"
                            ><i class="fa-solid fa-map"></i>Brands</a
                         >
                     </li>
@@ -101,12 +101,13 @@
             <nav>
                 <p class="title">Users</p>
                 <div class="search-bar">
-                    <form action="searchUser" method="GET"> 
+                    <form method="POST" action="/Admin/Users"> 
                         <input type="text" name="query" placeholder="Search" required />
-                        <button type="submit">
+                        <button type="submit" name="btnsearchUser">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
+
                 </div>
             </nav>
 
@@ -138,64 +139,60 @@
             <div class="users-table">
                 <h1 class="table-name">USERS LIST</h1>
                 <table>
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th>ID</th>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Created Date</th>
-                            <th class="operations">Operations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            List<Users> searchResults = (List<Users>) request.getAttribute("searchResults");
-                            List<Users> allUsers = new ArrayList<>();
+                    <tr>
+                        <th><input type="checkbox" /></th>
+                        <th>ID</th>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Created Date</th>
+                        <th class="operations">Operations</th>
+                    </tr>
+                    <%
+                        List<Users> searchResults = (List<Users>) request.getAttribute("searchResults");
+                        List<Users> allUsers = new ArrayList<>();
 
-                            if (searchResults != null) {
-                                allUsers = searchResults;
-                            } else {
-
-                                allUsers = dao.getAllUser(); 
-                            }
-
-                            if (allUsers != null && !allUsers.isEmpty()) {
-                                int count = 0;
-                                for (Users user : allUsers) {
-                                    count++;
-                        %>
-                        <tr>
-                            <td><input type="checkbox" /></td>
-                            <td><%= count%></td>
-                            <td>
-                                <img src="<%= user.getAvatar()%>" alt="User Avatar" class="user-img" />
-                            </td>
-                            <td><%= user.getUsername()%></td>
-                            <td><%= user.getEmail()%></td>
-                            <td><%= user.getPhone()%></td>
-                            <td><%= user.getAddress()%></td>
-                            <td><%= user.getCreate_at()%></td>
-                            <td>
-                                <button style="background: linear-gradient(60deg, #ef5350, #e53935);">
-                                    Block
-                                </button>
-                            </td>
-                        </tr>
-                        <%
-                            }
+                        if (searchResults != null) {
+                            allUsers = searchResults;
                         } else {
-                        %>
-                        <tr>
-                            <td colspan="9">No users found</td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </tbody>
+
+                            allUsers = dao.getAllUser();
+                        }
+
+                        if (allUsers != null && !allUsers.isEmpty()) {
+                            int count = 0;
+                            for (Users user : allUsers) {
+                                count++;
+                    %>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td><%= count%></td>
+                        <td>
+                            <img src="<%= user.getAvatar()%>" alt="User Avatar" class="user-img" />
+                        </td>
+                        <td><%= user.getUsername()%></td>
+                        <td><%= user.getEmail()%></td>
+                        <td><%= user.getPhone()%></td>
+                        <td><%= user.getAddress()%></td>
+                        <td><%= user.getCreate_at()%></td>
+                        <td>
+                            <button style="background: linear-gradient(60deg, #ef5350, #e53935);">
+                                Block
+                            </button>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <tr>
+                        <td colspan="9">No users found</td>
+                    </tr>
+                    <%
+                        }
+                    %>
                 </table>
             </div>
 

@@ -5,6 +5,8 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.BrandDAO;
+import Models.Brand;
 import Models.Users;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -67,23 +69,13 @@ public class Admin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI();  // Lấy URL hiện tại
-        
+
         // Nếu đường dẫn là "/Admin", hiển thị trang quản trị
-        if (path.equals("/Admin")) {
+        if (path.equals("/Admin") || path.equals("/Admin/Dashboard")) {
             request.getRequestDispatcher("/admin_dashboard.jsp").forward(request, response);
-        } // Xử lý yêu cầu tìm kiếm người dùng
-        else if (path.equals("/searchUser")) {
-            // Lấy từ khóa tìm kiếm từ tham số request
-            String query = request.getParameter("query");
-
-            // Gọi DAO để tìm kiếm người dùng
-            AccountDAO dao = new AccountDAO();
-            List<Users> searchResults = dao.searchUsers(query);
-
-            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
-            request.setAttribute("searchResults", searchResults);
-
-            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+        } else if (path.equals("/Admin/Brand")) {
+            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
+        } else if (path.equals("/Admin/Users")) {
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
         }
     }
@@ -99,7 +91,47 @@ public class Admin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        if (request.getParameter("btnsearchUser") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            AccountDAO dao = new AccountDAO();
+            List<Users> searchResults = dao.searchUsers(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
+        } else if (request.getParameter("btnsearchBrand") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            BrandDAO dao = new BrandDAO();
+            List<Brand> searchResults = dao.searchBrand(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
+        } else if (request.getParameter("btnSort") != null) {
+            BrandDAO dao = new BrandDAO();
+            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
+            List<Brand> sortResults = dao.getAllBrandsSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
+
+            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
+            request.setAttribute("sortResults", sortResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách thương hiệu
+            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
+            // Reset sortResults sau khi xử lý xong
+    request.setAttribute("sortResults", null);
+        }
+
     }
 
     /**
