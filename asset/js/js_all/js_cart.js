@@ -45,8 +45,8 @@ function updateCartList() {
   let out = "";
   var i = 1;
 
-  list = JSON.parse(localStorage.getItem("productList"));
-  if (list) {
+  if (JSON.parse(localStorage.getItem("productList"))) {
+    list = JSON.parse(localStorage.getItem("productList"));
     //Num of Order
     document.querySelector(".list__quantity").innerHTML = list.length;
 
@@ -97,6 +97,7 @@ function updateCartList() {
 
   //Update total
   let cartFooter = document.querySelector(".cart__footer");
+
   if (list.length > 0) {
     var total = 0;
     var price;
