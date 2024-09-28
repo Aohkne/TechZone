@@ -77,6 +77,12 @@ public class Admin extends HttpServlet {
             request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
         } else if (path.equals("/Admin/Users")) {
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
+        }else if (path.equals("/Admin/Category")) {
+            request.getRequestDispatcher("/admin_categories.jsp").forward(request, response);
+        }else if (path.equals("/Admin/Product")) {
+            request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
+        }else if (path.equals("/Admin/Review")) {
+            request.getRequestDispatcher("/admin_reviews.jsp").forward(request, response);
         }
     }
 

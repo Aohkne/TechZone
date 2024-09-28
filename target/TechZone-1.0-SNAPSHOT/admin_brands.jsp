@@ -42,17 +42,17 @@
             <div class="list-container">
                 <ul class="list">
                     <li>
-                        <a href="admin_dashboard.jsp"
+                        <a href="/Admin"
                            ><i class="fa-solid fa-list"></i>Dashboard</a
                         >
                     </li>
                     <li>
-                        <a href="admin_products.jsp"
+                        <a href="/Admin/Product"
                            ><i class="fa-solid fa-box"></i>Products</a
                         >
                     </li>
                     <li>
-                        <a href="admin_categories.jsp"
+                        <a href="/Admin/Category"
                            ><i class="fa-solid fa-layer-group"></i>Categories</a
                         >
                     </li>
@@ -62,7 +62,7 @@
                         >
                     </li>
                     <li>
-                        <a href="admin_reviews.jsp"
+                        <a href="/Admin/Review"
                            ><i class="fa-solid fa-comment"></i>Reviews</a
                         >
                     </li>
@@ -97,7 +97,7 @@
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -193,6 +193,7 @@
                                 Edit</button
                             ><button
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
+            
                                 >
                                 Delete
                             </button>

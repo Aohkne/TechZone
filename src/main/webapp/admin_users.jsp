@@ -35,27 +35,27 @@
             <div class="list-container">
                 <ul class="list">
                     <li>
-                        <a href="admin_dashboard.jsp"
+                        <a href="/Admin"
                            ><i class="fa-solid fa-list"></i>Dashboard</a
                         >
                     </li>
                     <li>
-                        <a href="admin_products.jsp"
+                        <a href="/Admin/Product"
                            ><i class="fa-solid fa-box"></i>Products</a
                         >
                     </li>
                     <li>
-                        <a href="admin_categories.jsp"
+                        <a href="/Admin/Category"
                            ><i class="fa-solid fa-layer-group"></i>Categories</a
                         >
                     </li>
                     <li>
-                        <a href="admin_users.jsp"
+                        <a href="/Admin/Users"
                            ><i class="fa-solid fa-users"></i>Users</a
                         >
                     </li>
                     <li>
-                        <a href="admin_reviews.jsp"
+                        <a href="/Admin/Review"
                            ><i class="fa-solid fa-comment"></i>Reviews</a
                         >
                     </li>

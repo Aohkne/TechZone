@@ -114,8 +114,8 @@ public class Users {
         return avatar;
     }
 
-    public void setAvatar(String avartar) {
-        this.avatar = avartar;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public boolean isStatus_user() {
