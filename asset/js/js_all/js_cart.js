@@ -1,10 +1,21 @@
-//Order to cart
+// Hover cart
+let navSearchCartIcon = document.querySelector(".navSearch__cartIcon");
+let cartContainer = document.querySelector(".cart__container");
 
+navSearchCartIcon.addEventListener("click", () => {
+  if (cartContainer.style.display == "block") {
+    cartContainer.style.display = "none";
+  } else {
+    cartContainer.style.display = "block";
+  }
+});
+
+//Order to cart
 let productItem = document.querySelectorAll(".product__item");
 
 let list = [];
 
-//Add to local Storage
+//Add to local Storage (from Cart)
 productItem.forEach((e) => {
   let orderBtn = e.querySelector(".product__btn i");
 
@@ -33,6 +44,44 @@ productItem.forEach((e) => {
     updateCartList();
   };
 });
+
+// Add to local Storage (from user_products)
+
+//Add to Cart
+
+let addBtn = document.querySelector(".add__btn");
+
+if (addBtn) {
+  let productContainer = document.querySelector(".product__container");
+  let id = productContainer.querySelector("input").value;
+  let img = productContainer.querySelector(".product__img img").src;
+  let name = productContainer.querySelector(".product__name").textContent;
+  let price = productContainer.querySelector(".product__price").textContent;
+  addBtn.onclick = () => {
+    let quantity = productContainer.querySelector(".product__num");
+    //Check local Storage exist
+    if (JSON.parse(localStorage.getItem("productList"))) {
+      list = JSON.parse(localStorage.getItem("productList"));
+    }
+
+    //add to list
+    let currItem = list.find((p) => p.id === id);
+    if (currItem) {
+      currItem.quantity += +quantity.textContent;
+    } else {
+      addItem(id, img, name, price, +quantity.textContent);
+    }
+
+    //add to local Storage
+    localStorage.setItem("productList", JSON.stringify(list));
+
+    //reset quantity
+    quantity.innerHTML = 1;
+
+    //Update cart
+    updateCartList();
+  };
+}
 
 function addItem(id, img, name, price, quantity) {
   const item = { id, img, name, price, quantity };
