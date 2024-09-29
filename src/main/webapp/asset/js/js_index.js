@@ -161,16 +161,3 @@ function show(Click, Effect) {
 }
 
 
-// Hover cart
-let navSearchCartIcon = document.querySelector('.navSearch__cartIcon');
-let cartContainer = document.querySelector('.cart__container');
-
-
-navSearchCartIcon.addEventListener('click', () => {
-    if (cartContainer.style.display == 'block') {
-        cartContainer.style.display = 'none';
-    } else {
-        cartContainer.style.display = 'block';
-    }
-});
-

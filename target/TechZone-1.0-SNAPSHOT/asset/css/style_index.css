@@ -473,7 +473,9 @@
     margin: 10px 0;
 }
 
-.product__item {}
+.product__item a {
+    text-decoration: none;
+}
 
 .product__content {
     padding: 15px 10px;

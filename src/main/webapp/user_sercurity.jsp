@@ -30,7 +30,9 @@
         <!-- Nav -->
         <div class="nav col l-2">
             <div class="nav__container">
-                <i class="return-icon ti-arrow-left"></i>
+                 <a href="./index.jsp">
+                    <i class="return-icon ti-arrow-left"></i>
+                </a>
                 <div class="nav__Btn">
                     <img src="./asset/img/img_all/logo.png" alt="">
                 </div>

@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="asset/css/style_index.css">
         <link rel="stylesheet" href="asset/css/css_all/style_cart.css">
         <link rel="stylesheet" href="asset/css/css_all/style_chat.css">
+        <link rel="stylesheet" href="asset/css/css_all/style_accountUser.css">
         <link rel="stylesheet" href="asset/font/fontawesome-free-6.4.2-web/css/all.min.css">
 
 
@@ -28,6 +29,7 @@
         <script src="./asset/js/js_index.js" defer></script>
         <script src="./asset/js/js_all/js_chat.js" defer></script>
         <script src="./asset/js/js_all/js_cart.js" defer></script>
+        <script src="./asset/js/js_all/js_accountUser.js" defer></script>
     </head>
 
     <body>
@@ -107,8 +109,53 @@
                     <div class="user__account">
                         <div class="account__register" onclick="window.location.href = '/Login'">Register</div>
                         <div class="account__login" onclick="window.location.href = '/Login'">Log in</div>
+
+                        <!-- Account User  -->
+                        <div class="account__img">
+                            <!-- <i class="fa-solid fa-circle-user"></i> -->
+                            <img src="./asset/img/img_all/img_user/chihuahua.jpg" alt="" srcset="">
+                            <span>Le Huu Khoa</span>
+                        </div>
+
                     </div>
-                
+                    <!-- Account User -->
+                    <div class="account__container">
+                        <div class="account__content">
+                            <div class="account__information">
+                                <img src="./asset/img/img_all/img_user/chihuahua.jpg" alt="">
+                                <div class="account__description">
+                                    <div class="account__username">Le Huu Khoa</div>
+                                    <div class="account__mail">khoa@gmail.com</div>
+                                </div>
+                            </div>
+                            <div class="account__list">
+                                <div class="account__item">
+                                    <a href="./user_profile.jsp" class="account__link">
+                                        My Profile
+                                    </a>
+                                </div>
+                                <div class="account__item">
+                                    <a href="#" class="account__link">
+                                        Order History
+                                    </a>
+                                </div>
+                                <div class="account__item">
+                                    <a href="#" class="account__link">
+                                        Shipping
+                                    </a>
+                                </div>
+                                <div class="account__item">
+                                    <a href="./user_cart.jsp" class="account__link">
+                                        Cart
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="account__logout">
+                                <button>Log out</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </ul>
 
 
@@ -300,28 +347,36 @@
                     <div class="row">
 
                         <div class="product__item col l-2">
-                            <input type="hidden" value="P1">
-                            <div class="product__content">
-                                <div class="product__img">
-                                    <img src="./asset/img/img_all/img_product/img_laptop/laptop.png" alt="" srcset="">
+                            <a href="./user_products.jsp">
+                                <input type="hidden" value="P1">
+                                <div class="product__content">
+                                    <div class="product__img">
+                                        <img src="./asset/img/img_all/img_product/img_laptop/laptop.png" alt="" srcset="">
+                                    </div>
+                                    <div class="product__name">Name</div>
+                                    <div class="product__price">485.000 VND</div>
                                 </div>
-                                <div class="product__name">Name</div>
-                                <div class="product__price">485.000 VND</div>
-                            </div>
+                            </a>
+                            
                             <div class="product__btn">
                                 <i class="fa-solid fa-cart-plus"></i>
                             </div>
+
                         </div>
 
                         <div class="product__item col l-2">
-                            <input type="hidden" value="P2">
-                            <div class="product__content">
-                                <div class="product__img">
-                                    <img src="./asset/img/img_all/img_product/img_vr/vr.png" alt="" srcset="">
+                            <a href="./user_products.jsp">
+                                <input type="hidden" value="P2">
+                                <div class="product__content">
+                                    <div class="product__img">
+                                        <img src="./asset/img/img_all/img_product/img_vr/vr.png" alt="" srcset="">
+                                    </div>
+                                    <div class="product__name">Name</div>
+                                    <div class="product__price">485.000 VND</div>
                                 </div>
-                                <div class="product__name">Name</div>
-                                <div class="product__price">485.000 VND</div>
-                            </div>
+                            </a>
+
+
                             <div class="product__btn">
                                 <i class="fa-solid fa-cart-plus"></i>
                             </div>
