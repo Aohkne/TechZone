@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div class="account__logout">
-                                    <button>Log out</button>
+                                    <a>Log out</a>
                                 </div>
                             </div>
                         </div>
