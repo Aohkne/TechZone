@@ -103,7 +103,7 @@
                 <div class="search-bar">
                     <form method="POST" action="/Admin/Users"> 
                         <input type="text" name="query" placeholder="Search" required />
-                        <button type="submit" name="btnsearchUser">
+                        <button type="submit" name="btnsearchUser" style="border: none">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
@@ -126,9 +126,6 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
-                    <button style="background: linear-gradient(60deg, #ef5350, #e53935)">
-                        Block
-                    </button>
                     <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
                         Sort
                     </button>
@@ -140,7 +137,6 @@
                 <h1 class="table-name">USERS LIST</h1>
                 <table>
                     <tr>
-                        <th><input type="checkbox" /></th>
                         <th>ID</th>
                         <th>Avatar</th>
                         <th>Name</th>
@@ -167,7 +163,6 @@
                                 count++;
                     %>
                     <tr>
-                        <td><input type="checkbox" /></td>
                         <td><%= count%></td>
                         <td>
                             <img src="<%= user.getAvatar()%>" alt="User Avatar" class="user-img" />
@@ -178,7 +173,7 @@
                         <td><%= user.getAddress()%></td>
                         <td><%= user.getCreate_at()%></td>
                         <td>
-                            <button style="background: linear-gradient(60deg, #ef5350, #e53935);">
+                            <button style="background: linear-gradient(60deg, #ef5350, #e53935);" class="block-btn">
                                 Block
                             </button>
                         </td>

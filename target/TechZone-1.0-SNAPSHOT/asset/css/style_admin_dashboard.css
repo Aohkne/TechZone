@@ -8,6 +8,12 @@ main {
     flex-grow: 1;
     padding: 10px 20px 0 280px;
 }
+.list li:nth-child(1) {
+    background-color: #00acc1; /* Example background color */
+    box-shadow: 0 0 10px #00acc1; /* Example box shadow */
+    color: white; /* Example text color */
+}
+
 /* Navbar */
 main nav {
     display: flex;

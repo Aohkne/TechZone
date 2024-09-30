@@ -30,7 +30,7 @@
       </div>
       <div class="list-container">
         <ul class="list">
-          <li>
+                    <li>
                         <a href="/Admin"
                            ><i class="fa-solid fa-list"></i>Dashboard</a
                         >

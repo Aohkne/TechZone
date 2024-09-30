@@ -110,7 +110,7 @@
                 <div class="search-bar">
                     <form method="POST" action="/Admin/Brand"> 
                         <input type="text" name="query" placeholder="Search" required />
-                        <button type="submit" name="btnsearchBrand">
+                        <button type="submit" name="btnsearchBrand" style="border: none">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>

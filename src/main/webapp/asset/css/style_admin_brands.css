@@ -9,6 +9,11 @@ main {
     padding: 10px 20px 0 280px;
 }
 /* Navbar */
+.list li:nth-child(6) {
+    background-color: #00acc1; /* Example background color */
+    box-shadow: 0 0 10px #00acc1; /* Example box shadow */
+    color: white; /* Example text color */
+}
 main nav {
     display: flex;
     justify-content: space-between;
