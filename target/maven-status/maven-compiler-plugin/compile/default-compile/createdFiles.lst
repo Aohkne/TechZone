@@ -1,6 +1,7 @@
 Controllers\Home.class
 Controllers\Login$2.class
 Controllers\Admin.class
+Controllers\Logout.class
 Controllers\Login.class
 DAOs\AccountDAO.class
 Models\Brand.class

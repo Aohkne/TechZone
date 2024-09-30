@@ -87,7 +87,10 @@
     bottom: 0;
 
 
-    button {
+    a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
         width: 280px;
         padding: 10px 0;
         font-size: 1.8rem;

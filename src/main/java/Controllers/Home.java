@@ -66,7 +66,7 @@ public class Home extends HttpServlet {
        String path = request.getRequestURI();
 
             if (path.equals("/Home")) {
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
     }
 
