@@ -35,6 +35,22 @@ public class BrandDAO {
         }
         return rs;
     }
+    
+    public ResultSet getBrandById(String id) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("select * from Brand where brand_id = " + id);
+
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
 
     public int GetTotalBrand() {
         Connection conn = DBConnection.getConnection();

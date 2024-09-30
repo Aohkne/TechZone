@@ -112,19 +112,23 @@
                     <div class="user__account">
 
                         <%
-                            String id = "";
+                            String idUser = "";
                             Cookie[] cookies = request.getCookies();
                             boolean isId = false;
                             if (cookies != null) {
                                 for (Cookie cookie : cookies) {
                                     if (cookie.getName().equals("id")) {
-                                        id = cookie.getValue();
+                                        idUser = cookie.getValue();
+
+                                        UserDAO userdao = new UserDAO();
+                                        ResultSet rs = userdao.getUserById(idUser);
+                                        while (rs.next()) {
                         %>
                         <!-- Account User  -->
                         <div class="account__img">
                             <!-- <i class="fa-solid fa-circle-user"></i> -->
-                            <img src="./asset/img/img_all/img_user/chihuahua.jpg" alt="" srcset="">
-                            <span>Le Huu Khoa</span>
+                            <img src=<%= rs.getString("avatar")%> alt="" srcset="">
+                            <span><%= rs.getString("username")%></span>
                         </div>
                     </div>
 
@@ -132,11 +136,7 @@
                     <div class="account__container">
                         <div class="account__content">
                             <div class="account__information">
-                                <%
-                                    UserDAO userdao = new UserDAO();
-                                    ResultSet rs = userdao.getUserById(id);
-                                    while (rs.next()) {
-                                %>
+
                                 <img src=<%= rs.getString("avatar")%> alt="">
                                 <div class="account__description">
                                     <div class="account__username"><%= rs.getString("username")%></div>
@@ -186,7 +186,7 @@
             </div>
             <%
                 }
-            %>
+            %>  
 
 
 
@@ -387,6 +387,8 @@
                     ProductDAO productdao = new ProductDAO();
                     ResultSet rs = productdao.getAllProduct();
                     while (rs.next()) {
+
+                        //Handle price to format
                         String price = rs.getString("pro_price");
                         price = price.substring(0, price.length() - 3);
                         StringBuilder result = new StringBuilder();
@@ -405,7 +407,7 @@
                 %>
 
                 <div class="product__item col l-2">
-                    <a href="./user_products.jsp">
+                    <a href="./user_products.jsp?id=<%= rs.getString("pro_id")%>">
                         <input type="hidden" value=<%= rs.getString("pro_id")%>>
                         <div class="product__content">
                             <div class="product__img">

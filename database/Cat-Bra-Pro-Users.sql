@@ -15,6 +15,15 @@ VALUES
 ('VR', 'Virtual Reality headset for immersive gaming and experiences'),
 ('Speaker', 'An output device that produces sound');
 
+--  1 - Smartphone
+--  2 - Earphone
+--  3 - Watch
+--  4 - Laptop
+--  5 - Console
+--  6 - VR
+--  7 - Speaker
+
+
 
 CREATE TABLE Brand (
     brand_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -50,14 +59,14 @@ CREATE TABLE [Product] (
     FOREIGN KEY (brand_id) REFERENCES Brand(brand_id)
 );
 
-select * from Product
+
 INSERT INTO Product (pro_name, description, pro_price, pro_discount, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
 VALUES 
-('Manami Earphone', 'The Manami Earphone is a high-quality in-ear audio accessory designed for clear sound and comfort. Featuring noise isolation, deep bass, and crisp treble, it provides an immersive listening experience. The ergonomic design ensures a secure fit for extended use, while the built-in microphone and inline controls make it easy to take calls and control your music. Ideal for music lovers seeking reliable performance and stylish design.',100000, 0, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 3, 2),
-('MacBook Air 2022', 'The MacBook Air 2022 is a sleek, ultra-portable laptop featuring Apple''s M2 chip, offering impressive performance with energy efficiency. It has a 13.6-inch Liquid Retina display, up to 18 hours of battery life, a fanless design for silent operation, and a redesigned look that''s thinner and lighter. The device also includes an improved 1080p FaceTime HD camera, a MagSafe charging port, and support for up to 24GB of unified memory, making it ideal for everyday tasks and creative workflows.',999999, 0, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 1, 1),
-('Oculus Quest 2', 'The Oculus Quest 2 is an advanced all-in-one virtual reality headset by Meta, featuring a high-resolution display, powerful Qualcomm Snapdragon XR2 processor, and intuitive Touch controllers. It offers a wireless, standalone VR experience with access to a vast library of games and apps. The lightweight design, adjustable straps, and 3D positional audio provide comfort and immersion, making it ideal for gaming, fitness, and social experiences without the need for a PC or external sensors.',5999999, 0, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 2, 2),
+('Manami Earphone', 'The Manami Earphone is a high-quality in-ear audio accessory designed for clear sound and comfort. Featuring noise isolation, deep bass, and crisp treble, it provides an immersive listening experience. The ergonomic design ensures a secure fit for extended use, while the built-in microphone and inline controls make it easy to take calls and control your music. Ideal for music lovers seeking reliable performance and stylish design.',100000, 0, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
+('MacBook Air 2022', 'The MacBook Air 2022 is a sleek, ultra-portable laptop featuring Apple''s M2 chip, offering impressive performance with energy efficiency. It has a 13.6-inch Liquid Retina display, up to 18 hours of battery life, a fanless design for silent operation, and a redesigned look that''s thinner and lighter. The device also includes an improved 1080p FaceTime HD camera, a MagSafe charging port, and support for up to 24GB of unified memory, making it ideal for everyday tasks and creative workflows.',999999, 0, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
+('Oculus Quest 2', 'The Oculus Quest 2 is an advanced all-in-one virtual reality headset by Meta, featuring a high-resolution display, powerful Qualcomm Snapdragon XR2 processor, and intuitive Touch controllers. It offers a wireless, standalone VR experience with access to a vast library of games and apps. The lightweight design, adjustable straps, and 3D positional audio provide comfort and immersion, making it ideal for gaming, fitness, and social experiences without the need for a PC or external sensors.',5999999, 0, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 6, 7),
 
--- cate 1-laptop 2-Oculus 3-headphone
+
 
 -- Tạo bảng Users
 CREATE TABLE Users (
