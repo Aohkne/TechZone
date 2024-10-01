@@ -386,8 +386,12 @@
                 <%
                     ProductDAO productdao = new ProductDAO();
                     ResultSet rs = productdao.getAllProduct();
+                    int countP = 0;
                     while (rs.next()) {
-
+                        if (countP >= 6) {
+                            break;
+                        }
+                        countP++;
                         //Handle price to format
                         String price = rs.getString("pro_price");
                         price = price.substring(0, price.length() - 3);

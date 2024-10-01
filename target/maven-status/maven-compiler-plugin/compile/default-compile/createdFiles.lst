@@ -1,9 +1,12 @@
 Controllers\Home.class
-Controllers\Login$2.class
+DAOs\UserDAO.class
 Controllers\Admin.class
 Controllers\Logout.class
-Controllers\Login.class
 DAOs\AccountDAO.class
+Controllers\Login$2.class
+DAOs\ProductDAO.class
+Models\Product.class
+Controllers\Login.class
 Models\Brand.class
 DB\DBConnection.class
 Models\Users.class
