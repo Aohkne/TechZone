@@ -6,6 +6,7 @@ DAOs\AccountDAO.class
 Controllers\Login$2.class
 DAOs\ProductDAO.class
 Models\Product.class
+Controllers\User.class
 Controllers\Login.class
 Models\Brand.class
 DB\DBConnection.class

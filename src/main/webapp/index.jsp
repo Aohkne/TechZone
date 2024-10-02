@@ -119,7 +119,6 @@
                                 for (Cookie cookie : cookies) {
                                     if (cookie.getName().equals("id")) {
                                         idUser = cookie.getValue();
-
                                         UserDAO userdao = new UserDAO();
                                         ResultSet rs = userdao.getUserById(idUser);
                                         while (rs.next()) {
@@ -146,7 +145,7 @@
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
-                                    <a href="./user_profile.jsp" class="account__link">
+                                    <a href="user_profile.jsp" class="account__link">
                                         My Profile
                                     </a>
                                 </div>
