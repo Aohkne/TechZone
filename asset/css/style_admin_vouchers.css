@@ -9,7 +9,7 @@ main {
     padding: 10px 20px 0 280px;
 }
 /* SIDEBAR */
-.list li:nth-child(5) {
+.list li:nth-child(7) {
     background-color: #00acc1;
     box-shadow: 0 0 10px #00acc1;
 }
@@ -160,7 +160,7 @@ tr {
 }
 /* Adjust size */
 .table-container table .review {
-    width: 400px;
+    width: 100px;
 }
 .table-container table .author {
     width: 200px;
@@ -178,4 +178,118 @@ table td button {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     color: #ffffff;
     padding: 5px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 30px auto;
+    width: 40%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    overflow-y: auto;
+    height: 90%;
+}
+
+/* Scrollbar for modal content */
+.modal-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0;
+    border-radius: 10px;
+}
+
+/* Form inside the modal */
+.modal-content .voucher-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    height: 88%;
+}
+
+.modal-content .voucher-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.modal-content .voucher-form input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+/* Close button */
+.modal-content .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 28px;
+    line-height: 15px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.modal-content .close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Buttons (Cancel, Add/Save) */
+.add-cancel-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.add-cancel-btn .cancel-btn, .accept-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #ffffff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    font-size: 14px;
+}
+
+.add-cancel-btn .cancel-btn {
+    background: linear-gradient(60deg, #ef5350, #e53935);
+}
+
+.add-cancel-btn .accept-btn {
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 80%;
+        height: auto;
+    }
 }

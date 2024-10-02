@@ -54,3 +54,42 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("myModal").style.display = "none";
   });
 });
+
+// Edit Category
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the modal
+  const editModal = document.getElementById("editModal");
+
+  // Get the close button
+  const closeBtn = document.querySelector("#editModal .close-btn");
+  const cancelBtn = document.querySelector("#editModal .cancel-btn");
+
+  // Get all the edit buttons
+  const editButtons = document.querySelectorAll(".edit-btn");
+
+  // Loop through each edit button
+  editButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Open the edit modal when the edit button is clicked
+      editModal.style.display = "block";
+    });
+  });
+
+  // When the close button is clicked, close the modal
+  closeBtn.addEventListener("click", () => {
+    editModal.style.display = "none";
+  });
+
+  // When the cancel button is clicked, prevent default and close the modal
+  cancelBtn.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent default form behavior
+    editModal.style.display = "none";
+  });
+
+  // Optional: close the modal if the user clicks outside the modal content
+  window.addEventListener("click", (event) => {
+    if (event.target == editModal) {
+      editModal.style.display = "none";
+    }
+  });
+});

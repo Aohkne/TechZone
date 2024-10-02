@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comments</title>
+    <link rel="stylesheet" href="/asset/css/style_admin_vouchers.css" />
+    <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+    <script src="/asset/js/js_admin_vouchers.js" defer></script>
+    <script src="/asset/js/js_all/js_delete-button.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/d40f80c35f.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="/asset/js/js_all/js_account.js" defer></script>
+  </head>
+  <body>
+    <!-- SIDE BAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <h1>TechZone</h1>
+      </div>
+      <div class="list-container">
+        <ul class="list">
+          <li>
+            <a href="admin_dashboard.html"
+              ><i class="fa-solid fa-list"></i>Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="admin_products.html"
+              ><i class="fa-solid fa-box"></i>Products</a
+            >
+          </li>
+          <li>
+            <a href="admin_categories.html"
+              ><i class="fa-solid fa-layer-group"></i>Categories</a
+            >
+          </li>
+          <li>
+            <a href="admin_users.html"
+              ><i class="fa-solid fa-users"></i>Users</a
+            >
+          </li>
+          <li>
+            <a href="admin_reviews.html"
+              ><i class="fa-solid fa-comment"></i>Reviews</a
+            >
+          </li>
+          <li>
+            <a href="admin_brands.html"
+              ><i class="fa-solid fa-map"></i>Brands</a
+            >
+          </li>
+          <li>
+            <a href="admin_vouchers.html"
+              ><i class="fa-solid fa-ticket"></i>Vouchers</a
+            >
+          </li>
+          <li>
+            <a href="admin_chat.html"
+              ><i class="fa-solid fa-message"></i>Chat</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="account dropdown-button">
+        <div class="account-icon-name">
+          <i class="fa-solid fa-user"></i>
+          <p class="account-name">Nguyen Trong Quy</p>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="admin_profile.html">Profile</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MAIN CONTENT -->
+    <main>
+      <nav>
+        <p class="title">Vouchers</p>
+        <div class="search-bar">
+          <input type="text" placeholder="Search" /><i
+            class="fa-solid fa-magnifying-glass"
+          ></i>
+        </div>
+      </nav>
+
+      <div class="card-container">
+        <div class="card">
+          <p class="card-name">Vouchers</p>
+          <p class="card-value"></p>
+          <div
+            class="card-icon"
+            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+          >
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <hr />
+          <p class="card-graph">Graph Details</p>
+        </div>
+
+        <!-- Buttons: Sort and Add -->
+        <div class="buttons-container">
+          <button
+            class="add-btn"
+            style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+          >
+            Add
+          </button>
+          <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
+            Sort
+          </button>
+        </div>
+      </div>
+
+      <!-- VOUCHERS TABLE -->
+      <div class="table-container">
+        <h1 class="table-name">VOUCHERS LIST</h1>
+        <table>
+          <thead>
+            <tr>
+              <th class="review">ID</th>
+              <th class="author">Date</th>
+              <th class="product-name">Expire Date</th>
+              <th class="posted-date">Sales percentage</th>
+              <th class="operations">Stock</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </main>
+    <!-- ADD MODAL -->
+    <div id="addModal" class="modal">
+      <div class="modal-content">
+        <h1>Add Voucher</h1>
+        <span class="close-btn">&times;</span>
+        <form class="voucher-form">
+          <label>
+            Enter voucher ID
+            <input
+              type="text"
+              id="voucher-id"
+              placeholder="Voucher ID"
+              required
+            />
+          </label>
+          <label>
+            Enter voucher date
+            <input type="date" id="voucher-date" required />
+          </label>
+          <label>
+            Enter expire date
+            <input type="date" id="expire-date" required />
+          </label>
+          <label>
+            Enter sales percentage
+            <input
+              type="number"
+              id="sales-percentage"
+              placeholder="Sales %"
+              required
+            />
+          </label>
+          <label>
+            Enter stock
+            <input type="number" id="stock" placeholder="Stock" required />
+          </label>
+          <div class="add-cancel-btn">
+            <button
+              class="cancel-btn"
+              style="background: linear-gradient(60deg, #ef5350, #e53935)"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="accept-btn"
+              style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <h1>Edit Voucher</h1>
+        <span class="close-btn">&times;</span>
+        <form class="voucher-form">
+          <label>
+            Edit voucher ID
+            <input type="text" id="edit-voucher-id" required />
+          </label>
+          <label>
+            Edit voucher date
+            <input type="date" id="edit-voucher-date" required />
+          </label>
+          <label>
+            Edit expire date
+            <input type="date" id="edit-expire-date" required />
+          </label>
+          <label>
+            Edit sales percentage
+            <input type="number" id="edit-sales-percentage" required />
+          </label>
+          <label>
+            Edit stock
+            <input type="number" id="edit-stock" required />
+          </label>
+          <div class="add-cancel-btn">
+            <button
+              class="cancel-btn"
+              style="background: linear-gradient(60deg, #ef5350, #e53935)"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="accept-btn"
+              style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

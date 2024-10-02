@@ -8,6 +8,11 @@ main {
     flex-grow: 1;
     padding: 10px 20px 0 280px;
 }
+/* SIDEBAR */
+.list li:nth-child(2) {
+    background-color: #00acc1;
+    box-shadow: 0 0 10px #00acc1;
+}
 /* Navbar */
 main nav {
     display: flex;
@@ -125,7 +130,7 @@ main .card .card-graph:hover {
     flex: 1;
 }
 /* PRODUCTS TABLE */
-.products-table .table-name {
+.table-container .table-name {
     text-align: center;
     background: linear-gradient(60deg, #26c6da, #00acc1);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
@@ -139,10 +144,10 @@ table, th, tr, td {
     text-align: start;
     padding: 5px;
 }
-.products-table {
+.table-container {
     margin-top: 3rem;
 }
-.products-table table {
+.table-container table {
     width: 100%;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     border-radius: 5px;
@@ -150,7 +155,7 @@ table, th, tr, td {
     overflow: hidden;
     
 }
-.products-table table .product-img {
+.table-container table .product-img {
     max-width: 100px;
 }
 tr {
@@ -186,6 +191,30 @@ table td button {
     overflow-y: auto;
     height: 90%;
 }
+/* MODAL */
+.modal {
+    position: fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 30px auto;
+    width: 40%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    overflow-y: auto;
+    height: 90%;
+}
+
 /* Modal content scrollbar */
 .modal-content::-webkit-scrollbar {
     width: 20px;
@@ -201,17 +230,23 @@ table td button {
     border: 1px solid rgba(0, 0, 0, .20);
     height: 10px !important;
 }
-.modal-content .product-form {
+
+.modal-content .product-form, .modal-content .edit-product-form {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
 }
-.modal-content .product-form label{
+
+.modal-content .product-form label, .modal-content .edit-product-form label {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.modal-content .product-form input, select{
+
+.modal-content .product-form input, 
+.modal-content .product-form select,
+.modal-content .edit-product-form input, 
+.modal-content .edit-product-form select {
     padding: 10px;
     width: 100%;
     font-size: 16px;
@@ -219,6 +254,7 @@ table td button {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, .3);
 }
+
 .modal-content .close-btn {
     position: absolute;
     right: 10px;
@@ -228,18 +264,21 @@ table td button {
     padding: 10px;
     border-radius: 50%;
 }
+
 .modal-content .close-btn:hover {
     background-color: rgba(0, 0, 0, .14);
     cursor: pointer;
 }
-.modal-content .product-form .add-cancel-btn{
+
+.modal-content .add-cancel-btn {
     width: 50%;
     display: flex;
     justify-content: flex-end;
     gap: 5px;
     margin-left: auto;
 }
-.add-cancel-btn .accept-btn, .cancel-btn{
+
+.add-cancel-btn .accept-btn, .cancel-btn {
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -248,3 +287,4 @@ table td button {
     padding: 10px;
     flex: 1;
 }
+

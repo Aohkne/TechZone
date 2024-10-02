@@ -1,4 +1,99 @@
+const products = [
+  {
+    id: 1,
+    image: "asset/img/img_all/img_product/img_phone/iphone13.jpg",
+    name: "IPhone 13",
+    price: 350,
+    salePrice: 299,
+    brand: "Apple",
+    category: "Phone",
+    madeIn: "United States",
+    createDate: "20/9/2024",
+    updateDate: "25/9/2024",
+    stock: 5,
+  },
+  {
+    id: 2,
+    image: "asset/img/img_all/img_product/img_phone/oppoReno12.jpg",
+    name: "IPhone 13",
+    price: 350,
+    salePrice: 299,
+    brand: "Apple",
+    category: "Phone",
+    madeIn: "United States",
+    createDate: "20/9/2024",
+    updateDate: "25/9/2024",
+    stock: 5,
+  },
+  {
+    id: 3,
+    image: "asset/img/img_all/img_product/img_phone/samsungA05.jpg",
+    name: "IPhone 13",
+    price: 350,
+    salePrice: 299,
+    brand: "Apple",
+    category: "Phone",
+    madeIn: "United States",
+    createDate: "20/9/2024",
+    updateDate: "25/9/2024",
+    stock: 5,
+  },
+  {
+    id: 4,
+    image: "asset/img/img_all/img_product/img_phone/xiaomi13C.jpg",
+    name: "IPhone 13",
+    price: 350,
+    salePrice: 299,
+    brand: "Apple",
+    category: "Phone",
+    madeIn: "United States",
+    createDate: "20/9/2024",
+    updateDate: "25/9/2024",
+    stock: 5,
+  },
+];
+// RENDERING PRODUCTS
+function renderTable() {
+  // Create a document fragment to hold the table rows
+  const fragment = document.createDocumentFragment();
+  // Go through product list and append to fragment
+  products.forEach((product) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${product.id}</td>
+      <td><img src="${product.image}" alt="${
+      product.name
+    }" class="product-img" /></td>
+      <td>${product.name}</td>
+      <td>$${product.price}</td>
+      <td>${product.salePrice || "-"}</td>
+      <td>${product.brand}</td>
+      <td>${product.category}</td>
+      <td>${product.madeIn}</td>
+      <td>${product.createDate}</td>
+      <td>${product.updateDate}</td>
+      <td>${product.stock}</td>
+      <td>
+        <button class="edit-btn" onclick="editData(this)" style="background: linear-gradient(60deg, #26c6da, #00acc1);">Edit</button>
+        <button class="delete-btn" style="background: linear-gradient(60deg, #ef5350, #e53935);">Delete</button>
+      </td>
+    `;
+
+    fragment.appendChild(tr);
+  });
+
+  // Update the table body with fragment
+  const tableBody = document.getElementById("table-body");
+  tableBody.appendChild(fragment);
+  // Update the card value
+  document.querySelector(".card-value").innerHTML = products.length;
+}
+// Render table
+renderTable();
+
 // MODAL
+// Add Product
 const addButton = document.querySelector(".add-btn");
 const closeButton = document.querySelectorAll(".close-btn, .cancel-btn");
 let modal = document.querySelector(".modal");
@@ -12,61 +107,37 @@ closeButton.forEach(function (button) {
     modal.style.display = "none";
   };
 });
-// ACCEPT BUTTON
+
+// Edit Product
 document.addEventListener("DOMContentLoaded", () => {
-  // Select the form and table elements
-  const productForm = document.querySelector(".product-form");
-  const productsTable = document.querySelector(".products-table table");
+  // Get the modal
+  const editModal = document.getElementById("editModal");
 
-  // Add event listener to the form's submit event
-  productForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+  // Get the close button
+  const closeBtn = document.querySelector("#editModal .close-btn");
+  const cancelBtn = document.querySelector("#editModal .cancel-btn");
+  // Get all the edit buttons
+  const editButtons = document.querySelectorAll(".edit-btn");
 
-    // Get form input values
-    const productId = document.getElementById("product-id").value;
-    const productName = document.getElementById("product-name").value;
-    const productPrice = document.getElementById("product-price").value;
-    const productSalePrice =
-      document.getElementById("product-sale-price").value;
-    const productBrand = document.getElementById("product-brand").value;
-    const productCategory = document.getElementById("product-category").value;
-    const productCountry = document.getElementById("product-country").value;
-    const productStock = document.getElementById("product-stock").value;
-    const productImage = document.getElementById("product-image").files[0];
-    const productImageSrc = productImage
-      ? URL.createObjectURL(productImage)
-      : "";
+  // Loop through each edit button
+  editButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Open the edit modal when the edit button is clicked
+      editModal.style.display = "block";
+    });
+  });
 
-    // Create a new row element
-    const newRow = document.createElement("tr");
-
-    // Set the inner HTML of the new row
-    newRow.innerHTML = `
-      <td><input type="checkbox" /></td>
-      <td>${productId}</td>
-      <td><img src="${productImageSrc}" alt="${productName}" class="product-img" /></td>
-      <td>${productName}</td>
-      <td>$${productPrice}</td>
-      <td>$${productSalePrice}</td>
-      <td>${productBrand}</td>
-      <td>${productCategory}</td>
-      <td>${productCountry}</td>
-      <td>${new Date().toLocaleDateString()}</td>
-      <td>${new Date().toLocaleDateString()}</td>
-      <td>${productStock}</td>
-      <td>
-        <button style="background: linear-gradient(60deg, #26c6da, #00acc1)">Edit</button>
-        <button style="background: linear-gradient(60deg, #ef5350, #e53935)">Delete</button>
-      </td>
-    `;
-
-    // Append the new row to the table
-    productsTable.appendChild(newRow);
-
-    // Reset the form after submission
-    productForm.reset();
-
-    // Close the modal (you can implement a function to handle this)
-    document.getElementById("myModal").style.display = "none";
+  // When the close button is clicked, close the modal
+  closeBtn.addEventListener("click", () => {
+    editModal.style.display = "none";
+  });
+  cancelBtn.addEventListener("click", () => {
+    editModal.style.display = "none";
+  });
+  // Optional: close the modal if the user clicks outside the modal content
+  window.addEventListener("click", (event) => {
+    if (event.target == editModal) {
+      editModal.style.display = "none";
+    }
   });
 });

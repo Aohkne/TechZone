@@ -8,6 +8,11 @@ main {
     flex-grow: 1;
     padding: 10px 20px 0 280px;
 }
+/* SIDEBAR */
+.list li:nth-child(4) {
+    background-color: #00acc1;
+    box-shadow: 0 0 10px #00acc1;
+}
 /* Navbar */
 main nav {
     display: flex;
@@ -125,7 +130,7 @@ main .card .card-graph:hover {
     flex: 1;
 }
 /* users TABLE */
-.users-table .table-name {
+.table-container .table-name {
     text-align: center;
     background: linear-gradient(60deg, #ffa726, #fb8c00);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
@@ -139,10 +144,10 @@ table, th, tr, td {
     text-align: start;
     padding: 5px;
 }
-.users-table {
+.table-container {
     margin-top: 3rem;
 }
-.users-table table {
+.table-container table {
     width: 100%;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     border-radius: 5px;
@@ -150,7 +155,7 @@ table, th, tr, td {
     overflow: hidden;
     
 }
-.users-table table .user-img {
+.table-container table .user-img {
     width: 100px;
     height: 100px;
 }

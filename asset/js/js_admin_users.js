@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll("button");
+  const BlockButtons = document.querySelectorAll(".block-btn");
 
-  buttons.forEach((button) => {
+  BlockButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const currentStatus = button.textContent.trim();
 

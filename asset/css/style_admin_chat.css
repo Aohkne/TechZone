@@ -9,7 +9,7 @@ main {
     padding: 10px 20px 0 280px;
 }
 /* SIDEBAR */
-.list li:nth-child(5) {
+.list li:nth-child(8) {
     background-color: #00acc1;
     box-shadow: 0 0 10px #00acc1;
 }
@@ -46,7 +46,7 @@ main nav .search-bar i {
 main .card-container {
     margin-top: 60px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 30px;
 }
@@ -109,73 +109,101 @@ main .card .card-graph:hover {
     color: #000000;
     cursor: pointer;
 }
-/* BUTTONS CONTAINER */
-.buttons-container {
-    /* background-color: red; */
+/* CHAT */
+.chat-section {
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 500px;
     gap: 10px;
 }
-.buttons-container button {
-    padding: 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 300;
-    flex: 1;
-}
-/* reviews TABLE */
-.table-container .table-name {
-    text-align: center;
-    background: linear-gradient(60deg, #ef5350, #e53935);
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    border-radius: 5px;
-    color: #ffffff;
-    margin: 0 300px;
-    font-weight: 300;
-}
-table, th, tr, td {
-    background-color: #ffffff;
-    text-align: start;
+.chat-container {
+    background-color: white;
+    width: 60vh;
+    height: 90vh;
+    border-radius: 10px;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14);
     padding: 20px;
 }
-.table-container {
-    margin-top: 3rem;
+.people-container {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 10px;
 }
-.table-container table {
-    width: 100%;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    border-radius: 5px;
-    border-collapse: collapse;
-    overflow: hidden;
-    
+.person {
+    position: relative;
+    border-radius: 10px;
+    padding: 30px;
+    overflow-x: hidden;
 }
-tr {
-    border-bottom: 1px solid #eee;
+.person .person-image  {
+    position: absolute;
+    width: 50px;
+    border-radius: 50%;
+    left: 5px;
+    top: 5px;
 }
-/* Adjust size */
-.table-container table .review {
-    width: 400px;
+.person .person-name {
+    position: absolute;
+    top: 5px;
+    left: 60px;
+    color: #00acc1;
+    font-weight: 500;
 }
-.table-container table .author {
-    width: 200px;
+.person .person-message {
+    position: absolute;
+    display: inline;
+    top: 30px;
+    left: 60px;
+    color: lightslategray;
 }
-.table-container table .product-name {
-    width: 200px;
+.person .message-date {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: lightslategray;
 }
-.table-container table .posted-date {
-    width: 200px;
-}
-table td button {
+.person:hover {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14);
     cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    color: #ffffff;
-    padding: 5px;
+}
+.chatbox {
+    background-color: white;
+    height: 90vh;
+    flex-grow: 1;
+    border-radius: 10px;
+    position: relative;
+    padding: 20px;
+}
+.hidden {
+    display: none;
+}
+.selected {
+    background-color: white;
+}
+.chatbox-input-container {
+    position: absolute;
+    width: 95%;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.chatbox-input-container .chatbox-input {
+    width: 90%;
+    padding: 15px;
+    border-radius: 50px;
+    font-size: 16px;
+    border: 1px solid black;
+}
+.chatbox-input-container .chatbox-send-icon {
+    background-color: #00acc1;
+    padding: 15px;
+    border-radius: 50%;
+}
+.chatbox-input-container .chatbox-send-icon:hover {
+    background-color: #00d6f2;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
 }

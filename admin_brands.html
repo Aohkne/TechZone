@@ -59,6 +59,16 @@
               ><i class="fa-solid fa-map"></i>Brands</a
             >
           </li>
+          <li>
+            <a href="admin_vouchers.html"
+              ><i class="fa-solid fa-ticket"></i>Vouchers</a
+            >
+          </li>
+          <li>
+            <a href="admin_chat.html"
+              ><i class="fa-solid fa-message"></i>Chat</a
+            >
+          </li>
         </ul>
       </div>
       <div class="account dropdown-button">
@@ -67,7 +77,7 @@
           <p class="account-name">Nguyen Trong Quy</p>
           <div class="dropdown-content">
             <ul>
-              <li><a href="#">Profile</a></li>
+              <li><a href="admin_profile.html">Profile</a></li>
               <li><a href="#">Logout</a></li>
             </ul>
           </div>
@@ -105,12 +115,6 @@
             Add
           </button>
           <button
-            class="delete-btn"
-            style="background: linear-gradient(60deg, #ef5350, #e53935)"
-          >
-            Delete
-          </button>
-          <button
             class="sort-btn"
             style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
           >
@@ -119,18 +123,16 @@
         </div>
       </div>
       <!-- BRANDS TABLE -->
-      <div class="brands-table">
+      <div class="table-container">
         <h1 class="table-name">BRANDS LIST</h1>
         <table>
           <tr>
-            <th><input type="checkbox" /></th>
             <th class="id">ID</th>
             <th class="name">Name</th>
             <th class="description">Description</th>
             <th class="operations">Operations</th>
           </tr>
           <tr>
-            <td><input type="checkbox" /></td>
             <td>1</td>
             <td>Apple</td>
             <td>
@@ -143,6 +145,7 @@
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                class="edit-btn"
               >
                 Edit</button
               ><button
@@ -153,7 +156,6 @@
             </td>
           </tr>
           <tr>
-            <td><input type="checkbox" /></td>
             <td>2</td>
             <td>Samsung</td>
             <td>
@@ -167,6 +169,7 @@
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                class="edit-btn"
               >
                 Edit</button
               ><button
@@ -177,7 +180,6 @@
             </td>
           </tr>
           <tr>
-            <td><input type="checkbox" /></td>
             <td>3</td>
             <td>Xiaomi</td>
             <td>
@@ -190,6 +192,7 @@
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                class="edit-btn"
               >
                 Edit</button
               ><button
@@ -200,7 +203,6 @@
             </td>
           </tr>
           <tr>
-            <td><input type="checkbox" /></td>
             <td>4</td>
             <td>Oppo</td>
             <td>
@@ -212,6 +214,7 @@
             <td>
               <button
                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                class="edit-btn"
               >
                 Edit</button
               ><button
@@ -271,6 +274,59 @@
                 class="accept-btn"
               >
                 Add
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- EDIT BRAND MODAL -->
+      <div id="editModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <h1>Edit Brand</h1>
+          <span class="close-btn">&times;</span>
+          <form action="" class="brand-edit-form">
+            <label>
+              Edit brand ID
+              <input
+                type="text"
+                id="edit-brand-id"
+                placeholder="Brand ID"
+                required
+              />
+            </label>
+            <label>
+              Edit brand name
+              <input
+                type="text"
+                id="edit-brand-name"
+                placeholder="Brand name"
+                required
+              />
+            </label>
+            <label>
+              Edit brand description
+              <textarea
+                placeholder="Brand description"
+                id="edit-brand-description"
+                rows="15"
+                style="padding: 10px"
+              ></textarea>
+            </label>
+
+            <div class="add-cancel-btn">
+              <button
+                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                class="cancel-btn"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                class="accept-btn"
+              >
+                Save
               </button>
             </div>
           </form>
