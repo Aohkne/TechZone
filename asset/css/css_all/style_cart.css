@@ -32,7 +32,10 @@
   padding-top: 5px;
 }
 
-.cart__list {}
+.cart__list {
+  max-height: 300px;
+  overflow-y: auto
+}
 
 .cart__item {
   background-color: var(--primary-black-color);

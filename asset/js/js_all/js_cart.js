@@ -151,11 +151,14 @@ function updateCartList() {
     var total = 0;
     var price;
     list.forEach((e) => {
+      //tách chuỗi thành số và đơn vị
       price = e.price.split(" ");
+      //thay . giữu các số để thành chuỗi số
+      price[0] = price[0].replace(/\./g, "");
       total += +price[0] * e.quantity;
     });
 
-    price = total + "000 VND";
+    price = total + " VND";
     price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     cartFooter.innerHTML = `
