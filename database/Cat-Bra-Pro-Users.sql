@@ -31,7 +31,7 @@ CREATE TABLE Brand (
     description TEXT
 );
 INSERT INTO Brand (brand_name, description)
-VALUES 
+VALUES
 ('Apple', 'A technology company known for iPhones, MacBooks, and other devices'),
 ('Samsung', 'A multinational conglomerate producing smartphones, TVs, and other electronics'),
 ('Sony', 'A Japanese company famous for PlayStation, cameras, and audio equipment'),
@@ -39,6 +39,18 @@ VALUES
 ('HP', 'A multinational information technology company known for laptops and printers'),
 ('Xiaomi', 'A Chinese electronics company producing smartphones, smartwatches, and more'),
 ('Oculus', 'A brand specializing in virtual reality products, owned by Meta (Facebook)');
+('Asus', ' A technology company known for laptops, gaming hardware, and innovative computing solutions.')
+('Nintendo', 'A video game company known for its iconic consoles, innovative gameplay experiences, and beloved franchises like Mario, Zelda, and Pokémon.')
+
+--  1 - Apple
+--  2 - Samsung
+--  3 - Sony
+--  4 - Dell
+--  5 - HP
+--  6 - Xiaomi
+--  7 - Oculus
+--  8 - Asus
+--  9 - Nintendo
 
 
 
@@ -47,7 +59,7 @@ CREATE TABLE [Product] (
     pro_name VARCHAR(255) NOT NULL,
     description TEXT,
     pro_price DECIMAL(10, 2) NOT NULL,
-    pro_discount DECIMAL(5, 2),
+    pro_sale DECIMAL(10, 2),
     pro_quantity INT NOT NULL,
     madein VARCHAR(100) Not null,
     created_at DATE DEFAULT GETDATE(),
@@ -59,17 +71,22 @@ CREATE TABLE [Product] (
     FOREIGN KEY (brand_id) REFERENCES Brand(brand_id)
 );
 
-
-INSERT INTO Product (pro_name, description, pro_price, pro_discount, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
+INSERT INTO Product (pro_name, description, pro_price, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
 VALUES
-('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 0, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 7, 3)
-('PlayStation 5', 'The PlayStation 5 is Sony''s latest gaming console, offering powerful performance with a custom SSD for fast loading times, 4K graphics, and ray tracing. It features a new DualSense controller with haptic feedback and adaptive triggers, enhancing gameplay immersion. The PS5 supports a vast library of games, including backward compatibility with most PS4 titles, and comes in two versions: Standard and Digital Edition.', 11000000, 0, 100, 'Japan', '2024-10-1', './asset/img/img_all/img_product/img_console/playstation5.jpg', 5, 3),
-('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor. It features an always-on display, built-in GPS, and sleep tracking, all in a stylish design.', 10270000, 0, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 1, 1),
-('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications, and a 48MP camera. It offers 5G, enhanced low-light performance, and longer battery life.', 17590000, 0, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_phone/iphone14_purple.jpg', 1, 1),
-('Manami Earphone', 'The Manami Earphone is a high-quality in-ear audio accessory designed for clear sound and comfort. Featuring noise isolation, deep bass, and crisp treble, it provides an immersive listening experience. The ergonomic design ensures a secure fit for extended use, while the built-in microphone and inline controls make it easy to take calls and control your music. Ideal for music lovers seeking reliable performance and stylish design.',100000, 0, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
-('MacBook Air 2022', 'The MacBook Air 2022 is a sleek, ultra-portable laptop featuring Apple''s M2 chip, offering impressive performance with energy efficiency. It has a 13.6-inch Liquid Retina display, up to 18 hours of battery life, a fanless design for silent operation, and a redesigned look that''s thinner and lighter. The device also includes an improved 1080p FaceTime HD camera, a MagSafe charging port, and support for up to 24GB of unified memory, making it ideal for everyday tasks and creative workflows.',999999, 0, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
-('Oculus Quest 2', 'The Oculus Quest 2 is an advanced all-in-one virtual reality headset by Meta, featuring a high-resolution display, powerful Qualcomm Snapdragon XR2 processor, and intuitive Touch controllers. It offers a wireless, standalone VR experience with access to a vast library of games and apps. The lightweight design, adjustable straps, and 3D positional audio provide comfort and immersion, making it ideal for gaming, fitness, and social experiences without the need for a PC or external sensors.',5999999, 0, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 6, 7),
+('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 7, 3),
+('PlayStation 5', 'The PlayStation 5 is Sony''s latest console, delivering fast performance with a custom SSD, 4K graphics, and ray tracing. Its DualSense controller adds haptic feedback and adaptive triggers for immersive gameplay. The PS5 supports most PS4 games and comes in Standard and Digital editions.', 11000000, 100, 'Japan', '2024-10-1', './asset/img/img_all/img_product/img_console/playstation5.jpg', 5, 3),
+('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor. It features an always-on display, built-in GPS, and sleep tracking, all in a stylish design.', 10270000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 1, 1),
+('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications, and a 48MP camera. It offers 5G, enhanced low-light performance, and longer battery life.', 17590000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_phone/iphone14_purple.jpg', 1, 1),
+('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit. It includes a built-in mic and controls, perfect for music lovers wanting performance and style.',100000, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
+('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display, and up to 18 hours of battery life. It features a fanless, thin design, improved 1080p camera, and MagSafe charging, ideal for everyday and creative tasks.',999999, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
+('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor, and intuitive Touch controllers. It offers a standalone VR experience with a vast game library, lightweight design, and 3D audio for immersive gaming and fitness.',5999999, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 6, 7),
 
+
+INSERT INTO Product (pro_name, description, pro_price, pro_sale, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
+VALUES
+('Asus Zenbook Ux305', 'The Asus ZenBook UX305 is an ultra-slim, lightweight laptop with a 13.3-inch Full HD display, Intel Core M processor, and fanless design for quiet operation. It offers fast SSD storage, up to 8GB RAM, and long battery life, perfect for portable productivity.', 16500000, 14100000, 100, 'Taiwan', '2024-10-3', './asset/img/img_all/img_product/img_laptop/AsusZenbookUx305_Sale.png', 4, 8),
+('Nintendo Switch', 'The Nintendo Switch is a versatile gaming console that switches between handheld and TV modes. With a wide library of games and innovative Joy-Con controllers, it offers immersive multiplayer experiences and portability, making it ideal for gamers of all ages.', 8500000, 7500000, 100, 'Japan', '2024-10-3', './asset/img/img_all/img_product/img_console/NintendoSwitch_sale.jpg', 5, 9),
+('Samsung Galaxy S24 Ultra', 'The Samsung Galaxy S24 Ultra is a premium smartphone with a Dynamic AMOLED 2X display, powerful performance, and an advanced camera system. It offers long battery life and S Pen support, making it perfect for users seeking a high-performance device.', 30000000, 27000000, 100, 'South Korea', '2024-10-3', './asset/img/img_all/img_product/img_phone/SamsungGalaxyS24Ultra_sale.jpg', 1, 2),
 
 
 -- Tạo bảng Users

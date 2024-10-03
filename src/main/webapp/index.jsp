@@ -384,7 +384,7 @@
 
                 <%
                     ProductDAO productdao = new ProductDAO();
-                    ResultSet rs = productdao.getAllProduct();
+                    ResultSet rs = productdao.getAllProductNotSale();
                     int countP = 0;
                     while (rs.next()) {
                         if (countP >= 6) {
@@ -451,62 +451,49 @@
 
         <div class="sale__list">
 
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/laptopSale.png" alt="" class="sale__img">
-                <div class="sale__name">MacBook Air 2022</div>
-                <div class="sale__price">999.999</div>
-                <div class="sale__prePrice">1.211.000</div>
-            </div>
+            <%
+                rs = productdao.getAllProductSale();
+                while (rs.next()) {
+                    //Handle price to format
+                    String price = rs.getString("pro_price");
+                    price = price.substring(0, price.length() - 3);
+                    StringBuilder result = new StringBuilder();
+                    int count = 0;
+                    for (int i = price.length() - 1; i >= 0; i--) {
+                        if (count == 3) {
+                            result.append("." + price.charAt(i));
+                            count = 1;
+                        } else {
+                            result.append(price.charAt(i));
+                            count++;
+                        }
+                    }
+                    price = result.reverse() + "";
+                    //Handle sale to format
+                    String sale = rs.getString("pro_sale");
+                    sale = sale.substring(0, sale.length() - 3);
+                    result = new StringBuilder();
+                    count = 0;
+                    for (int i = sale.length() - 1; i >= 0; i--) {
+                        if (count == 3) {
+                            result.append("." + sale.charAt(i));
+                            count = 1;
+                        } else {
+                            result.append(sale.charAt(i));
+                            count++;
+                        }
+                    }
+                    sale = result.reverse() + "";
+
+            %>
 
             <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/laptopSale.png" alt="" class="sale__img">
-                <div class="sale__name">MacBook Air 2022</div>
-                <div class="sale__price">999.999</div>
-                <div class="sale__prePrice">1.211.000</div>
+                <img src=<%= rs.getString("pro_image")%> alt="" class="sale__img">
+                <div class="sale__name"><%= rs.getString("pro_name")%></div>
+                <div class="sale__price"><%= sale%> VND</div>
+                <div class="sale__prePrice"><%= price%> VND</div>
             </div>
-
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
-
-            <div class="sale__item">
-                <img src="./asset/img/img_index/img_sale/vrSale.png" alt="" class="sale__img">
-                <div class="sale__name">Oculus Quest 2</div>
-                <div class="sale__price">5.999.999</div>
-                <div class="sale__prePrice">11.211.000</div>
-            </div>
+            <%}%>
 
         </div>
 

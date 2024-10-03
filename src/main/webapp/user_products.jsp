@@ -337,16 +337,32 @@
 
                 <div class="product__information">
                     <div class="product__name"><%= rs.getString("pro_name")%></div>
+                    
+                    <%
+                        if (rs.getString("pro_sale") == null) {
+                    %>
                     <div class="product__price"><%= price%> VND</div>
-
                     <%
-                        if (Double.parseDouble(rs.getString("pro_discount")) > 0) {
-                    %>
-                    <div class="product__sale"><%= rs.getString("pro_discount")%></div>
-                    <%
+                    } else {
+                        //Handle sale to format
+                        String sale = rs.getString("pro_sale");
+                        sale = sale.substring(0, sale.length() - 3);
+                        result = new StringBuilder();
+                        count = 0;
+                        for (int i = sale.length() - 1; i >= 0; i--) {
+                            if (count == 3) {
+                                result.append("." + sale.charAt(i));
+                                count = 1;
+                            } else {
+                                result.append(sale.charAt(i));
+                                count++;
+                            }
                         }
+                        sale = result.reverse() + "";
                     %>
-
+                    <div class="product__price"> null</div>
+                    <div class="product__sale"><%= price%></div>
+                    <%}%>
 
                     <%
                         BrandDAO branddao = new BrandDAO();

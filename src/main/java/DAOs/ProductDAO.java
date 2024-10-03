@@ -31,6 +31,38 @@ public class ProductDAO {
         }
         return rs;
     }
+    
+     public ResultSet getAllProductSale() {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE pro_sale IS NOT NULL");
+
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+     
+      public ResultSet getAllProductNotSale() {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE pro_sale IS NULL");
+
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
 
     public ResultSet getProductById(String id) {
         Connection conn = DBConnection.getConnection();
