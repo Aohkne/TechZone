@@ -12,21 +12,33 @@
 }
 
 .save-btn {
+    border: none !important;
+}
+
+.save-btn {
     background-color: #242424;
-    /* Màu nền vàng */
     color: #FDC62E;
-    /* Màu chữ đen */
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
     text-align: center;
     font-weight: bold;
-    margin-left: -52px;
-    /* Tạo khoảng cách giữa nút Save và các phần tử khác */
+    width: 51px;
+    height: 31px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -49px;
 }
 
 .save-btn:hover {
     cursor: pointer;
+}
+
+.save-btn:focus {
+    border: none;
+    /* Bỏ viền khi nút có focus */
+    outline: none;
+    /* Bỏ outline mặc định */
 }
 
 .nav {}
@@ -118,6 +130,7 @@
     font-weight: 900;
 }
 
+
 .profile .profile__header {
     display: flex;
     justify-content: space-between;
@@ -132,6 +145,9 @@
     padding: 10px 50px 20px;
 }
 
+.profile__detail input {
+    display: block;
+}
 
 .profile .profile__picture img {
     display: block;
@@ -162,10 +178,12 @@
 .profile .profile__name {
     font-weight: 800;
     font-size: 30px;
+    border: none;
 }
 
 .profile .profile__location {
     color: #ccc;
+    border: none;
 }
 
 
@@ -184,7 +202,6 @@
     justify-content: space-between;
     align-items: center;
     display: flex;
-    /* width: 80%; */
     padding: 0px 80px;
     font-size: 20px;
     line-height: 1.6;
@@ -200,11 +217,25 @@
     color: #a0a0a0;
 }
 
+.profile__detail input:focus,
+.username:focus,
+.email:focus,
+.phone:focus,
+.address:focus {
+    border: none;
+    /* Bỏ viền khi input có focus */
+    outline: none;
+    /* Bỏ outline mặc định */
+}
+
 .username,
 .email,
 .phone,
 .address {
     width: 20%;
+    border: none;
+    font-size: 16px;
+    font-weight: 800;
 }
 
 .profile__edit input {
