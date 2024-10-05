@@ -4,9 +4,11 @@
  */
 package Controllers;
 
+import DAOs.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -69,7 +71,35 @@ public class User extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idUser = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    idUser = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String action = request.getParameter("action");
+        String username = request.getParameter("username");
+        String address = request.getParameter("address");
+        System.out.println(action);
+        UserDAO userdao = new UserDAO();
+        if (action.equalsIgnoreCase("INFO")) {
+            
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            
+            userdao.updateUserInfo(idUser, username, email, phone, address);
+            
+        } else {
+            
+            userdao.updateUserDetail(idUser, username, address);
+        }
+        
+        response.sendRedirect("user_profile.jsp");
+        
     }
 
     /**

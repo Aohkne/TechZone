@@ -1,19 +1,20 @@
 function enableEditMode(section) {
-    // Tùy theo phần đang chỉnh sửa, tìm và kích hoạt chế độ chỉnh sửa cho phần tương ứng
     if (section === 'profile') {
         const profileName = document.querySelector('.profile__name');
         const profileLocation = document.querySelector('.profile__location');
 
-        profileName.setAttribute('contenteditable', true);
-        profileLocation.setAttribute('contenteditable', true);
+        // Loại bỏ thuộc tính readonly để cho phép chỉnh sửa
+        profileName.removeAttribute('readonly');
+        profileLocation.removeAttribute('readonly');
 
-        // Thêm nút lưu cho phần Profile
-        if (!document.querySelector('.profile__edit button')) {
-            const saveButton = document.createElement('button');
-            saveButton.textContent = 'Save';
-            saveButton.classList.add('save-btn');  // Thêm class CSS cho nút Save
-            saveButton.onclick = function () { saveChanges('profile'); };
-            document.querySelectorAll('.profile__edit')[0].appendChild(saveButton);
+        // Thêm nút Save nếu chưa có trong form profile
+        const profileForm = document.querySelector('.personal-profile__form'); // Sửa lại nếu cần
+        if (!profileForm.querySelector('input[type="submit"]')) {
+            const saveInput = document.createElement('input');
+            saveInput.type = 'submit';  // Tạo nút submit
+            saveInput.value = 'Save';
+            saveInput.classList.add('save-btn');  // Thêm class CSS cho nút Save
+            profileForm.appendChild(saveInput); // Thêm nút Save vào form profile
         }
     } else if (section === 'personal-info') {
         const username = document.querySelector('.username');
@@ -21,35 +22,34 @@ function enableEditMode(section) {
         const phone = document.querySelector('.phone');
         const address = document.querySelector('.address');
 
-        username.setAttribute('contenteditable', true);
-        email.setAttribute('contenteditable', true);
-        phone.setAttribute('contenteditable', true);
-        address.setAttribute('contenteditable', true);
+        // Loại bỏ thuộc tính readonly để cho phép chỉnh sửa
+        username.removeAttribute('readonly');
+        email.removeAttribute('readonly');
+        phone.removeAttribute('readonly');
+        address.removeAttribute('readonly');
 
-        // Thêm nút lưu cho phần Personal Information
-        if (!document.querySelectorAll('.profile__edit')[1].querySelector('button')) {
-            const saveButton = document.createElement('button');
-            saveButton.textContent = 'Save';
-            saveButton.classList.add('save-btn');  // Thêm class CSS cho nút Save
-            saveButton.onclick = function () { saveChanges('personal-info'); };
-            document.querySelectorAll('.profile__edit')[1].appendChild(saveButton);
+        // Thêm nút Save nếu chưa có trong form personal-info
+        const personalInfoForm = document.querySelector('.personal-info__form');
+        if (!personalInfoForm.querySelector('input[type="submit"]')) {
+            const saveInput = document.createElement('input');
+            saveInput.type = 'submit';  // Tạo nút submit
+            saveInput.value = 'Save';
+            saveInput.classList.add('save-btn');  // Thêm class CSS cho nút Save
+            personalInfoForm.appendChild(saveInput); // Thêm nút Save vào form personal-info
         }
     }
 }
 
 function saveChanges(section) {
-    // Tùy theo phần đang lưu, tắt chế độ chỉnh sửa cho phần tương ứng
     if (section === 'profile') {
         const profileName = document.querySelector('.profile__name');
         const profileLocation = document.querySelector('.profile__location');
 
-        profileName.setAttribute('contenteditable', false);
-        profileLocation.setAttribute('contenteditable', false);
+        // Thêm lại thuộc tính readonly sau khi lưu
+        profileName.setAttribute('readonly', true);
+        profileLocation.setAttribute('readonly', true);
 
-        // Xóa nút Save sau khi lưu
-        const saveButton = document.querySelectorAll('.profile__edit')[0].querySelector('button');
-        saveButton.remove();
-
+        // Hiển thị thông báo thành công (không cần điều hướng thủ công)
         alert('Profile changes have been saved!');
     } else if (section === 'personal-info') {
         const username = document.querySelector('.username');
@@ -57,29 +57,10 @@ function saveChanges(section) {
         const phone = document.querySelector('.phone');
         const address = document.querySelector('.address');
 
-        username.setAttribute('contenteditable', false);
-        email.setAttribute('contenteditable', false);
-        phone.setAttribute('contenteditable', false);
-        address.setAttribute('contenteditable', false);
-
-        // Xóa nút Save sau khi lưu
-        const saveButton = document.querySelectorAll('.profile__edit')[1].querySelector('button');
-        saveButton.remove();
-
-        alert('Personal information changes have been saved!');
+        // Thêm lại thuộc tính readonly sau khi lưu
+        username.setAttribute('readonly', true);
+email.setAttribute('readonly', true);
+        phone.setAttribute('readonly', true);
+        address.setAttribute('readonly', true);
     }
-}
-
-
-function confirmDeleteAccount() {
-    const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
-    if (confirmation) {
-        deleteAccount();
-    }
-}
-
-function deleteAccount() {
-    // Xóa tài khoản ở đây
-    alert("Your account has been deleted.");
-    // window.location.href = 'login.html'; // Chuyển hướng về trang đăng nhập
 }

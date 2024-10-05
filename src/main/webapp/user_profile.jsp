@@ -76,11 +76,16 @@
                         <div class="profile__container">
                             <div class="profile__picture">
                                 <img src="<%= rs.getString("avatar")%>" alt="User_img">
-                            </div>
-                            <div class="profile__detail">
-                                <div class="profile__name"><%= rs.getString("username")%></div>
-                                <div class="profile__location"><%= rs.getString("address")%></div>
-                            </div>
+                            </div> 
+
+                            <form action="/User" method="POST" class="personal-profile__form">
+                                <div class="profile__detail">
+                                    <input type="hidden" name="action" value="DETAIL">
+                                    <input type="text" class="profile__name" name="username" value="<%= rs.getString("username")%>" readonly>
+                                    <input type="text" class="profile__location" name="address" value="<%= rs.getString("address")%>" readonly>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
 
@@ -93,41 +98,37 @@
                                 <i class="edit-icon ti-pencil-alt"></i>
                             </div>
                         </div>
-                        <div class="profile__information-name">
-                            <div class="profile__username-title">
-                                <div class="username__title">Username</div>
-                                <div class="username"><%= rs.getString("username")%></div>
-                            </div>
-                            <div class="profile__username">
-                            </div>
-                        </div>
 
-                        <div class="profile__information-email">
-                            <div class="profile__email-title">
-                                <div class="email__title">Email</div>
-                                <div class="email"><%= rs.getString("email")%></div>
+                        <form action="/User" method="POST" class="personal-info__form">
+                            <input type="hidden" name="action" value="INFO">
+                            <div class="profile__information-name">
+                                <div class="profile__username-title">
+                                    <div class="username__title">Username</div>
+                                    <input type="text" class="username" name="username" value="<%= rs.getString("username")%>" readonly>
+                                </div>
                             </div>
-                            <div class="profile__email">
-                            </div>
-                        </div>
 
-                        <div class="profile__information-phone">
-                            <div class="profile__phone-title">
-                                <div class="phone__title">Phone</div>
-                                <div class="phone"><%= rs.getString("phone")%></div>
+                            <div class="profile__information-email">
+                                <div class="profile__email-title">
+                                    <div class="email__title">Email</div>
+                                    <input type="email" class="email" name="email" value="<%= rs.getString("email")%>" readonly>
+                                </div>
                             </div>
-                            <div class="profile__phone">
-                            </div>
-                        </div>
 
-                        <div class="profile__information-location">
-                            <div class="profile__address-title">
-                                <div class="address__title">Address</div>
-                                <div class="address"><%= rs.getString("address")%></div>
+                            <div class="profile__information-phone">
+                                <div class="profile__phone-title">
+                                    <div class="phone__title">Phone</div>
+                                    <input type="tel" class="phone" name="phone" value="<%= rs.getString("phone")%>" readonly>
+                                </div>
                             </div>
-                            <div class="profile__address">
+
+                            <div class="profile__information-location">
+                                <div class="profile__address-title">
+                                    <div class="address__title">Address</div>
+                                    <input type="text" class="address" name="address" value="<%= rs.getString("address")%>" readonly>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
                     </div>
 
