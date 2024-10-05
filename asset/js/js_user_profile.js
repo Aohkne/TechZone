@@ -7,17 +7,14 @@ function enableEditMode(section) {
         profileName.removeAttribute('readonly');
         profileLocation.removeAttribute('readonly');
 
-        // Thêm input type="submit" cho phần Profile
-        if (!document.querySelector('.profile__edit input')) {
+        // Thêm nút Save nếu chưa có trong form profile
+        const profileForm = document.querySelector('.personal-profile__form'); // Sửa lại nếu cần
+        if (!profileForm.querySelector('input[type="submit"]')) {
             const saveInput = document.createElement('input');
-            saveInput.type = 'submit';  // Thay đổi type thành submit
+            saveInput.type = 'submit';  // Tạo nút submit
             saveInput.value = 'Save';
             saveInput.classList.add('save-btn');  // Thêm class CSS cho nút Save
-            saveInput.onclick = function (event) {
-                event.preventDefault();  // Ngăn chặn hành vi mặc định của form
-                saveChanges('profile');
-            };
-            document.querySelectorAll('.profile__edit')[0].appendChild(saveInput);
+            profileForm.appendChild(saveInput); // Thêm nút Save vào form profile
         }
     } else if (section === 'personal-info') {
         const username = document.querySelector('.username');
@@ -31,17 +28,14 @@ function enableEditMode(section) {
         phone.removeAttribute('readonly');
         address.removeAttribute('readonly');
 
-        // Thêm input type="submit" cho phần Personal Information
-        if (!document.querySelectorAll('.profile__edit')[1].querySelector('input')) {
+        // Thêm nút Save nếu chưa có trong form personal-info
+        const personalInfoForm = document.querySelector('.personal-info__form');
+        if (!personalInfoForm.querySelector('input[type="submit"]')) {
             const saveInput = document.createElement('input');
-            saveInput.type = 'submit';  // Thay đổi type thành submit
+            saveInput.type = 'submit';  // Tạo nút submit
             saveInput.value = 'Save';
             saveInput.classList.add('save-btn');  // Thêm class CSS cho nút Save
-            saveInput.onclick = function (event) {
-                event.preventDefault();  // Ngăn chặn hành vi mặc định của form
-                saveChanges('personal-info');
-            };
-            document.querySelectorAll('.profile__edit')[1].appendChild(saveInput);
+            personalInfoForm.appendChild(saveInput); // Thêm nút Save vào form personal-info
         }
     }
 }
@@ -55,10 +49,7 @@ function saveChanges(section) {
         profileName.setAttribute('readonly', true);
         profileLocation.setAttribute('readonly', true);
 
-        // Xóa nút Save sau khi lưu
-        const saveInput = document.querySelectorAll('.profile__edit')[0].querySelector('input');
-        saveInput.remove();
-
+        // Hiển thị thông báo thành công (không cần điều hướng thủ công)
         alert('Profile changes have been saved!');
     } else if (section === 'personal-info') {
         const username = document.querySelector('.username');
@@ -71,11 +62,5 @@ function saveChanges(section) {
         email.setAttribute('readonly', true);
         phone.setAttribute('readonly', true);
         address.setAttribute('readonly', true);
-
-        // Xóa nút Save sau khi lưu
-        const saveInput = document.querySelectorAll('.profile__edit')[1].querySelector('input');
-        saveInput.remove();
-
-        alert('Personal information changes have been saved!');
     }
 }

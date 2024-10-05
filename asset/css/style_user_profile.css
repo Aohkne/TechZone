@@ -18,27 +18,19 @@
 .save-btn {
     background-color: #242424;
     color: #FDC62E;
-    text-align: center;
-    font-weight: bold;
-    width: 51px;
-    height: 31px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+    margin-right: 39px;
+    margin-top: 17px;
     align-items: center;
-    justify-content: center;
-    margin-left: -49px;
+    padding: 6px 11px;
+    border: 5px;
 }
 
 .save-btn:hover {
     cursor: pointer;
-}
-
-.save-btn:focus {
-    border: none;
-    /* Bỏ viền khi nút có focus */
-    outline: none;
-    /* Bỏ outline mặc định */
 }
 
 .nav {}
@@ -123,6 +115,8 @@
     border: 2px solid #ddd;
     border-radius: 12px;
     margin: 30px 40px 75px;
+    position: relative;
+
 
 }
 
