@@ -312,6 +312,8 @@
 .cate__content {
     display: flex;
     margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 73px;
     /* justify-content: space-between; */
 
 }
@@ -320,15 +322,9 @@
 .cate__list {
     background-color: #242424;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     position: relative;
     padding-bottom: 45px;
-
-    &+.cate__list {
-        margin-left: 74.5px;
-    }
-
-    /* Nho xoa */
 }
 
 .cate__img {

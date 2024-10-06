@@ -472,22 +472,22 @@
             <div class="footer__categoryList">
 
                 <div class="footer__categoryItem">
-                    <a href="">Earphone</a>
+                    <a href="/Category?id=2">Earphone</a>
                 </div>
                 <div class="footer__categoryItem">
-                    <a href="">Watch</a>
+                    <a href="/Category?id=3">Watch</a>
                 </div>
                 <div class="footer__categoryItem">
-                    <a href="">Laptop</a>
+                    <a href="/Category?id=4">Laptop</a>
                 </div>
                 <div class="footer__categoryItem">
-                    <a href="">Console</a>
+                    <a href="/Category?id=5">Console</a>
                 </div>
                 <div class="footer__categoryItem">
-                    <a href="">Vr</a>
+                    <a href="/Category?id=6">Vr</a>
                 </div>
                 <div class="footer__categoryItem">
-                    <a href="">Speaker</a>
+                    <a href="/Category?id=7">Speaker</a>
                 </div>
 
 
