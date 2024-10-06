@@ -12,4 +12,5 @@ Models\Brand.class
 DB\DBConnection.class
 Models\Users.class
 Controllers\Login$1.class
+Controllers\Category.class
 DAOs\BrandDAO.class

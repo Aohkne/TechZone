@@ -337,7 +337,7 @@
 
                 <div class="product__information">
                     <div class="product__name"><%= rs.getString("pro_name")%></div>
-                    
+
                     <%
                         if (rs.getString("pro_sale") == null) {
                     %>
@@ -360,8 +360,8 @@
                         }
                         sale = result.reverse() + "";
                     %>
-                    <div class="product__price"> null</div>
-                    <div class="product__sale"><%= price%></div>
+                    <div class="product__price"><%= sale%> VND</div>
+                    <div class="product__sale"><%= price%> VND</div>
                     <%}%>
 
                     <%

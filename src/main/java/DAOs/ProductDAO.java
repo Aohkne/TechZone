@@ -31,8 +31,8 @@ public class ProductDAO {
         }
         return rs;
     }
-    
-     public ResultSet getAllProductSale() {
+
+    public ResultSet getAllProductSale() {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
 
@@ -47,8 +47,8 @@ public class ProductDAO {
         }
         return rs;
     }
-     
-      public ResultSet getAllProductNotSale() {
+
+    public ResultSet getAllProductNotSale() {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
 
@@ -73,6 +73,36 @@ public class ProductDAO {
                 Statement st = conn.createStatement();
                 rs = st.executeQuery("select * from Product where pro_id = " + id);
 
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
+    public ResultSet getProductBySearch(String search) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE LOWER(pro_name) LIKE '" + search + "%'");
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
+    public ResultSet getProductByBrandId(String id) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE cat_id = " + id);
             } catch (SQLException ex) {
                 rs = null;
             }

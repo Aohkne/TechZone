@@ -71,11 +71,13 @@ CREATE TABLE [Product] (
     FOREIGN KEY (brand_id) REFERENCES Brand(brand_id)
 );
 
+SELECT * FROM Product WHERE cat_id = '1'
+
 INSERT INTO Product (pro_name, description, pro_price, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
 VALUES
 ('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 7, 3),
 ('PlayStation 5', 'The PlayStation 5 is Sony''s latest console, delivering fast performance with a custom SSD, 4K graphics, and ray tracing. Its DualSense controller adds haptic feedback and adaptive triggers for immersive gameplay. The PS5 supports most PS4 games and comes in Standard and Digital editions.', 11000000, 100, 'Japan', '2024-10-1', './asset/img/img_all/img_product/img_console/playstation5.jpg', 5, 3),
-('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor. It features an always-on display, built-in GPS, and sleep tracking, all in a stylish design.', 10270000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 1, 1),
+('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor. It features an always-on display, built-in GPS, and sleep tracking, all in a stylish design.', 10270000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 3, 1),
 ('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications, and a 48MP camera. It offers 5G, enhanced low-light performance, and longer battery life.', 17590000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_phone/iphone14_purple.jpg', 1, 1),
 ('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit. It includes a built-in mic and controls, perfect for music lovers wanting performance and style.',100000, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
 ('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display, and up to 18 hours of battery life. It features a fanless, thin design, improved 1080p camera, and MagSafe charging, ideal for everyday and creative tasks.',999999, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
@@ -95,7 +97,7 @@ CREATE TABLE Users (
     username VARCHAR(150) NOT NULL,
     password VARCHAR(70) NOT NULL,
     email VARCHAR(40) NOT NULL,
-    phone INT,
+    phone VARCHAR(10),
     address VARCHAR(255),
     role INT,
     create_at DATE DEFAULT GETDATE(),
@@ -114,5 +116,7 @@ select * from Users Where user_id = 4;
 
 -- Thêm user với role = 2
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('le huu khoa', '6cb75f652a9b52798eb6cf2201057c73', 'khoa@gmail.com', '0123', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
+VALUES ('le huu khoa', '6cb75f652a9b52798eb6cf2201057c73', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
 --password2
+
+select * from Users

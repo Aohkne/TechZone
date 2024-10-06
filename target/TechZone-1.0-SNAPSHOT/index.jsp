@@ -209,8 +209,12 @@
             </div>
 
             <div class="navSearch__search col l-8">
-                <input type="text">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <form action="/Category" method="GET">
+                    <input type="text" name="search">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
             </div>
 
             <div class="navSearch__cart col l-2">
@@ -342,32 +346,32 @@
 
                 <div class="category__item col l-2">
                     <img src="./asset/img/img_index/img_category/earphone.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=2">Browse</a>
                 </div>
 
                 <div class="category__item col l-2">
                     <img src="./asset/img/img_index/img_category/watch.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=3">Browse</a>
                 </div>
 
                 <div class="category__item col l-8">
                     <img src="./asset/img/img_index/img_category/laptop.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=4">Browse</a>
                 </div>
 
                 <div class="category__item col l-8">
                     <img src="./asset/img/img_index/img_category/console.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=5">Browse</a>
                 </div>
 
                 <div class="category__item col l-2">
                     <img src="./asset/img/img_index/img_category/vr.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=6">Browse</a>
                 </div>
 
                 <div class="category__item col l-2">
                     <img src="./asset/img/img_index/img_category/speaker.png" alt="" class="category__img">
-                    <button class="category__btn">Browse</button>
+                    <a class="category__btn" href="/Category?id=7">Browse</a>
                 </div>
 
             </div>
