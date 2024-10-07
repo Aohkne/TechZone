@@ -45,9 +45,8 @@ productItem.forEach((e) => {
   };
 });
 
-// Add to local Storage (from user_products)
-
 //Add to Cart
+// Add to local Storage (from user_products)
 
 let addBtn = document.querySelector(".add__btn");
 
@@ -83,8 +82,19 @@ if (addBtn) {
   };
 }
 
-function addItem(id, img, name, price, quantity) {
-  const item = { id, img, name, price, quantity };
+function addItem(
+  id,
+  img,
+  name,
+  price,
+  quantity,
+  voucher = {
+    id: null,
+    img: "./asset/img/img_all/img_cart/voucher_rare.png",
+    voucher: "Voucher",
+  }
+) {
+  const item = { id, img, name, price, quantity, voucher };
   list.push(item);
 }
 
