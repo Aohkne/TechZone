@@ -91,4 +91,31 @@ public class UserDAO {
         return isUpdated;
     }
 
+    public boolean updatePassword(String id, String password) {
+        Connection conn = DBConnection.getConnection();
+        boolean isUpdated = false;
+
+        if (conn != null) {
+            try {
+                String sql = "UPDATE Users SET password = ? WHERE user_id = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, password);
+                ps.setString(2, id);
+
+                // Execute update and check if any row was updated
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    isUpdated = true;
+                }
+
+                // Close the PreparedStatement
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+
+            }
+        }
+        return isUpdated;
+    }
+
 }

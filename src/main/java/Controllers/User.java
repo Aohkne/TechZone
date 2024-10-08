@@ -12,6 +12,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -83,22 +89,77 @@ public class User extends HttpServlet {
         String action = request.getParameter("action");
         String username = request.getParameter("username");
         String address = request.getParameter("address");
-        System.out.println(action);
         UserDAO userdao = new UserDAO();
-        if (action.equalsIgnoreCase("INFO")) {
-            
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            
-            userdao.updateUserInfo(idUser, username, email, phone, address);
-            
+        if (action != null) {
+            if (action.equalsIgnoreCase("INFO")) {
+
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+
+                userdao.updateUserInfo(idUser, username, email, phone, address);
+                request.getRequestDispatcher("user_profile.jsp");
+            } else {
+                userdao.updateUserDetail(idUser, username, address);
+                request.getRequestDispatcher("user_profile.jsp");
+            }
         } else {
-            
-            userdao.updateUserDetail(idUser, username, address);
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassord = request.getParameter("confirmPassord");
+
+            if (oldPassword == "" || newPassword == "" || confirmPassord == "") {
+                request.setAttribute("errorMessage", "Please input password!");
+                request.getRequestDispatcher("user_sercurity.jsp").forward(request, response);
+            } else {
+                ResultSet rs = userdao.getUserById(idUser);
+                try {
+                    // Convert to md5
+                    oldPassword = md5Hash(oldPassword);
+
+                    while (rs.next()) {
+//                        System.out.println(oldPassword);
+//                        System.out.println(rs.getString("password"));
+//                        System.out.println(oldPassword.equals(rs.getString("password")));
+
+                        //Check old password                        
+                        if (oldPassword.equals(rs.getString("password"))) {
+                            //Check new password
+                            if (newPassword.equals(confirmPassord)) {
+                                boolean check = userdao.updatePassword(idUser, md5Hash(newPassword));
+
+                                if (check) {
+                                    request.setAttribute("sucessMessage", "Update Password Successfully!");
+                                    request.getRequestDispatcher("user_sercurity.jsp").forward(request, response);
+                                } else {
+                                    System.out.println("NO");
+                                }
+                            } else {
+                                request.setAttribute("errorMessage", "New password and Confirm password do not match!");
+                                request.getRequestDispatcher("user_sercurity.jsp").forward(request, response);
+                            }
+                        } else {
+                            request.setAttribute("errorMessage", "Wrong password!");
+                            request.getRequestDispatcher("user_sercurity.jsp").forward(request, response);
+                        }
+                    }
+                } catch (SQLException | NoSuchAlgorithmException e) {
+                    Logger.getLogger(e.getMessage());
+                }
+
+            }
+
         }
-        
-        response.sendRedirect("user_profile.jsp");
-        
+    }
+
+    public String md5Hash(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 
     /**

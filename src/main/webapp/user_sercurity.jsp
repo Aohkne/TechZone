@@ -49,27 +49,48 @@
                     <div class="sercurity">
                         <h1 class="sercurity__header">Sercurity</h1>
                     </div>
-                    <form action="">
+                    <form action="/User" method="POST" class="">
                         <div class="sercurity__form">
                             <div class="sercurity__title">Old password</div>
                             <div class="sercurity__edit">
-                                <input type="password" class="form__control" id="old__password">
+                                <input type="password" class="form__control" id="old__password" name="oldPassword">
                             </div>
                         </div>
 
                         <div class="sercurity__form">
                             <div class="sercurity__title__1">New password</div>
                             <div class="sercurity__edit">
-                                <input type="password" class="form__control" id="new__password">
+                                <input type="password" class="form__control" id="new__password" name="newPassword">
                             </div>
                         </div>
 
                         <div class="sercurity__form">
                             <div class="sercurity__title__2">Confirm password</div>
                             <div class="sercurity__edit">
-                                <input type="password" class="form__control" id="new__password">
+                                <input type="password" class="form__control" id="new__password" name="confirmPassord">
                             </div>
                         </div>
+
+                        <%
+                            String errorMessage = (String) request.getAttribute("errorMessage");
+                            if (errorMessage != null) {
+                        %>
+                        <div class="message error-message">
+                            <i class="return-icon ti-face-sad"></i>
+                            <%=errorMessage%>
+                        </div>
+                        <%}%>
+
+                        <%
+                            String sucessMessage = (String) request.getAttribute("sucessMessage");
+                            if (sucessMessage != null) {
+                        %>
+                        <div class="message sucess-message">
+                            <i class="return-icon ti-face-smile"></i>
+                            <%=sucessMessage%>
+                        </div>
+                        <%}%>
+
 
                         <div class="submit">
                             <button class="cancle__btn">cancle</button>

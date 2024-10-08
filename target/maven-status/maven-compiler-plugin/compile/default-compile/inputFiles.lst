@@ -2,9 +2,11 @@ E:\github_work\TechZone\src\main\java\Models\Product.java
 E:\github_work\TechZone\src\main\java\DAOs\ProductDAO.java
 E:\github_work\TechZone\src\main\java\Controllers\Category.java
 E:\github_work\TechZone\src\main\java\Controllers\Home.java
+E:\github_work\TechZone\src\main\java\DAOs\CategoryDAO.java
 E:\github_work\TechZone\src\main\java\DAOs\UserDAO.java
 E:\github_work\TechZone\src\main\java\Controllers\Login.java
 E:\github_work\TechZone\src\main\java\DAOs\BrandDAO.java
+E:\github_work\TechZone\src\main\java\Models\Category.java
 E:\github_work\TechZone\src\main\java\Models\Brand.java
 E:\github_work\TechZone\src\main\java\Controllers\Logout.java
 E:\github_work\TechZone\src\main\java\DAOs\AccountDAO.java

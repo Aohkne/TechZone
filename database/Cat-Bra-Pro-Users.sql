@@ -125,7 +125,5 @@ select * from Users Where user_id = 4;
 
 -- Thêm user với role = 2
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('le huu khoa', '6cb75f652a9b52798eb6cf2201057c73', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
---password2
-
-select * from Users
+VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
+--12345

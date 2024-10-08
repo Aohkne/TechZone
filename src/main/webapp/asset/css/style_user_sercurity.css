@@ -130,8 +130,7 @@
 
 .sercurity__edit {
     padding: 10px 70px;
-    width: 40%;
-
+    width: 56%;
 }
 
 .form__control {
@@ -172,4 +171,30 @@
 }
 
 .save__btn:hover,
-.cancle__btn:hover {}
+.cancle__btn:hover {
+}
+
+
+/* Validated Password */
+
+.message{
+    margin: 10px 70px;
+    padding: 15px 0px;
+    font-size: 18px;
+    font-weight: 600px;
+    text-align: center;
+    width: 45%;
+    border-radius: 5px;
+}
+
+.error-message{
+    color: #F42C37;
+    border: 2px solid #F42C37;
+    background-color: #ffd8da;
+}
+
+.sucess-message{
+    color: #2CD06F;
+    border: 2px solid #2CD06F;
+    background-color: #cfffe3;
+}
