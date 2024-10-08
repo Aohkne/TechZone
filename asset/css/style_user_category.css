@@ -270,6 +270,8 @@
         padding: 130px 20px 0;
     }
 
+
+    /* style ở đây */
     /* Content */
     /* Nav__content */
     .nav__content {
@@ -298,9 +300,66 @@
         width: 10%;
         border-radius: 7px;
         font-size: 16px;
+        cursor: pointer;
+
     }
 
-    .nav__list:hover {
+    /* Định dạng dropdown */
+    .dropdown-list {
+        display: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        position: absolute;
+        margin-top: 10px;
+        width: 120px;
+        z-index: 1;
+        animation: floatDown 0.2s ease-in-out forwards;
+        box-shadow: 0px 1px 5px var(--primary-black-color);
+    }
+
+    @keyframes floatDown {
+        0% {
+            top: 180px;
+            opacity: 0.5;
+        }
+
+        100% {
+            top: 196px;
+            opacity: 1;
+        }
+    }
+
+    /* Định dạng các link bên trong dropdown */
+    .dropdown-list a {
+        display: block;
+        padding: 8px;
+        color: #242424;
+        text-decoration: none;
+        user-select: none;
+        transition: 0.3 ease-in;
+        border-radius: 5px;
+        border: 2px solid transparent;
+    }
+
+    .dropdown-list a:hover {
+        border-color: var(--primary-yellow-color);
+    }
+
+    /* Hiện danh sách khi hover vào "Popular" */
+    .nav__list.popular:hover .dropdown-list {
+        display: block;
+    }
+
+    /* Định dạng các link trong thẻ nav__list */
+    .nav__list a {
+        /* Giữ nguyên màu chữ của thẻ cha */
+        text-decoration: none;
+    }
+
+    .nav__list:hover+a:first-child {
         background-color: #FDC62E;
         color: #242424;
         cursor: pointer;
@@ -316,12 +375,19 @@
 
     }
 
+
     .cate__list {
         background-color: #242424;
         border-radius: 10px;
         margin-bottom: 10px;
         position: relative;
         padding-bottom: 45px;
+
+        /* &+.cate__list {
+            margin-left: 74.5px;
+        } */
+
+        /* Nho xoa */
     }
 
     .cate__img {

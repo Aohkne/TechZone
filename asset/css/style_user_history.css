@@ -200,6 +200,10 @@
             background-color: var(--white-color);
             height: 50px;
             border-radius: 8px;
+
+            form {
+                height: 100%;
+            }
         }
 
         .navSearch__search input {
@@ -211,8 +215,9 @@
             font-size: 1.8rem;
         }
 
-        .navSearch__search i {
+        .navSearch__search button {
             display: inline-block;
+            margin: auto 0;
             padding: 10px 20px;
             background-color: var(--primary-black-color);
             color: var(--primary-yellow-color);
@@ -221,7 +226,7 @@
             cursor: pointer;
         }
 
-        .navSearch__search i:hover {
+        .navSearch__search button:hover {
             background-color: var(--primary-yellow-color);
             color: var(--primary-black-color);
         }
@@ -262,132 +267,9 @@
         /* Body */
 
         .app {
-            padding: 0 20px 0;
+            padding: 130px 20px 0;
         }
 
-        /* slider */
-
-        .slider {
-            position: relative;
-            margin-top: 130px;
-            height: 450px;
-            /* background-size: 100% 100%; */
-            /* border-radius: 10px; */
-            box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 1);
-            overflow: hidden;
-            animation: appearScroll linear;
-            animation-timeline: view();
-            animation-range: entry 0% cover 40%;
-        }
-
-        .slider-list {
-            position: absolute;
-            height: 100%;
-            display: flex;
-            transition: 1s;
-            display: flex;
-            justify-content: center;
-        }
-
-        .slider-img {
-            position: relative;
-            display: block;
-            margin: auto;
-            height: 100%;
-            width: 100vw;
-            background-size: cover;
-            /* object-fit: fill; */
-        }
-
-        .slider-content {
-            z-index: 1;
-            width: 70%;
-            position: absolute;
-            top: 20%;
-            margin-left: 55px;
-            color: var(--white-color);
-        }
-
-        .item-title {
-            font-weight: 600;
-            font-size: 4rem;
-        }
-
-        .item-description {
-            margin: 20px 0;
-            font-size: 1.8rem;
-            line-height: 2rem;
-        }
-
-        .btn-link {
-            text-decoration: none;
-        }
-
-        .item-btn {
-            background-color: transparent;
-            border-radius: 20px;
-            padding: 5px 20px;
-            color: var(--white-color);
-            font-weight: 600;
-            border: 2px solid var(--white-color);
-        }
-
-        .item-btn:hover {
-            background-color: var(--white-color);
-            color: var(--green-color);
-            cursor: pointer;
-        }
-
-
-        .slider-button {
-            position: absolute;
-            top: 45%;
-            left: 0%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .slider-button button {
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-            font-weight: bold;
-        }
-
-        .slider-dot {
-            position: absolute;
-            bottom: 10px;
-            color: #fff5;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .dot-item {
-            cursor: pointer;
-            list-style: none;
-            width: 10px;
-            height: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            margin: 20px;
-            border-radius: 20px;
-            transition: 1s;
-        }
-
-        .dot-item__active {
-            list-style: none;
-            width: 30px;
-            height: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            margin: 20px;
-            border-radius: 20px;
-        }
 
 
 
