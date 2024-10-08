@@ -196,10 +196,14 @@
 }
 
 .navSearch__search {
-    margin-top: auto;
+   margin-top: auto;
     background-color: var(--white-color);
     height: 50px;
     border-radius: 8px;
+
+    form{
+        height: 100%;
+    }
 }
 
 .navSearch__search input {
@@ -211,7 +215,7 @@
     font-size: 1.8rem;
 }
 
-.navSearch__search i {
+.navSearch__search button {
     display: inline-block;
     padding: 10px 20px;
     background-color: var(--primary-black-color);
@@ -221,7 +225,7 @@
     cursor: pointer;
 }
 
-.navSearch__search i:hover {
+.navSearch__search button:hover {
     background-color: var(--primary-yellow-color);
     color: var(--primary-black-color);
 }

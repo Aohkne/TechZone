@@ -56,13 +56,13 @@ public class Category extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String search = request.getParameter("search");
-        String idBrand = request.getParameter("id");
+        String idCat = request.getParameter("id");
 
         if (search != null) {
             search = search.toLowerCase();
             request.setAttribute("search", search);
-        } else if (idBrand != null) {
-            request.setAttribute("idBrand", idBrand);
+        } else if (idCat != null) {
+            request.setAttribute("idCat", idCat);
 
         }
 

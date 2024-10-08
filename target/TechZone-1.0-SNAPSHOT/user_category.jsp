@@ -4,6 +4,7 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@page import="DAOs.CategoryDAO"%>
 <%@page import="DAOs.UserDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.ProductDAO"%>
@@ -299,10 +300,22 @@
     <div class="content">
         <!-- Nav__content -->
         <div class="nav__content">
-            <div class="nav__list-title">Sort by</div>
-            <div class="nav__list">Popular</div>
-            <div class="nav__list">Latest</div>
-            <div class="nav__list">Best seller</div>
+            <div class="nav__list-title">Filter By</div>
+            <div class="nav__list" id="popular">
+                Category
+                <div class="dropdown-list" id="popular-list">
+
+                    <%
+                        CategoryDAO categorydao = new CategoryDAO();
+                        ResultSet rs = categorydao.getAllCategory();
+                        while (rs.next()) {
+                    %>
+                    <a href="/Category?id=<%= rs.getString("cat_id")%>"><%= rs.getString("cat_name")%></a>
+                    <%}%>                    
+                </div>
+            </div>
+            <div class="nav__list">Increase</div>
+            <div class="nav__list">Decrease</div>
         </div>
 
         <!-- Cate__content -->
@@ -311,12 +324,12 @@
             <%
                 ProductDAO productdao = new ProductDAO();
                 String search = (String) request.getAttribute("search");
-                String idBrand = (String) request.getAttribute("idBrand");
-                ResultSet rs = null;
+                String idCat = (String) request.getAttribute("idCat");
+                rs = null;
                 if (search != null) {
                     rs = productdao.getProductBySearch(search);
-                } else if (idBrand != null) {
-                    rs = productdao.getProductByBrandId(idBrand);
+                } else if (idCat != null) {
+                    rs = productdao.getProductByBrandId(idCat);
                 }
                 while (rs.next()) {
 

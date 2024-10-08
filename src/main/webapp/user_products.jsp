@@ -208,8 +208,12 @@
             </div>
 
             <div class="navSearch__search col l-8">
-                <input type="text">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <form action="/Category" method="GET">
+                    <input type="text" name="search">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
             </div>
 
             <div class="navSearch__cart col l-2">

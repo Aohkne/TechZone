@@ -5,6 +5,10 @@ CREATE TABLE Category (
     cat_name VARCHAR(30) NOT NULL,
     description TEXT
 );
+
+
+
+
 INSERT INTO Category (cat_name, description)
 VALUES 
 ('Smartphone', 'A portable device that combines mobile telephone and computing functions'),

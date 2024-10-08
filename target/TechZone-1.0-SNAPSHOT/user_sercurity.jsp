@@ -41,7 +41,6 @@
 
                     <li class="list__item"><a href="./user_profile.jsp" onclick="goToProfile()">My Profile</a></li>
                     <li class="list__item"><a href="#" onclick="goToSecurity()">Security</a></li>
-                    <li class="list__item"><a href="#" onclick="confirmDeleteAccount()">Delete Account</a></li>
                 </div>
             </div>
             <!-- Container -->

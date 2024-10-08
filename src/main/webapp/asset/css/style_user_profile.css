@@ -75,13 +75,6 @@
     text-align: center;
 }
 
-.nav__list .list__item:last-child a {
-    color: red;
-}
-
-.nav__list .list__item:last-child a:hover {
-    background-color: transparent;
-}
 
 .nav__list li a:hover {
     background-color: #FDC62E;

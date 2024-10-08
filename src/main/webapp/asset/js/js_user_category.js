@@ -42,3 +42,14 @@ function updatePagination() {
     updateContent(currentPage);
 }
 
+document.getElementById("popular").addEventListener("click", function () {
+    var dropdown = document.getElementById("popular-list");
+    // Kiểm tra nếu dropdown đang ẩn thì hiển thị, nếu đang hiện thì ẩn đi
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+});
+
+
