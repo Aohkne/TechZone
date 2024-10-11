@@ -42,8 +42,8 @@ VALUES
 ('Dell', 'A global leader in computers and related products'),
 ('HP', 'A multinational information technology company known for laptops and printers'),
 ('Xiaomi', 'A Chinese electronics company producing smartphones, smartwatches, and more'),
-('Oculus', 'A brand specializing in virtual reality products, owned by Meta (Facebook)');
-('Asus', ' A technology company known for laptops, gaming hardware, and innovative computing solutions.')
+('Oculus', 'A brand specializing in virtual reality products, owned by Meta (Facebook)'),
+('Asus', ' A technology company known for laptops, gaming hardware, and innovative computing solutions.'),
 ('Nintendo', 'A video game company known for its iconic consoles, innovative gameplay experiences, and beloved franchises like Mario, Zelda, and Pokémon.')
 
 --  1 - Apple
@@ -86,7 +86,7 @@ VALUES
 ('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit. It includes a built-in mic and controls, perfect for music lovers wanting performance and style.',100000, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
 ('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display, and up to 18 hours of battery life. It features a fanless, thin design, improved 1080p camera, and MagSafe charging, ideal for everyday and creative tasks.',999999, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
 ('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor, and intuitive Touch controllers. It offers a standalone VR experience with a vast game library, lightweight design, and 3D audio for immersive gaming and fitness.',5999999, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 6, 7),
-('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage. It is water-resistant and offers up to 12 hours of battery life for portable use.', 5000000, 80, 'America', '2024-10-5', './asset/img/img_all/img_product/img_speaker/BoseSoundLinkRevolve_white.jpg', 7, 3),
+('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage. It is water-resistant and offers up to 12 hours of battery life for portable use.', 5000000, 80, 'America', '2024-10-5', './asset/img/img_all/img_product/img_speaker/BoseSoundLinkRevolve_white.jpg', 7, 3)
 
 INSERT INTO Product (pro_name, description, pro_price, pro_sale, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
 VALUES
@@ -97,7 +97,7 @@ VALUES
 ('HP Spectre x360', 'The HP Spectre x360 is a convertible laptop with a 13.3-inch 4K display, Intel Core i7 processor, 16GB RAM, and 512GB SSD. It has a sleek, lightweight design with long battery life and versatile tablet mode.', 24000000, 22000000, 70, 'USA', '2024-10-7', './asset/img/img_all/img_product/img_laptop/HPSpectrex360_sale.png', 4, 5),
 ('Apple Watch Series 8', 'The Apple Watch Series 8 features an always-on Retina display, advanced health tracking, ECG, and blood oxygen monitoring, plus enhanced workout features.', 12000000, 10500000, 150, 'China', '2024-10-8', './asset/img/img_all/img_product/img_watch/AppleWatchSeries8_black_sale.jpg', 3, 1),
 ('Sony WF-1000XM4', 'The Sony WF-1000XM4 wireless earphones feature industry-leading noise cancellation, superior sound quality, and up to 24 hours of battery life with the charging case.', 6000000, 5200000, 180, 'Japan', '2024-10-11', './asset/img/img_all/img_product/img_earphone/SonyWF1000XM4_sale.png', 2, 3),
-('HTC Vive Pro 2', 'The HTC Vive Pro 2 is a high-end VR headset offering 5K resolution, a wide 120-degree field of view, and precise tracking for a premium virtual reality experience.', 25000000, 22000000, 40, 'Taiwan', '2024-10-12', './asset/img/img_all/img_product/img_vr/HTCVivePro2_sale.png', 6, 3),
+('HTC Vive Pro 2', 'The HTC Vive Pro 2 is a high-end VR headset offering 5K resolution, a wide 120-degree field of view, and precise tracking for a premium virtual reality experience.', 25000000, 22000000, 40, 'Taiwan', '2024-10-12', './asset/img/img_all/img_product/img_vr/HTCVivePro2_sale.png', 6, 3)
 
 
 -- Tạo bảng Users
@@ -115,8 +115,8 @@ CREATE TABLE Users (
 );
 
 -- Thêm user với role = 1
---INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
---VALUES ('user1', HASHBYTES('MD5', '123'), 'khoalhce181099@fpt.edu.vn', '1234567890', 'Địa chỉ 1', 1, 'avatar1.jpg', 1);
+INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
+VALUES ('chan', 'e3f75d09a9f7bd7f7666297263a973ab', 'nguyengiachan.gr2020@gmail.com', '1234567890', '', 1, './asset/img/img_all/img_user/chihuahua.jpg', 1);
 
 
 select * from Users Where user_id = 4;

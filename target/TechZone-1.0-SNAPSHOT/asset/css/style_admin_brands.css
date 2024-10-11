@@ -8,16 +8,17 @@ main {
     flex-grow: 1;
     padding: 10px 20px 0 280px;
 }
-/* Navbar */
+/* SIDEBAR */
 .list li:nth-child(6) {
-    background-color: #00acc1; /* Example background color */
-    box-shadow: 0 0 10px #00acc1; /* Example box shadow */
-    color: white; /* Example text color */
+    background-color: #00acc1;
+    box-shadow: 0 0 10px #00acc1;
 }
+/* Navbar */
 main nav {
     display: flex;
     justify-content: space-between;
 }
+
 
 main nav .title {
     font-size: 32px;
@@ -105,6 +106,7 @@ main .card .card-graph {
     color: #999;
 }
 
+
 main .card .card-graph:hover {
     color: #000000;
     cursor: pointer;
@@ -130,7 +132,7 @@ main .card .card-graph:hover {
     flex: 1;
 }
 /* brands TABLE */
-.brands-table .table-name {
+.table-container .table-name {
     text-align: center;
     background: linear-gradient(60deg, #26c6da, #00acc1);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
@@ -144,21 +146,21 @@ table, th, tr, td {
     text-align: start;
     padding: 20px;
 }
-.brands-table {
+.table-container {
     margin-top: 3rem;
 }
-.brands-table table {
+.table-container table {
     width: 100%;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     border-radius: 5px;
     border-collapse: collapse;
     overflow: hidden;
-    
+   
 }
 tr {
     border-bottom: 1px solid #eee;
 }
-.brands-table td i {
+.table-container td i {
     font-size: 32px;
 }
 table td button {
@@ -169,7 +171,7 @@ table td button {
     color: #ffffff;
     padding: 5px;
 }
-.brands-table table .operations {
+.table-container table .operations {
     width: 121px;
 }
 /* MODAL */
@@ -212,8 +214,8 @@ table td button {
 .modal-content .brand-form {
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
-    height: 78%;
+    margin-top: 30px;
+    height: 88%;
 }
 .modal-content .brand-form label{
     display: flex;
@@ -242,10 +244,10 @@ table td button {
     cursor: pointer;
 }
 .modal-content .brand-form .add-cancel-btn{
-    width: 45%;
+    width: 50%;
     display: flex;
     justify-content: flex-end;
-    gap: 7px;
+    gap: 5px;
     margin-left: auto;
     margin-top: auto;
 }
@@ -258,3 +260,55 @@ table td button {
     padding: 10px;
     flex: 1;
 }
+/* EDIT MODAL */
+.modal-content .brand-edit-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    height: 88%;
+}
+.modal-content .brand-edit-form label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-content .brand-edit-form input,
+.modal-content .brand-edit-form textarea {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+.modal-content .brand-edit-form textarea {
+    resize: none;
+}
+.modal-content .brand-edit-form .add-cancel-btn {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-left: auto;
+    margin-top: auto;
+}
+.add-cancel-btn .save-btn, .cancel-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    padding: 10px;
+    flex: 1;
+}
+.save-btn {
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+}
+.cancel-btn {
+    background: linear-gradient(60deg, #ef5350, #e53935);
+}
+
+
+
+
+

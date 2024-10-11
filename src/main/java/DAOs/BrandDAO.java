@@ -82,11 +82,12 @@ public class BrandDAO {
         if (conn != null) {
             try {
                 Statement st = conn.createStatement();
-                rs = st.executeQuery("SELECT brand_name, description FROM Brand");
+                rs = st.executeQuery("SELECT * FROM Brand");
 
                 // Duyệt qua ResultSet và tạo đối tượng Users
                 while (rs.next()) {
                     Brand user = new Brand(); // Tạo một đối tượng Users mới
+                    //set id
                     user.setBrand_name(rs.getString("brand_name"));
                     user.setDescription(rs.getString("description")); // Thiết lập username
 

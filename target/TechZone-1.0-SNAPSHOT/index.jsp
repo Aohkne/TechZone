@@ -4,6 +4,7 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@page import="DAOs.AccountDAO"%>
 <%@page import="DAOs.ProductDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.UserDAO"%>
@@ -121,6 +122,16 @@
                                         idUser = cookie.getValue();
                                         UserDAO userdao = new UserDAO();
                                         ResultSet rs = userdao.getUserById(idUser);
+                                        
+                                        AccountDAO dao = new AccountDAO();
+                                        int userId = Integer.parseInt(idUser);
+                                        // Use the userId to find the user type (role)
+                                        int userType = dao.getTypeById(userId);
+
+                                        // Redirect based on the user type
+                                        if (userType == 1) {
+                                            response.sendRedirect("/Admin");
+                                        }
                                         while (rs.next()) {
                         %>
                         <!-- Account User  -->

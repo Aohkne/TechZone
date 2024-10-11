@@ -93,8 +93,7 @@ public class Logout extends HttpServlet {
         response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
         response.setDateHeader("Expires", 0); // Proxies
 
-        // Redirect to the homepage (index.jsp)
-       request.getRequestDispatcher("/index.jsp").forward(request, response);
+       response.sendRedirect("/Home");
     }
 
 

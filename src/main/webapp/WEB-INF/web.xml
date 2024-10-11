@@ -24,6 +24,10 @@
         <servlet-name>Category</servlet-name>
         <servlet-class>Controllers.Category</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Brand</servlet-name>
+        <servlet-class>Controllers.Brand</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>Category</servlet-name>
         <url-pattern>/Category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Brand</servlet-name>
+        <url-pattern>/Brand</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

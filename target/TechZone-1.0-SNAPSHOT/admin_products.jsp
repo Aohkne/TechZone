@@ -373,6 +373,109 @@
                     </form>
                 </div>
             </div>
+            <!-- EDIT PRODUCT MODAL -->
+            <div id="editModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <h1>Edit Product</h1>
+                    <span class="close-btn">&times;</span>
+                    <form action="" class="edit-product-form">
+                        <label>
+                            Enter product ID
+                            <input
+                                type="text"
+                                id="edit-product-id"
+                                placeholder="Product ID"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter product name
+                            <input
+                                type="text"
+                                id="edit-product-name"
+                                placeholder="Product name"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter product price
+                            <input
+                                type="number"
+                                id="edit-product-price"
+                                placeholder="Product price"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter product sale price (optional)
+                            <input
+                                type="number"
+                                id="edit-product-sale-price"
+                                placeholder="Product sale price"
+                                />
+                        </label>
+                        <label>
+                            Enter product brand
+                            <select name="edit-product-brand" id="edit-product-brand">
+                                <option value="Apple">Apple</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Oppo">Oppo</option>
+                                <option value="Xiaomi">Xiaomi</option>
+                            </select>
+                        </label>
+                        <label>
+                            Enter product category
+                            <select name="edit-product-category" id="edit-product-category">
+                                <option value="Phone">Phone</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Watch">Watch</option>
+                            </select>
+                        </label>
+                        <label>
+                            Enter product country
+                            <input
+                                type="text"
+                                id="edit-product-country"
+                                placeholder="Product country"
+                                required
+                                />
+                        </label>
+                        <label>
+                            Enter product stock
+                            <input
+                                type="number"
+                                id="edit-product-stock"
+                                placeholder="Product stock"
+                                step="1"
+                                required
+                                />
+                        </label>
+                        <label id="edit-product-image-label"
+                               >Choose the product image<input
+                                type="file"
+                                id="edit-product-image"
+                                accept="image/png, image/jpeg"
+                                style="border: none"
+                                /></label>
+                        <div class="add-cancel-btn">
+                            <button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                class="cancel-btn"
+                                >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                class="accept-btn"
+                                >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </main>
     </body>
 </html>
