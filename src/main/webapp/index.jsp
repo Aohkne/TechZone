@@ -122,7 +122,7 @@
                                         idUser = cookie.getValue();
                                         UserDAO userdao = new UserDAO();
                                         ResultSet rs = userdao.getUserById(idUser);
-                                        
+
                                         AccountDAO dao = new AccountDAO();
                                         int userId = Integer.parseInt(idUser);
                                         // Use the userId to find the user type (role)
@@ -396,41 +396,50 @@
 
         <div class="product__list">
             <div class="row">
-
                 <%
                     ProductDAO productdao = new ProductDAO();
-                    ResultSet rs = productdao.getAllProductNotSale();
+                    ResultSet productDetail = productdao.getAllDefaultProduct();
+                    String img = null;
+                    String id = null;
+                    String pro_id = null;
                     int countP = 0;
-                    while (rs.next()) {
+                    while (productDetail.next()) {
                         if (countP >= 6) {
                             break;
                         }
                         countP++;
-                        //Handle price to format
-                        String price = rs.getString("pro_price");
-                        price = price.substring(0, price.length() - 3);
-                        StringBuilder result = new StringBuilder();
-                        int count = 0;
-                        for (int i = price.length() - 1; i >= 0; i--) {
-                            if (count == 3) {
-                                result.append("." + price.charAt(i));
-                                count = 1;
-                            } else {
-                                result.append(price.charAt(i));
-                                count++;
+                        img = productDetail.getString("image");
+                        id = productDetail.getString("proDetail_id");
+                        pro_id = productDetail.getString("pro_id");
+                        ResultSet rs = productdao.getProductByIdNotSale(pro_id);
+                        while (rs.next()) {
+                            //Handle price to format
+                            String price = rs.getString("pro_price");
+                            price = price.substring(0, price.length() - 3);
+                            StringBuilder result = new StringBuilder();
+                            int count = 0;
+                            for (int i = price.length() - 1; i >= 0; i--) {
+                                if (count == 3) {
+                                    result.append("." + price.charAt(i));
+                                    count = 1;
+                                } else {
+                                    result.append(price.charAt(i));
+                                    count++;
+                                }
                             }
-                        }
-                        price = result.reverse() + "";
+                            price = result.reverse() + "";
 
                 %>
 
                 <div class="product__item col l-2">
-                    <a href="./user_products.jsp?id=<%= rs.getString("pro_id")%>">
-                        <input type="hidden" value=<%= rs.getString("pro_id")%>>
+                    <a href="./user_products.jsp?id=<%= id%>">
+                        <input type="hidden" value=<%= id%>>
                         <div class="product__content">
                             <div class="product__img">
-                                <img src=<%= rs.getString("pro_image")%> alt="" srcset="">
+                                <!--Get Image-->
+                                <img src=<%= img%> alt="" class="sale__img">
                             </div>
+
                             <div class="product__name"><%= rs.getString("pro_name")%></div>
                             <div class="product__price"><%= price%> VND</div>
                         </div>
@@ -442,14 +451,8 @@
 
                 </div>
 
-                <%}%>
-
-
-
-
-
-
-
+                <%}
+                    }%>
             </div>
         </div>
     </div>
@@ -467,48 +470,54 @@
         <div class="sale__list">
 
             <%
-                rs = productdao.getAllProductSale();
-                while (rs.next()) {
-                    //Handle price to format
-                    String price = rs.getString("pro_price");
-                    price = price.substring(0, price.length() - 3);
-                    StringBuilder result = new StringBuilder();
-                    int count = 0;
-                    for (int i = price.length() - 1; i >= 0; i--) {
-                        if (count == 3) {
-                            result.append("." + price.charAt(i));
-                            count = 1;
-                        } else {
-                            result.append(price.charAt(i));
-                            count++;
+                productDetail = productdao.getAllDefaultProduct();
+                img = null;
+                pro_id = null;
+                while (productDetail.next()) {
+                    img = productDetail.getString("image");
+                    pro_id = productDetail.getString("pro_id");
+                    ResultSet rs = productdao.getProductByIdSale(pro_id);
+                    while (rs.next()) {
+                        //Handle price to format
+                        String price = rs.getString("pro_price");
+                        price = price.substring(0, price.length() - 3);
+                        StringBuilder result = new StringBuilder();
+                        int count = 0;
+                        for (int i = price.length() - 1; i >= 0; i--) {
+                            if (count == 3) {
+                                result.append("." + price.charAt(i));
+                                count = 1;
+                            } else {
+                                result.append(price.charAt(i));
+                                count++;
+                            }
                         }
-                    }
-                    price = result.reverse() + "";
-                    //Handle sale to format
-                    String sale = rs.getString("pro_sale");
-                    sale = sale.substring(0, sale.length() - 3);
-                    result = new StringBuilder();
-                    count = 0;
-                    for (int i = sale.length() - 1; i >= 0; i--) {
-                        if (count == 3) {
-                            result.append("." + sale.charAt(i));
-                            count = 1;
-                        } else {
-                            result.append(sale.charAt(i));
-                            count++;
+                        price = result.reverse() + "";
+                        //Handle sale to format
+                        String sale = rs.getString("pro_sale");
+                        sale = sale.substring(0, sale.length() - 3);
+                        result = new StringBuilder();
+                        count = 0;
+                        for (int i = sale.length() - 1; i >= 0; i--) {
+                            if (count == 3) {
+                                result.append("." + sale.charAt(i));
+                                count = 1;
+                            } else {
+                                result.append(sale.charAt(i));
+                                count++;
+                            }
                         }
-                    }
-                    sale = result.reverse() + "";
-
+                        sale = result.reverse() + "";
             %>
 
             <div class="sale__item">
-                <img src=<%= rs.getString("pro_image")%> alt="" class="sale__img">
+                <img src=<%= img%> alt="" class="sale__img">
                 <div class="sale__name"><%= rs.getString("pro_name")%></div>
                 <div class="sale__price"><%= sale%> VND</div>
                 <div class="sale__prePrice"><%= price%> VND</div>
             </div>
-            <%}%>
+            <%}
+                }%>
 
         </div>
 

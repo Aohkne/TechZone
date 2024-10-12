@@ -304,31 +304,37 @@
     <%
         ProductDAO productdao = new ProductDAO();
         String id = (String) request.getParameter("id");
-        ResultSet rs = productdao.getProductById(id);
-        while (rs.next()) {
+        ResultSet productDetail = productdao.getAllProductDetailById(id);
+        String img = null;
+        String pro_id = null;
+        while (productDetail.next()) {
+            img = productDetail.getString("image");
+            pro_id = productDetail.getString("pro_id");
+            ResultSet rs = productdao.getAllProductByDetailId(pro_id);
+            while (rs.next()) {
 
-            //Handle price to format
-            String price = rs.getString("pro_price");
-            price = price.substring(0, price.length() - 3);
-            StringBuilder result = new StringBuilder();
-            int count = 0;
-            for (int i = price.length() - 1; i >= 0; i--) {
-                if (count == 3) {
-                    result.append("." + price.charAt(i));
-                    count = 1;
-                } else {
-                    result.append(price.charAt(i));
-                    count++;
+                //Handle price to format
+                String price = rs.getString("pro_price");
+                price = price.substring(0, price.length() - 3);
+                StringBuilder result = new StringBuilder();
+                int count = 0;
+                for (int i = price.length() - 1; i >= 0; i--) {
+                    if (count == 3) {
+                        result.append("." + price.charAt(i));
+                        count = 1;
+                    } else {
+                        result.append(price.charAt(i));
+                        count++;
+                    }
                 }
-            }
-            price = result.reverse() + "";
+                price = result.reverse() + "";
     %>
 
     <!-- body -->
     <div class="body">
 
         <div class="product__container">
-            <input type="hidden" value=<%= rs.getString("pro_id")%>>
+            <input type="hidden" value=<%= id%>>
 
             <div onclick="history.back()" class="comeBack__btn">
                 <i class="fa-solid fa-circle-chevron-left"></i>
@@ -336,7 +342,7 @@
 
             <div class="product__content">
                 <div class="product__img">
-                    <img src=<%= rs.getString("pro_image")%> alt="">
+                    <img src=<%= img%> alt="">
                 </div>
 
                 <div class="product__information">
@@ -403,19 +409,29 @@
         <div class="product__footer">
 
             <div class="product__list">
+                <%
+                    ResultSet proDetail = productdao.getAllProductDetailByProId(pro_id);
+                    int countImg = 0;
+                    while (proDetail.next()) {
+                        if (countImg == 4) {
+                            break;
+                        }
+                %>
                 <div class="product_item">
-                    <img src="<%= rs.getString("pro_image")%>" alt="">
+                    <a href="./user_products.jsp?id=<%= proDetail.getString("proDetail_id")%>">
+                        <img src="<%= proDetail.getString("image")%>" alt="">
+                    </a>
                 </div>
+                <%
+                        countImg++;
+                    }
+                    while (4 - countImg != 0) {
+                        countImg++;
+                %>
                 <div class="product_item">
-                    <img src="<%= rs.getString("pro_image")%>" alt="">
-                </div>
-                <div class="product_item">
-                    <img src="<%= rs.getString("pro_image")%>" alt="">
-                </div>
-                <div class="product_item">
-                    <img src="<%= rs.getString("pro_image")%>" alt="">
-                </div>
-
+                    <img src =<%= img%> alt="">
+                </div> 
+                <%}%>
             </div>
 
             <div class="product__btn">
@@ -425,7 +441,8 @@
         </div>
     </div>
 
-    <%}%>
+    <%}
+        }%>
 
 
     <!-- chat -->

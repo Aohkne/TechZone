@@ -7,8 +7,6 @@ CREATE TABLE Category (
 );
 
 
-
-
 INSERT INTO Category (cat_name, description)
 VALUES 
 ('Smartphone', 'A portable device that combines mobile telephone and computing functions'),
@@ -57,7 +55,6 @@ VALUES
 --  9 - Nintendo
 
 
-
 CREATE TABLE [Product] (
     pro_id INT IDENTITY(1,1) PRIMARY KEY,
     pro_name VARCHAR(255) NOT NULL,
@@ -73,29 +70,85 @@ CREATE TABLE [Product] (
     FOREIGN KEY (brand_id) REFERENCES Brand(brand_id)
 );
 
-SELECT * FROM Product WHERE cat_id = '1'
 
-INSERT INTO Product (pro_name, description, pro_price, madein, updated_at, pro_image, cat_id, brand_id)
+-- Not sale
+INSERT INTO Product (pro_name, description, pro_price, madein, updated_at, cat_id, brand_id)
 VALUES
-('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 7, 3),
-('PlayStation 5', 'The PlayStation 5 is Sony''s latest console, delivering fast performance with a custom SSD, 4K graphics, and ray tracing. Its DualSense controller adds haptic feedback and adaptive triggers for immersive gameplay. The PS5 supports most PS4 games and comes in Standard and Digital editions.', 11000000, 100, 'Japan', '2024-10-1', './asset/img/img_all/img_product/img_console/playstation5.jpg', 5, 3),
-('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor. It features an always-on display, built-in GPS, and sleep tracking, all in a stylish design.', 10270000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 3, 1),
-('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications, and a 48MP camera. It offers 5G, enhanced low-light performance, and longer battery life.', 17590000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_phone/iphone14_purple.jpg', 1, 1),
-('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit. It includes a built-in mic and controls, perfect for music lovers wanting performance and style.',100000, 100,'Japan', '2024-09-30', './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 2, 2),
-('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display, and up to 18 hours of battery life. It features a fanless, thin design, improved 1080p camera, and MagSafe charging, ideal for everyday and creative tasks.',999999, 100, 'America', '2024-09-30', './asset/img/img_all/img_product/img_laptop/laptop.png', 4, 1),
-('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor, and intuitive Touch controllers. It offers a standalone VR experience with a vast game library, lightweight design, and 3D audio for immersive gaming and fitness.',5999999, 100,'America', '2024-09-30', './asset/img/img_all/img_product/img_vr/vr.png', 6, 7),
-('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage. It is water-resistant and offers up to 12 hours of battery life for portable use.', 5000000, 80, 'America', '2024-10-5', './asset/img/img_all/img_product/img_speaker/BoseSoundLinkRevolve_white.jpg', 7, 3)
+('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 'America', '2024-10-1', 7, 3),
+('PlayStation 5', 'The PlayStation 5 is Sony''s latest console, delivering fast performance with a custom SSD, 4K graphics, and ray tracing.', 11000000, 'Japan', '2024-10-1', 5, 3),
+('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor.', 10270000, 'America', '2024-10-1', 3, 1),
+('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications.', 17590000, 'America', '2024-10-1', 1, 1),
+('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit.', 100000, 'Japan', '2024-09-30', 2, 2),
+('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display.', 999999, 'America', '2024-09-30', 4, 1),
+('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor.', 5999999, 'America', '2024-09-30', 6, 7),
+('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage.', 5000000, 'America', '2024-10-5', 7, 3);
 
-INSERT INTO Product (pro_name, description, pro_price, pro_sale, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
+-- Sale
+
+INSERT INTO Product (pro_name, description, pro_price, pro_sale, madein, updated_at, cat_id, brand_id)
 VALUES
-('Asus Zenbook Ux305', 'The Asus ZenBook UX305 is an ultra-slim, lightweight laptop with a 13.3-inch Full HD display, Intel Core M processor, and fanless design for quiet operation. It offers fast SSD storage, up to 8GB RAM, and long battery life, perfect for portable productivity.', 16500000, 14100000, 100, 'Taiwan', '2024-10-3', './asset/img/img_all/img_product/img_laptop/AsusZenbookUx305_Sale.png', 4, 8),
-('Nintendo Switch', 'The Nintendo Switch is a versatile gaming console that switches between handheld and TV modes. With a wide library of games and innovative Joy-Con controllers, it offers immersive multiplayer experiences and portability, making it ideal for gamers of all ages.', 8500000, 7500000, 100, 'Japan', '2024-10-3', './asset/img/img_all/img_product/img_console/NintendoSwitch_sale.jpg', 5, 9),
-('Samsung Galaxy S24 Ultra', 'The Samsung Galaxy S24 Ultra is a premium smartphone with a Dynamic AMOLED 2X display, powerful performance, and an advanced camera system. It offers long battery life and S Pen support, making it perfect for users seeking a high-performance device.', 30000000, 27000000, 100, 'South Korea', '2024-10-3', './asset/img/img_all/img_product/img_phone/SamsungGalaxyS24Ultra_sale.jpg', 1, 2),
-('Dell XPS 13', 'The Dell XPS 13 is a premium laptop featuring a 13.4-inch InfinityEdge display, 11th Gen Intel Core processors, up to 16GB of RAM, and a sleek design with advanced thermal cooling.', 22000000, 20000000, 50, 'China', '2024-10-6', './asset/img/img_all/img_product/img_laptop/DellXPS13_sale.png', 4, 4),
-('HP Spectre x360', 'The HP Spectre x360 is a convertible laptop with a 13.3-inch 4K display, Intel Core i7 processor, 16GB RAM, and 512GB SSD. It has a sleek, lightweight design with long battery life and versatile tablet mode.', 24000000, 22000000, 70, 'USA', '2024-10-7', './asset/img/img_all/img_product/img_laptop/HPSpectrex360_sale.png', 4, 5),
-('Apple Watch Series 8', 'The Apple Watch Series 8 features an always-on Retina display, advanced health tracking, ECG, and blood oxygen monitoring, plus enhanced workout features.', 12000000, 10500000, 150, 'China', '2024-10-8', './asset/img/img_all/img_product/img_watch/AppleWatchSeries8_black_sale.jpg', 3, 1),
-('Sony WF-1000XM4', 'The Sony WF-1000XM4 wireless earphones feature industry-leading noise cancellation, superior sound quality, and up to 24 hours of battery life with the charging case.', 6000000, 5200000, 180, 'Japan', '2024-10-11', './asset/img/img_all/img_product/img_earphone/SonyWF1000XM4_sale.png', 2, 3),
-('HTC Vive Pro 2', 'The HTC Vive Pro 2 is a high-end VR headset offering 5K resolution, a wide 120-degree field of view, and precise tracking for a premium virtual reality experience.', 25000000, 22000000, 40, 'Taiwan', '2024-10-12', './asset/img/img_all/img_product/img_vr/HTCVivePro2_sale.png', 6, 3)
+('Asus Zenbook Ux305', 'The Asus ZenBook UX305 is an ultra-slim, lightweight laptop with a 13.3-inch Full HD display, Intel Core M processor, and fanless design for quiet operation. It offers fast SSD storage, up to 8GB RAM, and long battery life, perfect for portable productivity.', 16500000, 14100000, 'Taiwan', '2024-10-3', 4, 8),
+('Nintendo Switch', 'The Nintendo Switch is a versatile gaming console that switches between handheld and TV modes. With a wide library of games and innovative Joy-Con controllers, it offers immersive multiplayer experiences and portability, making it ideal for gamers of all ages.', 8500000, 7500000, 'Japan', '2024-10-3', 5, 9),
+('Samsung Galaxy S24 Ultra', 'The Samsung Galaxy S24 Ultra is a premium smartphone with a Dynamic AMOLED 2X display, powerful performance, and an advanced camera system. It offers long battery life and S Pen support, making it perfect for users seeking a high-performance device.', 30000000, 27000000, 'South Korea', '2024-10-3', 1, 2),
+('Dell XPS 13', 'The Dell XPS 13 is a premium laptop featuring a 13.4-inch InfinityEdge display, 11th Gen Intel Core processors, up to 16GB of RAM, and a sleek design with advanced thermal cooling.', 22000000, 20000000, 'China', '2024-10-6', 4, 4),
+('HP Spectre x360', 'The HP Spectre x360 is a convertible laptop with a 13.3-inch 4K display, Intel Core i7 processor, 16GB RAM, and 512GB SSD. It has a sleek, lightweight design with long battery life and versatile tablet mode.', 24000000, 22000000, 'USA', '2024-10-7', 4, 5),
+('Apple Watch Series 8', 'The Apple Watch Series 8 features an always-on Retina display, advanced health tracking, ECG, and blood oxygen monitoring, plus enhanced workout features.', 12000000, 10500000, 'China', '2024-10-8', 3, 1),
+('Sony WF-1000XM4', 'The Sony WF-1000XM4 wireless earphones feature industry-leading noise cancellation, superior sound quality, and up to 24 hours of battery life with the charging case.', 6000000, 5200000, 'Japan', '2024-10-11', 2, 3),
+('HTC Vive Pro 2', 'The HTC Vive Pro 2 is a high-end VR headset offering 5K resolution, a wide 120-degree field of view, and precise tracking for a premium virtual reality experience.', 25000000, 22000000, 'Taiwan', '2024-10-12', 6, 3);
+
+
+
+CREATE TABLE Product_Details (
+    proDetail_id INT PRIMARY KEY IDENTITY(1,1),
+    color_name VARCHAR(55),
+    quantity INT,
+	image text, 
+    pro_id INT,
+    FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
+);
+
+
+
+-- Not sale
+INSERT INTO Product_Details (color_name, quantity, image, pro_id)
+VALUES
+
+
+
+
+('default', 100, './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 1),
+('default', 100, './asset/img/img_all/img_product/img_console/playstation5.jpg', 2),
+('default', 100, './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 3),
+('red', 100, './asset/img/img_all/img_product/img_watch/applewatchseries6_red.jpg', 3),
+('default', 100, './asset/img/img_all/img_product/img_phone/iphone14_purple.jpg', 4),
+('yellow', 50, './asset/img/img_all/img_product/img_phone/iphone14_yellow.jpg', 4),
+('white', 50, './asset/img/img_all/img_product/img_phone/iphone14_white.jpg', 4),
+('default', 100, './asset/img/img_all/img_product/img_earphone/nanami_Headset.png', 5),
+('default', 100, './asset/img/img_all/img_product/img_laptop/laptop.png', 6),
+('green', 100, './asset/img/img_all/img_product/img_laptop/laptop_green.png', 6),
+('yellow', 100, './asset/img/img_all/img_product/img_laptop/laptop_yellow.png', 6),
+('purple', 100, './asset/img/img_all/img_product/img_laptop/laptop_purple.png', 6),
+('default', 100, './asset/img/img_all/img_product/img_vr/vr.png', 7),
+('default', 80, './asset/img/img_all/img_product/img_speaker/BoseSoundLinkRevolve_white.jpg', 8),
+('black', 80, './asset/img/img_all/img_product/img_speaker/BoseSoundLinkRevolve_blackjpg.jpg', 8);
+
+
+-- Sale
+INSERT INTO Product_Details (color_name, quantity, image, pro_id)
+VALUES
+
+('default', 100, './asset/img/img_all/img_product/img_laptop/AsusZenbookUx305_Sale.png', 9),
+('default', 100, './asset/img/img_all/img_product/img_console/NintendoSwitch_sale.jpg', 10),
+('default', 100, './asset/img/img_all/img_product/img_phone/SamsungGalaxyS24Ultra_sale.jpg', 11),
+('default', 50, './asset/img/img_all/img_product/img_laptop/DellXPS13_sale.png', 12),
+('default', 70, './asset/img/img_all/img_product/img_laptop/HPSpectrex360_sale.png', 13),
+('default', 150, './asset/img/img_all/img_product/img_watch/AppleWatchSeries8_black_sale.jpg', 14),
+('white', 150, './asset/img/img_all/img_product/img_watch/AppleWatchSeries8_white_sale.jpg', 14),
+('default', 180, './asset/img/img_all/img_product/img_earphone/SonyWF1000XM4_sale.png', 15),
+('white', 180, './asset/img/img_all/img_product/img_earphone/SonyWF1000XM4_white_sale.png', 15),
+('default', 40, './asset/img/img_all/img_product/img_vr/HTCVivePro2_sale.png', 16);
+
+SELECT * FROM Product_Details Where pro_id = 14 AND color_name != 'default'
 
 
 -- Tạo bảng Users
@@ -125,17 +178,6 @@ select * from Users Where user_id = 4;
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
 VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
 --12345
-
-
-CREATE TABLE Product_Details (
-    proDetail_id INT PRIMARY KEY IDENTITY(1,1),
-    color_name VARCHAR(55),
-    quantity INT,
-	image text, 
-    pro_id INT,
-    FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
-);
-
 
 
 CREATE TABLE Specification (

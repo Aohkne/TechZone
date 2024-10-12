@@ -332,7 +332,6 @@
                     rs = productdao.getProductByBrandId(idCat);
                 }
                 while (rs.next()) {
-
                     //Handle price to format
                     String price = rs.getString("pro_price");
                     price = price.substring(0, price.length() - 3);
@@ -371,10 +370,16 @@
             %>
 
             <div class="cate__list">
-                <a href="./user_products.jsp?id=<%= rs.getString("pro_id")%>" class="cate__items">
+
+                <%//Get id ,image of ProductDetail
+                    ResultSet proDetail = productdao.getAllDefaultProductDetailByProId(rs.getString("pro_id"));
+                    while (proDetail.next()) {
+                %>
+                <a href="./user_products.jsp?id=<%= proDetail.getString("proDetail_id")%>" class="cate__items">
                     <div class="cate__title">
                         <div class="cate__img">
-                            <img src="<%= rs.getString("pro_image")%>" alt="">
+                            <img src=<%= proDetail.getString("image")%> alt="">
+                            <%}%>
                         </div>
                         <div class="content__list">
                             <div class="cate__name"><%= rs.getString("pro_name")%></div>

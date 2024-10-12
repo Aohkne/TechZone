@@ -12,14 +12,15 @@ import java.sql.DriverManager;
  * @author lhhuong
  */
 public class DBConnection {
-    public static Connection getConnection(){
+
+    public static Connection getConnection() {
         Connection conn;
-        try{
-            
+        try {
+
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-FLNV82D:1433;databaseName=SWP;user=sa;password=123456;encrypt=true;trustServerCertificate=true;";
+            String url = "jdbc:sqlserver://KHOA\\SQLEXPRESS:1433;databaseName=SWP;user=sa;password=12345;encrypt=true;trustServerCertificate=true;";
             conn = DriverManager.getConnection(url);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             conn = null;
         }
         return conn;
