@@ -82,6 +82,39 @@ if (addBtn) {
   };
 }
 
+// Add to local Storage (from user_category)
+let cateList = document.querySelectorAll(".cate__list");
+
+if (cateList) {
+  cateList.forEach((e) => {
+    let id = e.querySelector("input").value;
+    let img = e.querySelector(".cate__img img").src;
+    let name = e.querySelector(".cate__name").textContent;
+    let price = e.querySelector(".cate__price").textContent;
+
+    let orderIcon = e.querySelector(".order__icon");
+    orderIcon.onclick = () => {
+      //Check local Storage exist
+      if (JSON.parse(localStorage.getItem("productList"))) {
+        list = JSON.parse(localStorage.getItem("productList"));
+      }
+
+      //add to list
+      let currItem = list.find((p) => p.id === id);
+      if (currItem) {
+        currItem.quantity += 1;
+      } else {
+        addItem(id, img, name, price, 1);
+      }
+      //add to local Storage
+      localStorage.setItem("productList", JSON.stringify(list));
+
+      //Update cart
+      updateCartList();
+    };
+  });
+}
+
 function addItem(
   id,
   img,
