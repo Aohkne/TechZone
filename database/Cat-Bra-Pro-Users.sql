@@ -127,3 +127,48 @@ select * from Users Where user_id = 4;
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
 VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
 --12345
+
+
+CREATE TABLE Product_Color (
+    color_id INT PRIMARY KEY IDENTITY(1,1),
+    color_name VARCHAR(55),
+    quantity INT,
+    pro_id INT,
+    FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
+);
+
+INSERT INTO Product_Color (color_name, quantity, pro_id) VALUES
+('Red', 50, 1),
+('Blue', 30, 1),
+('Green', 20, 2);
+
+
+CREATE TABLE Specification (
+    spec_id INT PRIMARY KEY IDENTITY(1,1),
+    spec_name VARCHAR(255),
+    spec_value VARCHAR(255),
+    unit VARCHAR(50),
+    weight DECIMAL(5, 2),
+    dimensions VARCHAR(255),
+    pro_id INT,
+    FOREIGN KEY (pro_id) REFERENCES Product(pro_id)
+);
+
+INSERT INTO Specification (spec_name, spec_value, unit, weight, dimensions, pro_id) VALUES
+('Battery', '5000mAh', 'mAh', 0.2, '15x7x1 cm', 1),
+('Display', '6.5 inch', 'inch', 0.15, '16x8x0.9 cm', 1),
+('Processor', 'Snapdragon 888', '', 0.1, 'N/A', 2);
+
+CREATE TABLE Product_Image (
+    image_id INT PRIMARY KEY IDENTITY(1,1),
+    image_url TEXT,
+    name VARCHAR(55),
+    create_image DATE,
+    pro_id INT,
+    FOREIGN KEY (pro_id) REFERENCES Product(pro_id)
+);
+
+INSERT INTO Product_Image (image_url, name, create_image, pro_id) VALUES
+('https://example.com/images/product1.png', 'Front View', '2024-10-12', 1),
+('https://example.com/images/product2.png', 'Side View', '2024-10-11', 1),
+('https://example.com/images/product3.png', 'Top View', '2024-10-10', 2);
