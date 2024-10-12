@@ -95,6 +95,66 @@ public class ProductDAO {
         return rs;
     }
 
+    public ResultSet getProductIncreaseByCatId(String id) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE cat_id = " + id + " ORDER BY COALESCE(pro_sale, pro_price) ASC");
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
+    public ResultSet getProductDecreaseByCatId(String id) {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product WHERE cat_id = " + id + " ORDER BY COALESCE(pro_sale, pro_price) DESC");
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
+    public ResultSet getProductIncrease() {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product ORDER BY COALESCE(pro_sale, pro_price) ASC");
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
+    public ResultSet getProductDecrease() {
+        Connection conn = DBConnection.getConnection();
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Product ORDER BY COALESCE(pro_sale, pro_price) DESC");
+            } catch (SQLException ex) {
+                rs = null;
+            }
+        }
+        return rs;
+    }
+
     //Product Detail
     public ResultSet getAllDefaultProduct() {
         Connection conn = DBConnection.getConnection();

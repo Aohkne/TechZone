@@ -304,7 +304,7 @@
             <div class="nav__list" id="popular">
                 Category
                 <div class="dropdown-list" id="popular-list">
-
+                    <a href="/Category?search=""">All</a>
                     <%
                         CategoryDAO categorydao = new CategoryDAO();
                         ResultSet rs = categorydao.getAllCategory();
@@ -314,8 +314,26 @@
                     <%}%>                    
                 </div>
             </div>
-            <div class="nav__list">Increase</div>
-            <div class="nav__list">Decrease</div>
+            <div class="nav__action">
+                <%
+                    String id = null;
+                    if (request.getAttribute("idCat") != null) {
+                        id = (String) request.getAttribute("idCat");
+                    } else if (request.getAttribute("increase") != null && !(request.getAttribute("increase").equals("increase"))) {
+                        id = (String) request.getAttribute("increase");
+                    } else if (request.getAttribute("decrease") != null && !(request.getAttribute("decrease").equals("decrease"))) {
+                        id = (String) request.getAttribute("decrease");
+                    }
+                %>
+                <a href="/Category?increase=<%= id != null ? id : "increase"%>">
+                    Increase
+                </a>
+            </div>
+            <div class="nav__action">
+                <a href="/Category?decrease=<%= id != null ? id : "decrease"%>">
+                    Decrease
+                </a>
+            </div>
         </div>
 
         <!-- Cate__content -->
@@ -325,11 +343,22 @@
                 ProductDAO productdao = new ProductDAO();
                 String search = (String) request.getAttribute("search");
                 String idCat = (String) request.getAttribute("idCat");
+                String increase = (String) request.getAttribute("increase");
+                String decrease = (String) request.getAttribute("decrease");
                 rs = null;
                 if (search != null) {
                     rs = productdao.getProductBySearch(search);
                 } else if (idCat != null) {
                     rs = productdao.getProductByBrandId(idCat);
+                } else if (increase != null && increase.matches("-?\\d+")) {
+                    // matches ?? ki?m tra chu?i có ph?i s? nguyên ko
+                    rs = productdao.getProductIncreaseByCatId(increase);
+                } else if (decrease != null && decrease.matches("-?\\d+")) {
+                    rs = productdao.getProductDecreaseByCatId(decrease);
+                } else if (increase != null) {
+                    rs = productdao.getProductIncrease();
+                } else if (decrease != null) {
+                    rs = productdao.getProductDecrease();
                 }
                 while (rs.next()) {
                     //Handle price to format
@@ -375,6 +404,7 @@
                     ResultSet proDetail = productdao.getAllDefaultProductDetailByProId(rs.getString("pro_id"));
                     while (proDetail.next()) {
                 %>
+                <input type="hidden" value="<%= proDetail.getString("proDetail_id")%>">
                 <a href="./user_products.jsp?id=<%= proDetail.getString("proDetail_id")%>" class="cate__items">
                     <div class="cate__title">
                         <div class="cate__img">
@@ -419,6 +449,36 @@
             <a href="#" id="next">&raquo;</a>
         </div>
     </div>
+
+</div>
+
+
+<!-- chat -->
+<div class="chat__container">
+    <img src="./asset/img/img_all/img_cart/chat.png" alt="">
+
+    <div class="chat__content">
+        <div class="chat__title">
+            <span>Chat</span>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="chat__list">
+            <div class="chat__item admin">
+                <span>How can I help you ?</span>
+            </div>
+            <div class="chat__item user">
+                <span>???</span>
+            </div>
+
+        </div>
+        <div class="chat__input">
+            <input type="text" placeholder="Chat Something">
+            <div class="chat__sent">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 

@@ -71,6 +71,9 @@ CREATE TABLE [Product] (
 );
 
 
+
+
+
 -- Not sale
 INSERT INTO Product (pro_name, description, pro_price, madein, updated_at, cat_id, brand_id)
 VALUES
@@ -84,7 +87,6 @@ VALUES
 ('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage.', 5000000, 'America', '2024-10-5', 7, 3);
 
 -- Sale
-
 INSERT INTO Product (pro_name, description, pro_price, pro_sale, madein, updated_at, cat_id, brand_id)
 VALUES
 ('Asus Zenbook Ux305', 'The Asus ZenBook UX305 is an ultra-slim, lightweight laptop with a 13.3-inch Full HD display, Intel Core M processor, and fanless design for quiet operation. It offers fast SSD storage, up to 8GB RAM, and long battery life, perfect for portable productivity.', 16500000, 14100000, 'Taiwan', '2024-10-3', 4, 8),
@@ -112,10 +114,6 @@ CREATE TABLE Product_Details (
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
 VALUES
-
-
-
-
 ('default', 100, './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 1),
 ('default', 100, './asset/img/img_all/img_product/img_console/playstation5.jpg', 2),
 ('default', 100, './asset/img/img_all/img_product/img_watch/applewatchseries6_carbon.jpg', 3),
@@ -136,7 +134,6 @@ VALUES
 -- Sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
 VALUES
-
 ('default', 100, './asset/img/img_all/img_product/img_laptop/AsusZenbookUx305_Sale.png', 9),
 ('default', 100, './asset/img/img_all/img_product/img_console/NintendoSwitch_sale.jpg', 10),
 ('default', 100, './asset/img/img_all/img_product/img_phone/SamsungGalaxyS24Ultra_sale.jpg', 11),

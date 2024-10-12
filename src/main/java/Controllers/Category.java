@@ -57,13 +57,18 @@ public class Category extends HttpServlet {
             throws ServletException, IOException {
         String search = request.getParameter("search");
         String idCat = request.getParameter("id");
+        String increase = request.getParameter("increase");
+        String decrease = request.getParameter("decrease");
 
         if (search != null) {
             search = search.toLowerCase();
             request.setAttribute("search", search);
         } else if (idCat != null) {
             request.setAttribute("idCat", idCat);
-
+        } else if (increase != null) {
+            request.setAttribute("increase", increase);
+        } else if (decrease != null) {
+            request.setAttribute("decrease", decrease);
         }
 
         request.getRequestDispatcher("user_category.jsp").forward(request, response);
