@@ -64,11 +64,9 @@ CREATE TABLE [Product] (
     description TEXT,
     pro_price DECIMAL(10, 2) NOT NULL,
     pro_sale DECIMAL(10, 2),
-    pro_quantity INT NOT NULL,
     madein VARCHAR(100) Not null,
     created_at DATE DEFAULT GETDATE(),
     updated_at DATE,
-    pro_image VARCHAR(555) not null,
     cat_id INT,
     brand_id INT,
     FOREIGN KEY (cat_id) REFERENCES Category(cat_id),
@@ -77,7 +75,7 @@ CREATE TABLE [Product] (
 
 SELECT * FROM Product WHERE cat_id = '1'
 
-INSERT INTO Product (pro_name, description, pro_price, pro_quantity, madein, updated_at, pro_image, cat_id, brand_id)
+INSERT INTO Product (pro_name, description, pro_price, madein, updated_at, pro_image, cat_id, brand_id)
 VALUES
 ('JBL Flip 6', 'The JBL Flip 6 is a portable Bluetooth speaker offering powerful sound, deep bass, and up to 12 hours of playtime. It''s waterproof, dustproof, and built for durability, making it ideal for outdoor use.', 2200000, 100, 'America', '2024-10-1', './asset/img/img_all/img_product/img_speaker/jblflip6.jpg', 7, 3),
 ('PlayStation 5', 'The PlayStation 5 is Sony''s latest console, delivering fast performance with a custom SSD, 4K graphics, and ray tracing. Its DualSense controller adds haptic feedback and adaptive triggers for immersive gameplay. The PS5 supports most PS4 games and comes in Standard and Digital editions.', 11000000, 100, 'Japan', '2024-10-1', './asset/img/img_all/img_product/img_console/playstation5.jpg', 5, 3),
@@ -129,18 +127,15 @@ VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '09
 --12345
 
 
-CREATE TABLE Product_Color (
-    color_id INT PRIMARY KEY IDENTITY(1,1),
+CREATE TABLE Product_Details (
+    proDetail_id INT PRIMARY KEY IDENTITY(1,1),
     color_name VARCHAR(55),
     quantity INT,
+	image text, 
     pro_id INT,
     FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
 );
 
-INSERT INTO Product_Color (color_name, quantity, pro_id) VALUES
-('Red', 50, 1),
-('Blue', 30, 1),
-('Green', 20, 2);
 
 
 CREATE TABLE Specification (
@@ -159,16 +154,3 @@ INSERT INTO Specification (spec_name, spec_value, unit, weight, dimensions, pro_
 ('Display', '6.5 inch', 'inch', 0.15, '16x8x0.9 cm', 1),
 ('Processor', 'Snapdragon 888', '', 0.1, 'N/A', 2);
 
-CREATE TABLE Product_Image (
-    image_id INT PRIMARY KEY IDENTITY(1,1),
-    image_url TEXT,
-    name VARCHAR(55),
-    create_image DATE,
-    pro_id INT,
-    FOREIGN KEY (pro_id) REFERENCES Product(pro_id)
-);
-
-INSERT INTO Product_Image (image_url, name, create_image, pro_id) VALUES
-('https://example.com/images/product1.png', 'Front View', '2024-10-12', 1),
-('https://example.com/images/product2.png', 'Side View', '2024-10-11', 1),
-('https://example.com/images/product3.png', 'Top View', '2024-10-10', 2);
