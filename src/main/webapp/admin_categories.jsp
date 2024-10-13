@@ -4,6 +4,10 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.Category"%>
+<%@page import="java.util.List"%>
+<%@page import="DAOs.CategoryDAO"%>
 <%@page import="DAOs.AccountDAO"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +67,7 @@
                 </ul>
             </div>
             <%
+                CategoryDAO daos = new CategoryDAO();
                 AccountDAO dao = new AccountDAO();
                 int userId = -1;
                 Cookie[] cookies = request.getCookies();
@@ -94,17 +99,22 @@
         <!-- MAIN CONTENT -->
         <main>
             <nav>
-                <p class="title">Categories</p>
+                <p class="title">Categories</p>              
                 <div class="search-bar">
-                    <input type="text" placeholder="Search" /><i
-                        class="fa-solid fa-magnifying-glass"
-                        ></i>
+                    
+                    <form method="POST" action="/Admin/Brand"> 
+                        <input type="text" name="query" placeholder="Search" required />
+                        <button type="submit" name="btnsearchCategory" style="border: none">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
             </nav>
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Categories</p>
-                    <p class="card-value">3</p>
+                    <% int counts = daos.GetTotalCategory();%>
+                    <p class="card-value"><%= counts %></p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -114,6 +124,7 @@
                     <hr />
                     <p class="card-graph">Graph Details</p>
                 </div>
+                    
                 <div class="buttons-container">
                     <button
                         class="add-btn"
@@ -121,12 +132,16 @@
                         >
                         Add
                     </button>
-                    <button
-                        class="sort-btn"
-                        style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
-                        >
-                        Sort
-                    </button>
+                    
+                    <form action="/Admin/Category" method="POST"> 
+                        <button
+                            class="sort-btn"
+                            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+                            name="btnSort"
+                            type="submit">
+                            Sort
+                        </button>
+                    </form>
                 </div>
             </div>
             <!-- CATEGORIES TABLE -->
@@ -139,71 +154,57 @@
                         <th>Description</th>
                         <th class="operations">Operations</th>
                     </tr>
+                    <%
+                        List<Category> searchResults = (List<Category>) request.getAttribute("searchResults");
+                        List<Category> sortResults = (List<Category>) request.getAttribute("sortResults");
+                        List<Category> allUsers = new ArrayList<>();
+
+                        if (searchResults != null) {
+                            allUsers = searchResults;
+                        } else if (sortResults != null) {
+                            allUsers = sortResults;
+
+                        } else {
+
+                            allUsers = daos.GetAllCategory();
+                        }
+
+                        if (allUsers != null && !allUsers.isEmpty()) {
+                            for (Category user : allUsers) {
+
+                    %>
                     <tr>
-                        <td>1</td>
-                        <td>Phone</td>
+                        <td><%= user.getCat_id()%></td>
+                        <td><%= user.getCat_name()%></td>
                         <td>
-                            A smartphone is a cellular telephone with an integrated computer
-                            and other features not originally associated with telephones, such
-                            as an operating system (OS), web browsing and the ability to run
-                            software applications.
+                            <%= user.getDescription()%>
                         </td>
                         <td>
                             <button
                                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                class="edit-btn"
+                                onclick="editCategory(<%= user.getCat_id()%>, '<%= user.getCat_name()%>', '<%= user.getDescription()%>')"
                                 >
-                                Edit</button
-                            ><button
+                                Edit
+                            </button>
+                            <button
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                name="btnDeleteBrand"
                                 >
                                 Delete
                             </button>
                         </td>
                     </tr>
+                   <%
+                        }
+                    } else {
+                    %>
                     <tr>
-                        <td>2</td>
-                        <td>Laptop</td>
-                        <td>
-                            A laptop is a portable computer that can be easily carried around.
-                            It's a device designed for personal use and can perform various
-                            functions such as browsing the internet, creating documents,
-                            playing games, etc. Laptops are generally smaller in size than
-                            desktop computers and are battery powered.
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                >
-                                Edit</button
-                            ><button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
+                        <td colspan="9">No users found</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Watch</td>
-                        <td>
-                            A smartwatch is a watch that offers extra functionality and
-                            connectivity on top of the features offered by standard watches.
-                            They do this by including a computer system that carries out the
-                            normal functionality we expect, but can also handle some extra
-                            bells and whistles.
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                >
-                                Edit</button
-                            ><button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+                    <%
+                        }
+                    %>
                 </table>
             </div>
             <!-- MODAL -->
@@ -212,20 +213,12 @@
                 <div class="modal-content">
                     <h1>Add Category</h1>
                     <span class="close-btn">&times;</span>
-                    <form action="" class="category-form">
-                        <label>
-                            Enter category ID
-                            <input
-                                type="text"
-                                id="category-id"
-                                placeholder="Category ID"
-                                required
-                                />
-                        </label>
+                    <form action="/Admin/Category" class="category-form" method="post">
                         <label>
                             Enter category name
                             <input
                                 type="text"
+                                name="cat-name"
                                 id="category-name"
                                 placeholder="Category name"
                                 required
@@ -238,6 +231,8 @@
                                 placeholder="Category description"
                                 rows="15"
                                 style="padding: 10px"
+                                name="description"
+                                required=""
                                 ></textarea>
                         </label>
                         <div class="add-cancel-btn">
@@ -247,18 +242,67 @@
                                 >
                                 Cancel
                             </button>
-                            <button
-                                type="submit"
-                                style="background: linear-gradient(60deg, #66bb6a, #43a047)"
-                                class="accept-btn"
-                                >
+                            <button type="submit" style="background: linear-gradient(60deg, #66bb6a, #43a047)" class="accept-btn" name="btnAddCategory">
                                 Add
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+             <!-- Edit Modal -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <h1>Edit Category</h1>
+                    <span class="close-btn">&times;</span>
+                    <form action="/Admin/Category" class="cat-edit-form" method="post">
+                        <input type="hidden" id="edit-cat-id" name="cat_id"/>
+                        <label>
+                            Edit brand name
+                            <input type="text" id="edit-cat-name" name="cat_name" />
+                        </label>
+                        <label>
+                            Edit brand description
+                            <textarea id="edit-cat-description" rows="15" style="padding: 10px" name="description"></textarea>
+                        </label>
+
+                        <div class="add-cancel-btn">
+                            <button
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                class="cancel-btn"
+                                type="button"
+                                >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                class="accept-btn"
+                                name="btnEditCategory"
+                                >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+             
+             
+             
+             
         </main>
+                <script>
+            function editCategory(catId, catName, catDes) {
+
+                // Set values in modal fields
+                document.getElementById('edit-cat-id').value = catId;
+                document.getElementById('edit-cat-name').value = catName;
+                document.getElementById('edit-cat-description').value = catDes;
+
+                // Open the modal
+                const editModal = document.getElementById("editModal");
+                editModal.style.display = "block";
+            }
+        </script>
     </body>
 </html>
 

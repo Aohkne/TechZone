@@ -144,7 +144,7 @@
                         <th>Made In</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>Stock</th>
+                        <th>Quantity</th>
                         <th class="operations">Operations</th>
                     </tr>
                     <tr>

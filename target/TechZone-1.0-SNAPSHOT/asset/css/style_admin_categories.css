@@ -255,3 +255,50 @@ table td button {
     padding: 10px;
     flex: 1;
 }
+/* EDIT MODAL */
+.modal-content .cat-edit-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    height: 88%;
+}
+.modal-content .cat-edit-form label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-content .cat-edit-form input,
+.modal-content .cat-edit-form textarea {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+.modal-content .cat-edit-form textarea {
+    resize: none;
+}
+.modal-content .cat-edit-form .add-cancel-btn {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-left: auto;
+    margin-top: auto;
+}
+.add-cancel-btn .save-btn, .cancel-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    padding: 10px;
+    flex: 1;
+}
+.save-btn {
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+}
+.cancel-btn {
+    background: linear-gradient(60deg, #ef5350, #e53935);
+}

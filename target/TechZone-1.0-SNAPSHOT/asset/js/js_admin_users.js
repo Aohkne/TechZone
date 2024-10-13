@@ -3,25 +3,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const currentStatus = button.textContent.trim();
+      const userId = button.id.split("-")[1]; // Lấy user_id từ ID nút
+      const currentStatus = button.textContent.trim(); // Lấy nội dung hiện tại của nút
 
-      if (currentStatus === "Block") {
-        // Update the text to "Unblock" and the status to "Blocked"
-        button.textContent = "Unblock";
-        button.style.background = "linear-gradient(60deg, #66bb6a, #43a047)";
-
-        // Update the corresponding row's status (this assumes the status is in the second-to-last column)
-        const statusCell = button.parentElement.previousElementSibling;
-        statusCell.textContent = "Blocked";
-      } else {
-        // Update the text to "Block" and the status to "Online/Offline"
-        button.textContent = "Block";
-        button.style.background = "linear-gradient(60deg, #ef5350, #e53935)";
-
-        // Revert the status to "Online" or "Offline"
-        const statusCell = button.parentElement.previousElementSibling;
-        statusCell.textContent = "Online"; // or use logic to determine if they should be "Offline"
+      let newStatus = false; // Mặc định là false (Block)
+      if (currentStatus === "Unblock") {
+        newStatus = true; // Nếu nút hiện tại là Unblock, chuyển sang trạng thái Block
       }
+
+      // Gửi yêu cầu cập nhật trạng thái lên server
+      fetch(`/Admin?userId=${userId}&verified=${newStatus}`, {
+        method: "POST"
+      }).then(response => {
+        if (response.ok) {
+          // Sau khi server phản hồi thành công, cập nhật giao diện nút
+          if (newStatus) {
+            button.textContent = "Block"; // Chuyển thành nút Block
+            button.classList.remove("btn-success");
+            button.classList.add("btn-danger");
+          } else {
+            button.textContent = "Unblock"; // Chuyển thành nút Unblock
+            button.classList.remove("btn-danger");
+            button.classList.add("btn-success");
+          }
+        } else {
+          console.error("Failed to update status");
+        }
+      }).catch(error => {
+        console.error("Error:", error);
+      });
     });
   });
 });

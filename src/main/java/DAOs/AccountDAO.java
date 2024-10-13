@@ -92,7 +92,6 @@ public class AccountDAO {
                     System.out.println(password);
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return password;
@@ -112,22 +111,20 @@ public class AccountDAO {
                     System.out.println(username);  // In ra để kiểm tra
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return username;
     }
 
-    public void setVerifiedEmail(String email, boolean status_user) {
+    public void setVerifiedEmail(int user_id, boolean status_user) {
         Connection conn = DBConnection.getConnection();
         try {
-            String sql = "UPDATE Users SET status_user = ? WHERE email = ?";
+            String sql = "UPDATE Users SET status_user = ? WHERE user_id = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setBoolean(1, status_user);
-            pst.setString(2, email);
+            pst.setInt(2, user_id);
             pst.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -146,7 +143,7 @@ public class AccountDAO {
                     acc.setEmail(rs.getString("email"));
                     acc.setUsername(rs.getString("username"));
                     acc.setPassword(rs.getString("password"));
-                    acc.setPhone(rs.getInt("phone"));
+                    acc.setPhone(rs.getString("phone"));
                     acc.setAddress(rs.getString("address"));
                     acc.setRole(rs.getInt("role"));
                     acc.setCreate_at(rs.getDate("create_at"));
@@ -154,7 +151,6 @@ public class AccountDAO {
                     acc.setStatus_user(rs.getBoolean("status_user"));
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return acc;
@@ -174,7 +170,6 @@ public class AccountDAO {
                     id = rs.getInt("user_id");
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return id;
@@ -195,8 +190,8 @@ public class AccountDAO {
                     picture = rs.getString("avartar");
                     System.out.println("Picture retrieved: " + picture); // Debug statement
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(); // Debugging statement
+            } catch (SQLException ex) { // Debugging statement
+                // Debugging statement
                 rs = null;
             }
         }
@@ -218,8 +213,8 @@ public class AccountDAO {
                     verified_email = rs.getBoolean("status_user");
                     System.out.println("Picture retrieved: " + verified_email); // Debug statement
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(); // Debugging statement
+            } catch (SQLException ex) { // Debugging statement
+                // Debugging statement
                 rs = null;
             }
         }
@@ -241,13 +236,14 @@ public class AccountDAO {
                     type_id = rs.getInt("role");
                     System.out.println("Picture retrieved: " + type_id); // Debug statement
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(); // Debugging statement
+            } catch (SQLException ex) { // Debugging statement
+                // Debugging statement
                 rs = null;
             }
         }
         return type_id;
     }
+
     public int getTypeById(int email) {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
@@ -263,8 +259,8 @@ public class AccountDAO {
                     type_id = rs.getInt("role");
                     System.out.println("Picture retrieved: " + type_id); // Debug statement
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(); // Debugging statement
+            } catch (SQLException ex) { // Debugging statement
+                // Debugging statement
                 rs = null;
             }
         }
@@ -287,7 +283,7 @@ public class AccountDAO {
                 pst.setString(3, obj.getEmail());
 
                 if (obj.getPhone() != null) {
-                    pst.setInt(4, obj.getPhone());
+                    pst.setString(4, obj.getPhone());
                     System.out.println("Debug: Phone is set to: " + obj.getPhone());
                 } else {
                     pst.setNull(4, java.sql.Types.INTEGER);
@@ -351,15 +347,16 @@ public class AccountDAO {
             try {
                 Statement st = conn.createStatement();
                 // Thực thi truy vấn SQL để lấy người dùng với role = 2
-                rs = st.executeQuery("SELECT avatar, username, email, phone, address, create_at FROM Users WHERE role = 2");
+                rs = st.executeQuery("SELECT user_id, avatar, username, email, phone, address, create_at FROM Users WHERE role = 2");
 
                 // Duyệt qua ResultSet và tạo đối tượng Users
                 while (rs.next()) {
                     Users user = new Users(); // Tạo một đối tượng Users mới
+                    user.setUser_id(rs.getInt("user_id"));
                     user.setAvatar(rs.getString("avatar")); // Thiết lập avatar
                     user.setUsername(rs.getString("username")); // Thiết lập username
                     user.setEmail(rs.getString("email")); // Thiết lập email
-                    user.setPhone(rs.getInt("phone")); // Thiết lập phone
+                    user.setPhone(rs.getString("phone")); // Thiết lập phone
                     user.setAddress(rs.getString("address")); // Thiết lập address
                     user.setCreate_at(rs.getDate("create_at")); // Thiết lập ngày tạo
 
@@ -367,7 +364,8 @@ public class AccountDAO {
                     userList.add(user);
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace(); // Log lỗi
+                // Log lỗi
+
             } finally {
                 // Đóng ResultSet và Connection
                 try {
@@ -378,7 +376,8 @@ public class AccountDAO {
                         conn.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace(); // Log lỗi khi đóng
+                    // Log lỗi khi đóng
+
                 }
             }
         }
@@ -446,7 +445,7 @@ public class AccountDAO {
                     Users user = new Users();
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
-                    user.setPhone(rs.getInt("phone"));
+                    user.setPhone(rs.getString("phone"));
                     user.setAddress(rs.getString("address"));
                     user.setAvatar(rs.getString("avatar"));
                     user.setCreate_at(rs.getDate("create_at"));
@@ -457,6 +456,49 @@ public class AccountDAO {
             }
         }
         return userList;
+    }
+
+    public List<Users> getAllUsersSorted() {
+        List<Users> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT * FROM Users where role=2 ORDER BY user_id DESC");
+
+                // Duyệt qua ResultSet và tạo đối tượng Users
+                while (rs.next()) {
+                    Users user = new Users(); // Tạo một đối tượng Users mới
+                    user.setUser_id(rs.getInt("user_id"));
+                    user.setAvatar(rs.getString("avatar")); // Thiết lập avatar
+                    user.setUsername(rs.getString("username")); // Thiết lập username
+                    user.setEmail(rs.getString("email")); // Thiết lập email
+                    user.setPhone(rs.getString("phone")); // Thiết lập phone
+                    user.setAddress(rs.getString("address")); // Thiết lập address
+                    user.setCreate_at(rs.getDate("create_at")); // Thiết lập ngày tạo
+
+                    // Thêm người dùng vào danh sách
+                    userList.add(user);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Log lỗi
+            } finally {
+                // Đóng ResultSet và Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Log lỗi khi đóng
+                }
+            }
+        }
+        return userList; // Trả về danh sách người dùng
     }
 
 }

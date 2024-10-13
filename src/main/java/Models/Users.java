@@ -11,10 +11,11 @@ import java.sql.Date;
  * @author HP
  */
 public class Users {
+    private int user_id;
     private String username;
     private String password;
     private String email;
-    private Integer  phone;
+    private String  phone;
     private String address;
     private int role;
     private Date create_at;
@@ -42,7 +43,7 @@ public class Users {
     
     
 
-    public Users(String username, String password, String email, Integer  phone, String address, int role, Date create_at, String avatar, boolean status_user) {
+    public Users(String username, String password, String email, String  phone, String address, int role, Date create_at, String avatar, boolean status_user) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -54,6 +55,17 @@ public class Users {
         this.status_user = status_user;
     }
 
+    public Users(int user_id, String username, String email, String phone, String address, Date create_at, String avatar) {
+        this.user_id = user_id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.create_at = create_at;
+        this.avatar = avatar;
+    }
+
+    
     public String getUsername() {
         return username;
     }
@@ -78,13 +90,6 @@ public class Users {
         this.email = email;
     }
 
-    public Integer getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Integer phone) {
-        this.phone = phone;
-    }
 
     public String getAddress() {
         return address;
@@ -124,6 +129,22 @@ public class Users {
 
     public void setStatus_user(boolean status_user) {
         this.status_user = status_user;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
 }

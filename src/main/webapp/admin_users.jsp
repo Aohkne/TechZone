@@ -3,7 +3,7 @@
     Created on : Sep 17, 2024, 10:20:48 PM
     Author     : Le Huu Khoa - CE181099
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="Models.Users"%>
@@ -17,6 +17,9 @@
         <title>Users</title>
         <link rel="stylesheet" href="/asset/css/style_admin_users.css" />
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+        <link
+            href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
+            rel='stylesheet'>
         <script src="/asset/js/js_admin_users.js" defer></script>
         <script src="/asset/js/js_all/js_delete-button.js"></script>
         <script
@@ -89,7 +92,7 @@
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -126,9 +129,22 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
-                    <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
-                        Sort
-                    </button>
+
+                    <form action="/Admin/Users" method="POST"> 
+                        <button
+                            class="add-btn"
+                            style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                            >
+                            Add
+                        </button>
+                        <button
+                            class="sort-btn"
+                            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+                            name="btnSort"
+                            type="submit">
+                            Sort
+                        </button>
+                    </form>
                 </div>
             </div>
             <!-- USERS TABLE -->
@@ -148,22 +164,24 @@
                     </tr>
                     <%
                         List<Users> searchResults = (List<Users>) request.getAttribute("searchResults");
+                        List<Users> sortResults = (List<Users>) request.getAttribute("sortResults");
                         List<Users> allUsers = new ArrayList<>();
 
                         if (searchResults != null) {
                             allUsers = searchResults;
+                        } else if (sortResults != null) {
+                            allUsers = sortResults;
+
                         } else {
 
                             allUsers = dao.getAllUser();
                         }
 
                         if (allUsers != null && !allUsers.isEmpty()) {
-                            int count = 0;
                             for (Users user : allUsers) {
-                                count++;
                     %>
                     <tr>
-                        <td><%= count%></td>
+                        <td><%= user.getUser_id()%></td>
                         <td>
                             <img src="<%= user.getAvatar()%>" alt="User Avatar" class="user-img" />
                         </td>
@@ -172,11 +190,33 @@
                         <td><%= user.getPhone()%></td>
                         <td><%= user.getAddress()%></td>
                         <td><%= user.getCreate_at()%></td>
+                        <%
+                            Boolean verified_email = dao.getVerifyByEmail(user.getUser_id());
+                            System.out.println("ooooooo " + verified_email);
+                            request.setAttribute("verified_email", verified_email);
+                        %>
                         <td>
-                            <button style="background: linear-gradient(60deg, #ef5350, #e53935);" class="block-btn">
+                            <!--  verified_email = false, tk block, display  Unblock -->
+                            <%
+                                if (!verified_email) {
+                            %>
+                            <button class="btn btn-success block-btn" id="btn-<%= user.getUser_id()%>"
+                                    onclick="toggleButtons(<%= user.getUser_id()%>, true)">
+                                Unblock
+                            </button>
+                            <%
+                            } else {
+                            %>
+                            <!--  verified_email = true, tk , display Block -->
+                            <button class="btn btn-danger block-btn" id="btn-<%= user.getUser_id()%>"
+                                    onclick="toggleButtons(<%= user.getUser_id()%>, false)">
                                 Block
                             </button>
+                            <%
+                                }
+                            %>
                         </td>
+
                     </tr>
                     <%
                         }
@@ -193,5 +233,25 @@
 
 
         </main>
+        <script>
+            function toggleButtons(id, show) {
+                var btnShow = document.getElementById("btn-show-" + id);
+                var btnHide = document.getElementById("btn-hide-" + id);
+
+                if (show) {
+                    btnShow.classList.remove("hidden");
+                    btnShow.classList.add("visible");
+                    btnHide.classList.remove("visible");
+                    btnHide.classList.add("hidden");
+                } else {
+                    btnShow.classList.remove("visible");
+                    btnShow.classList.add("hidden");
+                    btnHide.classList.remove("hidden");
+                    btnHide.classList.add("visible");
+                }
+            }
+
+
+        </script>
     </body>
 </html>

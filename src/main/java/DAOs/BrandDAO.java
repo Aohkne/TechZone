@@ -35,7 +35,7 @@ public class BrandDAO {
         }
         return rs;
     }
-    
+
     public ResultSet getBrandById(String id) {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
@@ -88,6 +88,7 @@ public class BrandDAO {
                 while (rs.next()) {
                     Brand user = new Brand(); // Tạo một đối tượng Users mới
                     //set id
+                    user.setBrand_id(rs.getInt("brand_id"));
                     user.setBrand_name(rs.getString("brand_name"));
                     user.setDescription(rs.getString("description")); // Thiết lập username
 
@@ -139,6 +140,7 @@ public class BrandDAO {
 
                 while (rs.next()) {
                     Brand user = new Brand();
+                    user.setBrand_id(rs.getInt("brand_id"));
                     user.setBrand_name(rs.getString("brand_name"));
                     user.setDescription(rs.getString("description"));
                     userList.add(user);
@@ -158,11 +160,12 @@ public class BrandDAO {
         if (conn != null) {
             try {
                 Statement st = conn.createStatement();
-                rs = st.executeQuery("SELECT brand_name, description FROM Brand ORDER BY brand_id DESC");
+                rs = st.executeQuery("SELECT * FROM Brand ORDER BY brand_id DESC");
 
                 // Duyệt qua ResultSet và tạo đối tượng Users
                 while (rs.next()) {
                     Brand user = new Brand(); // Tạo một đối tượng Users mới
+                    user.setBrand_id(rs.getInt("brand_id"));
                     user.setBrand_name(rs.getString("brand_name"));
                     user.setDescription(rs.getString("description")); // Thiết lập username
 
@@ -197,12 +200,40 @@ public class BrandDAO {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, newProduct.getBrand_name());
             pst.setString(2, newProduct.getDescription());
-     
+
             count = pst.executeUpdate();
         } catch (SQLException e) {
             count = 0;
         }
         return count;
+    }
+
+    public int editBrand(Brand newProduct) {
+        Connection conn = DBConnection.getConnection();
+        int count;
+        try {
+            // Corrected SQL query for updating brand information
+            String sql = "UPDATE Brand SET brand_name = ?, description = ? WHERE brand_id = ?;";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, newProduct.getBrand_name());   // Set brand_name parameter
+            pst.setString(2, newProduct.getDescription());  // Set description parameter
+            pst.setInt(3, newProduct.getBrand_id());        // Set brand_id parameter
+
+            count = pst.executeUpdate(); // Execute the update and get the affected row count
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the exception for debugging purposes
+            count = 0; // Return 0 in case of an error
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close(); // Close the connection after the operation
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return count; // Return the number of affected rows
     }
 
 }

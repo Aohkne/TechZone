@@ -164,7 +164,7 @@ CREATE TABLE Users (
 
 -- Thêm user với role = 1
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('chan', 'e3f75d09a9f7bd7f7666297263a973ab', 'nguyengiachan.gr2020@gmail.com', '1234567890', '', 1, './asset/img/img_all/img_user/chihuahua.jpg', 1);
+VALUES ('chan', 'e3f75d09a9f7bd7f7666297263a973ab', 'nguyengiachan.gr2020@gmail.com', '1234567890', '', 1, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
 
 
 select * from Users Where user_id = 4;
@@ -173,9 +173,8 @@ select * from Users Where user_id = 4;
 
 -- Thêm user với role = 2
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, './asset/img/img_all/img_user/chihuahua.jpg', 1);
+VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
 --12345
-
 
 CREATE TABLE Specification (
     spec_id INT PRIMARY KEY IDENTITY(1,1),
@@ -192,4 +191,16 @@ INSERT INTO Specification (spec_name, spec_value, unit, weight, dimensions, pro_
 ('Battery', '5000mAh', 'mAh', 0.2, '15x7x1 cm', 1),
 ('Display', '6.5 inch', 'inch', 0.15, '16x8x0.9 cm', 1),
 ('Processor', 'Snapdragon 888', '', 0.1, 'N/A', 2);
+
+CREATE TABLE Voucher (
+    voucher_id INT PRIMARY KEY IDENTITY(1,1),
+    voucher_totalAmount VARCHAR(50) CHECK (voucher_totalAmount IN ('normal: discount 5%-10%', 'medium: discount 15%-25%', 'rare: discount 30%-50%')),
+    voucher_date DATE DEFAULT GETDATE(),
+    voucher_expire_date DATE
+);
+INSERT INTO Voucher (voucher_totalAmount, voucher_expire_date)
+VALUES
+('normal: discount 5%-10%', '2024-12-31'),
+('medium: discount 15%-25%', '2024-11-30'),
+('rare: discount 30%-50%', '2024-10-31');
 

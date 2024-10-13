@@ -22,37 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const brandsTable = document.querySelector(".brands-table table");
 
 
-  brandForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-
-    const brandID = document.getElementById("brand-id").value;
-    const brandName = document.getElementById("brand-name").value;
-    const brandDescription = document.getElementById("brand-description").value;
-
-
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-      <td><input type="checkbox" /></td>
-      <td>${brandID}</td>
-      <td>${brandName}</td>
-      <td>${brandDescription}</td>
-      <td>
-        <button class="edit-btn" style="background: linear-gradient(60deg, #26c6da, #00acc1)">Edit</button>
-        <button style="background: linear-gradient(60deg, #ef5350, #e53935)">Delete</button>
-      </td>
-    `;
-
-
-    brandsTable.appendChild(newRow);
-    brandForm.reset();
-    modal.style.display = "none"; // Close modal after adding the new row
-
-
-    attachEditButtonListeners(); // Re-attach event listeners to new edit buttons
-  });
-
-
   // EDIT MODAL FUNCTIONALITY
   const editModal = document.getElementById("editModal");
   const closeEditBtn = document.querySelector("#editModal .close-btn");

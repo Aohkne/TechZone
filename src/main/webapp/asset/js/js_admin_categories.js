@@ -1,56 +1,50 @@
-// MODAL
-const addButton = document.querySelector(".add-btn");
-const closeButton = document.querySelectorAll(".close-btn, .cancel-btn");
-let modal = document.querySelector(".modal");
-
-addButton.onclick = function () {
-  modal.style.display = "block";
-};
-
-closeButton.forEach(function (button) {
-  button.onclick = function () {
-    modal.style.display = "none";
-  };
-});
-// ACCEPT BUTTON
 document.addEventListener("DOMContentLoaded", () => {
-  // Select the form and table elements
-  const categoryForm = document.querySelector(".category-form");
-  const categoriesTable = document.querySelector(".categories-table table");
+    // MODAL
+    const addButton = document.querySelector(".add-btn");
+    const closeButtons = document.querySelectorAll(".close-btn, .cancel-btn");
+    let modal = document.querySelector(".modal");
 
-  // Add event listener to the form's submit event
-  categoryForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+    addButton.onclick = function () {
+        modal.style.display = "block";
+    };
 
-    // Get form input values
-    const categoryID = document.getElementById("category-id").value;
-    const categoryName = document.getElementById("category-name").value;
-    const categoryDescription = document.getElementById(
-      "category-description"
-    ).value;
+    closeButtons.forEach(function (button) {
+        button.onclick = function () {
+            modal.style.display = "none";
+        };
+    });
 
-    // Create a new row element
-    const newRow = document.createElement("tr");
+    // ACCEPT BUTTON
+    const categoryForm = document.querySelector(".category-form");
+    const categoriesTable = document.querySelector(".categories-table table");
 
-    // Set the inner HTML of the new row
-    newRow.innerHTML = `
-      <td><input type="checkbox" /></td>
-      <td>${categoryID}</td>
-      <td>${categoryName}</td>
-      <td>${categoryDescription}</td>
-      <td>
-        <button style="background: linear-gradient(60deg, #26c6da, #00acc1)">Edit</button>
-        <button style="background: linear-gradient(60deg, #ef5350, #e53935)">Delete</button>
-      </td>
-    `;
+    // EDIT MODAL FUNCTIONALITY (if needed in this context)
+    const editModal = document.getElementById("editModal");
+    const closeEditBtn = document.querySelector("#editModal .close-btn");
+    const cancelEditBtn = document.querySelector("#editModal .cancel-btn");
 
-    // Append the new row to the table
-    categoriesTable.appendChild(newRow);
+    closeEditBtn.addEventListener("click", () => {
+        editModal.style.display = "none";
+    });
 
-    // Reset the form after submission
-    categoryForm.reset();
+    cancelEditBtn.addEventListener("click", () => {
+        editModal.style.display = "none";
+    });
 
-    // Close the modal (you can implement a function to handle this)
-    document.getElementById("myModal").style.display = "none";
-  });
+    window.addEventListener("click", (event) => {
+        if (event.target == editModal) {
+            editModal.style.display = "none";
+        }
+    });
+
+    function attachEditButtonListeners() {
+        const editButtons = document.querySelectorAll(".edit-btn");
+        editButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                editModal.style.display = "block";
+            });
+        });
+    }
+
+    attachEditButtonListeners(); // Initial call to attach listeners
 });

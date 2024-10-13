@@ -9,6 +9,7 @@ package Models;
  * @author HP
  */
 public class Brand {
+    private int brand_id;
     private String brand_name;
     private String description;
 
@@ -20,6 +21,13 @@ public class Brand {
         this.description = description;
     }
 
+    public Brand(int brand_id, String brand_name, String description) {
+        this.brand_id = brand_id;
+        this.brand_name = brand_name;
+        this.description = description;
+    }
+
+    
     public String getBrand_name() {
         return brand_name;
     }
@@ -34,6 +42,14 @@ public class Brand {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getBrand_id() {
+        return brand_id;
+    }
+
+    public void setBrand_id(int brand_id) {
+        this.brand_id = brand_id;
     }
     
 }

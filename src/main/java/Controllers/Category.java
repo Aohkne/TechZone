@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class Category extends HttpServlet {
 
+    public Category(int cat_id, String name, String des) {
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

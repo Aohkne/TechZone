@@ -87,8 +87,6 @@
                     }
                 }
                 String name = dao.GetNameAdmin(userId);
-                System.out.println(name);
-                System.out.println(userId);
             %>
             <div class="account dropdown-button">
                 <div class="account-icon-name">
@@ -133,7 +131,7 @@
                 <div class="buttons-container">
                     <button
                         class="add-btn"
-                        style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+                        style="background: linear-gradient(60deg, #66bb6a, #43a047)" 
                         >
                         Add
                     </button>
@@ -164,28 +162,23 @@
                         List<Brand> searchResults = (List<Brand>) request.getAttribute("searchResults");
                         List<Brand> sortResults = (List<Brand>) request.getAttribute("sortResults");
                         List<Brand> allUsers = new ArrayList<>();
-                        
-                        int count = 0;
 
                         if (searchResults != null) {
                             allUsers = searchResults;
                         } else if (sortResults != null) {
                             allUsers = sortResults;
-                           
+
                         } else {
 
                             allUsers = daos.GetAllBrand();
                         }
 
                         if (allUsers != null && !allUsers.isEmpty()) {
-;
                             for (Brand user : allUsers) {
-                            count++;
-                            
+
                     %>
                     <tr>
-                        <!--                        <td><input type="checkbox" /></td>-->
-                        <td><%=count%></td>
+                        <td><%= user.getBrand_id()%></td>
                         <td><%= user.getBrand_name()%></td>
                         <td>
                             <%= user.getDescription()%>
@@ -194,11 +187,13 @@
                             <button
                                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
                                 class="edit-btn"
+                                onclick="editBrand(<%= user.getBrand_id()%>, '<%= user.getBrand_name()%>', '<%= user.getDescription()%>')"
                                 >
-                                Edit</button
-                            ><button
+                                Edit
+                            </button>
+                            <button
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
-
+                                name="btnDeleteBrand"
                                 >
                                 Delete
                             </button>
@@ -259,46 +254,27 @@
                     </form>
                 </div>
             </div>
-            <!-- EDIT BRAND MODAL -->
+            <!-- Edit Modal -->
             <div id="editModal" class="modal">
-                <!-- Modal content -->
                 <div class="modal-content">
                     <h1>Edit Brand</h1>
                     <span class="close-btn">&times;</span>
-                    <form action="" class="brand-edit-form">
-                        <label>
-                            Edit brand ID
-                            <input
-                                type="text"
-                                id="edit-brand-id"
-                                placeholder="Brand ID"
-                                required
-                                />
-                        </label>
+                    <form action="/Admin/Brand" class="brand-edit-form" method="post">
+                        <input type="hidden" id="edit-brand-id" name="brand_id"/>
                         <label>
                             Edit brand name
-                            <input
-                                type="text"
-                                id="edit-brand-name"
-                                placeholder="Brand name"
-                                required
-                                />
+                            <input type="text" id="edit-brand-name" name="brand_name" />
                         </label>
                         <label>
                             Edit brand description
-                            <textarea
-                                placeholder="Brand description"
-                                id="edit-brand-description"
-                                rows="15"
-                                style="padding: 10px"
-                                ></textarea>
+                            <textarea id="edit-brand-description" rows="15" style="padding: 10px" name="description"></textarea>
                         </label>
-
 
                         <div class="add-cancel-btn">
                             <button
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                 class="cancel-btn"
+                                type="button"
                                 >
                                 Cancel
                             </button>
@@ -306,6 +282,7 @@
                                 type="submit"
                                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
                                 class="accept-btn"
+                                name="btnEditBrand"
                                 >
                                 Save
                             </button>
@@ -320,8 +297,20 @@
 
 
 
-
         </main>
+        <script>
+            function editBrand(brandId, brandName, brandDes) {
+
+                // Set values in modal fields
+                document.getElementById('edit-brand-id').value = brandId;
+                document.getElementById('edit-brand-name').value = brandName;
+                document.getElementById('edit-brand-description').value = brandDes;
+
+                // Open the modal
+                const editModal = document.getElementById("editModal");
+                editModal.style.display = "block";
+            }
+        </script>
     </body>
 </html>
 

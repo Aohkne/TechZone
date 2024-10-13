@@ -6,7 +6,10 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.BrandDAO;
+import DAOs.CategoryDAO;
+import DAOs.UserDAO;
 import Models.Brand;
+import Models.Category;
 import Models.Users;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -77,11 +80,11 @@ public class Admin extends HttpServlet {
             request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
         } else if (path.equals("/Admin/Users")) {
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
-        }else if (path.equals("/Admin/Category")) {
+        } else if (path.equals("/Admin/Category")) {
             request.getRequestDispatcher("/admin_categories.jsp").forward(request, response);
-        }else if (path.equals("/Admin/Product")) {
+        } else if (path.equals("/Admin/Product")) {
             request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
-        }else if (path.equals("/Admin/Review")) {
+        } else if (path.equals("/Admin/Review")) {
             request.getRequestDispatcher("/admin_reviews.jsp").forward(request, response);
         }
     }
@@ -111,6 +114,30 @@ public class Admin extends HttpServlet {
 
             // Chuyển tiếp đến trang hiển thị danh sách người dùng
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
+        } else if (request.getParameter("userId") != null && request.getParameter("verified") != null) {
+            // Cập nhật trạng thái tài khoản
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            boolean verified = Boolean.parseBoolean(request.getParameter("verified"));
+            AccountDAO dao = new AccountDAO();
+            // Cập nhật trạng thái trong DB
+            dao.setVerifiedEmail(userId, verified);
+
+            // Phản hồi JSON để JavaScript có thể xử lý
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"status\":\"success\"}");
+        } else if (request.getParameter("btnSort") != null) {
+            AccountDAO dao = new AccountDAO();
+            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
+            List<Users> sortResults = dao.getAllUsersSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
+
+            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
+            request.setAttribute("sortResults", sortResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách thương hiệu
+            request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
+            // Reset sortResults sau khi xử lý xong
+            request.setAttribute("sortResults", null);
         } else if (request.getParameter("btnsearchBrand") != null) {
             // Logic xử lý tìm kiếm khi nút submit được nhấn
             String query = request.getParameter("query");
@@ -140,13 +167,70 @@ public class Admin extends HttpServlet {
             String name = request.getParameter("brand-name");
             String des = request.getParameter("description");
 
-           Brand newInfo = new Brand(name, des);
-           BrandDAO dao = new BrandDAO();
-           int count = dao.createBrand(newInfo);
+            Brand newInfo = new Brand(name, des);
+            BrandDAO dao = new BrandDAO();
+            int count = dao.createBrand(newInfo);
 
             response.sendRedirect("/Admin/Brand");
-        }
+        } else if (request.getParameter("btnEditBrand") != null) {
 
+            String name = request.getParameter("brand_name");
+            String des = request.getParameter("description");
+            int brand_id = Integer.parseInt(request.getParameter("brand_id"));
+
+            Brand newInfo = new Brand(brand_id, name, des);
+            BrandDAO dao = new BrandDAO();
+            dao.editBrand(newInfo);
+
+            response.sendRedirect("/Admin/Brand");
+
+        } else if (request.getParameter("btnsearchCategory") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            CategoryDAO dao = new CategoryDAO();
+            List<Models.Category> searchResults = dao.searchCategory(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            request.getRequestDispatcher("/admin_categories.jsp").forward(request, response);
+        } else if (request.getParameter("btnSort") != null) {
+            CategoryDAO dao = new CategoryDAO();
+            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
+            List<Models.Category> sortResults = dao.getAllCategoriesSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
+
+            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
+            request.setAttribute("sortResults", sortResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách thương hiệu
+            request.getRequestDispatcher("/admin_categories.jsp").forward(request, response);
+            // Reset sortResults sau khi xử lý xong
+            request.setAttribute("sortResults", null);
+        } else if (request.getParameter("btnAddCategory") != null) {
+            String name = request.getParameter("cat-name");
+            String des = request.getParameter("description");
+
+            Category newInfo = new Category(name, des);
+            CategoryDAO dao = new CategoryDAO();
+            dao.createCategory(newInfo);
+
+            response.sendRedirect("/Admin/Category");
+        } else if (request.getParameter("btnEditCategory") != null) {
+
+            String name = request.getParameter("cat_name");
+            String des = request.getParameter("description");
+            int cat_id = Integer.parseInt(request.getParameter("cat_id"));
+
+            Category newInfo = new Category(cat_id, name, des);
+            CategoryDAO dao = new CategoryDAO();
+            dao.editCategory(newInfo);
+
+            response.sendRedirect("/Admin/Category");
+
+        }
     }
 
     /**
