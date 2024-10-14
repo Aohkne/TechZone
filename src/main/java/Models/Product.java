@@ -15,8 +15,8 @@ public class Product {
     private int pro_id;
     private String pro_name;
     private String description;
-    private double pro_price;
-    private double pro_discount;
+    private String pro_price;
+    private String pro_sale;
     private int pro_quantity;
     private String madein;
     private Date created_at;
@@ -28,12 +28,29 @@ public class Product {
     public Product() {
     }
 
-    public Product(int pro_id, String pro_name, String description, double pro_price, double pro_discount, int pro_quantity, String madein, Date created_at, Date updated_at, String pro_image, int cat_id, String brand_id) {
+    public Product(int pro_id, String pro_name, String pro_price, String pro_image) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
+        this.pro_price = pro_price;
+        this.pro_image = pro_image;
+
+    }
+
+    public Product(int pro_id, String pro_name, String pro_price, String pro_sale, String pro_image) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
+        this.pro_price = pro_price;
+        this.pro_sale = pro_sale;
+        this.pro_image = pro_image;
+
+    }
+
+    public Product(int pro_id, String pro_name, String description, String pro_price, String pro_sale, int pro_quantity, String madein, Date created_at, Date updated_at, String pro_image, int cat_id, String brand_id) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.description = description;
         this.pro_price = pro_price;
-        this.pro_discount = pro_discount;
+        this.pro_sale = pro_sale;
         this.pro_quantity = pro_quantity;
         this.madein = madein;
         this.created_at = created_at;
@@ -67,21 +84,23 @@ public class Product {
         this.description = description;
     }
 
-    public double getPro_price() {
+    public String getPro_price() {
         return pro_price;
     }
 
-    public void setPro_price(double pro_price) {
+    public void setPro_price(String pro_price) {
         this.pro_price = pro_price;
     }
 
-    public double getPro_discount() {
-        return pro_discount;
+    public String getPro_sale() {
+        return pro_sale;
     }
 
-    public void setPro_discount(double pro_discount) {
-        this.pro_discount = pro_discount;
+    public void setPro_sale(String pro_sale) {
+        this.pro_sale = pro_sale;
     }
+
+
 
     public int getPro_quantity() {
         return pro_quantity;

@@ -4,12 +4,17 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import DAOs.BrandDAO;
+import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,7 +39,7 @@ public class Brand extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Brand</title>");            
+            out.println("<title>Servlet Brand</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Brand at " + request.getContextPath() + "</h1>");
@@ -55,7 +60,42 @@ public class Brand extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String path = request.getRequestURI();
+        if (path.equals("/Admin/Brand")) {
+            AccountDAO dao = new AccountDAO();
+            BrandDAO daos = new BrandDAO();
+            int userId = -1;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("id")) {
+                        userId = Integer.parseInt(cookie.getValue());
+                        break;
+                    }
+                }
+            }
+            String name = dao.GetNameAdmin(userId);
+            int counts = daos.GetTotalBrand();
+
+            List<Models.Brand> searchResults = (List<Models.Brand>) request.getAttribute("searchResults");
+            List<Models.Brand> sortResults = (List<Models.Brand>) request.getAttribute("sortResults");
+            List<Models.Brand> allUsers = new ArrayList<>();
+
+            if (searchResults != null) {
+                allUsers = searchResults;
+            } else if (sortResults != null) {
+                allUsers = sortResults;
+
+            } else {
+
+                allUsers = daos.GetAllBrand();
+            }
+
+            request.setAttribute("counts", counts);
+            request.setAttribute("name", name);
+             request.setAttribute("allUsers", allUsers);
+            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -69,7 +109,50 @@ public class Brand extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        if (request.getParameter("btnsearchBrand") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            BrandDAO dao = new BrandDAO();
+            List<Models.Brand> searchResults = dao.searchBrand(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            doGet(request, response);
+        } else if (request.getParameter("btnSort") != null) {
+            BrandDAO dao = new BrandDAO();
+            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
+            List<Models.Brand> sortResults = dao.getAllBrandsSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
+
+            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
+            request.setAttribute("sortResults", sortResults);
+
+            doGet(request, response);
+        } else if (request.getParameter("btnAddBrand") != null) {
+            String name = request.getParameter("brand-name");
+            String des = request.getParameter("description");
+
+            Models.Brand newInfo = new Models.Brand(name, des);
+            BrandDAO dao = new BrandDAO();
+            int count = dao.createBrand(newInfo);
+
+            response.sendRedirect("/Admin/Brand");
+        } else if (request.getParameter("btnEditBrand") != null) {
+
+            String name = request.getParameter("brand_name");
+            String des = request.getParameter("description");
+            int brand_id = Integer.parseInt(request.getParameter("brand_id"));
+
+            Models.Brand newInfo = new Models.Brand(brand_id, name, des);
+            BrandDAO dao = new BrandDAO();
+            dao.editBrand(newInfo);
+
+            response.sendRedirect("/Admin/Brand");
+
+        }
     }
 
     /**

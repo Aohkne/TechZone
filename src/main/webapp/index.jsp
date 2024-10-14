@@ -8,6 +8,8 @@
 <%@page import="DAOs.ProductDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.UserDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,32 +115,16 @@
                     <div class="user__account">
 
                         <%
-                            String idUser = "";
                             Cookie[] cookies = request.getCookies();
                             boolean isId = false;
                             if (cookies != null) {
                                 for (Cookie cookie : cookies) {
                                     if (cookie.getName().equals("id")) {
-                                        idUser = cookie.getValue();
-                                        UserDAO userdao = new UserDAO();
-                                        ResultSet rs = userdao.getUserById(idUser);
-
-                                        AccountDAO dao = new AccountDAO();
-                                        int userId = Integer.parseInt(idUser);
-                                        // Use the userId to find the user type (role)
-                                        int userType = dao.getTypeById(userId);
-
-                                        // Redirect based on the user type
-                                        if (userType == 1) {
-                                            response.sendRedirect("/Admin");
-                                        }
-                                        while (rs.next()) {
                         %>
                         <!-- Account User  -->
                         <div class="account__img">
-                            <!-- <i class="fa-solid fa-circle-user"></i> -->
-                            <img src=<%= rs.getString("avatar")%> alt="" srcset="">
-                            <span><%= rs.getString("username")%></span>
+                            <img src="${avatar}" alt="">
+                            <span>${username}</span>
                         </div>
                     </div>
 
@@ -146,13 +132,11 @@
                     <div class="account__container">
                         <div class="account__content">
                             <div class="account__information">
-
-                                <img src=<%= rs.getString("avatar")%> alt="">
+                                <img src="${avatar}" alt="">
                                 <div class="account__description">
-                                    <div class="account__username"><%= rs.getString("username")%></div>
-                                    <div class="account__mail"><%= rs.getString("email")%></div>
+                                    <div class="account__username">${username}</div>
+                                    <div class="account__mail">${email}</div>
                                 </div>
-                                <%}%>
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
@@ -193,19 +177,12 @@
                     %>
                     <div class="account__register" onclick="window.location.href = '/Login'">Register</div>
                     <div class="account__login" onclick="window.location.href = '/Login'">Log in</div>
+
             </div>
             <%
                 }
             %>  
-
-
-
-
-
-
         </ul>
-
-
     </div>
 
     <!-- Nav Search -->
@@ -396,66 +373,34 @@
 
         <div class="product__list">
             <div class="row">
-                <%
-                    ProductDAO productdao = new ProductDAO();
-                    ResultSet productDetail = productdao.getAllDefaultProduct();
-                    String img = null;
-                    String id = null;
-                    String pro_id = null;
-                    int countP = 0;
-                    while (productDetail.next()) {
-                        if (countP >= 6) {
-                            break;
-                        }
-                        countP++;
-                        img = productDetail.getString("image");
-                        id = productDetail.getString("proDetail_id");
-                        pro_id = productDetail.getString("pro_id");
-                        ResultSet rs = productdao.getProductByIdNotSale(pro_id);
-                        while (rs.next()) {
-                            //Handle price to format
-                            String price = rs.getString("pro_price");
-                            price = price.substring(0, price.length() - 3);
-                            StringBuilder result = new StringBuilder();
-                            int count = 0;
-                            for (int i = price.length() - 1; i >= 0; i--) {
-                                if (count == 3) {
-                                    result.append("." + price.charAt(i));
-                                    count = 1;
-                                } else {
-                                    result.append(price.charAt(i));
-                                    count++;
-                                }
-                            }
-                            price = result.reverse() + "";
+                <c:if test="${not empty products}">
 
-                %>
-
-                <div class="product__item col l-2">
-                    <a href="./user_products.jsp?id=<%= id%>">
-                        <input type="hidden" value=<%= id%>>
-                        <div class="product__content">
-                            <div class="product__img">
-                                <!--Get Image-->
-                                <img src=<%= img%> alt="" class="sale__img">
+                    <c:forEach var="product" items="${products}">
+                        <div class="product__item col l-2">
+                            <a href="./user_products.jsp?id=${product.pro_id}">
+                                <input type="hidden" value="${product.pro_id}">
+                                <div class="product__content">
+                                    <div class="product__img">
+                                        <img src="${product.pro_image}" alt="" class="sale__img">
+                                    </div>
+                                    <div class="product__name">${product.pro_name}</div>
+                                    <div class="product__price">${product.pro_price} VND</div>
+                                </div>
+                            </a>
+                            <div class="product__btn">
+                                <i class="fa-solid fa-cart-plus"></i>
                             </div>
-
-                            <div class="product__name"><%= rs.getString("pro_name")%></div>
-                            <div class="product__price"><%= price%> VND</div>
                         </div>
-                    </a>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty products}">
+                </c:if>
 
-                    <div class="product__btn">
-                        <i class="fa-solid fa-cart-plus"></i>
-                    </div>
 
-                </div>
-
-                <%}
-                    }%>
             </div>
         </div>
     </div>
+
 
     <!-- Sale -->
     <div class="sale__container">
@@ -468,60 +413,15 @@
         </div>
 
         <div class="sale__list">
-
-            <%
-                productDetail = productdao.getAllDefaultProduct();
-                img = null;
-                pro_id = null;
-                while (productDetail.next()) {
-                    img = productDetail.getString("image");
-                    pro_id = productDetail.getString("pro_id");
-                    ResultSet rs = productdao.getProductByIdSale(pro_id);
-                    while (rs.next()) {
-                        //Handle price to format
-                        String price = rs.getString("pro_price");
-                        price = price.substring(0, price.length() - 3);
-                        StringBuilder result = new StringBuilder();
-                        int count = 0;
-                        for (int i = price.length() - 1; i >= 0; i--) {
-                            if (count == 3) {
-                                result.append("." + price.charAt(i));
-                                count = 1;
-                            } else {
-                                result.append(price.charAt(i));
-                                count++;
-                            }
-                        }
-                        price = result.reverse() + "";
-                        //Handle sale to format
-                        String sale = rs.getString("pro_sale");
-                        sale = sale.substring(0, sale.length() - 3);
-                        result = new StringBuilder();
-                        count = 0;
-                        for (int i = sale.length() - 1; i >= 0; i--) {
-                            if (count == 3) {
-                                result.append("." + sale.charAt(i));
-                                count = 1;
-                            } else {
-                                result.append(sale.charAt(i));
-                                count++;
-                            }
-                        }
-                        sale = result.reverse() + "";
-            %>
-
-            <div class="sale__item">
-                <img src=<%= img%> alt="" class="sale__img">
-                <div class="sale__name"><%= rs.getString("pro_name")%></div>
-                <div class="sale__price"><%= sale%> VND</div>
-                <div class="sale__prePrice"><%= price%> VND</div>
-            </div>
-            <%}
-                }%>
-
+            <c:forEach var="product" items="${flashSaleProducts}">
+                <div class="sale__item">
+                    <img src="${product.pro_image}" alt="" class="sale__img">
+                    <div class="sale__name">${product.pro_name}</div>
+                    <div class="sale__price">${product.pro_sale} VND</div>
+                    <div class="sale__prePrice">${product.pro_price} VND</div>
+                </div>
+            </c:forEach>
         </div>
-
-
     </div>
 
     <!-- chat -->
@@ -658,7 +558,7 @@
 </div>
 
 <div class="footer__copyright">
-    ©2024 - Group 6
+    ?2024 - Group 6
 </div>
 
 

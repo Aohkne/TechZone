@@ -4,14 +4,25 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import DAOs.ProductDAO;
+import DAOs.UserDAO;
+import DB.DBConnection;
+import Models.Product;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -42,7 +53,7 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");            
+            out.println("<title>Servlet Home</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Home at " + request.getContextPath() + "</h1>");
@@ -63,11 +74,60 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String path = request.getRequestURI();
+        String path = request.getRequestURI();
 
-            if (path.equals("/Home")) {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+        if (path.equals("/Home") || path.equals("/") || path.equals("")) {
+
+            ProductDAO productDAO = new ProductDAO();
+            List<Product> products = productDAO.getAllDefaultProducts();
+            List<Product> flashSaleProducts = productDAO.getAllFlashSaleProducts();
+
+            // Debug thông tin sản phẩm flash sale
+            for (Product product : flashSaleProducts) {
+                System.out.println("Sale Price: " + product.getPro_sale());
             }
+            request.setAttribute("products", products);
+            request.setAttribute("flashSaleProducts", flashSaleProducts);
+
+            Cookie[] cookies = request.getCookies();
+            String idUser = "";
+            boolean isId = false;
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("id")) {
+                        idUser = cookie.getValue();
+                        UserDAO userdao = new UserDAO();
+                        AccountDAO dao = new AccountDAO();
+                        int userId = Integer.parseInt(idUser);
+
+                        try {
+                            ResultSet rs = userdao.getUserById(idUser);
+                            int userType = dao.getTypeById(userId);
+
+                            if (userType == 1) {
+                                response.sendRedirect("/Admin");
+                                return;
+                            }
+
+                            if (rs != null && rs.next()) {
+                                request.setAttribute("username", rs.getString("username"));
+                                request.setAttribute("avatar", rs.getString("avatar"));
+                                request.setAttribute("email", rs.getString("email"));
+                                isId = true;
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                }
+            }
+
+            request.setAttribute("isId", isId);
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**

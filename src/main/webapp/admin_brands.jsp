@@ -10,6 +10,8 @@
 <%@page import="DAOs.AccountDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.BrandDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -73,25 +75,10 @@
                     </li>
                 </ul>
             </div>
-            <%
-                AccountDAO dao = new AccountDAO();
-                BrandDAO daos = new BrandDAO();
-                int userId = -1;
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("id")) {
-                            userId = Integer.parseInt(cookie.getValue());
-                            break;
-                        }
-                    }
-                }
-                String name = dao.GetNameAdmin(userId);
-            %>
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
-                    <p class="account-name"><%=name%></p>
+                    <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
@@ -117,8 +104,8 @@
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Brands</p>
-                    <% int counts = daos.GetTotalBrand();%>
-                    <p class="card-value"><%= counts%></p>
+                    <% ;%>
+                    <p class="card-value">${counts}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -158,57 +145,35 @@
                         <th class="description">Description</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <%
-                        List<Brand> searchResults = (List<Brand>) request.getAttribute("searchResults");
-                        List<Brand> sortResults = (List<Brand>) request.getAttribute("sortResults");
-                        List<Brand> allUsers = new ArrayList<>();
-
-                        if (searchResults != null) {
-                            allUsers = searchResults;
-                        } else if (sortResults != null) {
-                            allUsers = sortResults;
-
-                        } else {
-
-                            allUsers = daos.GetAllBrand();
-                        }
-
-                        if (allUsers != null && !allUsers.isEmpty()) {
-                            for (Brand user : allUsers) {
-
-                    %>
-                    <tr>
-                        <td><%= user.getBrand_id()%></td>
-                        <td><%= user.getBrand_name()%></td>
-                        <td>
-                            <%= user.getDescription()%>
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                class="edit-btn"
-                                onclick="editBrand(<%= user.getBrand_id()%>, '<%= user.getBrand_name()%>', '<%= user.getDescription()%>')"
-                                >
-                                Edit
-                            </button>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                name="btnDeleteBrand"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <%
-                        }
-                    } else {
-                    %>
-                    <tr>
-                        <td colspan="9">No users found</td>
-                    </tr>
-                    <%
-                        }
-                    %>
+                    <c:if test="${not empty allUsers}">
+                        <c:forEach var="user" items="${allUsers}">
+                            <tr>
+                                <td>${user.brand_id}</td>
+                                <td>${user.brand_name}</td>
+                                <td>${user.description}</td>
+                                <td>
+                                    <button
+                                        style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                        class="edit-btn"
+                                        onclick="editBrand(${user.brand_id}, '${user.brand_name}', '${user.description}')"
+                                        >
+                                        Edit
+                                    </button>
+                                    <button
+                                        style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                        name="btnDeleteBrand"
+                                        >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty allUsers}">
+                        <tr>
+                            <td colspan="4">No users found</td>
+                        </tr>
+                    </c:if>
                 </table>
             </div>
             <!-- MODAL -->

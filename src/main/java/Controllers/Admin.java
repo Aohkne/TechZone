@@ -76,9 +76,7 @@ public class Admin extends HttpServlet {
         // Nếu đường dẫn là "/Admin", hiển thị trang quản trị
         if (path.equals("/Admin") || path.equals("/Admin/Dashboard")) {
             request.getRequestDispatcher("/admin_dashboard.jsp").forward(request, response);
-        } else if (path.equals("/Admin/Brand")) {
-            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
-        } else if (path.equals("/Admin/Users")) {
+        }  else if (path.equals("/Admin/Users")) {
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
         } else if (path.equals("/Admin/Category")) {
             request.getRequestDispatcher("/admin_categories.jsp").forward(request, response);
@@ -138,53 +136,7 @@ public class Admin extends HttpServlet {
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
             // Reset sortResults sau khi xử lý xong
             request.setAttribute("sortResults", null);
-        } else if (request.getParameter("btnsearchBrand") != null) {
-            // Logic xử lý tìm kiếm khi nút submit được nhấn
-            String query = request.getParameter("query");
-
-            // Gọi DAO để tìm kiếm người dùng
-            BrandDAO dao = new BrandDAO();
-            List<Brand> searchResults = dao.searchBrand(query);
-
-            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
-            request.setAttribute("searchResults", searchResults);
-
-            // Chuyển tiếp đến trang hiển thị danh sách người dùng
-            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
-        } else if (request.getParameter("btnSort") != null) {
-            BrandDAO dao = new BrandDAO();
-            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
-            List<Brand> sortResults = dao.getAllBrandsSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
-
-            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
-            request.setAttribute("sortResults", sortResults);
-
-            // Chuyển tiếp đến trang hiển thị danh sách thương hiệu
-            request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
-            // Reset sortResults sau khi xử lý xong
-            request.setAttribute("sortResults", null);
-        } else if (request.getParameter("btnAddBrand") != null) {
-            String name = request.getParameter("brand-name");
-            String des = request.getParameter("description");
-
-            Brand newInfo = new Brand(name, des);
-            BrandDAO dao = new BrandDAO();
-            int count = dao.createBrand(newInfo);
-
-            response.sendRedirect("/Admin/Brand");
-        } else if (request.getParameter("btnEditBrand") != null) {
-
-            String name = request.getParameter("brand_name");
-            String des = request.getParameter("description");
-            int brand_id = Integer.parseInt(request.getParameter("brand_id"));
-
-            Brand newInfo = new Brand(brand_id, name, des);
-            BrandDAO dao = new BrandDAO();
-            dao.editBrand(newInfo);
-
-            response.sendRedirect("/Admin/Brand");
-
-        } else if (request.getParameter("btnsearchCategory") != null) {
+        }  else if (request.getParameter("btnsearchCategory") != null) {
             // Logic xử lý tìm kiếm khi nút submit được nhấn
             String query = request.getParameter("query");
 
