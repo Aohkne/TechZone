@@ -209,7 +209,7 @@ function updateCartList() {
         </div>
         <div class="cart__btn">
         <button>
-          <a href="./user_cart.jsp" >Order</a>
+          <a href="/Voucher">Order</a>
         </button>
       </div>  
   `;

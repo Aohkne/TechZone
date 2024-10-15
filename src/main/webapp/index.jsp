@@ -374,23 +374,27 @@
         <div class="product__list">
             <div class="row">
                 <c:if test="${not empty products}">
+                    <c:set var="count" value="0"/>
 
                     <c:forEach var="product" items="${products}">
-                        <div class="product__item col l-2">
-                            <a href="./user_products.jsp?id=${product.pro_id}">
-                                <input type="hidden" value="${product.pro_id}">
-                                <div class="product__content">
-                                    <div class="product__img">
-                                        <img src="${product.pro_image}" alt="" class="sale__img">
+                        <c:if test="${count < 6}">
+                            <div class="product__item col l-2">
+                                <a href="./user_products.jsp?id=${product.pro_id}">
+                                    <input type="hidden" value="${product.pro_id}">
+                                    <div class="product__content">
+                                        <div class="product__img">
+                                            <img src="${product.pro_image}" alt="" class="sale__img">
+                                        </div>
+                                        <div class="product__name">${product.pro_name}</div>
+                                        <div class="product__price">${product.pro_price} VND</div>
                                     </div>
-                                    <div class="product__name">${product.pro_name}</div>
-                                    <div class="product__price">${product.pro_price} VND</div>
+                                </a>
+                                <div class="product__btn">
+                                    <i class="fa-solid fa-cart-plus"></i>
                                 </div>
-                            </a>
-                            <div class="product__btn">
-                                <i class="fa-solid fa-cart-plus"></i>
                             </div>
-                        </div>
+                        </c:if>
+                        <c:set var="count" value="${count + 1}" />
                     </c:forEach>
                 </c:if>
                 <c:if test="${empty products}">
@@ -558,7 +562,7 @@
 </div>
 
 <div class="footer__copyright">
-    ?2024 - Group 6
+    © 2024 - Group 6
 </div>
 
 

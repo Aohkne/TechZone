@@ -1,62 +1,71 @@
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<servlet>
-<servlet-name>Login</servlet-name>
-<servlet-class>Controllers.Login</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>Home</servlet-name>
-<servlet-class>Controllers.Home</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>Admin</servlet-name>
-<servlet-class>Controllers.Admin</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>Logout</servlet-name>
-<servlet-class>Controllers.Logout</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>User</servlet-name>
-<servlet-class>Controllers.User</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>Category</servlet-name>
-<servlet-class>Controllers.Category</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>Brand</servlet-name>
-<servlet-class>Controllers.Brand</servlet-class>
-</servlet>
-<servlet-mapping>
-<servlet-name>Login</servlet-name>
-<url-pattern>/Login</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Home</servlet-name>
-<url-pattern>/Home</url-pattern>
-<url-pattern/>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Admin</servlet-name>
-<url-pattern>/Admin</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Logout</servlet-name>
-<url-pattern>/Logout</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>User</servlet-name>
-<url-pattern>/User</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Category</servlet-name>
-<url-pattern>/Category</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Brand</servlet-name>
-<url-pattern>/Admin/Brand</url-pattern>
-</servlet-mapping>
-<session-config>
-<session-timeout> 30 </session-timeout>
-</session-config>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controllers.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>Controllers.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>Controllers.Admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Controllers.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>User</servlet-name>
+        <servlet-class>Controllers.User</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Category</servlet-name>
+        <servlet-class>Controllers.Category</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Brand</servlet-name>
+        <servlet-class>Controllers.Brand</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Voucher</servlet-name>
+        <servlet-class>Controllers.Voucher</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Category</servlet-name>
+        <url-pattern>/Category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Brand</servlet-name>
+        <url-pattern>/Admin/Brand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Voucher</servlet-name>
+        <url-pattern>/Voucher</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout> 30 </session-timeout>
+    </session-config>
 </web-app>

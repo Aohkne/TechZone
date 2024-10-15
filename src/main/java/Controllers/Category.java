@@ -74,7 +74,7 @@ public class Category extends HttpServlet {
             request.setAttribute("decrease", decrease);
         }
 
-        request.getRequestDispatcher("user_category.jsp").forward(request, response);
+//        request.getRequestDispatcher("user_category.jsp").forward(request, response);
     }
 
     /**

@@ -110,7 +110,6 @@ CREATE TABLE Product_Details (
 );
 
 
-
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
 VALUES
@@ -192,15 +191,93 @@ INSERT INTO Specification (spec_name, spec_value, unit, weight, dimensions, pro_
 ('Display', '6.5 inch', 'inch', 0.15, '16x8x0.9 cm', 1),
 ('Processor', 'Snapdragon 888', '', 0.1, 'N/A', 2);
 
+--Voucher
 CREATE TABLE Voucher (
     voucher_id INT PRIMARY KEY IDENTITY(1,1),
-    voucher_totalAmount VARCHAR(50) CHECK (voucher_totalAmount IN ('normal: discount 5%-10%', 'medium: discount 15%-25%', 'rare: discount 30%-50%')),
-    voucher_date DATE DEFAULT GETDATE(),
-    voucher_expire_date DATE
+    voucher_type VARCHAR(55), 
+    voucher_img TEXT,
+	voucher_description VARCHAR(55)
 );
-INSERT INTO Voucher (voucher_totalAmount, voucher_expire_date)
-VALUES
-('normal: discount 5%-10%', '2024-12-31'),
-('medium: discount 15%-25%', '2024-11-30'),
-('rare: discount 30%-50%', '2024-10-31');
+
+
+INSERT INTO Voucher (voucher_type, voucher_img, voucher_description)
+VALUES 
+('normal', './asset/img/img_all/img_cart/voucher_normal.png', 'discount 5% - 10%'),
+('medium', './asset/img/img_all/img_cart/voucher_medium.png', 'discount 15% - 25%'),
+('rare', './asset/img/img_all/img_cart/voucher_rare.png', 'discount 30% - 50%');
+
+--Voucher Detail
+CREATE TABLE VoucherDetail (
+    voucherDetail_id INT PRIMARY KEY IDENTITY(1,1),
+	voucher_name VARCHAR(50),
+	voucher_quantity INT,
+    voucher_discount INT, 
+    voucher_date DATE DEFAULT GETDATE(),
+    voucher_expire_date DATE,
+    voucher_id INT, 
+    user_id INT, 
+    FOREIGN KEY (voucher_id) REFERENCES Voucher(voucher_id), 
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Hàm nếu có trùng tên voucher thì tăng quanity lên 1
+CREATE PROCEDURE AddOrUpdateVoucher
+    @voucher_name VARCHAR(50),
+    @voucher_quantity INT,
+    @voucher_discount INT,
+    @voucher_expire_date DATE,
+    @voucher_id INT,
+    @user_id INT
+AS
+BEGIN
+    -- Kiểm tra xem voucher với tên và user_id đã tồn tại hay chưa
+    IF EXISTS (SELECT 1 FROM VoucherDetail 
+               WHERE voucher_name = @voucher_name 
+               AND user_id = @user_id)
+    BEGIN
+        -- Nếu tồn tại, cập nhật số lượng
+        UPDATE VoucherDetail
+        SET voucher_quantity = voucher_quantity + @voucher_quantity,
+            voucher_discount = @voucher_discount, -- Nếu muốn cập nhật discount
+            voucher_expire_date = @voucher_expire_date -- Nếu muốn cập nhật expire date
+        WHERE voucher_name = @voucher_name 
+        AND user_id = @user_id;
+    END
+    ELSE
+    BEGIN
+        -- Nếu chưa tồn tại, thêm một bản ghi mới
+        INSERT INTO VoucherDetail (
+            voucher_name, 
+            voucher_quantity, 
+            voucher_discount, 
+            voucher_expire_date,
+            voucher_id, 
+            user_id
+        )
+        VALUES (
+            @voucher_name, 
+            @voucher_quantity, 
+            @voucher_discount, 
+            @voucher_expire_date,
+            @voucher_id, 
+            @user_id
+        );
+    END
+END;
+
+Drop table VoucherDetail
+
+--cách add
+EXEC AddOrUpdateVoucher 
+    @voucher_name = 'Discount 35%', 
+    @voucher_quantity = 1, 
+    @voucher_discount = 35, 
+    @voucher_expire_date = '2024-12-31', 
+    @voucher_id = 3, 
+    @user_id = 8;
+
+
+
+select * from VoucherDetail
+
 

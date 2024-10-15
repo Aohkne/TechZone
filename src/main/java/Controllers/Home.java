@@ -83,9 +83,9 @@ public class Home extends HttpServlet {
             List<Product> flashSaleProducts = productDAO.getAllFlashSaleProducts();
 
             // Debug thông tin sản phẩm flash sale
-            for (Product product : flashSaleProducts) {
-                System.out.println("Sale Price: " + product.getPro_sale());
-            }
+//            for (Product product : flashSaleProducts) {
+//                System.out.println("Sale Price: " + product.getPro_sale());
+//            }
             request.setAttribute("products", products);
             request.setAttribute("flashSaleProducts", flashSaleProducts);
 

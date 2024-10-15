@@ -112,22 +112,16 @@
 
                     <div class="user__account">
                         <%
-                            String idUser = "";
                             Cookie[] cookies = request.getCookies();
                             boolean isId = false;
                             if (cookies != null) {
                                 for (Cookie cookie : cookies) {
                                     if (cookie.getName().equals("id")) {
-                                        idUser = cookie.getValue();
-                                        UserDAO userdao = new UserDAO();
-                                        ResultSet rs = userdao.getUserById(idUser);
-                                        while (rs.next()) {
                         %>
                         <!-- Account User  -->
                         <div class="account__img">
-                            <!-- <i class="fa-solid fa-circle-user"></i> -->
-                            <img src=<%= rs.getString("avatar")%> alt="" srcset="">
-                            <span><%= rs.getString("username")%></span>
+                            <img src="${avatar}" alt="">
+                            <span>${username}</span>
                         </div>
                     </div>
 
@@ -135,13 +129,11 @@
                     <div class="account__container">
                         <div class="account__content">
                             <div class="account__information">
-
-                                <img src=<%= rs.getString("avatar")%> alt="">
+                                <img src="${avatar}" alt="">
                                 <div class="account__description">
-                                    <div class="account__username"><%= rs.getString("username")%></div>
-                                    <div class="account__mail"><%= rs.getString("email")%></div>
+                                    <div class="account__username">${username}</div>
+                                    <div class="account__mail">${email}</div>
                                 </div>
-                                <%}%>
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
@@ -169,7 +161,7 @@
                                 <a href="/Logout">Log out</a>
                             </div>
                         </div>
-                    </div>
+                    </div
 
                     <%
                                     isId = true;
@@ -308,6 +300,7 @@
                     <%
                         CategoryDAO categorydao = new CategoryDAO();
                         ResultSet rs = categorydao.getAllCategory();
+
                         while (rs.next()) {
                     %>
                     <a href="/Category?id=<%= rs.getString("cat_id")%>"><%= rs.getString("cat_name")%></a>
@@ -317,11 +310,15 @@
             <div class="nav__action">
                 <%
                     String id = null;
-                    if (request.getAttribute("idCat") != null) {
+
+                    if (request.getAttribute(
+                            "idCat") != null) {
                         id = (String) request.getAttribute("idCat");
-                    } else if (request.getAttribute("increase") != null && !(request.getAttribute("increase").equals("increase"))) {
+                    } else if (request.getAttribute(
+                            "increase") != null && !(request.getAttribute("increase").equals("increase"))) {
                         id = (String) request.getAttribute("increase");
-                    } else if (request.getAttribute("decrease") != null && !(request.getAttribute("decrease").equals("decrease"))) {
+                    } else if (request.getAttribute(
+                            "decrease") != null && !(request.getAttribute("decrease").equals("decrease"))) {
                         id = (String) request.getAttribute("decrease");
                     }
                 %>
@@ -346,20 +343,29 @@
                 String increase = (String) request.getAttribute("increase");
                 String decrease = (String) request.getAttribute("decrease");
                 rs = null;
-                if (search != null) {
+                if (search
+                        != null) {
                     rs = productdao.getProductBySearch(search);
-                } else if (idCat != null) {
+                } else if (idCat
+                        != null) {
                     rs = productdao.getProductByBrandId(idCat);
-                } else if (increase != null && increase.matches("-?\\d+")) {
+                } else if (increase
+                        != null && increase.matches(
+                                "-?\\d+")) {
                     // matches ?? ki?m tra chu?i có ph?i s? nguyên ko
                     rs = productdao.getProductIncreaseByCatId(increase);
-                } else if (decrease != null && decrease.matches("-?\\d+")) {
+                } else if (decrease
+                        != null && decrease.matches(
+                                "-?\\d+")) {
                     rs = productdao.getProductDecreaseByCatId(decrease);
-                } else if (increase != null) {
+                } else if (increase
+                        != null) {
                     rs = productdao.getProductIncrease();
-                } else if (decrease != null) {
+                } else if (decrease
+                        != null) {
                     rs = productdao.getProductDecrease();
                 }
+
                 while (rs.next()) {
                     //Handle price to format
                     String price = rs.getString("pro_price");

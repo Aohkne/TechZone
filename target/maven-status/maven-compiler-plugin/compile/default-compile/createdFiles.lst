@@ -2,7 +2,9 @@ Controllers\Home.class
 DAOs\CategoryDAO.class
 Controllers\Brand.class
 DAOs\UserDAO.class
+Models\Voucher.class
 Controllers\Admin.class
+Controllers\Voucher.class
 Controllers\Logout.class
 DAOs\AccountDAO.class
 Models\Category.class
@@ -12,6 +14,7 @@ Models\Product.class
 Controllers\User.class
 Controllers\Login.class
 Models\Brand.class
+DAOs\VoucherDAO.class
 DB\DBConnection.class
 Models\Users.class
 Controllers\Login$1.class
