@@ -443,6 +443,7 @@ public class AccountDAO {
 
                 while (rs.next()) {
                     Users user = new Users();
+                    user.setUser_id(rs.getInt("user_id"));
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
                     user.setPhone(rs.getString("phone"));

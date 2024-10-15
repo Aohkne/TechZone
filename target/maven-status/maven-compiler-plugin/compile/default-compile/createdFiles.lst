@@ -8,6 +8,7 @@ Controllers\Voucher.class
 Controllers\Logout.class
 DAOs\AccountDAO.class
 Models\Category.class
+Controllers\Categories.class
 Controllers\Login$2.class
 DAOs\ProductDAO.class
 Models\Product.class

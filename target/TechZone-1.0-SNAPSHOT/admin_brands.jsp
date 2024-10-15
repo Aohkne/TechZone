@@ -104,8 +104,7 @@
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Brands</p>
-                    <% ;%>
-                    <p class="card-value">${counts}</p>
+                    <p class="card-value">${countBrand}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -145,8 +144,8 @@
                         <th class="description">Description</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <c:if test="${not empty allUsers}">
-                        <c:forEach var="user" items="${allUsers}">
+                    <c:if test="${not empty allBrand}">
+                        <c:forEach var="user" items="${allBrand}">
                             <tr>
                                 <td>${user.brand_id}</td>
                                 <td>${user.brand_name}</td>
@@ -169,7 +168,7 @@
                             </tr>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${empty allUsers}">
+                    <c:if test="${empty allBrand}">
                         <tr>
                             <td colspan="4">No users found</td>
                         </tr>
@@ -228,11 +227,11 @@
                         <input type="hidden" id="edit-brand-id" name="brand_id"/>
                         <label>
                             Edit brand name
-                            <input type="text" id="edit-brand-name" name="brand_name" />
+                            <input type="text" id="edit-brand-name" name="brand_name" required=""/>
                         </label>
                         <label>
                             Edit brand description
-                            <textarea id="edit-brand-description" rows="15" style="padding: 10px" name="description"></textarea>
+                            <textarea id="edit-brand-description" rows="15" style="padding: 10px" name="description" required=""></textarea>
                         </label>
 
                         <div class="add-cancel-btn">
@@ -270,8 +269,8 @@
                 document.getElementById('edit-brand-id').value = brandId;
                 document.getElementById('edit-brand-name').value = brandName;
                 document.getElementById('edit-brand-description').value = brandDes;
-
-                // Open the modal
+                // Show the modal
+// Open the modal
                 const editModal = document.getElementById("editModal");
                 editModal.style.display = "block";
             }

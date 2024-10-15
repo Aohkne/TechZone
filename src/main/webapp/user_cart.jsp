@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="account__logout">
-                                    <a>Log out</a>
+                                    <a href="/Logout">Log out</a>
                                 </div>
                             </div>
                         </div>

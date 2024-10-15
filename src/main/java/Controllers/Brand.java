@@ -91,9 +91,9 @@ public class Brand extends HttpServlet {
                 allUsers = daos.GetAllBrand();
             }
 
-            request.setAttribute("counts", counts);
+            request.setAttribute("countBrand", counts);
             request.setAttribute("name", name);
-             request.setAttribute("allUsers", allUsers);
+            request.setAttribute("allBrand", allUsers);
             request.getRequestDispatcher("/admin_brands.jsp").forward(request, response);
         }
     }

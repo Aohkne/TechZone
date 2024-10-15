@@ -159,7 +159,7 @@ public class CategoryDAO {
         if (conn != null) {
             try {
                 Statement st = conn.createStatement();
-                rs = st.executeQuery("SELECT * FROM Category ORDER BY brand_id DESC");
+                rs = st.executeQuery("SELECT * FROM Category ORDER BY cat_id DESC");
 
                 // Duyệt qua ResultSet và tạo đối tượng Users
                 while (rs.next()) {

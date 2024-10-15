@@ -65,7 +65,6 @@ public class BrandDAO {
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
                     userCount = rs.getInt(1); // Get the count of users
-                    System.out.println(userCount);  // Print to check the result
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();

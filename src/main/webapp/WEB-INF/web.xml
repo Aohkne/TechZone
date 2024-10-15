@@ -32,6 +32,10 @@
         <servlet-name>Voucher</servlet-name>
         <servlet-class>Controllers.Voucher</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Categories</servlet-name>
+        <servlet-class>Controllers.Categories</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -64,6 +68,10 @@
     <servlet-mapping>
         <servlet-name>Voucher</servlet-name>
         <url-pattern>/Voucher</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Categories</servlet-name>
+        <url-pattern>/Admin/Category</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

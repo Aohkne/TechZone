@@ -9,6 +9,8 @@
 <%@page import="Models.Users"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.AccountDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -69,26 +71,11 @@
                     </li>
                 </ul>
             </div>
-            <%
-                AccountDAO dao = new AccountDAO();
-                int userId = -1;
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("id")) {
-                            userId = Integer.parseInt(cookie.getValue());
-                            break;
-                        }
-                    }
-                }
-                String name = dao.GetNameAdmin(userId);
-                System.out.println(name);
-                System.out.println(userId);
-            %>
+
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
-                    <p class="account-name"> <%=name%></p>
+                    <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
@@ -117,8 +104,7 @@
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Users</p>
-                    <% int counts = dao.GetTotalUser();%>
-                    <p class="card-value"><%= counts%></p>
+                    <p class="card-value">${countUser}</p>                   
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
@@ -147,8 +133,8 @@
                     </form>
                 </div>
             </div>
-            <!-- USERS TABLE -->
 
+            <!-- USERS TABLE -->
             <div class="users-table">
                 <h1 class="table-name">USERS LIST</h1>
                 <table>
@@ -162,72 +148,44 @@
                         <th>Created Date</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <%
-                        List<Users> searchResults = (List<Users>) request.getAttribute("searchResults");
-                        List<Users> sortResults = (List<Users>) request.getAttribute("sortResults");
-                        List<Users> allUsers = new ArrayList<>();
-
-                        if (searchResults != null) {
-                            allUsers = searchResults;
-                        } else if (sortResults != null) {
-                            allUsers = sortResults;
-
-                        } else {
-
-                            allUsers = dao.getAllUser();
-                        }
-
-                        if (allUsers != null && !allUsers.isEmpty()) {
-                            for (Users user : allUsers) {
-                    %>
-                    <tr>
-                        <td><%= user.getUser_id()%></td>
-                        <td>
-                            <img src="<%= user.getAvatar()%>" alt="User Avatar" class="user-img" />
-                        </td>
-                        <td><%= user.getUsername()%></td>
-                        <td><%= user.getEmail()%></td>
-                        <td><%= user.getPhone()%></td>
-                        <td><%= user.getAddress()%></td>
-                        <td><%= user.getCreate_at()%></td>
-                        <%
-                            Boolean verified_email = dao.getVerifyByEmail(user.getUser_id());
-                            System.out.println("ooooooo " + verified_email);
-                            request.setAttribute("verified_email", verified_email);
-                        %>
-                        <td>
-                            <!--  verified_email = false, tk block, display  Unblock -->
-                            <%
-                                if (!verified_email) {
-                            %>
-                            <button class="btn btn-success block-btn" id="btn-<%= user.getUser_id()%>"
-                                    onclick="toggleButtons(<%= user.getUser_id()%>, true)">
-                                Unblock
-                            </button>
-                            <%
-                            } else {
-                            %>
-                            <!--  verified_email = true, tk , display Block -->
-                            <button class="btn btn-danger block-btn" id="btn-<%= user.getUser_id()%>"
-                                    onclick="toggleButtons(<%= user.getUser_id()%>, false)">
-                                Block
-                            </button>
-                            <%
-                                }
-                            %>
-                        </td>
-
-                    </tr>
-                    <%
-                        }
-                    } else {
-                    %>
-                    <tr>
-                        <td colspan="9">No users found</td>
-                    </tr>
-                    <%
-                        }
-                    %>
+                    <c:choose>
+                        <c:when test="${not empty allUsers}">
+                            <c:forEach var="user" items="${allUsers}">
+                                <tr>
+                                    <td>${user.user_id}</td>
+                                    <td>
+                                        <img src="${user.avatar}" alt="User Avatar" class="user-img" />
+                                    </td>
+                                    <td>${user.username}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.phone}</td>
+                                    <td>${user.address}</td>
+                                    <td>${user.create_at}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${verifiedEmails[user.user_id] == false}">
+                                                <button class="btn btn-success block-btn" id="btn-${user.user_id}"
+                                                        onclick="toggleButtons(${user.user_id}, true)">
+                                                    Unblock
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="btn btn-danger block-btn" id="btn-${user.user_id}"
+                                                        onclick="toggleButtons(${user.user_id}, false)">
+                                                    Block
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="9">No users found</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                 </table>
             </div>
 

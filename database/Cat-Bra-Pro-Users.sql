@@ -269,12 +269,12 @@ Drop table VoucherDetail
 
 --cách add
 EXEC AddOrUpdateVoucher 
-    @voucher_name = 'Discount 35%', 
+    @voucher_name = 'Discount 17%', 
     @voucher_quantity = 1, 
-    @voucher_discount = 35, 
+    @voucher_discount = 17, 
     @voucher_expire_date = '2024-12-31', 
-    @voucher_id = 3, 
-    @user_id = 8;
+    @voucher_id = 2, 
+    @user_id = 3;
 
 
 

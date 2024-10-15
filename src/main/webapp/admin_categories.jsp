@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@page import="DAOs.CategoryDAO"%>
 <%@page import="DAOs.AccountDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -66,27 +67,10 @@
                     </li>
                 </ul>
             </div>
-            <%
-                CategoryDAO daos = new CategoryDAO();
-                AccountDAO dao = new AccountDAO();
-                int userId = -1;
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("id")) {
-                            userId = Integer.parseInt(cookie.getValue());
-                            break;
-                        }
-                    }
-                }
-                String name = dao.GetNameAdmin(userId);
-                System.out.println(name);
-                System.out.println(userId);
-            %>
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
-                    <p class="account-name"><%=name%></p>
+                    <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
                             <li><a href="#">Profile</a></li>
@@ -101,8 +85,8 @@
             <nav>
                 <p class="title">Categories</p>              
                 <div class="search-bar">
-                    
-                    <form method="POST" action="/Admin/Brand"> 
+
+                    <form method="POST" action="/Admin/Category"> 
                         <input type="text" name="query" placeholder="Search" required />
                         <button type="submit" name="btnsearchCategory" style="border: none">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -113,8 +97,7 @@
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Categories</p>
-                    <% int counts = daos.GetTotalCategory();%>
-                    <p class="card-value"><%= counts %></p>
+                    <p class="card-value">${countCategory}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -124,7 +107,7 @@
                     <hr />
                     <p class="card-graph">Graph Details</p>
                 </div>
-                    
+
                 <div class="buttons-container">
                     <button
                         class="add-btn"
@@ -132,7 +115,7 @@
                         >
                         Add
                     </button>
-                    
+
                     <form action="/Admin/Category" method="POST"> 
                         <button
                             class="sort-btn"
@@ -154,57 +137,35 @@
                         <th>Description</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <%
-                        List<Category> searchResults = (List<Category>) request.getAttribute("searchResults");
-                        List<Category> sortResults = (List<Category>) request.getAttribute("sortResults");
-                        List<Category> allUsers = new ArrayList<>();
-
-                        if (searchResults != null) {
-                            allUsers = searchResults;
-                        } else if (sortResults != null) {
-                            allUsers = sortResults;
-
-                        } else {
-
-                            allUsers = daos.GetAllCategory();
-                        }
-
-                        if (allUsers != null && !allUsers.isEmpty()) {
-                            for (Category user : allUsers) {
-
-                    %>
-                    <tr>
-                        <td><%= user.getCat_id()%></td>
-                        <td><%= user.getCat_name()%></td>
-                        <td>
-                            <%= user.getDescription()%>
-                        </td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                class="edit-btn"
-                                onclick="editCategory(<%= user.getCat_id()%>, '<%= user.getCat_name()%>', '<%= user.getDescription()%>')"
-                                >
-                                Edit
-                            </button>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                name="btnDeleteBrand"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                   <%
-                        }
-                    } else {
-                    %>
-                    <tr>
-                        <td colspan="9">No users found</td>
-                    </tr>
-                    <%
-                        }
-                    %>
+                    <c:if test="${not empty allCategories}">
+                        <c:forEach var="user" items="${allCategories}">
+                            <tr>
+                                <td>${user.cat_id}</td>
+                                <td>${user.cat_name}</td>
+                                <td>${user.description}</td>
+                                <td>
+                                    <button
+                                        style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                        class="edit-btn"
+                                        onclick="editCategory(${user.cat_id}, '${user.cat_name}', '${user.description}')"
+                                        >
+                                        Edit
+                                    </button>
+                                    <button
+                                        style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                        name="btnDeleteCategory"
+                                        >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty allCategories}">
+                        <tr>
+                            <td colspan="4">No users found</td>
+                        </tr>
+                    </c:if>
                 </table>
             </div>
             <!-- MODAL -->
@@ -249,7 +210,7 @@
                     </form>
                 </div>
             </div>
-             <!-- Edit Modal -->
+            <!-- Edit Modal -->
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <h1>Edit Category</h1>
@@ -285,12 +246,12 @@
                     </form>
                 </div>
             </div>
-             
-             
-             
-             
+
+
+
+
         </main>
-                <script>
+        <script>
             function editCategory(catId, catName, catDes) {
 
                 // Set values in modal fields
