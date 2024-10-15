@@ -4,10 +4,7 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
-<%@page import="DAOs.AccountDAO"%>
-<%@page import="DAOs.ProductDAO"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="DAOs.UserDAO"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>

@@ -4,12 +4,17 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import DAOs.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,9 +22,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class Category extends HttpServlet {
 
-    public Category(int cat_id, String name, String des) {
-    }
-
+//    public Category(int cat_id, String name, String des) {
+//    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,6 +62,45 @@ public class Category extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        //User
+        Cookie[] cookies = request.getCookies();
+        String idUser = "";
+        boolean isId = false;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    idUser = cookie.getValue();
+                    UserDAO userdao = new UserDAO();
+                    AccountDAO dao = new AccountDAO();
+                    int userId = Integer.parseInt(idUser);
+
+                    try {
+                        ResultSet rs = userdao.getUserById(idUser);
+                        int userType = dao.getTypeById(userId);
+
+                        if (userType == 1) {
+                            response.sendRedirect("/Admin");
+                            return;
+                        }
+
+                        if (rs != null && rs.next()) {
+                            request.setAttribute("username", rs.getString("username"));
+                            request.setAttribute("avatar", rs.getString("avatar"));
+                            request.setAttribute("email", rs.getString("email"));
+                            isId = true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+
+        request.setAttribute("isId", isId);
+
         String search = request.getParameter("search");
         String idCat = request.getParameter("id");
         String increase = request.getParameter("increase");
@@ -74,7 +117,7 @@ public class Category extends HttpServlet {
             request.setAttribute("decrease", decrease);
         }
 
-//        request.getRequestDispatcher("user_category.jsp").forward(request, response);
+        request.getRequestDispatcher("user_category.jsp").forward(request, response);
     }
 
     /**

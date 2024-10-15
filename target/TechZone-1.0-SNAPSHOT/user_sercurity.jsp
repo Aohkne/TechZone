@@ -30,7 +30,7 @@
             <!-- Nav -->
             <div class="nav col l-2">
                 <div class="nav__container">
-                    <a href="./index.jsp">
+                    <a href="/Home">
                         <i class="return-icon ti-arrow-left"></i>
                     </a>
                     <div class="nav__Btn">

@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="DAOs.CategoryDAO"%>
-<%@page import="DAOs.UserDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.ProductDAO"%>
 <!DOCTYPE html>
@@ -190,7 +189,7 @@
         <div class="row">
 
             <div class="navSearch__logo col l-2">
-                <a href="./index.jsp">
+                <a href="/Home">
                     <img src="./asset/img/img_all/logoImage.png" alt="">
                 </a>
             </div>
