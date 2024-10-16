@@ -11,7 +11,7 @@
     <!-- link css -->
     <link rel="stylesheet" href="asset/css/base.css">
     <link rel="stylesheet" href="asset/css/grid.css">
-    <link rel="stylesheet" href="asset/css/style_user_history.css">
+    <link rel="stylesheet" href="asset/css/style_user_shipping.css">
     <link rel="stylesheet" href="asset/css/css_all/style_cart.css">
     <link rel="stylesheet" href="asset/css/css_all/style_chat.css">
     <link rel="stylesheet" href="asset/css/css_all/style_accountUser.css">
@@ -25,8 +25,6 @@
 </head>
 
 <body>
-
-
     <!-- Header -->
     <div class="nav">
 
@@ -236,10 +234,6 @@
 
                     </div>
 
-
-
-
-
                     <div class="cart__footer">
                         <img class="img__EmptyCart" src="./asset/img/img_all/img_cart/emptyCart.png" alt="">
                         <!-- <div class="cartFooter__container">
@@ -262,10 +256,12 @@
         </div>
     </div>
 
+
+
     <!-- body -->
     <div class="app">
         <div class="Bao__grid">
-            <!-- Cột 1: 20% -->
+            <!-- Cột 1: 15% -->
             <div class="nav__1">
                 <div class="history__profile">
                     <div class="history__profile-picture">
@@ -303,56 +299,50 @@
                 </div>
             </div>
 
-            <!-- Cột 2: 80% -->
+            <!-- Cột 2: 85% -->
             <div class="nav__2">
-                <div class="history__search">
-                    <form action="" method="">
-                        <button type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <input type="text" placeholder="Search..." name="search">
-                    </form>
+                <div class="shipping__heading">
+                    <h1 class="shipping__title">Shipping</h1>
+                    <div class="shipping__picture-title">
+                        <img src="./asset/img/img_history/delivery.png" alt="">
+                    </div>
                 </div>
 
                 <div class="historylist__items">
-                    <div class="history__list">
-                        <div class="history__items">
-                            <div class="history__items-pro">
+                    <div class="shipping__list">
+                        <div class="shipping__items">
+                            <div class="shipping__items-pro">
                                 <div class="list__picture">
                                     <img src="./asset/img/img_all/img_product/img_vr/vr.png" alt="">
                                 </div>
                                 <div class="list__content">
                                     <div class="list__name">Name</div>
                                     <div class="list__des">Description...</div>
+                                    <div class="list__delivery">
+                                        <div class="list__status">Status:</div>
+                                        <div class="list__status-content">Delivered</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="list__total">
                                 <div class="total__content">Total (1 product)</div>
                                 <div class="total__price">300.000 VND</div>
-                            </div>
-                        </div>
-                        <div class="voucher__list-title">
-                            <div class="voucherlist__content">
-                                <div class="voucher__list-picture">
-                                    <img src="./asset/img/img_all/img_cart/voucher_rare.png" alt="">
-                                </div>
-                                <div class="discount__content">18% off/maximum discount 250.000 VND</div>
-                            </div>
-                            <div class="historyorder__btn">
-                                <button class="reorder__btn">Reorder</button>
-                                <button class="delete__btn">Delete</button>
                             </div>
                         </div>
                     </div>
-                    <div class="history__list">
-                        <div class="history__items">
-                            <div class="history__items-pro">
+                    <div class="shipping__list">
+                        <div class="shipping__items">
+                            <div class="shipping__items-pro">
                                 <div class="list__picture">
                                     <img src="./asset/img/img_all/img_product/img_vr/vr.png" alt="">
                                 </div>
                                 <div class="list__content">
                                     <div class="list__name">Name</div>
                                     <div class="list__des">Description...</div>
+                                    <div class="list__delivery">
+                                        <div class="list__status">Status:</div>
+                                        <div class="list__status-content-notyet">Not Yet</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="list__total">
@@ -360,26 +350,20 @@
                                 <div class="total__price">300.000 VND</div>
                             </div>
                         </div>
-                        <div class="voucher__list-title">
-                            <div class="voucherlist__content">
-                                <div class="voucher__list-picture">
-                                    <img src="./asset/img/img_all/img_cart/voucher_rare.png" alt="">
-                                </div>
-                                <div class="discount__content">18% off/maximum discount 250.000 VND</div>
-                            </div>
-                            <div class="historyorder__btn">
-                                <button class="reorder__btn">Reorder</button>
-                                <button class="delete__btn">Delete</button>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <div class="footer">
@@ -486,6 +470,8 @@
     <div class="footer__copyright">
         ©2024 - Group 6
     </div>
+
+
 
 </body>
 
