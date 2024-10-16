@@ -36,6 +36,10 @@
         <servlet-name>Categories</servlet-name>
         <servlet-class>Controllers.Categories</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Product</servlet-name>
+        <servlet-class>Controllers.Product</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -72,6 +76,10 @@
     <servlet-mapping>
         <servlet-name>Categories</servlet-name>
         <url-pattern>/Admin/Category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Product</servlet-name>
+        <url-pattern>/Product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

@@ -7,12 +7,14 @@ C:\Users\HP\Documents\GitHub\TechZone\src\main\java\DB\DBConnection.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\DAOs\UserDAO.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\DAOs\AccountDAO.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Admin.java
+C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Models\Product_Details.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\User.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Voucher.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Models\Voucher.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Models\Category.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Categories.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Login.java
+C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Product.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Models\Product.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Models\Users.java
 C:\Users\HP\Documents\GitHub\TechZone\src\main\java\Controllers\Home.java

@@ -8,6 +8,7 @@
 <%@page import="DAOs.BrandDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.ProductDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -119,17 +120,12 @@
                             if (cookies != null) {
                                 for (Cookie cookie : cookies) {
                                     if (cookie.getName().equals("id")) {
-                                        idUser = cookie.getValue();
-
-                                        UserDAO userdao = new UserDAO();
-                                        ResultSet rs = userdao.getUserById(idUser);
-                                        while (rs.next()) {
                         %>
                         <!-- Account User  -->
                         <div class="account__img">
                             <!-- <i class="fa-solid fa-circle-user"></i> -->
-                            <img src=<%= rs.getString("avatar")%> alt="" srcset="">
-                            <span><%= rs.getString("username")%></span>
+                            <img src="${avatar}" alt="" srcset="">
+                            <span>${username}</span>
                         </div>
                     </div>
 
@@ -138,12 +134,11 @@
                         <div class="account__content">
                             <div class="account__information">
 
-                                <img src=<%= rs.getString("avatar")%> alt="">
+                                <img src="${avatar}" alt="" srcset="">
                                 <div class="account__description">
-                                    <div class="account__username"><%= rs.getString("username")%></div>
-                                    <div class="account__mail"><%= rs.getString("email")%></div>
+                                    <div class="account__username">${username}</div>
+                                    <div class="account__mail">${email}</div>
                                 </div>
-                                <%}%>
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
@@ -301,150 +296,77 @@
 
 <div class="app">
 
-    <%
-        ProductDAO productdao = new ProductDAO();
-        String id = (String) request.getParameter("id");
-        ResultSet productDetail = productdao.getAllProductDetailById(id);
-        String img = null;
-        String pro_id = null;
-        while (productDetail.next()) {
-            img = productDetail.getString("image");
-            pro_id = productDetail.getString("pro_id");
-            ResultSet rs = productdao.getAllProductByDetailId(pro_id);
-            while (rs.next()) {
+    <c:if test="${not empty product}">
+        <!-- body -->
+        <div class="body">
+            <div class="product__container">
+                <input type="hidden" value="${product.proDetail_id}">
 
-                //Handle price to format
-                String price = rs.getString("pro_price");
-                price = price.substring(0, price.length() - 3);
-                StringBuilder result = new StringBuilder();
-                int count = 0;
-                for (int i = price.length() - 1; i >= 0; i--) {
-                    if (count == 3) {
-                        result.append("." + price.charAt(i));
-                        count = 1;
-                    } else {
-                        result.append(price.charAt(i));
-                        count++;
-                    }
-                }
-                price = result.reverse() + "";
-    %>
-
-    <!-- body -->
-    <div class="body">
-
-        <div class="product__container">
-            <input type="hidden" value=<%= id%>>
-
-            <div onclick="history.back()" class="comeBack__btn">
-                <i class="fa-solid fa-circle-chevron-left"></i>
-            </div>
-
-            <div class="product__content">
-                <div class="product__img">
-                    <img src=<%= img%> alt="">
+                <div onclick="history.back()" class="comeBack__btn">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
                 </div>
 
-                <div class="product__information">
-                    <div class="product__name"><%= rs.getString("pro_name")%></div>
-
-                    <%
-                        if (rs.getString("pro_sale") == null) {
-                    %>
-                    <div class="product__price"><%= price%> VND</div>
-                    <%
-                    } else {
-                        //Handle sale to format
-                        String sale = rs.getString("pro_sale");
-                        sale = sale.substring(0, sale.length() - 3);
-                        result = new StringBuilder();
-                        count = 0;
-                        for (int i = sale.length() - 1; i >= 0; i--) {
-                            if (count == 3) {
-                                result.append("." + sale.charAt(i));
-                                count = 1;
-                            } else {
-                                result.append(sale.charAt(i));
-                                count++;
-                            }
-                        }
-                        sale = result.reverse() + "";
-                    %>
-                    <div class="product__price"><%= sale%> VND</div>
-                    <div class="product__sale"><%= price%> VND</div>
-                    <%}%>
-
-                    <%
-                        BrandDAO branddao = new BrandDAO();
-                        ResultSet brandList = branddao.getBrandById(rs.getString("brand_id"));
-                        while (brandList.next()) {
-                    %>
-                    <div class="product__brand">
-                        <span>Brand</span>
-                        <%= brandList.getString("brand_name")%>
-                    </div>
-                    <%}%>
-
-                    <div class="product__from">
-                        <span>Made in</span>
-                        <%= rs.getString("madein")%>
+                <div class="product__content">
+                    <div class="product__img">
+                        <img src="${product.pro_image}" alt="">
                     </div>
 
-                    <div class="product__description">
-                        <%= rs.getString("description")%>
+                    <div class="product__information">
+                        <div class="product__name">${product.pro_name}</div>
+
+                        <c:choose>
+                            <c:when test="${empty product.pro_sale}">
+                                <div class="product__price">${product.pro_price} VND</div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="product__price">${product.pro_sale} VND</div>
+                                <div class="product__sale">${product.pro_price} VND</div>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <div class="product__from">
+                            <span>Made in</span>
+                            ${product.madein}
+                        </div>
+
+                        <div class="product__description">
+                            ${product.description}
+                        </div>
+
+                        <div class="product__quantity">
+                            <span>Quantity</span>
+                            <i class="fa-solid fa-plus"></i>
+                            <div class="product__num">1</div>
+                            <i class="fa-solid fa-minus"></i>
+                        </div>
                     </div>
-
-
-                    <div class="product__quantity">
-                        <span>Quantity</span>
-                        <i class="fa-solid fa-plus"></i>
-                        <div class="product__num">1</div>
-                        <i class="fa-solid fa-minus"></i>
-                    </div>
-
                 </div>
             </div>
 
-        </div>
-        <div class="product__footer">
-
-            <div class="product__list">
-                <%
-                    ResultSet proDetail = productdao.getAllProductDetailByProId(pro_id);
-                    int countImg = 0;
-                    while (proDetail.next()) {
-                        if (countImg == 4) {
-                            break;
-                        }
-                %>
-                <div class="product_item">
-                    <a href="./user_products.jsp?id=<%= proDetail.getString("proDetail_id")%>">
-                        <img src="<%= proDetail.getString("image")%>" alt="">
-                    </a>
+            <div class="product__footer">
+                <div class="product__list">
+                    <c:forEach var="detail" items="${productDetails}">
+                        <div class="product_item">
+                            <c:choose>
+                                <c:when test="${not empty detail.proDetail_id}">
+                                    <a href="./Product?id=${detail.proDetail_id}">
+                                        <img src="${detail.image}" alt="">
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${detail.image}" alt="">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </c:forEach>
                 </div>
-                <%
-                        countImg++;
-                    }
-                    while (4 - countImg != 0) {
-                        countImg++;
-                %>
-                <div class="product_item">
-                    <img src =<%= img%> alt="">
-                </div> 
-                <%}%>
+                <div class="product__btn">
+                    <button class="add__btn">Add Cart</button>
+                    <button class="buy__btn">Buy Now</button>
+                </div>
             </div>
-
-            <div class="product__btn">
-                <button class="add__btn">Add Cart</button>
-                <button class="buy__btn">Buy Now</button>
-            </div>
-        </div>
+        </c:if>
     </div>
-
-    <%}
-        }%>
-
-
     <!-- chat -->
     <div class="chat__container">
         <img src="./asset/img/img_all/img_cart/chat.png" alt="">
@@ -471,7 +393,6 @@
             </div>
         </div>
     </div>
-</div>
 
 </body>
 

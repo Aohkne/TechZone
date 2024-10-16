@@ -233,7 +233,7 @@ public class ProductDAO {
         return rs;
     }
 
-    private String formatPrice(String price) {
+    public String formatPrice(String price) {
         price = price.substring(0, price.length() - 3);
         StringBuilder result = new StringBuilder();
         int count = 0;
@@ -284,7 +284,7 @@ public class ProductDAO {
                         String price = rsProduct.getString("pro_price");
                         String formattedPrice = formatPrice(price);
 
-                        Product product = new Product(id, name, formattedPrice, image);
+                        Product product = new Product(id, name, formattedPrice, image, id);
                         products.add(product);
                     }
                 }
@@ -324,4 +324,5 @@ public class ProductDAO {
         }
         return products;
     }
+     
 }

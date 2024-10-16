@@ -376,7 +376,7 @@
                     <c:forEach var="product" items="${products}">
                         <c:if test="${count < 6}">
                             <div class="product__item col l-2">
-                                <a href="./user_products.jsp?id=${product.pro_id}">
+                                <a href="./Product?id=${product.proDetail_id}">
                                     <input type="hidden" value="${product.pro_id}">
                                     <div class="product__content">
                                         <div class="product__img">
