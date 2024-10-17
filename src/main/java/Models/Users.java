@@ -64,7 +64,14 @@ public class Users {
         this.create_at = create_at;
         this.avatar = avatar;
     }
-
+   public Users(int user_id, String username, String email, String phone, String address, String avatar) {
+        this.user_id = user_id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.avatar = avatar;
+    }
     
     public String getUsername() {
         return username;

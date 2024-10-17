@@ -60,6 +60,7 @@
     <servlet-mapping>
         <servlet-name>User</servlet-name>
         <url-pattern>/User</url-pattern>
+        <url-pattern>/Security</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Category</servlet-name>

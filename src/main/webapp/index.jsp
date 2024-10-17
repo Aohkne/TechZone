@@ -137,7 +137,7 @@
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
-                                    <a href="user_profile.jsp" class="account__link">
+                                    <a href="/User" class="account__link">
                                         My Profile
                                     </a>
                                 </div>

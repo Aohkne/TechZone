@@ -4,6 +4,7 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@page import="Models.Users"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.UserDAO"%>
 <!DOCTYPE html>
@@ -39,31 +40,17 @@
                     </div>
                 </div>
                 <div class="nav__list">
-                    <li class="list__item"><a href="#" onclick="goToProfile()">My Profile</a></li>
-                    <li class="list__item"><a href="./user_sercurity.jsp" onclick="goToSecurity()">Security</a></li>
+                    <li class="list__item"><a href="/User" onclick="goToProfile()">My Profile</a></li>
+                    <li class="list__item"><a href="/Security" onclick="goToSecurity()">Security</a></li>
 
                 </div>
             </div>
-            <%
-                String idUser = "";
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("id")) {
-                            idUser = cookie.getValue();
-                            break;
-                        }
-                    }
-                }
-                UserDAO userdao = new UserDAO();
-                ResultSet rs = userdao.getUserById(idUser);
 
-                while (rs.next()) {
-            %>
 
             <!-- Container -->
             <div class="container col l-10">
                 <div class="content">
+                   <% Users user = (Users) request.getAttribute("user"); %>
                     <div class="profile">
                         <div class="profile__header">
                             <h1 class="profile__title">My Profile</h1>
@@ -74,14 +61,15 @@
                         </div>
                         <div class="profile__container">
                             <div class="profile__picture">
-                                <img src="<%= rs.getString("avatar")%>" alt="User_img">
+                                <img src="<%= user.getAvatar() %>" alt="User_img">
+
                             </div> 
 
                             <form action="/User" method="POST" class="personal-profile__form">
                                 <div class="profile__detail">
                                     <input type="hidden" name="action" value="DETAIL">
-                                    <input type="text" class="profile__name" name="username" value="<%= rs.getString("username")%>" readonly>
-                                    <input type="text" class="profile__location" name="address" value="<%= rs.getString("address")%>" readonly>
+                                    <input type="text" class="profile__name" name="username" value="<%= user.getUsername()%>" readonly>
+                                    <input type="text" class="profile__location" name="address" value="<%= user.getAddress()%>" readonly>
                                 </div>
                             </form>
 
@@ -103,28 +91,28 @@
                             <div class="profile__information-name">
                                 <div class="profile__username-title">
                                     <div class="username__title">Username</div>
-                                    <input type="text" class="username" name="username" value="<%= rs.getString("username")%>" readonly>
+                                    <input type="text" class="username" name="username" value="<%= user.getUsername()%>" readonly>
                                 </div>
                             </div>
 
                             <div class="profile__information-email">
                                 <div class="profile__email-title">
                                     <div class="email__title">Email</div>
-                                    <input type="email" class="email" name="email" value="<%= rs.getString("email")%>" readonly>
+                                    <input type="email" class="email" name="email" value="<%= user.getEmail()%>" readonly>
                                 </div>
                             </div>
 
                             <div class="profile__information-phone">
                                 <div class="profile__phone-title">
                                     <div class="phone__title">Phone</div>
-                                    <input type="tel" class="phone" name="phone" value="<%= rs.getString("phone")%>" readonly>
+                                    <input type="tel" class="phone" name="phone" value="<%= user.getPhone()%>" readonly>
                                 </div>
                             </div>
 
                             <div class="profile__information-location">
                                 <div class="profile__address-title">
                                     <div class="address__title">Address</div>
-                                    <input type="text" class="address" name="address" value="<%= rs.getString("address")%>" readonly>
+                                    <input type="text" class="address" name="address" value="<%=  user.getAddress()%>" readonly>
                                 </div>
                             </div>
                         </form>
@@ -133,7 +121,6 @@
 
                 </div>
             </div>
-            <%}%>
 
         </div>
 

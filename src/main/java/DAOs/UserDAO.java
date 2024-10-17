@@ -5,6 +5,7 @@
 package DAOs;
 
 import DB.DBConnection;
+import Models.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +32,32 @@ public class UserDAO {
             }
         }
         return rs;
+    }
+
+    public Users getUsersById(String idUser) {
+        Users user = null;
+        String query = "SELECT * FROM Users WHERE user_id = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, idUser);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                user = new Users(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        rs.getString("avatar")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     public boolean updateUserDetail(String id, String username, String address) {

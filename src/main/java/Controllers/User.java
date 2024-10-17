@@ -5,9 +5,12 @@
 package Controllers;
 
 import DAOs.UserDAO;
+import Models.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +26,12 @@ import java.util.logging.Logger;
  *
  * @author Le Huu Khoa - CE181099
  */
+@WebServlet("/User/*")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
+)
 public class User extends HttpServlet {
 
     /**
@@ -37,7 +46,7 @@ public class User extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -63,6 +72,35 @@ public class User extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String path = request.getRequestURI();  // Lấy URL hiện tại
+        String idUser = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    idUser = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        // Nếu đường dẫn là "/Admin", hiển thị trang quản trị
+        if (path.equals("/User") || path.equals("/Home/User")) {
+            UserDAO userdao = new UserDAO();
+            Users user = userdao.getUsersById(idUser);
+
+            if (user != null) {
+                // Đặt đối tượng User vào request để hiển thị trong JSP
+                request.setAttribute("user", user);
+            } else {
+                System.out.println("No data found for user with ID: " + idUser);
+            }
+            request.getRequestDispatcher("/user_profile.jsp").forward(request, response);
+        } else if (path.equals("/Security") || path.equals("/Home/Security")) {
+
+            request.getRequestDispatcher("/user_sercurity.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -97,10 +135,10 @@ public class User extends HttpServlet {
                 String phone = request.getParameter("phone");
 
                 userdao.updateUserInfo(idUser, username, email, phone, address);
-                request.getRequestDispatcher("user_profile.jsp");
+                response.sendRedirect("/User");
             } else {
                 userdao.updateUserDetail(idUser, username, address);
-                request.getRequestDispatcher("user_profile.jsp");
+                response.sendRedirect("/User");
             }
         } else {
             String oldPassword = request.getParameter("oldPassword");
@@ -157,7 +195,7 @@ public class User extends HttpServlet {
         byte[] bytes = md.digest();
         StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
         }
         return sb.toString();
     }
