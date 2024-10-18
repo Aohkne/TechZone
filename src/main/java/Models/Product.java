@@ -36,6 +36,16 @@ public class Product {
         this.proDetail_id = proDetail_id;
     }
 
+    public Product(int pro_id, String pro_name, String pro_price, String pro_sale, String pro_image, int cat_id, int proDetail_id) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
+        this.pro_price = pro_price;
+        this.pro_sale = pro_sale;
+        this.pro_image = pro_image;
+        this.cat_id = cat_id;
+        this.proDetail_id = proDetail_id;
+    }
+
     public Product(int pro_id, String pro_name, String pro_price, String pro_sale, String pro_image) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;

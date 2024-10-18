@@ -7,6 +7,8 @@
 <%@page import="DAOs.CategoryDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="DAOs.ProductDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -297,10 +299,8 @@
                 <div class="dropdown-list" id="popular-list">
                     <a href="/Category?search=""">All</a>
                     <%
-                        CategoryDAO categorydao = new CategoryDAO();
-                        ResultSet rs = categorydao.getAllCategory();
-
-                        while (rs.next()) {
+                        ResultSet rs = (ResultSet) request.getAttribute("categories");
+                        while (rs != null && rs.next()) {
                     %>
                     <a href="/Category?id=<%= rs.getString("cat_id")%>"><%= rs.getString("cat_name")%></a>
                     <%}%>                    
@@ -332,115 +332,41 @@
             </div>
         </div>
 
-        <!-- Cate__content -->
         <div class="cate__content">
+            <c:forEach var="product" items="${productList}">
+                <div class="cate__list">
+                    <input type="hidden" value="${product.proDetail_id}">
+                    <a href="./Product?id=${product.proDetail_id}" class="cate__items">
+                        <div class="cate__title">
+                            <div class="cate__img">
+                                <img src="${product.pro_image}" alt="${product.pro_name}">
+                            </div>
+                            <div class="content__list">
+                                <div class="cate__name">${product.pro_name}</div>
 
-            <%
-                ProductDAO productdao = new ProductDAO();
-                String search = (String) request.getAttribute("search");
-                String idCat = (String) request.getAttribute("idCat");
-                String increase = (String) request.getAttribute("increase");
-                String decrease = (String) request.getAttribute("decrease");
-                rs = null;
-                if (search
-                        != null) {
-                    rs = productdao.getProductBySearch(search);
-                } else if (idCat
-                        != null) {
-                    rs = productdao.getProductByBrandId(idCat);
-                } else if (increase
-                        != null && increase.matches(
-                                "-?\\d+")) {
-                    // matches ?? ki?m tra chu?i có ph?i s? nguyên ko
-                    rs = productdao.getProductIncreaseByCatId(increase);
-                } else if (decrease
-                        != null && decrease.matches(
-                                "-?\\d+")) {
-                    rs = productdao.getProductDecreaseByCatId(decrease);
-                } else if (increase
-                        != null) {
-                    rs = productdao.getProductIncrease();
-                } else if (decrease
-                        != null) {
-                    rs = productdao.getProductDecrease();
-                }
+                                <c:choose>
+                                    <c:when test="${empty product.pro_sale}">
+                                        <div class="cate__price">${product.pro_price} VND</div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="cate__price">${product.pro_sale} VND</div>
+                                        <div class="cate__discount">${product.pro_price} VND</div>
+                                    </c:otherwise>
+                                </c:choose>
 
-                while (rs.next()) {
-                    //Handle price to format
-                    String price = rs.getString("pro_price");
-                    price = price.substring(0, price.length() - 3);
-                    StringBuilder result = new StringBuilder();
-                    int count = 0;
-                    for (int i = price.length() - 1; i >= 0; i--) {
-                        if (count == 3) {
-                            result.append("." + price.charAt(i));
-                            count = 1;
-                        } else {
-                            result.append(price.charAt(i));
-                            count++;
-                        }
-                    }
-                    price = result.reverse() + "";
-                    //Handle sale to format
-                    String sale = rs.getString("pro_sale");
-
-                    if (sale != null) {
-
-                        sale = sale.substring(0, sale.length() - 3);
-                        result = new StringBuilder();
-                        count = 0;
-                        for (int i = sale.length() - 1; i >= 0; i--) {
-                            if (count == 3) {
-                                result.append("." + sale.charAt(i));
-                                count = 1;
-                            } else {
-                                result.append(sale.charAt(i));
-                                count++;
-                            }
-                        }
-                        sale = result.reverse() + "";
-                    }
-
-            %>
-
-            <div class="cate__list">
-
-                <%//Get id ,image of ProductDetail
-                    ResultSet proDetail = productdao.getAllDefaultProductDetailByProId(rs.getString("pro_id"));
-                    while (proDetail.next()) {
-                %>
-                <input type="hidden" value="<%= proDetail.getString("proDetail_id")%>">
-                <a href="./user_products.jsp?id=<%= proDetail.getString("proDetail_id")%>" class="cate__items">
-                    <div class="cate__title">
-                        <div class="cate__img">
-                            <img src=<%= proDetail.getString("image")%> alt="">
-                            <%}%>
+                            </div>
                         </div>
-                        <div class="content__list">
-                            <div class="cate__name"><%= rs.getString("pro_name")%></div>
-                            <%if (sale != null) {%>
-                            <div class="cate__price"><%= sale%> VND</div>
-                            <div class="cate__discount"><%= price%> VND</div>
-                            <%} else {%>
-                            <div class="cate__price"><%= price%> VND</div>
-
-                            <%}%>
-                        </div>
+                    </a>
+                    <div class="order__list">
+                        <i class="order__icon fa-solid fa-cart-plus"></i>
                     </div>
-                </a>
-                <div class="order__list">
-                    <i class="order__icon fa-solid fa-cart-plus"></i>
                 </div>
-            </div>
-
-            <%}%>
-
-
-
-
-
-
+            </c:forEach>
         </div>
+
+
+
+
 
         <!-- Page trainsition bar -->
         <div class="page__bar">
@@ -591,7 +517,7 @@
 </div>
 
 <div class="footer__copyright">
-    ©2024 - Group 6
+    ?2024 - Group 6
 </div>
 
 </body>

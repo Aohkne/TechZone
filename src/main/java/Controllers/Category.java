@@ -5,9 +5,10 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.CategoryDAO;
+import DAOs.ProductDAO;
 import DAOs.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -15,40 +16,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Le Huu Khoa - CE181099
  */
 public class Category extends HttpServlet {
-
-//    public Category(int cat_id, String name, String des) {
-//    }
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Category</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Category at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -92,7 +71,6 @@ public class Category extends HttpServlet {
                             isId = true;
                         }
                     } catch (SQLException e) {
-                        e.printStackTrace();
                     }
                     break;
                 }
@@ -100,24 +78,51 @@ public class Category extends HttpServlet {
         }
 
         request.setAttribute("isId", isId);
+        
+        
+        
+        
+        
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ProductDAO productdao = new ProductDAO();
+        ResultSet categories = categoryDAO.getAllCategory();
+        request.setAttribute("categories", categories);
 
         String search = request.getParameter("search");
         String idCat = request.getParameter("id");
         String increase = request.getParameter("increase");
         String decrease = request.getParameter("decrease");
-
+        ResultSet rs = null;
+        List<Models.Product> productList = null;
         if (search != null) {
             search = search.toLowerCase();
             request.setAttribute("search", search);
+            productList = productdao.getProductBySearch(search);
         } else if (idCat != null) {
             request.setAttribute("idCat", idCat);
+            productList = productdao.getProductByBrandId(idCat);
+        } else if (increase != null && increase.matches("-?\\d+")) {
+            
+            request.setAttribute("idCat", increase);
+            productList = productdao.getProductIncreaseByCatId(increase);
+        } else if (decrease != null && decrease.matches("-?\\d+")) {
+            request.setAttribute("idCat", decrease);
+            productList = productdao.getProductDecreaseByCatId(decrease);
         } else if (increase != null) {
             request.setAttribute("increase", increase);
+            productList = productdao.getProductIncrease();
         } else if (decrease != null) {
             request.setAttribute("decrease", decrease);
+            productList = productdao.getProductDecrease();
         }
-
+        if (rs != null) {
+            request.setAttribute("productDetails", rs);
+        } else {
+            System.out.println("rs empty");
+        }
+        request.setAttribute("productList", productList);
         request.getRequestDispatcher("user_category.jsp").forward(request, response);
+
     }
 
     /**
@@ -131,7 +136,8 @@ public class Category extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
+
     }
 
     /**
