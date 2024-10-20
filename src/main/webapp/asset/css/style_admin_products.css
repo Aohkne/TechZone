@@ -207,17 +207,23 @@ table td button {
     border: 1px solid rgba(0, 0, 0, .20);
     height: 10px !important;
 }
-.modal-content .product-form {
+
+.modal-content .product-form, .modal-content .edit-product-form {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
 }
-.modal-content .product-form label{
+
+.modal-content .product-form label, .modal-content .edit-product-form label {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.modal-content .product-form input, select{
+
+.modal-content .product-form input, 
+.modal-content .product-form select,
+.modal-content .edit-product-form input, 
+.modal-content .edit-product-form select {
     padding: 10px;
     width: 100%;
     font-size: 16px;
@@ -225,6 +231,7 @@ table td button {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, .3);
 }
+
 .modal-content .close-btn {
     position: absolute;
     right: 10px;
@@ -234,18 +241,21 @@ table td button {
     padding: 10px;
     border-radius: 50%;
 }
+
 .modal-content .close-btn:hover {
     background-color: rgba(0, 0, 0, .14);
     cursor: pointer;
 }
-.modal-content .product-form .add-cancel-btn{
+
+.modal-content .add-cancel-btn {
     width: 50%;
     display: flex;
     justify-content: flex-end;
     gap: 5px;
     margin-left: auto;
 }
-.add-cancel-btn .accept-btn, .cancel-btn{
+
+.add-cancel-btn .accept-btn, .cancel-btn {
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -253,4 +263,65 @@ table td button {
     color: #ffffff;
     padding: 10px;
     flex: 1;
+}/* Edit modal */
+#edit-modal .modal-content {
+    position: relative;
+    background-color: white;
+    margin: 30px auto;
+    width: 40vw;
+    height: 90vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    overflow-y: auto;
+}
+/* Delete modal */
+#delete-modal .modal-content{
+    background-color: white;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Delete modal buttons */
+.delete-form {
+    display: flex;
+    gap: 2rem;
+}
+.delete-form button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+/* Delete modal */
+#delete-modal .modal-content{
+    background-color: white;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Delete modal buttons */
+.delete-form {
+    display: flex;
+    gap: 2rem;
+}
+.delete-form button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }

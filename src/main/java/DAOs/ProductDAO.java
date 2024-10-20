@@ -5,7 +5,9 @@
 package DAOs;
 
 import DB.DBConnection;
+import static DB.DBConnection.getConnection;
 import Models.Product;
+import Models.Product_Details;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,33 +102,32 @@ public class ProductDAO {
         return products;
     }
 
-   public String formatPrices(String price) {
-    // Kiểm tra nếu price là null hoặc rỗng
-    if (price == null || price.isEmpty()) {
-        return ""; // Trả về giá trị mặc định nếu giá trị price không hợp lệ
-    }
-
-    // Tách phần nguyên và phần thập phân (nếu có)
-    String[] parts = price.split("\\.");
-    String integerPart = parts[0]; // Phần nguyên của giá
-
-    StringBuilder result = new StringBuilder();
-    int count = 0;
-
-    // Định dạng phần nguyên: Duyệt từ cuối chuỗi tới đầu để thêm dấu "." mỗi ba chữ số
-    for (int i = integerPart.length() - 1; i >= 0; i--) {
-        if (count == 3) {
-            result.append(".");
-            count = 0; // Đặt lại count về 0 sau khi thêm dấu "."
+    public String formatPrices(String price) {
+        // Kiểm tra nếu price là null hoặc rỗng
+        if (price == null || price.isEmpty()) {
+            return ""; // Trả về giá trị mặc định nếu giá trị price không hợp lệ
         }
-        result.append(integerPart.charAt(i));
-        count++;
+
+        // Tách phần nguyên và phần thập phân (nếu có)
+        String[] parts = price.split("\\.");
+        String integerPart = parts[0]; // Phần nguyên của giá
+
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+
+        // Định dạng phần nguyên: Duyệt từ cuối chuỗi tới đầu để thêm dấu "." mỗi ba chữ số
+        for (int i = integerPart.length() - 1; i >= 0; i--) {
+            if (count == 3) {
+                result.append(".");
+                count = 0; // Đặt lại count về 0 sau khi thêm dấu "."
+            }
+            result.append(integerPart.charAt(i));
+            count++;
+        }
+
+        // Đảo ngược chuỗi để có kết quả cuối cùng
+        return result.reverse().toString();
     }
-
-    // Đảo ngược chuỗi để có kết quả cuối cùng
-    return result.reverse().toString();
-}
-
 
     public List<Models.Product> getProductBySearch(String search) {
         Connection conn = DBConnection.getConnection();
@@ -477,5 +478,280 @@ public class ProductDAO {
         }
         return products;
     }
+
+    public int GetTotalProduct() {
+        Connection conn = DBConnection.getConnection();
+        int userCount = 0; // Change variable name to better reflect its purpose
+        if (conn != null) {
+            try {
+                // Query to count users with role=2
+                String sql = "SELECT Sum(quantity) FROM Product_Details";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    userCount = rs.getInt(1); // Get the count of users
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return userCount;
+    }
+
+    public List<Models.Product> getAllProduct() {
+        List<Models.Product> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                // Thực thi truy vấn SQL để lấy người dùng với role = 2
+                rs = st.executeQuery("SELECT p.pro_id,p.pro_name, p.pro_price, p.pro_sale, p.madein, p.cat_id, p.brand_id, pd.proDetail_id, pd.color_name, pd.quantity, pd.image FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id");
+
+                // Duyệt qua ResultSet và tạo đối tượng Users
+                while (rs.next()) {
+                    Models.Product user = new Product(); // Tạo một đối tượng Users mới
+                    user.setPro_id(rs.getInt("pro_id"));//1
+                    user.setPro_name(rs.getString("pro_name"));//2
+                    user.setPro_price(formatPrices(rs.getString("pro_price"))); // Thiết lập username3
+                    user.setPro_sale(formatPrices(rs.getString("pro_sale"))); // Thiết lập email4
+                    user.setPro_quantity(rs.getInt("quantity")); // Thiết lập phone5
+                    user.setMadein(rs.getString("madein")); // Thiết lập address6
+                    user.setPro_image(rs.getString("image")); // Thiết lập ngày tạo7
+                    user.setCat_id(rs.getInt("cat_id"));//8
+                    user.setBrand_id(rs.getString("brand_id"));//9
+                    user.setProDetail_id(rs.getInt("proDetail_id"));//10
+                    user.setColor_name(rs.getString("color_name"));
+
+                    // Thêm người dùng vào danh sách
+                    userList.add(user);
+                }
+            } catch (SQLException ex) {
+                // Log lỗi
+
+            } finally {
+                // Đóng ResultSet và Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    // Log lỗi khi đóng
+
+                }
+            }
+        }
+        return userList; // Trả về danh sách người dùng
+    }
+
+    public List<Product> searchProduct(String query) {
+        List<Product> productList = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                String sql;
+                PreparedStatement pst;
+
+                // Kiểm tra nếu query không trống
+                if (query != null && !query.trim().isEmpty()) {
+                    sql = "SELECT p.pro_id, p.pro_name, p.pro_price, p.pro_sale, p.madein, p.cat_id, p.brand_id, pd.color_name, pd.quantity, pd.image "
+                            + "FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id "
+                            + "WHERE (LOWER(p.pro_name) LIKE LOWER(?) OR LOWER(p.pro_price) LIKE LOWER(?) OR LOWER(p.madein) LIKE LOWER(?))";
+                    pst = conn.prepareStatement(sql);
+                    String searchQuery = "%" + query.toLowerCase() + "%"; // Thêm ký tự wildcard và chuyển query thành chữ thường
+                    pst.setString(1, searchQuery);
+                    pst.setString(2, searchQuery);
+                    pst.setString(3, searchQuery);
+                } else {
+                    // Nếu không có từ khóa tìm kiếm, lấy tất cả sản phẩm
+                    sql = "SELECT p.pro_id, p.pro_name, p.pro_price, p.pro_sale, p.madein, p.cat_id, p.brand_id, pd.color_name, pd.quantity, pd.image "
+                            + "FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id";
+                    pst = conn.prepareStatement(sql);
+                }
+
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setPro_id(rs.getInt("pro_id"));
+                    product.setPro_name(rs.getString("pro_name"));
+                    product.setPro_price(formatPrices(rs.getString("pro_price")));
+                    product.setPro_sale(formatPrices(rs.getString("pro_sale")));
+                    product.setMadein(rs.getString("madein"));
+                    product.setCat_id(rs.getInt("cat_id"));
+                    product.setBrand_id(rs.getString("brand_id"));
+                    product.setColor_name(rs.getString("color_name"));
+                    product.setPro_quantity(rs.getInt("quantity"));
+                    product.setPro_image(rs.getString("image"));
+                    productList.add(product);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return productList;
+    }
+
+    public List<Models.Product> getAllProductsSorted() {
+        List<Models.Product> productList = new ArrayList<>(); // Tạo danh sách để lưu trữ sản phẩm
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                // Thực thi truy vấn SQL để lấy sản phẩm và sắp xếp theo ID giảm dần
+                rs = st.executeQuery("SELECT pd.proDetail_id, p.pro_name, p.pro_price, p.pro_sale, p.madein, p.cat_id, p.brand_id, pd.color_name, pd.quantity, pd.image "
+                        + "FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id "
+                        + "ORDER BY p.pro_id DESC");
+
+                // Duyệt qua ResultSet và tạo đối tượng Product
+                while (rs.next()) {
+                    Models.Product product = new Models.Product(); // Tạo một đối tượng Product mới
+                    product.setProDetail_id(rs.getInt("proDetail_id")); // Thiết lập ID sản phẩm
+                    product.setPro_name(rs.getString("pro_name")); // Thiết lập tên sản phẩm
+                    product.setPro_price(formatPrices(rs.getString("pro_price"))); // Thiết lập giá sản phẩm
+                    product.setPro_sale(formatPrices(rs.getString("pro_sale"))); // Thiết lập giá sale
+                    product.setPro_quantity(rs.getInt("quantity")); // Thiết lập số lượng
+                    product.setMadein(rs.getString("madein")); // Thiết lập nơi sản xuất
+                    product.setCat_id(rs.getInt("cat_id")); // Thiết lập ID danh mục
+                    product.setBrand_id(rs.getString("brand_id")); // Thiết lập ID thương hiệu
+                    product.setColor_name(rs.getString("color_name")); // Thiết lập màu sắc
+                    product.setPro_image(rs.getString("image")); // Thiết lập ảnh sản phẩm
+
+                    // Thêm sản phẩm vào danh sách
+                    productList.add(product);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Log lỗi
+            } finally {
+                // Đóng ResultSet và Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Log lỗi khi đóng
+                }
+            }
+        }
+        return productList; // Trả về danh sách sản phẩm
+    }
+
+    public void addProduct(Product product, Product_Details productDetail) {
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                // Insert product into Product table
+                String insertProductSQL = "INSERT INTO Product (pro_name, description, pro_price, pro_sale, madein, cat_id, brand_id) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement pst = conn.prepareStatement(insertProductSQL, Statement.RETURN_GENERATED_KEYS); // Return generated keys
+                pst.setString(1, product.getPro_name());
+                pst.setString(2, product.getDescription());
+                pst.setString(3, product.getPro_price());
+                pst.setString(4, product.getPro_sale());
+                pst.setString(5, product.getMadein());
+                pst.setInt(6, product.getCat_id());
+                pst.setString(7, product.getBrand_id());
+
+                pst.executeUpdate();
+
+                // Retrieve generated product ID
+                ResultSet rs = pst.getGeneratedKeys();
+                int proId = 0;
+                if (rs.next()) {
+                    proId = rs.getInt(1); // Get the generated pro_id
+                }
+
+                // Insert product details into Product_Details table
+                String insertProductDetailSQL = "INSERT INTO Product_Details (color_name, quantity, image, pro_id) "
+                        + "VALUES (?, ?, ?, ?)";
+                PreparedStatement pstDetail = conn.prepareStatement(insertProductDetailSQL);
+                pstDetail.setString(1, productDetail.getColor_name());
+                pstDetail.setInt(2, productDetail.getQuantity());
+                pstDetail.setString(3, productDetail.getImage());
+                pstDetail.setInt(4, proId); // Use the retrieved pro_id
+
+                pstDetail.executeUpdate();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection after the operation
+                } catch (SQLException e) {
+                }
+            }
+        }
+    }
+
+    public int getLastProductId() {
+        Connection conn = DBConnection.getConnection();
+        int lastProductId = 0; // Change variable name to better reflect its purpose
+        if (conn != null) {
+            try {
+                // Query to get the most recently added product id
+                String sql = "SELECT pro_id FROM Product ORDER BY pro_id DESC LIMIT 1";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    lastProductId = rs.getInt(1); // Get the last product ID
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection
+                } catch (SQLException e) {
+                }
+            }
+        }
+        return lastProductId;
+    }
+
+
+
+//    public boolean deleteBrand(int brandId) {
+//        Connection conn = DBConnection.getConnection();
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//        try {
+//            // Kết nối tới database
+//
+//            // Kiểm tra xem còn sản phẩm nào thuộc brand_id này không
+//            String checkSql = "SELECT COUNT(*) AS product_count FROM Product WHERE brand_id = ?";
+//            ps = conn.prepareStatement(checkSql);
+//            ps.setInt(1, brandId);
+//            rs = ps.executeQuery();
+//
+//            if (rs.next() && rs.getInt("product_count") > 0) {
+//                // Nếu còn sản phẩm, trả về false và không thực hiện xóa
+//                return false;
+//            }
+//
+//            // Nếu không còn sản phẩm, thực hiện xóa brand
+//            String deleteSql = "DELETE FROM Brand WHERE brand_id = ?";
+//            ps = conn.prepareStatement(deleteSql);
+//            ps.setInt(1, brandId);
+//            ps.executeUpdate();
+//
+//            return true;
+//        } catch (SQLException e) {
+//            return false;
+//        }
+//    }
 
 }

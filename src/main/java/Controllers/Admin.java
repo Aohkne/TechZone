@@ -5,6 +5,10 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.BrandDAO;
+import DAOs.CategoryDAO;
+import DAOs.ProductDAO;
+import Models.Product_Details;
 import Models.Users;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +19,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +98,6 @@ public class Admin extends HttpServlet {
 
             request.setAttribute("countUser", counts);
             request.setAttribute("name", name);
-            
 
             List<Users> searchResults = (List<Users>) request.getAttribute("searchResults");
             List<Users> sortResults = (List<Users>) request.getAttribute("sortResults");
@@ -107,16 +112,57 @@ public class Admin extends HttpServlet {
 
                 allUsers = dao.getAllUser();
             }
-            
+
             Map<Integer, Boolean> verifiedEmails = new HashMap<>();
             for (Users user : allUsers) {
                 verifiedEmails.put(user.getUser_id(), dao.getVerifyByEmail(user.getUser_id()));
             }
-            
+
             request.setAttribute("allUsers", allUsers);
             request.setAttribute("verifiedEmails", verifiedEmails);
             request.getRequestDispatcher("/admin_users.jsp").forward(request, response);
         } else if (path.equals("/Admin/Product")) {
+            AccountDAO dao = new AccountDAO();
+            ProductDAO daos = new ProductDAO();
+            int userId = -1;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("id")) {
+                        userId = Integer.parseInt(cookie.getValue());
+                        break;
+                    }
+                }
+            }
+            String name = dao.GetNameAdmin(userId);
+            int countProduct = daos.GetTotalProduct();
+
+            request.setAttribute("countProduct", countProduct);
+            request.setAttribute("name", name);
+
+            List<Models.Product> searchResults = (List<Models.Product>) request.getAttribute("searchResults");
+            List<Models.Product> sortResults = (List<Models.Product>) request.getAttribute("sortResults");
+            List<Models.Product> allProduct = new ArrayList<>();
+
+            if (searchResults != null) {
+                allProduct = searchResults;
+            } else if (sortResults != null) {
+                allProduct = sortResults;
+
+            } else {
+
+                allProduct = daos.getAllProduct();
+            }
+
+            CategoryDAO catDao = new CategoryDAO();
+            List<Models.Category> catDaoName = catDao.GetAllCategory();
+            request.setAttribute("nameCat", catDaoName);
+
+            BrandDAO brandDao = new BrandDAO();
+            List<Models.Brand> brandDaoName = brandDao.GetAllBrand();
+            request.setAttribute("nameBrand", brandDaoName);
+
+            request.setAttribute("allProduct", allProduct);
             request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
         } else if (path.equals("/Admin/Review")) {
             request.getRequestDispatcher("/admin_reviews.jsp").forward(request, response);
@@ -142,7 +188,6 @@ public class Admin extends HttpServlet {
             // Gọi DAO để tìm kiếm người dùng
             AccountDAO dao = new AccountDAO();
             List<Users> searchResults = dao.searchUsers(query);
-            
 
             // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
             request.setAttribute("searchResults", searchResults);
@@ -170,7 +215,121 @@ public class Admin extends HttpServlet {
             request.setAttribute("sortResults", sortResults);
 
             doGet(request, response);
+        } else if (request.getParameter("btnsearchProduct") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            ProductDAO dao = new ProductDAO();
+            List<Models.Product> searchResults = dao.searchProduct(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            doGet(request, response);
+        } else if (request.getParameter("btnSortProduct") != null) {
+            ProductDAO dao = new ProductDAO();
+            // Logic hiển thị danh sách thương hiệu (brand) theo thứ tự ngược lại
+            List<Models.Product> sortResults = dao.getAllProductsSorted(); // Gọi DAO để lấy danh sách thương hiệu đã sắp xếp
+
+            // Đặt danh sách thương hiệu đã được sắp xếp vào request attribute
+            request.setAttribute("sortResults", sortResults);
+
+            doGet(request, response);
+        } else if (request.getParameter("btnAddProduct") != null) {
+
+            try {
+                // Lấy dữ liệu từ request
+                String pro_name = request.getParameter("pro_name");
+                String description = request.getParameter("description");
+                String pro_price = request.getParameter("pro_price");
+                String pro_sale = request.getParameter("pro_sale");
+                String madein = request.getParameter("madein");
+                int cat_id = Integer.parseInt(request.getParameter("cat_id"));
+                String brand_id = request.getParameter("brand_id");
+                String color_name = request.getParameter("color_name");
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+                // Lấy tệp tin ảnh từ form
+                Part filePart = request.getPart("image"); // Lấy phần tệp tin từ form
+                String fileName = extractFileName(filePart); // Hàm để lấy tên tệp tin
+                // Định nghĩa đường dẫn lưu trữ ảnh
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "asset" + File.separator + "img" + File.separator + "img_all" + File.separator + "img_product";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                // Ghi tệp tin lên server
+                String filePath = uploadPath + File.separator + fileName;
+                filePart.write(filePath);
+
+                // Tạo đối tượng Product và Product_Details
+                Models.Product product = new Models.Product();
+                product.setPro_name(pro_name);
+                product.setDescription(description);
+                product.setPro_price(pro_price);
+                product.setPro_sale(pro_sale);
+                product.setMadein(madein);
+                product.setCat_id(cat_id);
+                product.setBrand_id(brand_id);
+
+                Product_Details productDetail = new Product_Details();
+                productDetail.setColor_name(color_name);
+                productDetail.setQuantity(quantity);
+                productDetail.setImage("./asset/img/img_all/img_product/" + fileName);
+
+                // Thêm sản phẩm và chi tiết sản phẩm vào cơ sở dữ liệu
+                ProductDAO productDAO = new ProductDAO();
+                productDAO.addProduct(product, productDetail);
+
+                // Redirect đến trang quản lý
+                response.sendRedirect("/Admin/Product");
+            } catch (Exception e) {
+                // Xử lý lỗi, ví dụ redirect đến trang thông báo lỗi
+                response.sendRedirect("/Error");
+            }
         }
+//        else if (request.getParameter("btnDeleteBrand") != null) {
+//            try {
+//                // Lấy brand_id từ request và chuyển thành số nguyên
+//                int brand_id = Integer.parseInt(request.getParameter("brand_id"));
+//
+//                // Tạo một instance của BrandDAO
+//                BrandDAO dao = new BrandDAO();
+//
+//                // Gọi hàm deleteBrand để xóa brand
+//                boolean result = dao.deleteBrand(brand_id);
+//
+//                if (result) {
+//                    // Nếu xóa thành công, chuyển hướng về trang quản lý Brand
+//                    response.sendRedirect("/Admin/Product");
+//                } else {
+//                    // Nếu không xóa được, hiện thông báo lỗi
+//                    request.setAttribute("errorMessage", "Cannot delete this brand because it still has products.");
+//                    doGet(request, response);
+//                }
+//            } catch (NumberFormatException e) {
+//                e.printStackTrace();
+//                // Xử lý lỗi nếu brand_id không hợp lệ
+//                request.setAttribute("errorMessage", "Invalid Brand ID");
+//                response.sendRedirect("/Error");
+//            }
+//        }
+
+    }
+    // Hàm để lấy tên tệp tin từ phần tệp (Part)
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+
+        for (String content : contentDisp.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                String fileName = content.substring(content.indexOf("=") + 1).trim().replace("\"", "");
+                return new File(fileName).getName(); // Trả về tên tệp không chứa đường dẫn
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy tên tệp
     }
 
     /**

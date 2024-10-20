@@ -18,6 +18,19 @@ public class Product_Details {
     public Product_Details() {
     }
 
+    public Product_Details(String color_name, int quantity, String image, int pro_id) {
+        this.color_name = color_name;
+        this.quantity = quantity;
+        this.image = image;
+        this.pro_id = pro_id;
+    }
+
+    public Product_Details(int proDetail_id, int quantity) {
+        this.proDetail_id = proDetail_id;
+        this.quantity = quantity;
+    }
+
+    
     public Product_Details(int proDetail_id, String color_name, int quantity, String image, int pro_id) {
         this.proDetail_id = proDetail_id;
         this.color_name = color_name;

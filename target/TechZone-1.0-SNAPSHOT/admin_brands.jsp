@@ -7,9 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Brand"%>
 <%@page import="java.util.List"%>
-<%@page import="DAOs.AccountDAO"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="DAOs.BrandDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -22,10 +20,9 @@
         <link rel="stylesheet" href="/asset/css/style_admin_brands.css" />
         <!-- Style Sidebar -->
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+        <script src="/asset/js/js_all/js_modal.js" defer></script>
         <!-- Scripts Admin Brands -->
-        <script src="/asset/js/js_admin_brands.js" defer></script>
         <!-- Scripts Delete button -->
-        <script src="/asset/js/js_all/js_delete-button.js" defer></script>
         <!-- Fontawesome icons -->
         <script
             src="https://kit.fontawesome.com/d40f80c35f.js"
@@ -101,6 +98,12 @@
                     </form>
                 </div>
             </nav>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger">
+                    ${errorMessage}
+                </div>
+            </c:if>
+
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Brands</p>
@@ -118,6 +121,7 @@
                     <button
                         class="add-btn"
                         style="background: linear-gradient(60deg, #66bb6a, #43a047)" 
+                        onclick="showModal('add-modal')"
                         >
                         Add
                     </button>
@@ -154,16 +158,22 @@
                                     <button
                                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
                                         class="edit-btn"
-                                        onclick="editBrand(${user.brand_id}, '${user.brand_name}', '${user.description}')"
+                                        onclick="showModal('edit-modal'); editBrand(${user.brand_id}, '${user.brand_name}', '${user.description}');"
                                         >
                                         Edit
                                     </button>
+
+
                                     <button
                                         style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                         name="btnDeleteBrand"
+                                        type="button"
+                                        class="delete-btn"
+                                        onclick="showModal('delete-modal'); deleteBrand(${user.brand_id});"
                                         >
                                         Delete
                                     </button>
+
                                 </td>
                             </tr>
                         </c:forEach>
@@ -176,11 +186,11 @@
                 </table>
             </div>
             <!-- MODAL -->
-            <div id="myModal" class="modal">
+            <div id="add-modal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
                     <h1>Add Brand</h1>
-                    <span class="close-btn">&times;</span>
+                    <span class="close-btn" onclick="closeModal('add-modal')">&times;</span>
                     <form action="/Admin/Brand" method="POST" class="brand-form" >
                         <label>
                             Enter brand name
@@ -205,12 +215,7 @@
                         </label>
 
                         <div class="add-cancel-btn">
-                            <button 
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                class="cancel-btn"
-                                >
-                                Cancel
-                            </button>
+                            <button style="color: #000000" class="cancel-btn" type="button" onclick="closeModal('add-modal')">Cancel</button>
                             <button type="submit" style="background: linear-gradient(60deg, #66bb6a, #43a047)" class="accept-btn" name="btnAddBrand">
                                 Add
                             </button>
@@ -219,10 +224,10 @@
                 </div>
             </div>
             <!-- Edit Modal -->
-            <div id="editModal" class="modal">
+            <div id="edit-modal" class="modal">
                 <div class="modal-content">
                     <h1>Edit Brand</h1>
-                    <span class="close-btn">&times;</span>
+                    <span class="close-btn" onclick="closeModal('edit-modal')">&times;</span>
                     <form action="/Admin/Brand" class="brand-edit-form" method="post">
                         <input type="hidden" id="edit-brand-id" name="brand_id"/>
                         <label>
@@ -239,6 +244,7 @@
                                 style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                 class="cancel-btn"
                                 type="button"
+                                onclick="closeModal('edit-modal')"
                                 >
                                 Cancel
                             </button>
@@ -254,6 +260,31 @@
                     </form>
                 </div>
             </div>
+            <!-- DELETE MODAL -->
+            <div id="delete-modal" class="modal">
+                <div class="delete-modal-content">
+                    <h1>Confirm delete?</h1>
+                    <form action="/Admin/Brand" method="post" class="delete-form">
+                        <input type="hidden" id="delete-brand-id" name="brand_id"/>
+                        <button
+                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            class="cancel-btn"
+                            type="button"
+                            onclick="closeModal('delete-modal')"
+                            >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            class="confirm-delete-btn"
+                            name="btnDeleteBrand"
+                            >
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
 
 
 
@@ -263,6 +294,14 @@
 
         </main>
         <script>
+            function deleteBrand(brandId) {
+
+                // Set values in modal fields
+                document.getElementById('delete-brand-id').value = brandId;
+
+                const editModal = document.getElementById("deleteModal");
+                editModal.style.display = "block";
+            }
             function editBrand(brandId, brandName, brandDes) {
 
                 // Set values in modal fields
@@ -270,7 +309,7 @@
                 document.getElementById('edit-brand-name').value = brandName;
                 document.getElementById('edit-brand-description').value = brandDes;
                 // Show the modal
-// Open the modal
+
                 const editModal = document.getElementById("editModal");
                 editModal.style.display = "block";
             }

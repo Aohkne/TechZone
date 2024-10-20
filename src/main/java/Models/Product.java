@@ -17,15 +17,51 @@ public class Product {
     private String description;
     private String pro_price;
     private String pro_sale;
-    private int pro_quantity;
     private String madein;
     private Date created_at;
     private Date updated_at;
-    private String pro_image;
     private int cat_id;
     private String brand_id;
-   private int proDetail_id;
+    private int proDetail_id;
+    private String color_name;
+    private int pro_quantity;
+    private String pro_image;
+
     public Product() {
+    }
+
+    public Product(String pro_name, String pro_price, String pro_sale, String madein) {
+        this.pro_name = pro_name;
+        this.pro_price = pro_price;
+        this.pro_sale = pro_sale;
+        this.madein = madein;
+    }
+
+ 
+
+    
+    public Product(String pro_name, String description, String pro_price, String pro_sale, String madein, int cat_id, String brand_id) {
+        this.pro_name = pro_name;
+        this.description = description;
+        this.pro_price = pro_price;
+        this.pro_sale = pro_sale;
+        this.madein = madein;
+        this.cat_id = cat_id;
+        this.brand_id = brand_id;
+    }
+
+    public Product(int pro_id, String pro_name, String pro_price, String pro_sale, int pro_quantity, String madein, String pro_image, int cat_id, String brand_id, int proDetail_id, String color_name) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
+        this.pro_price = pro_price;
+        this.pro_sale = pro_sale;
+        this.pro_quantity = pro_quantity;
+        this.madein = madein;
+        this.pro_image = pro_image;
+        this.cat_id = cat_id;
+        this.brand_id = brand_id;
+        this.proDetail_id = proDetail_id;
+        this.color_name = color_name;
     }
 
     public Product(int pro_id, String pro_name, String pro_price, String pro_image, int proDetail_id) {
@@ -53,7 +89,6 @@ public class Product {
         this.pro_sale = pro_sale;
         this.pro_image = pro_image;
 
-
     }
 
     public Product(int pro_id, String pro_name, String description, String pro_price, String pro_sale, int pro_quantity, String madein, Date created_at, Date updated_at, String pro_image, int cat_id, String brand_id) {
@@ -70,6 +105,7 @@ public class Product {
         this.cat_id = cat_id;
         this.brand_id = brand_id;
     }
+
     public Product(int pro_id, String pro_name, String description, String pro_price, String pro_sale, String madein, String pro_image, int cat_id, String brand_id) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
@@ -81,6 +117,7 @@ public class Product {
         this.cat_id = cat_id;
         this.brand_id = brand_id;
     }
+
     public int getPro_id() {
         return pro_id;
     }
@@ -128,8 +165,6 @@ public class Product {
     public void setProDetail_id(int proDetail_id) {
         this.proDetail_id = proDetail_id;
     }
-
-
 
     public int getPro_quantity() {
         return pro_quantity;
@@ -185,6 +220,14 @@ public class Product {
 
     public void setBrand_id(String brand_id) {
         this.brand_id = brand_id;
+    }
+
+    public String getColor_name() {
+        return color_name;
+    }
+
+    public void setColor_name(String color_name) {
+        this.color_name = color_name;
     }
 
 }

@@ -108,7 +108,6 @@ public class AccountDAO {
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
                     username = rs.getString("username");
-                    System.out.println(username);  // In ra để kiểm tra
                 }
             } catch (SQLException ex) {
             }
@@ -188,7 +187,6 @@ public class AccountDAO {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     picture = rs.getString("avartar");
-                    System.out.println("Picture retrieved: " + picture); // Debug statement
                 }
             } catch (SQLException ex) { // Debugging statement
                 // Debugging statement
@@ -211,7 +209,6 @@ public class AccountDAO {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     verified_email = rs.getBoolean("status_user");
-                    System.out.println("Picture retrieved: " + verified_email); // Debug statement
                 }
             } catch (SQLException ex) { // Debugging statement
                 // Debugging statement
@@ -234,7 +231,6 @@ public class AccountDAO {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     type_id = rs.getInt("role");
-                    System.out.println("Picture retrieved: " + type_id); // Debug statement
                 }
             } catch (SQLException ex) { // Debugging statement
                 // Debugging statement
@@ -257,7 +253,6 @@ public class AccountDAO {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     type_id = rs.getInt("role");
-                    System.out.println("Picture retrieved: " + type_id); // Debug statement
                 }
             } catch (SQLException ex) { // Debugging statement
                 // Debugging statement
@@ -338,6 +333,39 @@ public class AccountDAO {
         return rs;
     }
 
+    public int GetTotalUser() {
+        Connection conn = DBConnection.getConnection();
+        int userCount = 0; // Change variable name to better reflect its purpose
+        if (conn != null) {
+            try {
+                // Query to count users with role=2
+                String sql = "SELECT COUNT(*) FROM Users WHERE role=2";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    userCount = rs.getInt(1); // Get the count of users
+                    System.out.println(userCount);  // Print to check the result
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return userCount;
+    }
+
+    public String md5Hash(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
+        }
+        return sb.toString();
+    }
+
     public List<Users> getAllUser() {
         List<Users> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
         Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
@@ -382,39 +410,6 @@ public class AccountDAO {
             }
         }
         return userList; // Trả về danh sách người dùng
-    }
-
-    public int GetTotalUser() {
-        Connection conn = DBConnection.getConnection();
-        int userCount = 0; // Change variable name to better reflect its purpose
-        if (conn != null) {
-            try {
-                // Query to count users with role=2
-                String sql = "SELECT COUNT(*) FROM Users WHERE role=2";
-                PreparedStatement pst = conn.prepareStatement(sql);
-
-                // Execute the query and get the result
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-                    userCount = rs.getInt(1); // Get the count of users
-                    System.out.println(userCount);  // Print to check the result
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return userCount;
-    }
-
-    public String md5Hash(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.getBytes());
-        byte[] bytes = md.digest();
-        StringBuilder sb = new StringBuilder();
-        for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
-        }
-        return sb.toString();
     }
 
     public List<Users> searchUsers(String query) {

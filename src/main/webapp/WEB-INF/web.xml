@@ -40,6 +40,10 @@
         <servlet-name>Product</servlet-name>
         <servlet-class>Controllers.Product</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Error</servlet-name>
+        <servlet-class>Controllers.Error</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -52,6 +56,7 @@
     <servlet-mapping>
         <servlet-name>Admin</servlet-name>
         <url-pattern>/Admin</url-pattern>
+        <url-pattern>/Admin/Product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -81,6 +86,10 @@
     <servlet-mapping>
         <servlet-name>Product</servlet-name>
         <url-pattern>/Product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Error</servlet-name>
+        <url-pattern>/Error</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>
