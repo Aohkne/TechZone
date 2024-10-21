@@ -8,6 +8,8 @@ import DB.DBConnection;
 import static DB.DBConnection.getConnection;
 import Models.Product;
 import Models.Product_Details;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -722,36 +724,185 @@ public class ProductDAO {
         return lastProductId;
     }
 
+    public void editProductDetails(Product_Details productDetails) {
+        Connection conn = DBConnection.getConnection();
 
+        if (conn != null) {
+            try {
+                // Update the product details in the Product_Details table
+                String updateProductDetailSQL = "UPDATE Product_Details SET quantity = ? WHERE proDetail_id = ?";
+                PreparedStatement pstDetail = conn.prepareStatement(updateProductDetailSQL);
+                pstDetail.setInt(1, productDetails.getQuantity());
+                pstDetail.setInt(2, productDetails.getProDetail_id()); // Use proDetail_id from productDetails
 
-//    public boolean deleteBrand(int brandId) {
-//        Connection conn = DBConnection.getConnection();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        try {
-//            // Kết nối tới database
-//
-//            // Kiểm tra xem còn sản phẩm nào thuộc brand_id này không
-//            String checkSql = "SELECT COUNT(*) AS product_count FROM Product WHERE brand_id = ?";
-//            ps = conn.prepareStatement(checkSql);
-//            ps.setInt(1, brandId);
-//            rs = ps.executeQuery();
-//
-//            if (rs.next() && rs.getInt("product_count") > 0) {
-//                // Nếu còn sản phẩm, trả về false và không thực hiện xóa
-//                return false;
-//            }
-//
-//            // Nếu không còn sản phẩm, thực hiện xóa brand
-//            String deleteSql = "DELETE FROM Brand WHERE brand_id = ?";
-//            ps = conn.prepareStatement(deleteSql);
-//            ps.setInt(1, brandId);
-//            ps.executeUpdate();
-//
-//            return true;
-//        } catch (SQLException e) {
-//            return false;
-//        }
-//    }
+                pstDetail.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection after the operation
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public int getProIdFromDetails(int proDetail_id) {
+        Connection conn = DBConnection.getConnection();
+        int proId = 0; // Store the product ID related to the given proDetail_id
+
+        if (conn != null) {
+            try {
+                // Query to get the pro_id from Product_Details where proDetail_id matches
+                String sql = "SELECT pro_id FROM Product_Details WHERE proDetail_id = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, proDetail_id); // Set the proDetail_id parameter
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    proId = rs.getInt("pro_id"); // Get the pro_id from the result set
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return proId; // Return the fetched pro_id
+    }
+    // Method to update Product table
+
+    public Double parseFormattedStringToDouble(String value) {
+        if (value == null || value.isEmpty()) {
+            return null; // Handle null or empty input gracefully
+        }
+
+        try {
+            // Remove all periods used as thousand separators
+            String normalizedValue = value.replace(".", "");
+            // Convert the cleaned-up value to double
+            Double doubleValue = Double.parseDouble(normalizedValue);
+
+            // Round to 2 decimal places using BigDecimal for precision
+            BigDecimal bd = new BigDecimal(doubleValue);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+            return bd.doubleValue();
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Print the stack trace in case of an error
+            return null; // Return null if parsing fails
+        }
+    }
+
+    public void editProduct(Product product, int proId) {
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                double a = parseFormattedStringToDouble(product.getPro_price());
+                double b = parseFormattedStringToDouble(product.getPro_sale());
+                // Update the product in the Product table
+                String updateProductSQL = "UPDATE Product SET pro_name = ?, pro_price = ?, pro_sale = ?, madein = ? WHERE pro_id = ?";
+                PreparedStatement pst = conn.prepareStatement(updateProductSQL);
+                pst.setString(1, product.getPro_name());
+                pst.setDouble(2, a);
+                pst.setDouble(3, b);
+                pst.setString(4, product.getMadein());
+                pst.setInt(5, proId); // Assuming pro_id is stored in the product object
+
+                pst.executeUpdate();
+
+            } catch (SQLException e) {
+                System.err.println("SQL Exception: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public int getCountProId(int proDetail_id) {
+        Connection conn = DBConnection.getConnection();
+        int count = 0; // Initialize the variable to store the count
+
+        if (conn != null) {
+            try {
+                // Query to count the pro_id from Product_Details where proDetail_id matches
+                String sql = "SELECT COUNT(pro_id) FROM Product_Details WHERE proDetail_id = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, proDetail_id); // Set the proDetail_id parameter
+
+                // Execute the query and get the result
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt(1); // Get the count from the result set (first column)
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return count; // Return the count of pro_id
+    }
+
+    public void deleteProductDetails(int proDetail_id) {
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                // Delete the product details from the Product_Details table based on proDetail_id
+                String deleteProductDetailSQL = "DELETE FROM Product_Details WHERE proDetail_id = ?";
+                PreparedStatement pstDetail = conn.prepareStatement(deleteProductDetailSQL);
+                pstDetail.setInt(1, proDetail_id); // Set the proDetail_id for the deletion
+
+                pstDetail.executeUpdate(); // Execute the deletion query
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection after the operation
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void deleteProduct(int proId) {
+        Connection conn = DBConnection.getConnection();
+
+        if (conn != null) {
+            try {
+                // Delete the product from the Product table based on pro_id
+                String deleteProductSQL = "DELETE FROM Product WHERE pro_id = ?";
+                PreparedStatement pst = conn.prepareStatement(deleteProductSQL);
+                pst.setInt(1, proId); // Set the proId parameter for deletion
+
+                pst.executeUpdate(); // Execute the delete query
+
+            } catch (SQLException e) {
+                System.err.println("SQL Exception: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close(); // Close the connection after the operation
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }

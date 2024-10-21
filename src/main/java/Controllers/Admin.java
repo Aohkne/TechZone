@@ -289,34 +289,57 @@ public class Admin extends HttpServlet {
                 // Xử lý lỗi, ví dụ redirect đến trang thông báo lỗi
                 response.sendRedirect("/Error");
             }
-        }
-//        else if (request.getParameter("btnDeleteBrand") != null) {
-//            try {
-//                // Lấy brand_id từ request và chuyển thành số nguyên
-//                int brand_id = Integer.parseInt(request.getParameter("brand_id"));
-//
-//                // Tạo một instance của BrandDAO
-//                BrandDAO dao = new BrandDAO();
-//
-//                // Gọi hàm deleteBrand để xóa brand
-//                boolean result = dao.deleteBrand(brand_id);
-//
-//                if (result) {
-//                    // Nếu xóa thành công, chuyển hướng về trang quản lý Brand
-//                    response.sendRedirect("/Admin/Product");
-//                } else {
-//                    // Nếu không xóa được, hiện thông báo lỗi
-//                    request.setAttribute("errorMessage", "Cannot delete this brand because it still has products.");
-//                    doGet(request, response);
-//                }
-//            } catch (NumberFormatException e) {
-//                e.printStackTrace();
-//                // Xử lý lỗi nếu brand_id không hợp lệ
-//                request.setAttribute("errorMessage", "Invalid Brand ID");
-//                response.sendRedirect("/Error");
-//            }
-//        }
+        } else if (request.getParameter("btnEditProduct") != null) {
+            // Get parameters for Product
+            String pro_name = request.getParameter("pro_name");
+            String pro_price = request.getParameter("pro_price");
+            String pro_sale = request.getParameter("pro_sale");
+            String madein = request.getParameter("madein");
 
+            // Get parameters for Product_Details
+            int proDetail_id = Integer.parseInt(request.getParameter("proDetail_id")); // Product_Details ID
+            int quantity = Integer.parseInt(request.getParameter("quantity")); // Quantity for Product_Details
+
+            // Create Product object for updating Product data
+            Models.Product product = new Models.Product(pro_name, pro_price, pro_sale, madein);
+            Models.Product_Details products = new Models.Product_Details(proDetail_id, quantity);
+            // Update Product and Product_Details in the DAO
+            ProductDAO dao = new ProductDAO();
+            dao.editProductDetails(products);
+
+            int proId = dao.getProIdFromDetails(proDetail_id);
+
+            dao.editProduct(product, proId); // A method that will update both tables
+            // Redirect after updating
+            response.sendRedirect("/Admin/Product");
+        } else if (request.getParameter("btnDeleteProduct") != null) {
+            try {
+                // Lấy brand_id từ request và chuyển thành số nguyên
+                int proDetail_id = Integer.parseInt(request.getParameter("proDetail_id"));
+
+                // Tạo một instance của BrandDAO
+                ProductDAO dao = new ProductDAO();
+
+                int count = dao.getCountProId(proDetail_id);
+
+                if (count == 1) {
+                    int proId = dao.getProIdFromDetails(proDetail_id);
+                    dao.deleteProductDetails(proDetail_id);
+
+                    dao.deleteProduct(proId);
+                } else {
+                    dao.deleteProductDetails(proDetail_id);
+                }
+                // Nếu xóa thành công, chuyển hướng về trang quản lý Brand
+                response.sendRedirect("/Admin/Product");
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu brand_id không hợp lệ
+                request.setAttribute("errorMessage", "Invalid Brand ID");
+                response.sendRedirect("/Error");
+            }
+        }
     }
     // Hàm để lấy tên tệp tin từ phần tệp (Part)
 
