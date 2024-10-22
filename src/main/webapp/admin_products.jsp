@@ -399,12 +399,12 @@
             </div>
             <!-- DELETE MODAL -->
             <div id="delete-modal" class="modal">
-                <div class="delete-modal-content">
+                <div class="modal-content">
                     <h1>Confirm delete?</h1>
                     <form action="/Admin/Product" method="post" class="delete-form">
                         <input type="hidden" id="delete-product-id" name="proDetail_id"/>
                         <button
-                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935) color:#ffffff; color:#000000"
                             class="cancel-btn"
                             type="button"
                             onclick="closeModal('delete-modal')"
@@ -413,7 +413,7 @@
                         </button>
                         <button
                             type="submit"
-                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
                             class="confirm-delete-btn"
                             name="btnDeleteProduct"
                             >
