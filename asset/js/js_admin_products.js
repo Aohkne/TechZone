@@ -75,8 +75,8 @@ function renderTable() {
       <td>${product.updateDate}</td>
       <td>${product.stock}</td>
       <td>
-        <button class="edit-btn" onclick="editData(this)" style="background: linear-gradient(60deg, #26c6da, #00acc1);">Edit</button>
-        <button class="delete-btn" style="background: linear-gradient(60deg, #ef5350, #e53935);">Delete</button>
+        <button class="edit-btn" onclick="showModal('edit-modal')" style="background: linear-gradient(60deg, #26c6da, #00acc1);">Edit</button>
+        <button class="delete-btn" onclick="showModal('delete-modal')" style="background: linear-gradient(60deg, #ef5350, #e53935);">Delete</button>
       </td>
     `;
 
@@ -91,53 +91,3 @@ function renderTable() {
 }
 // Render table
 renderTable();
-
-// MODAL
-// Add Product
-const addButton = document.querySelector(".add-btn");
-const closeButton = document.querySelectorAll(".close-btn, .cancel-btn");
-let modal = document.querySelector(".modal");
-
-addButton.onclick = function () {
-  modal.style.display = "block";
-};
-
-closeButton.forEach(function (button) {
-  button.onclick = function () {
-    modal.style.display = "none";
-  };
-});
-
-// Edit Product
-document.addEventListener("DOMContentLoaded", () => {
-  // Get the modal
-  const editModal = document.getElementById("editModal");
-
-  // Get the close button
-  const closeBtn = document.querySelector("#editModal .close-btn");
-  const cancelBtn = document.querySelector("#editModal .cancel-btn");
-  // Get all the edit buttons
-  const editButtons = document.querySelectorAll(".edit-btn");
-
-  // Loop through each edit button
-  editButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // Open the edit modal when the edit button is clicked
-      editModal.style.display = "block";
-    });
-  });
-
-  // When the close button is clicked, close the modal
-  closeBtn.addEventListener("click", () => {
-    editModal.style.display = "none";
-  });
-  cancelBtn.addEventListener("click", () => {
-    editModal.style.display = "none";
-  });
-  // Optional: close the modal if the user clicks outside the modal content
-  window.addEventListener("click", (event) => {
-    if (event.target == editModal) {
-      editModal.style.display = "none";
-    }
-  });
-});

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/asset/css/style_admin_dashboard.css" />
     <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
     <script src="/asset/js/js_admin_dashboard.js" defer></script>
-    <script src="/asset/js/js_all/js_delete-button.js"></script>
     <script
       src="https://kit.fontawesome.com/d40f80c35f.js"
       crossorigin="anonymous"
@@ -91,18 +90,6 @@
 
       <div class="card-container">
         <div class="card">
-          <p class="card-name">Views</p>
-          <p class="card-value">5,892</p>
-          <div
-            class="card-icon"
-            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
-          >
-            <i class="fa-solid fa-street-view"></i>
-          </div>
-          <hr />
-          <p class="card-graph">Graph Details</p>
-        </div>
-        <div class="card">
           <p class="card-name">Products</p>
           <p class="card-value">4</p>
           <div
@@ -112,7 +99,6 @@
             <i class="fa-solid fa-box"></i>
           </div>
           <hr />
-          <p class="card-graph">Graph Details</p>
         </div>
         <div class="card">
           <p class="card-name">Categories</p>
@@ -124,7 +110,6 @@
             <i class="fa-solid fa-layer-group"></i>
           </div>
           <hr />
-          <p class="card-graph">Graph Details</p>
         </div>
         <div class="card">
           <p class="card-name">Users</p>
@@ -136,7 +121,7 @@
             <i class="fa-solid fa-users"></i>
           </div>
           <hr />
-          <p class="card-graph">Graph Details</p>
+          <a href="#users-chart"><p class="card-graph">Graph Details</p></a>
         </div>
         <div class="card">
           <p class="card-name">Reviews</p>
@@ -172,9 +157,31 @@
             <i class="fa-solid fa-dollar-sign"></i>
           </div>
           <hr />
-          <p class="card-graph">Graph Details</p>
+          <a href="#earnings-chart"><p class="card-graph">Graph Details</p></a>
+        </div>
+      </div>
+      <!-- CHARTS -->
+      <div class="charts-container">
+        <div class="combined-chart">
+          <canvas id="combined-chart"></canvas>
+        </div>
+        <div class="users-chart">
+          <canvas
+            id="users-chart"
+            aria-label="Users Chart"
+            role="text"
+          ></canvas>
+        </div>
+        <div class="earnings-chart">
+          <canvas
+            id="earnings-chart"
+            aria-label="Earnings Chart"
+            role="text"
+          ></canvas>
         </div>
       </div>
     </main>
   </body>
+  <!-- Import chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </html>

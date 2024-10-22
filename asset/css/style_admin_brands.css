@@ -176,6 +176,8 @@ table td button {
 .modal {
     position: fixed;
     display: none;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
     left: 0;
     top: 0;
@@ -263,7 +265,7 @@ table td button {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-    height: 88%;
+    height: 88vh;
 }
 .modal-content .brand-edit-form label{
     display: flex;
@@ -304,4 +306,30 @@ table td button {
 }
 .cancel-btn {
     background: linear-gradient(60deg, #ef5350, #e53935);
+}
+
+/* Delete modal */
+#delete-modal .modal-content{
+    background-color: white;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Delete modal buttons */
+.delete-form {
+    display: flex;
+    gap: 2rem;
+}
+.delete-form button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
