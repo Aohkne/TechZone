@@ -104,6 +104,16 @@
                 </div>
                 <div class="buttons-container">
                     <button
+                        class="color-btn"
+                        style="
+                        background: linear-gradient(60deg, #26c6da, #00acc1);
+                        color: white;
+                        "
+                        onclick="showModal('color-modal')"
+                        >
+                        Color
+                    </button>
+                    <button
                         class="add-btn"
                         style="background: linear-gradient(60deg, #66bb6a, #43a047)"
                         >
@@ -159,7 +169,7 @@
                                     <td>${product.pro_quantity}</td>
                                     <td>
                                         <button style="background: linear-gradient(60deg, #26c6da, #00acc1)"
-                                                onclick="showModal('edit-modal'); editProduct( ${product.proDetail_id}, '${product.pro_name}', '${product.pro_price}', '${product.pro_sale}', '${product.madein}', '${product.pro_quantity}');">
+                                                onclick="showModal('edit-modal'); editProduct(${product.proDetail_id}, '${product.pro_name}', '${product.pro_price}', '${product.pro_sale}', '${product.madein}', '${product.pro_quantity}');">
                                             Edit
                                         </button>
                                         <button style="background: linear-gradient(60deg, #ef5350, #e53935)"
@@ -389,7 +399,7 @@
                                 type="submit"
                                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
                                 class="accept-btn"
-                                  name="btnEditProduct"
+                                name="btnEditProduct"
                                 >
                                 Save
                             </button>
@@ -404,7 +414,7 @@
                     <form action="/Admin/Product" method="post" class="delete-form">
                         <input type="hidden" id="delete-product-id" name="proDetail_id"/>
                         <button
-                            style="background: linear-gradient(60deg, #ef5350, #e53935) color:#ffffff; color:#000000"
+                            style="background:#ffffff; color:#000000"
                             class="cancel-btn"
                             type="button"
                             onclick="closeModal('delete-modal')"
@@ -422,6 +432,66 @@
                     </form>
                 </div>
             </div>
+
+            <!-- COLOR PRODUCT MODAL -->
+            <div id="color-modal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <h1>Color Product</h1>
+                    <span class="close-btn" onclick="closeModal('color-modal')"
+                          >&times;</span
+                    >
+                    <form action="" class="color-product-form">
+                        <label for="">
+                            Select Product Name
+                            <select>
+                                <option>IPhone 16</option>
+                                <option>Xiaomi Note 12</option>
+                                <option>Samsung S24</option>
+                            </select>
+                        </label>
+                        <label for=""
+                               >Input Product Color
+                            <input type="text" placeholder="Product color..." />
+                        </label>
+                        <label for=""
+                               >Quantity
+                            <input
+                                type="number"
+                                placeholder="Product color..."
+                                step="1"
+                                min="1"
+                                />
+                        </label>
+                        <label id="product-image-label"
+                               >Choose the product image<input
+                                type="file"
+                                id="product-image"
+                                accept="image/png, image/jpeg"
+                                style="border: none"
+                                required
+                                /></label>
+                        <div class="add-cancel-btn">
+                            <button
+                                type="button"
+                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                class="cancel-btn"
+                                onclick="closeModal('color-modal')"
+                                >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                style="background: linear-gradient(60deg, #26c6da, #00acc1)"
+                                class="accept-btn"
+                                >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 
         </main>
         <script>

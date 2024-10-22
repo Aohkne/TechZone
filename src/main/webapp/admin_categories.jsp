@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="/asset/css/style_admin_categories.css" />
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
         <script src="/asset/js/js_admin_categories.js" defer></script>
+        <script src="/asset/js/js_all/js_modal.js" defer></script>
         <script src="/asset/js/js_all/js_delete-button.js"></script>
         <script
             src="https://kit.fontawesome.com/d40f80c35f.js"
@@ -154,6 +155,7 @@
                                     <button
                                         style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                         name="btnDeleteCategory"
+                                        onclick="showModal('delete-modal')"
                                         >
                                         Delete
                                     </button>
@@ -190,7 +192,7 @@
                             <textarea
                                 id="category-description"
                                 placeholder="Category description"
-                                rows="15"
+                                rows="20"
                                 style="padding: 10px"
                                 name="description"
                                 required=""
@@ -246,7 +248,31 @@
                     </form>
                 </div>
             </div>
-
+           <!-- DELETE MODAL -->
+            <div id="delete-modal" class="modal">
+                <div class="modal-content">
+                    <h1>Confirm delete?</h1>
+                    <form action="/Admin/Product" method="post" class="delete-form">
+                        <input type="hidden" id="delete-product-id" name="proDetail_id"/>
+                        <button
+                            style="background:#ffffff; color:#000000"
+                            class="cancel-delete-btn"
+                            type="button"
+                            onclick="closeModal('delete-modal')"
+                            >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
+                            class="confirm-delete-btn"
+                            name="btnDeleteProduct"
+                            >
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
 
 
 
