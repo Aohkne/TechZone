@@ -44,6 +44,10 @@
         <servlet-name>Error</servlet-name>
         <servlet-class>Controllers.Error</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Controllers.Cart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -90,6 +94,10 @@
     <servlet-mapping>
         <servlet-name>Error</servlet-name>
         <url-pattern>/Error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

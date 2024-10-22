@@ -2,6 +2,7 @@ Controllers\Home.class
 DAOs\CategoryDAO.class
 Controllers\Brand.class
 Controllers\Voucher.class
+Controllers\Cart.class
 Controllers\Error.class
 Models\Category.class
 Controllers\Login$2.class

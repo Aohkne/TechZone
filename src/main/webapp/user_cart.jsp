@@ -140,7 +140,11 @@
                                             Order History
                                         </a>
                                     </div>
-
+                                    <div class="account__item">
+                                        <a href="/Voucher" class="account__link">
+                                            Voucher
+                                        </a>
+                                    </div>
                                     <div class="account__item">
                                         <a href="#" class="account__link">
                                             Shipping
@@ -148,7 +152,7 @@
                                     </div>
 
                                     <div class="account__item">
-                                        <a href="./user_cart.jsp" class="account__link">
+                                        <a href="/Cart" class="account__link">
                                             Cart
                                         </a>
                                     </div>
