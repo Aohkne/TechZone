@@ -292,7 +292,8 @@
                                 placeholder="Product color"
                                 step="1"
                                 name="color_name"
-                                required=""
+                                value="default"
+                                readonly=""
                                 />
                         </label>
                         <label
@@ -441,26 +442,29 @@
                     <span class="close-btn" onclick="closeModal('color-modal')"
                           >&times;</span
                     >
-                    <form action="" class="color-product-form">
+                    <form action="/Admin/Product" method="POST" class="color-product-form" enctype="multipart/form-data">
                         <label for="">
                             Select Product Name
-                            <select>
-                                <option>IPhone 16</option>
-                                <option>Xiaomi Note 12</option>
-                                <option>Samsung S24</option>
+                            <select name="pro_id" id="product" required>
+                                <c:forEach var="product" items="${productDaoName}">
+                                    <option value="${product.pro_id}">${product.pro_name}</option>
+                                </c:forEach>
                             </select>
                         </label>
                         <label for=""
                                >Input Product Color
-                            <input type="text" placeholder="Product color..." />
+                            
+                            <input type="text" placeholder="Product color..." name="color_name" required=""/>
                         </label>
                         <label for=""
                                >Quantity
                             <input
                                 type="number"
-                                placeholder="Product color..."
+                                placeholder="Product quantity..."
                                 step="1"
                                 min="1"
+                                name="quantity"
+                                required=""
                                 />
                         </label>
                         <label id="product-image-label"
@@ -469,6 +473,7 @@
                                 id="product-image"
                                 accept="image/png, image/jpeg"
                                 style="border: none"
+                                name="image"
                                 required
                                 /></label>
                         <div class="add-cancel-btn">
@@ -484,6 +489,7 @@
                                 type="submit"
                                 style="background: linear-gradient(60deg, #26c6da, #00acc1)"
                                 class="accept-btn"
+                                name="btnAddColor"
                                 >
                                 Save
                             </button>

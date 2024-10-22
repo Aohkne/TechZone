@@ -905,4 +905,72 @@ public class ProductDAO {
         }
     }
 
+    public List<Models.Product> getAllProductDefault() {
+        Connection conn = DBConnection.getConnection();
+        List<Models.Product> products = new ArrayList<>();
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT pro_id, pro_name FROM Product");
+
+                while (rs.next()) {
+                    int proId = rs.getInt("pro_id"); // Using rs.getInt for pro_id
+                    String name = rs.getString("pro_name");
+
+                    // Create Product object and add to list
+                    Product product = new Product(proId, name);
+                    products.add(product);
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close(); // Close the connection after the operation
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return products;
+    }
+
+    public void addProductColor(Product_Details productDetail, int proId) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pstDetail = null;
+
+        if (conn != null) {
+            try {
+                System.out.println("ll"+proId);
+                // Insert product details into Product_Details table
+                String insertProductDetailSQL = "INSERT INTO Product_Details (color_name, quantity, image, pro_id) "
+                        + "VALUES (?, ?, ?, ?)";
+                pstDetail = conn.prepareStatement(insertProductDetailSQL);
+                pstDetail.setString(1, productDetail.getColor_name());
+                pstDetail.setInt(2, productDetail.getQuantity());
+                pstDetail.setString(3, productDetail.getImage());
+                pstDetail.setInt(4, proId); // Use the retrieved pro_id
+
+                pstDetail.executeUpdate();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (pstDetail != null) {
+                        pstDetail.close(); // Close PreparedStatement
+                    }
+                    if (conn != null) {
+                        conn.close(); // Close the connection after the operation
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

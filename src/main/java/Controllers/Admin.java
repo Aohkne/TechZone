@@ -162,6 +162,9 @@ public class Admin extends HttpServlet {
             List<Models.Brand> brandDaoName = brandDao.GetAllBrand();
             request.setAttribute("nameBrand", brandDaoName);
 
+            List<Models.Product> productDaoName = daos.getAllProductDefault();
+            request.setAttribute("productDaoName", productDaoName);
+
             request.setAttribute("allProduct", allProduct);
             request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
         } else if (path.equals("/Admin/Review")) {
@@ -337,6 +340,41 @@ public class Admin extends HttpServlet {
                 e.printStackTrace();
                 // Xử lý lỗi nếu brand_id không hợp lệ
                 request.setAttribute("errorMessage", "Invalid Brand ID");
+                response.sendRedirect("/Error");
+            }
+        } else if (request.getParameter("btnAddColor") != null) {
+
+            try {
+                int pro_id = Integer.parseInt(request.getParameter("pro_id"));
+                String color_name = request.getParameter("color_name");
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+                // Lấy tệp tin ảnh từ form
+                Part filePart = request.getPart("image"); // Lấy phần tệp tin từ form
+                String fileName = extractFileName(filePart); // Hàm để lấy tên tệp tin
+                // Định nghĩa đường dẫn lưu trữ ảnh
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "asset" + File.separator + "img" + File.separator + "img_all" + File.separator + "img_product";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                // Ghi tệp tin lên server
+                String filePath = uploadPath + File.separator + fileName;
+                filePart.write(filePath);
+
+                Product_Details productDetail = new Product_Details();
+                productDetail.setColor_name(color_name);
+                productDetail.setQuantity(quantity);
+                productDetail.setImage("./asset/img/img_all/img_product/" + fileName);
+
+                // Thêm sản phẩm và chi tiết sản phẩm vào cơ sở dữ liệu
+                ProductDAO productDAO = new ProductDAO();
+                productDAO.addProductColor(productDetail, pro_id);
+
+                // Redirect đến trang quản lý
+                response.sendRedirect("/Admin/Product");
+            } catch (Exception e) {
+                // Xử lý lỗi, ví dụ redirect đến trang thông báo lỗi
                 response.sendRedirect("/Error");
             }
         }

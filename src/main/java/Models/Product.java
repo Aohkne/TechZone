@@ -37,6 +37,11 @@ public class Product {
         this.madein = madein;
     }
 
+    public Product(int pro_id, String pro_name) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
+    }
+
  
 
     
