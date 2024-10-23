@@ -4,13 +4,18 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import DAOs.UserDAO;
 import DAOs.VoucherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -58,8 +63,48 @@ public class Cart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //Get User data
+        Cookie[] cookies = request.getCookies();
+        String idUser = "";
+        boolean isId = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    idUser = cookie.getValue();
+                    UserDAO userdao = new UserDAO();
+                    AccountDAO dao = new AccountDAO();
+                    int userId = Integer.parseInt(idUser);
+
+                    try {
+                        ResultSet rs = userdao.getUserById(idUser);
+                        int userType = dao.getTypeById(userId);
+
+                        if (userType == 1) {
+                            response.sendRedirect("/Admin");
+                            return;
+                        }
+
+                        if (rs != null && rs.next()) {
+                            request.setAttribute("username", rs.getString("username"));
+                            request.setAttribute("avatar", rs.getString("avatar"));
+                            request.setAttribute("email", rs.getString("email"));
+                            request.setAttribute("address", rs.getString("address"));
+                            isId = true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+
+        request.setAttribute("isId", isId);
+        
+        
+        //Voucher
         VoucherDAO voucherdao = new VoucherDAO();
-        List<Models.Voucher> voucher = voucherdao.getAllVoucher();
+        List<Models.Voucher> voucher = voucherdao.getVouchersByUserId(idUser);
 
         request.setAttribute("voucher", voucher);
 

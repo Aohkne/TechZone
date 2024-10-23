@@ -9,7 +9,7 @@ increase.onclick = () => {
 };
 
 decrease.onclick = () => {
-  if (+numOrder.textContent <= 0) {
+  if (+numOrder.textContent <= 1) {
     return;
   }
   numOrder.innerHTML = +numOrder.textContent - 1;

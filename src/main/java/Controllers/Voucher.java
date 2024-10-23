@@ -103,7 +103,7 @@ public class Voucher extends HttpServlet {
 
         //Voucher
         VoucherDAO voucherdao = new VoucherDAO();
-        List<Models.Voucher> voucher = voucherdao.getAllVoucher();
+        List<Models.Voucher> voucher = voucherdao.getVouchersByUserId(idUser);
 
         request.setAttribute("voucher", voucher);
         System.out.println(voucher);

@@ -20,6 +20,7 @@ Controllers\Logout.class
 DAOs\AccountDAO.class
 Controllers\Categories.class
 DAOs\ProductDAO.class
+Filter\MyFilter.class
 Controllers\User.class
 Controllers\Login.class
 DB\DBConnection.class
