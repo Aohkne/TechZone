@@ -281,3 +281,37 @@ EXEC AddOrUpdateVoucher
 select * from VoucherDetail
 
 
+CREATE TABLE Order_Details (
+    order_detail_id INTEGER PRIMARY KEY,
+    quantity INTEGER,
+    price DECIMAL(10, 2),
+    order_id INTEGER,
+    proDetail_id INTEGER,
+	voucher_Detail_id int,
+	FOREIGN KEY (voucher_Detail_id) REFERENCES VoucherDetail(voucher_Detail_id),
+    FOREIGN KEY (order_id) REFERENCES [Order](order_id)
+);
+
+CREATE TABLE [Order] (
+    order_id INTEGER PRIMARY KEY,
+    total DECIMAL(12, 2),
+    status VARCHAR(50), 
+    order_date DATE,
+	user_id INTEGER,
+    payment_id INTEGER,
+	FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (payment_id) REFERENCES Payment(payment_id)
+);
+
+CREATE TABLE Payment (
+    payment_id INT PRIMARY KEY IDENTITY(1,1),
+    payment_method VARCHAR(50),  -- Payment methods like Credit, PayPal, etc.
+    status VARCHAR(50),          -- Status e.g., Paid, Pending
+);
+
+
+
+
+
+
+
