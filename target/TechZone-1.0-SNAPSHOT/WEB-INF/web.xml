@@ -61,6 +61,7 @@
         <servlet-name>Admin</servlet-name>
         <url-pattern>/Admin</url-pattern>
         <url-pattern>/Admin/Product</url-pattern>
+        <url-pattern>/Admin/Profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>

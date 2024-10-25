@@ -497,4 +497,34 @@ public class AccountDAO {
         return userList; // Trả về danh sách người dùng
     }
 
+    public List<Users> getAllInfo(int user_id) {
+        List<Users> accounts = new ArrayList<>();
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
+        String query = "SELECT * FROM Users WHERE user_id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Thiết lập tham số cho câu truy vấn
+            statement.setInt(1, user_id);
+
+            // Thực thi câu lệnh truy vấn và nhận kết quả
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Users account = new Users(
+                            resultSet.getString("username"),
+                            resultSet.getString("password"),
+                            resultSet.getString("email"),
+                            resultSet.getString("phone"),
+                            resultSet.getString("address"),
+                            resultSet.getString("avatar")
+                    );
+                    accounts.add(account);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return accounts;
+    }
+
 }

@@ -186,6 +186,24 @@ public class Admin extends HttpServlet {
         } else if (path.equals("/Admin/Review")) {
             request.getRequestDispatcher("/admin_reviews.jsp").forward(request, response);
         } else if (path.equals("/Admin/Profile")) {
+            AccountDAO dao = new AccountDAO();
+            int userId = -1;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("id")) {
+                        userId = Integer.parseInt(cookie.getValue());
+                        break;
+                    }
+                }
+            }
+            String name = dao.GetNameAdmin(userId);
+            // Gọi phương thức getAllInfo và lưu kết quả vào biến user
+            List<Users> userInfo = dao.getAllInfo(userId);
+
+            request.setAttribute("user", userInfo);
+
+            request.setAttribute("name", name);
             request.getRequestDispatcher("/admin_profile.jsp").forward(request, response);
         }
     }
