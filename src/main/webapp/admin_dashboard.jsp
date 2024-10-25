@@ -62,29 +62,13 @@
                     </li>
         </ul>
       </div>
-        <%
-                AccountDAO dao = new AccountDAO();
-                int userId = -1;
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("id")) {
-                            userId = Integer.parseInt(cookie.getValue());
-                            break;
-                        }
-                    }
-                }
-                String name = dao.GetNameAdmin(userId);
-                System.out.println(name);
-                System.out.println(userId);
-            %>
       <div class="account dropdown-button">
         <div class="account-icon-name">
           <i class="fa-solid fa-user"></i>
-          <p class="account-name"><%=name%></p>
+          <p class="account-name">${name}</p>
           <div class="dropdown-content">
             <ul>
-              <li><a href="#">Profile</a></li>
+              <li><a href="/Admin/Profile">Profile</a></li>
               <li><a href="/Logout">Logout</a></li>
             </ul>
           </div>

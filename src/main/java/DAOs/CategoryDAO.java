@@ -35,7 +35,8 @@ public class CategoryDAO {
         }
         return rs;
     }
-     public ResultSet getCatById(String id) {
+
+    public ResultSet getCatById(String id) {
         Connection conn = DBConnection.getConnection();
         ResultSet rs = null;
 
@@ -234,5 +235,50 @@ public class CategoryDAO {
         }
         return count; // Return the number of affected rows
     }
-    
+
+    public boolean deleteCategory(int brandId) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            // Kết nối tới database
+
+            // Kiểm tra xem còn sản phẩm nào thuộc brand_id này không
+            String checkSql = "SELECT COUNT(*) AS product_count FROM Product WHERE cat_id = ?";
+            ps = conn.prepareStatement(checkSql);
+            ps.setInt(1, brandId);
+            rs = ps.executeQuery();
+
+            if (rs.next() && rs.getInt("product_count") > 0) {
+                // Nếu còn sản phẩm, trả về false và không thực hiện xóa
+                return false;
+            }
+
+            // Nếu không còn sản phẩm, thực hiện xóa brand
+            String deleteSql = "DELETE FROM Category WHERE cat_id = ?";
+            ps = conn.prepareStatement(deleteSql);
+            ps.setInt(1, brandId);
+            ps.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            // Đóng kết nối và PreparedStatement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

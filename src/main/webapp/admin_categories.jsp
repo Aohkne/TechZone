@@ -74,7 +74,7 @@
                     <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="/Admin/Profile">Profile</a></li>
                             <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>
@@ -95,6 +95,11 @@
                     </form>
                 </div>
             </nav>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger">
+                    ${errorMessage}
+                </div>
+            </c:if>
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Categories</p>
@@ -155,7 +160,7 @@
                                     <button
                                         style="background: linear-gradient(60deg, #ef5350, #e53935)"
                                         name="btnDeleteCategory"
-                                        onclick="showModal('delete-modal')"
+                                        onclick="showModal('delete-modal'); deleteCategory(${user.cat_id});"
                                         >
                                         Delete
                                     </button>
@@ -252,8 +257,8 @@
             <div id="delete-modal" class="modal">
                 <div class="modal-content">
                     <h1>Confirm delete?</h1>
-                    <form action="/Admin/Product" method="post" class="delete-form">
-                        <input type="hidden" id="delete-product-id" name="proDetail_id"/>
+                    <form action="/Admin/Category" method="post" class="delete-form">
+                        <input type="hidden" id="delete-cat-id" name="cat_id"/>
                         <button
                             style="background:#ffffff; color:#000000"
                             class="cancel-delete-btn"
@@ -266,7 +271,7 @@
                             type="submit"
                             style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
                             class="confirm-delete-btn"
-                            name="btnDeleteProduct"
+                            name="btnDeleteCategory"
                             >
                             Delete
                         </button>
@@ -278,6 +283,14 @@
 
         </main>
         <script>
+            function deleteCategory(catId) {
+
+                // Set values in modal fields
+                document.getElementById('delete-cat-id').value = catId;
+
+                const editModal = document.getElementById("deleteModal");
+                editModal.style.display = "block";
+            }
             function editCategory(catId, catName, catDes) {
 
                 // Set values in modal fields

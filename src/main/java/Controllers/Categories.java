@@ -150,6 +150,31 @@ public class Categories extends HttpServlet {
             dao.editCategory(newInfo);
 
             response.sendRedirect("/Admin/Category");
+        }else if (request.getParameter("btnDeleteCategory") != null) {
+            try {
+                // Lấy brand_id từ request và chuyển thành số nguyên
+                int brand_id = Integer.parseInt(request.getParameter("cat_id"));
+
+                // Tạo một instance của BrandDAO
+                CategoryDAO dao = new CategoryDAO();
+
+                // Gọi hàm deleteBrand để xóa brand
+                boolean result = dao.deleteCategory(brand_id);
+
+                if (result) {
+                    // Nếu xóa thành công, chuyển hướng về trang quản lý Brand
+                    response.sendRedirect("/Admin/Category");
+                } else {
+                    // Nếu không xóa được, hiện thông báo lỗi
+                    request.setAttribute("errorMessage", "Cannot delete this brand because it still has products.");
+                    doGet(request, response);
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu brand_id không hợp lệ
+                request.setAttribute("errorMessage", "Invalid Brand ID");
+                response.sendRedirect("/Error");
+            }
         }
     }
 

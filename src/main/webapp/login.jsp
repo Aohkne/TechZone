@@ -20,37 +20,6 @@
             />
     </head>
     <body>
-        <%
-            // Retrieve cookies from the request
-            Cookie[] cookies = request.getCookies();
-            int userId = -1; // Initialize userId
-
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("id".equals(cookie.getName())) {
-                        userId = Integer.parseInt(cookie.getValue());
-                        break;
-                    }
-                }
-            }
-
-            AccountDAO dao = new AccountDAO();
-            if (userId != -1) {
-                // Use the userId to find the user type (role)
-                int userType = dao.getTypeById(userId);
-                System.out.println(userType);
-
-                // Redirect based on the user type
-                if (userType == 1) {
-                    response.sendRedirect("/Admin");
-                } else {
-                    response.sendRedirect("/Home");
-                }
-            } else {
-                // If no cookie is found, redirect to login or handle accordingly
-            }
-
-        %>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
                 <form action="Login" method="post" enctype="multipart/form-data" id="registrationForm" onsubmit="return validateForm()">
@@ -58,8 +27,8 @@
                     <input type="text" name="username" placeholder="Name" required=""  pattern="[A-Za-z0-9]+" 
                            title="Username must contain only letters and numbers without spaces." />
                     <input type="email" name="email" placeholder="Email" required=""/>
-                    <input type="password" name="password" placeholder="Password" required="" pattern=".{6,30}" 
-                           title="Password must be at least 6 to 30 characters long."/>
+                    <input type="password" name="password" placeholder="Password" required="" pattern=".{6,20}" 
+                           title="Password must be at least 6 to 20 characters long."/>
 
                     <button type="submit" name="btnAddNew">Sign Up</button>
                 </form>
@@ -78,12 +47,7 @@
                     <h1>Login</h1>
                     <br>
                     <input type="email" name="email" placeholder="Email" required=""/>
-                    <input type="password" name="password" placeholder="Password" required=""/>
-                    <!--                    <label for="remember" class="checkbox-label" type="hidden">
-                                            <input type="checkbox" name="remember" id="remember" value="true" />
-                                            <span class="checkmark"></span>
-                                            <a>Save Cookie</a>
-                                        </label>-->
+                    <input type="password" name="password" placeholder="Password" minlength="7" maxlength="19" required=""/>
                     <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
                 </form>

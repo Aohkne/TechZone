@@ -76,8 +76,6 @@
                     }
                 }
                 String name = dao.GetNameAdmin(userId);
-                System.out.println(name);
-                System.out.println(userId);
             %>
             <div class="account dropdown-button">
                 <div class="account-icon-name">
@@ -85,7 +83,7 @@
                     <p class="account-name"><%=name%></p>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="/Admin/Profile">Profile</a></li>
                             <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>

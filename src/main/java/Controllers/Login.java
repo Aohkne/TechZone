@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -89,6 +89,32 @@ public class Login extends HttpServlet {
         String path = request.getRequestURI();
 
         if (path.equals("/Login")) {
+            // Retrieve cookies from the request
+            Cookie[] cookies = request.getCookies();
+            int userId = -1; // Initialize userId
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("id".equals(cookie.getName())) {
+                        userId = Integer.parseInt(cookie.getValue());
+                        break;
+                    }
+                }
+            }
+
+            AccountDAO dao = new AccountDAO();
+            if (userId != -1) {
+                // Use the userId to find the user type (role)
+                int userType = dao.getTypeById(userId);
+                // Redirect based on the user type
+                if (userType == 1) {
+                    response.sendRedirect("/Admin");
+                } else {
+                    response.sendRedirect("/Home");
+                }
+            } else {
+                // If no cookie is found, redirect to login or handle accordingly
+            }
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             if (path.equals("/Login/Login")) {
