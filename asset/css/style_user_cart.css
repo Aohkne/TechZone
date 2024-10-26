@@ -632,7 +632,8 @@ html ::-webkit-scrollbar-track {
     color: var(--primary-yellow-color);
 }
 
-.cart__btn button {
+.cart__btn a {
+    text-decoration: none;
     font-size: 1.8rem;
     font-weight: 600;
     padding: 10px 15px;
