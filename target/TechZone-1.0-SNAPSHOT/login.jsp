@@ -47,7 +47,7 @@
                     <h1>Login</h1>
                     <br>
                     <input type="email" name="email" placeholder="Email" required=""/>
-                    <input type="password" name="password" placeholder="Password" minlength="7" maxlength="19" required=""/>
+                    <input type="password" name="password" placeholder="Password" required=""/>
                     <a href="/Login/ForgotPassword">Forgot your password?</a>
                     <button type="submit" name="btnLogin">Sign In</button>
                 </form>

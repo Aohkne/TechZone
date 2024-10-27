@@ -26,7 +26,9 @@ function updateCartList() {
             <div class="row">
                 <input type="hidden" value="${e.id}">
                 <div class="cart__icon col l-1">
-                    <input type="checkbox" name="" id="">
+                    <input type="checkbox" name="" id="" ${
+                    e.check ? "checked" : ""
+                    }>>
                 </div>
 
                 <div class="cart__title col l-4">
@@ -75,6 +77,7 @@ function updateCartList() {
   `;
         });
         cartList.innerHTML = out;
+        checkOrder();
         updateCartQuantity();
         updateVoucher();
         checkQuantityVoucher();
@@ -106,32 +109,9 @@ function updateCartList() {
         </div>
 
         <div class="cart__btn">
-            <button>Order Now</button>
+            <a href="/Payment">Order Now</a>
         </div>
   `;
-
-        //check list
-        let checkInput = document.querySelectorAll(
-                '.cart__icon input[type ="checkbox"]'
-                );
-        checkInput[0].onclick = () => {
-            if (checkInput[0].checked) {
-                checkInput.forEach((e) => {
-                    e.checked = true;
-                });
-                checkInput.forEach((e, index) => {
-                    e.onclick = () => {
-                        if (!e.checked && index > 0) {
-                            checkInput[0].checked = false;
-                        }
-                    };
-                });
-            } else {
-                checkInput.forEach((e) => {
-                    e.checked = false;
-                });
-            }
-        };
     } else {
         cartFooter.innerHTML = `
       <div class="img__EmptyCart">
@@ -275,7 +255,7 @@ function checkQuantityVoucher() {
         let voucherQuantity =
                 voucherItem[index].querySelector(".voucher__quantity");
 
-        console.log(voucherQuantity);
+        //console.log(voucherQuantity);
 
         let quan = +voucherQuantity.textContent.substring(1) - e.quantity;
 
@@ -298,7 +278,57 @@ function checkQuantityVoucher() {
         }
     });
 
-    console.log(dataVoucher);
+    //console.log(dataVoucher);
+
+}
+
+//Check Order by click Check Box
+function checkOrder() {
+    //check list
+    let checkInput = document.querySelectorAll(
+            '.cart__icon input[type ="checkbox"]'
+            );
+    checkInput[0].onclick = () => {
+        //Get local Storage
+        list = JSON.parse(localStorage.getItem("productList"));
+        if (checkInput[0].checked) {
+            checkInput.forEach((e) => {
+                e.checked = true;
+                list.forEach((e) => {
+                    e.check = true;
+                });
+            });
+        } else {
+            checkInput.forEach((e) => {
+                e.checked = false;
+                list.forEach((e) => {
+                    e.check = false;
+                });
+            });
+        }
+        //update to local Storage
+        localStorage.setItem("productList", JSON.stringify(list));
+    };
+    let cartItem = document.querySelectorAll(".cart__item");
+    cartItem.forEach((e) => {
+        let id = e.querySelector('input[type="hidden"]').value;
+        let check = e.querySelector(".cart__icon input");
+        check.onclick = () => {
+            //Get local Storage
+            list = JSON.parse(localStorage.getItem("productList"));
+            let currItem = list.find((p) => p.id === id);
+            if (currItem) {
+                if (currItem.check) {
+                    currItem.check = false;
+                } else {
+                    currItem.check = true;
+                }
+            }
+            //update to local Storage
+            localStorage.setItem("productList", JSON.stringify(list));
+        };
+    });
+
 }
 
 function addDataVoucher(id, quantity, data) {

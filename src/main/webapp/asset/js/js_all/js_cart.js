@@ -117,13 +117,14 @@ function addItem(
         name,
         price,
         quantity,
+        check = false,
         voucher = {
         id: null,
                 img: "./asset/img/img_all/img_cart/voucher_rare.png",
                 voucher: "Voucher",
         }
 ) {
-    const item = {id, img, name, price, quantity, voucher};
+    const item = {id, img, name, price, quantity, check, voucher};
     list.push(item);
 }
 

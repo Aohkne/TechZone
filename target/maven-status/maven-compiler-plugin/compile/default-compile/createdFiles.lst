@@ -4,6 +4,7 @@ Controllers\Brand.class
 Controllers\Voucher.class
 Controllers\Cart.class
 Controllers\Error.class
+Controllers\Payment.class
 Models\Category.class
 Controllers\Login$2.class
 Models\Product.class

@@ -93,7 +93,7 @@
 
 
                         <div class="submit">
-                            <button class="cancle__btn">cancle</button>
+                            <button class="cancle__btn">cancel</button>
                             <input type="submit" class="save__btn" value="save">
                         </div>
                     </form>

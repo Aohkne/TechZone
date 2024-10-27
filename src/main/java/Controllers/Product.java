@@ -41,8 +41,7 @@ public class Product extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI();
-        
-        
+
         if (path.startsWith("/Home/Product") || path.startsWith("/Product")) {
             String id = (String) request.getParameter("id");
             Cookie[] cookies = request.getCookies();
@@ -113,6 +112,8 @@ public class Product extends HttpServlet {
                                     brandList.close();
                                 }
                             }
+
+                            product.setProDetail_id(Integer.parseInt(id));
 
                             request.setAttribute("product", product);
                         }

@@ -421,7 +421,8 @@ input[type="checkbox"]:checked::before {
     }
 }
 
-.voucher__body {}
+.voucher__body {
+}
 
 .voucher__list {
     overflow-y: auto;
@@ -525,7 +526,8 @@ input[type="checkbox"]:checked::before {
 
 }
 
-.voucher__footer {}
+.voucher__footer {
+}
 
 .voucher__btn {
     margin: 10px 0;
@@ -632,7 +634,8 @@ html ::-webkit-scrollbar-track {
     color: var(--primary-yellow-color);
 }
 
-.cart__btn button {
+.cart__btn a {
+    text-decoration: none;
     font-size: 1.8rem;
     font-weight: 600;
     padding: 10px 15px;

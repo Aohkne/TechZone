@@ -20,7 +20,7 @@ import java.io.IOException;
  *
  * @author Le Huu Khoa - CE181099
  */
-@WebFilter(urlPatterns = {"/Cart", "/Voucher"}) // Sử dụng @WebFilter để áp dụng cho URL /Cart
+@WebFilter(urlPatterns = {"/Cart", "/Voucher"}) 
 public class MyFilter implements Filter {
 
     @Override
