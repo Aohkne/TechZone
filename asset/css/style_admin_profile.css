@@ -177,6 +177,7 @@ input {
   color: #ffffff;
   cursor: pointer;
 }
+/* PASSWORD */
 .user-password-form .change-password-btn {
   position: absolute;
   bottom: 0px;
