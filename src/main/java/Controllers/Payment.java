@@ -99,7 +99,9 @@ public class Payment extends HttpServlet {
 
         request.setAttribute("isId", isId);
 
-        //Voucher
+        //Order
+        
+        
         request.getRequestDispatcher("user_payment.jsp").forward(request, response);
     }
 

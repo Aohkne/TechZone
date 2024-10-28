@@ -46,7 +46,7 @@ public class User extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -155,8 +155,8 @@ public class User extends HttpServlet {
                     oldPassword = md5Hash(oldPassword);
 
                     while (rs.next()) {
-//                        System.out.println(oldPassword);
-//                        System.out.println(rs.getString("password"));
+                        System.out.println(oldPassword);
+                        System.out.println(rs.getString("password"));
 //                        System.out.println(oldPassword.equals(rs.getString("password")));
 
                         //Check old password                        
@@ -195,7 +195,7 @@ public class User extends HttpServlet {
         byte[] bytes = md.digest();
         StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
         }
         return sb.toString();
     }

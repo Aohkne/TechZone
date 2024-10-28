@@ -23,11 +23,26 @@ function updateOrder() {
     list = JSON.parse(localStorage.getItem("productList"));
 
     if (list) {
+
         list.forEach((e) => {
+            var total = 0;
+            var price;
+            var voucher = 0;
             if (e.check) {
+                if (e.voucher.id) {
+                    voucher = e.voucher.voucher.split(" ");
+                    voucher = voucher[1].replace("%", "");
+                }
+                price = e.price.split(" ");
+                price = price[0].replaceAll(".", "");
+                total += +price - ((voucher / 100) * price);
+                price = total + " VND";
+                price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 out += `
         <div class="leftContainer__item">
-        <input type="hidden" value="${e.id}">
+        <input type="hidden" name="productDetailId" value="${e.id}">
+        <input type="hidden" name="quanity" value="${e.quantity}">
+        <input type="hidden" name="voucherDetailId" value="${e.voucher.id}">
           <div class="leftContainer__img">
               <img src= ${e.img} />
           </div>
@@ -35,7 +50,7 @@ function updateOrder() {
               <div class="leftContainer__name">${e.name}</div>
               <div class="leftContainer__description">description</div>
           </div>
-          <div class="leftContainer__price"><span>${e.quantity} x </span>${e.price}</div>
+          <div class="leftContainer__price"><span>${e.quantity} x </span>${price}</div>
       </div>
         `;
             }
@@ -49,11 +64,16 @@ function updateOrder() {
 
     var total = 0;
     var price;
+    var voucher = 0;
     list.forEach((e) => {
         if (e.check) {
+            if (e.voucher.id) {
+                voucher = e.voucher.voucher.split(" ");
+                voucher = voucher[1].replace("%", "");
+            }
             price = e.price.split(" ");
             price = price[0].replaceAll(".", "");
-            total += +price * e.quantity;
+            total += +price * e.quantity - ((voucher / 100) * price);
         }
     });
 

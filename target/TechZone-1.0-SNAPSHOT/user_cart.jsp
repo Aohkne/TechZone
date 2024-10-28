@@ -485,7 +485,7 @@
                     </div>
 
                     <div class="cart__btn">
-                        <a href="/Payment">Order Now</a>
+                        <a href="#">Order Now</a>
                     </div>
                 </div>
 
