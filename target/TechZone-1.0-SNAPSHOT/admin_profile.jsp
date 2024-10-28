@@ -33,8 +33,8 @@
                     alt="Profile Picture"
                     class="avatar"
                     />
-                <p class="profile-username">QuyNguyen</p>
-                <p class="profile-address">Can Tho, Thot Not</p>
+                <p class="profile-username"></p>
+                <p class="profile-address"></p>
             </div>
             <div class="social-media">
                 <a href="https://web.facebook.com/quy.nguyentrong.3367/" target="_blank"
@@ -59,6 +59,7 @@
                                     id="user-username"
                                     value="${userInfo.username}"
                                     disabled
+                                    oninput="updateProfileField('user-username', 'profile-username')"
                                     />
                             </li>
                             <li>
@@ -86,6 +87,7 @@
                                     id="user-address"
                                     value="${userInfo.address}"
                                     disabled
+                                    oninput="updateProfileField('user-address', 'profile-address')"
                                     />
                             </li>
                         </c:forEach>
@@ -115,6 +117,24 @@
                             <label for="user-password">Password</label>
                             <input type="password" id="user-password" />
                         </li>
+                        <li class="user-old-password-container" style="display: none">
+                            <label for="user-old-password">Old Password</label>
+                            <input type="password" id="user-old-password" />
+                        </li>
+                        <li class="user-new-password-container" style="display: none">
+                            <label for="user-new-password">New Password</label>
+                            <input type="password" id="user-new-password" />
+                        </li>
+                        <li
+                            class="user-confirm-new-password-container"
+                            style="display: none"
+                            >
+                            <label for="user-confirm-new-password"
+                                   >Confirm New Password</label
+                            >
+                            <input type="password" id="user-confirm-new-password" />
+                        </li>
+
                     </ul>
                     <!--Admin Password Form Buttons-->
                     <button
