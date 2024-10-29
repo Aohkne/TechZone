@@ -3,7 +3,7 @@
 function toggleEditProfile() {
   // Enable all inputs and toggle button visibility
   document
-    .querySelectorAll("#user-username, #user-email, #user-phone, #user-address")
+    .querySelectorAll("#user-username, #user-phone, #user-address")
     .forEach((input) => {
       input.disabled = false;
     });

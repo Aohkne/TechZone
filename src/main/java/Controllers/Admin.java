@@ -202,7 +202,7 @@ public class Admin extends HttpServlet {
             List<Users> userInfo = dao.getAllInfo(userId);
 
             request.setAttribute("user", userInfo);
-
+            request.setAttribute("id", userId);
             request.setAttribute("name", name);
             request.getRequestDispatcher("/admin_profile.jsp").forward(request, response);
         }
@@ -413,7 +413,19 @@ public class Admin extends HttpServlet {
                 // Xử lý lỗi, ví dụ redirect đến trang thông báo lỗi
                 response.sendRedirect("/Error");
             }
+        } else if (request.getParameter("btnSaveInfo") != null) {
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            String username = request.getParameter("username");
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("address");
+            // Nếu số điện thoại hợp lệ, tiếp tục cập nhật
+            AccountDAO dao = new AccountDAO();
+            dao.updateUserInfo(user_id, username, phone, address);
+
+            // Có thể thêm thông báo cập nhật thành công nếu muốn
+            response.sendRedirect("/Admin/Profile");
         }
+
     }
     // Hàm để lấy tên tệp tin từ phần tệp (Part)
 

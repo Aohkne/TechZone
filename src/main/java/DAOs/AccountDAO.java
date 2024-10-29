@@ -527,4 +527,26 @@ public class AccountDAO {
         return accounts;
     }
 
+    public boolean updateUserInfo(int userId, String username, String phone, String address) {
+        Connection conn = DBConnection.getConnection();
+        String query = "UPDATE Users SET username = ?, phone = ?, address = ? WHERE user_id = ?";
+        boolean isUpdated = false;
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Thiết lập tham số cho câu truy vấn
+            statement.setString(1, username);
+            statement.setString(2, phone);
+            statement.setString(3, address);
+            statement.setInt(4, userId);
+
+            // Thực thi câu lệnh cập nhật
+            int rowsAffected = statement.executeUpdate();
+            isUpdated = rowsAffected > 0; // Kiểm tra xem có bản ghi nào bị ảnh hưởng không
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
+
 }

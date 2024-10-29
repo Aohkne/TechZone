@@ -28,11 +28,13 @@
                 <a href="/Admin" class="return-to-dashboard-link"
                    >&lt; Return to Dashboard</a
                 >
-                <img
-                    src="/asset/img/img_all/img_user/cat_stare_full.jpg"
-                    alt="Profile Picture"
-                    class="avatar"
-                    />
+                <c:forEach var="userInfo" items="${user}">
+                    <img
+                        src="${userInfo.avatar}"
+                        alt="Profile Picture"
+                        class="avatar"
+                        />
+                </c:forEach>
                 <p class="profile-username"></p>
                 <p class="profile-address"></p>
             </div>
@@ -49,15 +51,19 @@
         <div class="user-information-card">
             <h1 class="card-title">User Information</h1>
             <div class="information-container">
-                <form action="/Admin/Profile" method="GET" class="user-information-form">
+                <form action="/Admin/Profile" method="POST" class="user-information-form">
                     <ul class="user-information-details">
-                        <c:forEach var="userInfo" items="${user}">                          
+                        <c:forEach var="userInfo" items="${user}">       
+                            <input
+                                type="hidden" value="${id}" name="user_id"/>
                             <li>
                                 <label for="user-username">Username</label>
                                 <input
                                     type="text"
                                     id="user-username"
                                     value="${userInfo.username}"
+                                    name="username"
+                                    required=""
                                     disabled
                                     oninput="updateProfileField('user-username', 'profile-username')"
                                     />
@@ -68,6 +74,7 @@
                                     type="text"
                                     id="user-email"
                                     value="${userInfo.email}"
+                                     name="email"
                                     disabled
                                     />
                             </li>
@@ -77,6 +84,9 @@
                                     type="text"
                                     id="user-phone"
                                     value="${userInfo.phone}"
+                                    name="phone"
+                                    maxlength="10"
+                                    pattern="\d{10}" 
                                     disabled
                                     />
                             </li>
@@ -86,6 +96,7 @@
                                     type="text"
                                     id="user-address"
                                     value="${userInfo.address}"
+                                    name="address"
                                     disabled
                                     oninput="updateProfileField('user-address', 'profile-address')"
                                     />
@@ -107,7 +118,7 @@
                         >
                         Cancel
                     </button>
-                    <button type="submit" class="save-edit-profile-btn">Save</button>
+                    <button type="submit" class="save-edit-profile-btn" name="btnSaveInfo">Save</button>
                 </form>
 
                 <!--Admin Password Form-->
