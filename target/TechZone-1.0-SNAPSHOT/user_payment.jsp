@@ -99,14 +99,14 @@
             </div>
 
             <div class="rightContainer__feature">
-                <button value="Cash" class="btn">
+                <a value="Cash" class="btn">
                     <i class="fa-solid fa-money-bill-1-wave"></i>
                     Cash
-                </button>
-                <button value="Credit" class="btn active">
+                </a>
+                <a value="Credit" class="btn active">
                     <i class="fa-solid fa-qrcode"></i>
                     Credit
-                </button>
+                </a>
             </div>
 
             <div class="rightContainer__img">

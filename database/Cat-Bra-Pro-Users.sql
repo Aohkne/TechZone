@@ -163,7 +163,7 @@ CREATE TABLE Users (
 
 -- Thêm user với role = 1
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('chan', 'e3f75d09a9f7bd7f7666297263a973ab', 'nguyengiachan.gr2020@gmail.com', '1234567890', '', 1, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
+VALUES ('chan', 'E3F75D09A9F7BD7F7666297263A973AB', 'nguyengiachan.gr2020@gmail.com', '1234567890', '', 1, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
 
 
 select * from Users Where user_id = 4;
@@ -172,8 +172,8 @@ select * from Users Where user_id = 4;
 
 -- Thêm user với role = 2
 INSERT INTO Users (username, password, email, phone, address, role, avatar, status_user)
-VALUES ('le huu khoa', '202cb962ac59075b964b07152d234b70', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
---12345
+VALUES ('le huu khoa', 'E10ADC3949BA59ABBE56E057F20F883E', 'khoa@gmail.com', '0911396989', 'Địa chỉ 2', 2, '/asset/img/img_all/img_user/chihuahua.jpg', 1);
+--123456
 
 CREATE TABLE Specification (
     spec_id INT PRIMARY KEY IDENTITY(1,1),

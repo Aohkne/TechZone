@@ -143,7 +143,8 @@
     margin: 0 auto;
 
     .btn {
-        padding: 10px 0;
+        text-align: center;
+        padding: 10px;
         width: 50%;
         color: var(--primary-yellow-color);
         font-size: 3rem;

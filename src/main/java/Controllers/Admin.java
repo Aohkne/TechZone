@@ -444,6 +444,7 @@ public class Admin extends HttpServlet {
         HttpSession session = request.getSession(); // Obtain session object to store messages
 
         System.out.println("Old password from DB: " + pd);
+        
         System.out.println("New hashed password: " + hashedOldPassword);
 
         // Validate the old password and check the new password

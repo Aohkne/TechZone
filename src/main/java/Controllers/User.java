@@ -195,7 +195,7 @@ public class User extends HttpServlet {
         byte[] bytes = md.digest();
         StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1).toUpperCase());
         }
         return sb.toString();
     }
