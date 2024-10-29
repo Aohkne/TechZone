@@ -69,16 +69,15 @@ public class AccountDAO {
                 pst.setInt(1, old);
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    password = md5Hash(rs.getString("password"));
+                    password = rs.getString("password").toUpperCase();
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return password;
     }
+
     public String CheckNewPassword(String email) {
         Connection conn = DBConnection.getConnection();
         Users acc = null;
@@ -572,5 +571,24 @@ public class AccountDAO {
         return isUpdated;
     }
 
+    public boolean updatePassword(int userId, String password) {
+        Connection conn = DBConnection.getConnection();
+        String query = "UPDATE Users SET password = ? WHERE user_id = ?";
+        boolean isUpdated = false;
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Thiết lập tham số cho câu truy vấn
+            statement.setString(1, password);
+            statement.setInt(2, userId);
+
+            // Thực thi câu lệnh cập nhật
+            int rowsAffected = statement.executeUpdate();
+            isUpdated = rowsAffected > 0; // Kiểm tra xem có bản ghi nào bị ảnh hưởng không
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
 
 }

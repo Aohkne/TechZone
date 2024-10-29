@@ -50,7 +50,22 @@
         <!--Admin Information Form-->
         <div class="user-information-card">
             <h1 class="card-title">User Information</h1>
+             <c:if test="${not empty sessionScope.error}">
+                <div style="padding: 15px; margin-bottom: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;" role="alert">
+                    ${sessionScope.error}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty sessionScope.success}">
+                 <div style="padding: 15px; margin-bottom: 20px; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px;" role="alert">
+                    ${sessionScope.success}
+                </div>
+            </c:if>
+
+            <c:remove var="error" scope="session" />
+            <c:remove var="success" scope="session" />
             <div class="information-container">
+
                 <form action="/Admin/Profile" method="POST" class="user-information-form">
                     <ul class="user-information-details">
                         <c:forEach var="userInfo" items="${user}">       
@@ -148,7 +163,7 @@
                             <span id="password-error" style="color: red; display: none;">Passwords do not match</span>
                         </li>
                     </ul>
-                        
+
                     <!--Admin Password Form Buttons-->
                     <button
                         type="button"
@@ -169,33 +184,7 @@
             </div>
         </div>
         <script>
-            document.getElementById("user-confirm-new-password").addEventListener("input", function () {
-                const newPassword = document.getElementById("user-new-password").value;
-                const confirmPassword = this.value;
-                const errorSpan = document.getElementById("password-error");
 
-                if (confirmPassword === "") {
-                    errorSpan.textContent = "Confirm New Password cannot be empty";
-                    errorSpan.style.display = "block";
-                } else if (newPassword !== confirmPassword) {
-                    errorSpan.textContent = "Passwords do not match";
-                    errorSpan.style.display = "block";
-                } else {
-                    errorSpan.style.display = "none";
-                }
-            });
-
-            document.getElementById("user-new-password").addEventListener("input", function () {
-                const confirmPassword = document.getElementById("user-confirm-new-password").value;
-                const errorSpan = document.getElementById("password-error");
-
-                if (confirmPassword && this.value !== confirmPassword) {
-                    errorSpan.textContent = "Passwords do not match";
-                    errorSpan.style.display = "block";
-                } else {
-                    errorSpan.style.display = "none";
-                }
-            });
             function validatePasswords() {
                 const newPassword = document.getElementById("user-new-password").value;
                 const confirmPassword = document.getElementById("user-confirm-new-password").value;

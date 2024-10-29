@@ -19,12 +19,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -425,25 +430,42 @@ public class Admin extends HttpServlet {
             // Có thể thêm thông báo cập nhật thành công nếu muốn
             response.sendRedirect("/Admin/Profile");
         } else if (request.getParameter("btnNewPass") != null) {
-            int user_id = Integer.parseInt(request.getParameter("user_id"));
-            String old = request.getParameter("oldPass");
-            String newPass = request.getParameter("newPass");
-            // Nếu số điện thoại hợp lệ, tiếp tục cập nhật
-            AccountDAO dao = new AccountDAO();
-            String password = dao.checkOldPassword(user_id);
-            if (password == null) {
-                request.setAttribute("error", "Old password is incorrect");
-                response.sendRedirect("/Admin/Profile");
-            } else if (password.equals(newPass)) {
-                request.setAttribute("error", "New password must be different from the old password");
-                response.sendRedirect("/Admin/Profile");
-            } else {
-                request.setAttribute("success", "Password updated successfully");
-                response.sendRedirect("/Admin/Profile");
-            }
+    try {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        String old = request.getParameter("oldPass");
+        String newPass = request.getParameter("newPass");
 
-            // Có thể thêm thông báo cập nhật thành công nếu muốn        
+        // AccountDAO instance to interact with database
+        AccountDAO dao = new AccountDAO();
+        String pd = dao.checkOldPassword(user_id);
+        String hashedOldPassword = dao.md5Hash(old);
+        String hashedNewPassword = dao.md5Hash(newPass);
+
+        HttpSession session = request.getSession(); // Obtain session object to store messages
+
+        System.out.println("Old password from DB: " + pd);
+        System.out.println("New hashed password: " + hashedOldPassword);
+
+        // Validate the old password and check the new password
+        if (pd == null || !pd.equals(hashedOldPassword)) {
+            // Old password is incorrect
+            session.setAttribute("error", "Old password is incorrect");
+        } else if (pd.equals(hashedNewPassword)) {
+            // New password must be different from the old password
+            session.setAttribute("error", "New password must be different from the old password");
+        } else {
+            // Update password in the database and set success message
+            dao.updatePassword(user_id, hashedNewPassword);
+            session.setAttribute("success", "Password updated successfully");
         }
+
+        response.sendRedirect("/Admin/Profile"); // Redirect to Profile page
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 
     }
     // Hàm để lấy tên tệp tin từ phần tệp (Part)
@@ -459,6 +481,8 @@ public class Admin extends HttpServlet {
         }
         return null; // Trả về null nếu không tìm thấy tên tệp
     }
+
+
 
     /**
      * Returns a short description of the servlet.
