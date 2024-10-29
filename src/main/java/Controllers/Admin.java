@@ -424,6 +424,25 @@ public class Admin extends HttpServlet {
 
             // Có thể thêm thông báo cập nhật thành công nếu muốn
             response.sendRedirect("/Admin/Profile");
+        } else if (request.getParameter("btnNewPass") != null) {
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            String old = request.getParameter("oldPass");
+            String newPass = request.getParameter("newPass");
+            // Nếu số điện thoại hợp lệ, tiếp tục cập nhật
+            AccountDAO dao = new AccountDAO();
+            String password = dao.checkOldPassword(user_id);
+            if (password == null) {
+                request.setAttribute("error", "Old password is incorrect");
+                response.sendRedirect("/Admin/Profile");
+            } else if (password.equals(newPass)) {
+                request.setAttribute("error", "New password must be different from the old password");
+                response.sendRedirect("/Admin/Profile");
+            } else {
+                request.setAttribute("success", "Password updated successfully");
+                response.sendRedirect("/Admin/Profile");
+            }
+
+            // Có thể thêm thông báo cập nhật thành công nếu muốn        
         }
 
     }

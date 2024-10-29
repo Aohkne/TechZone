@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -137,9 +138,27 @@ public class Brand extends HttpServlet {
 
             Models.Brand newInfo = new Models.Brand(name, des);
             BrandDAO dao = new BrandDAO();
-            int count = dao.createBrand(newInfo);
+            List<Models.Brand> brandList = dao.checkBrandName();
+            boolean brandExists = false;
 
-            response.sendRedirect("/Admin/Brand");
+            for (Models.Brand brand : brandList) {
+                if (brand.getBrand_name().equalsIgnoreCase(name)) {
+                    brandExists = true;
+                    break; // Exit the loop as we found a match
+                }
+            }
+
+            HttpSession session = request.getSession(); // Get the session object
+
+            if (brandExists) {
+                // Set error message in session
+                session.setAttribute("error", "Unsuccess");
+            } else {
+                int count = dao.createBrand(newInfo);
+                session.setAttribute("message", "Success");
+            }
+
+            response.sendRedirect("/Admin/Brand"); // Redirect to the Brand page
         } else if (request.getParameter("btnEditBrand") != null) {
 
             String name = request.getParameter("brand_name");

@@ -103,6 +103,22 @@
                     ${errorMessage}
                 </div>
             </c:if>
+            <c:if test="${not empty sessionScope.error}">
+                <div style="padding: 15px; margin-bottom: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;" role="alert">
+                    ${sessionScope.error}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty sessionScope.message}">
+                <div style="padding: 15px; margin-bottom: 20px; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px;" role="alert">
+                    ${sessionScope.message}
+                </div>
+            </c:if>
+
+
+            <!-- Remove session attributes after displaying the messages -->
+            <c:remove var="error" scope="session" />
+            <c:remove var="message" scope="session" />
 
             <div class="card-container">
                 <div class="card">
@@ -199,7 +215,7 @@
                                 name="brand-name"
                                 id="brand-name"
                                 placeholder="Brand name"
-                                required
+                                required=""
                                 />
                         </label>
                         <label>

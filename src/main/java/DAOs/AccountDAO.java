@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,6 +58,27 @@ public class AccountDAO {
         return false;
     }
 
+    public String checkOldPassword(int old) {
+        Connection conn = DBConnection.getConnection();
+        Users acc = null;
+        String password = "";
+        if (conn != null) {
+            try {
+                String sql = "SELECT password FROM Users WHERE user_id = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, old);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    password = md5Hash(rs.getString("password"));
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return password;
+    }
     public String CheckNewPassword(String email) {
         Connection conn = DBConnection.getConnection();
         Users acc = null;
@@ -548,5 +571,6 @@ public class AccountDAO {
 
         return isUpdated;
     }
+
 
 }

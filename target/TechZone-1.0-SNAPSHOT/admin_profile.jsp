@@ -74,7 +74,7 @@
                                     type="text"
                                     id="user-email"
                                     value="${userInfo.email}"
-                                     name="email"
+                                    name="email"
                                     disabled
                                     />
                             </li>
@@ -122,19 +122,20 @@
                 </form>
 
                 <!--Admin Password Form-->
-                <form action="" class="user-password-form">
+                <form action="/Admin/Profile" method="POST" class="user-password-form" id="password-form" onsubmit="return validatePasswords();">
                     <ul class="user-password-details">
-                        <li>
+                        <input type="hidden" value="${id}" name="user_id">
+                        <li class="user-password-container">
                             <label for="user-password">Password</label>
-                            <input type="password" id="user-password" />
+                            <input type="password" id="user-password" placeholder="***********">
                         </li>
                         <li class="user-old-password-container" style="display: none">
                             <label for="user-old-password">Old Password</label>
-                            <input type="password" id="user-old-password" />
+                            <input type="password" id="user-old-password" name="oldPass" required=""/>
                         </li>
                         <li class="user-new-password-container" style="display: none">
                             <label for="user-new-password">New Password</label>
-                            <input type="password" id="user-new-password" />
+                            <input type="password" id="user-new-password" name="newPass" minlength="6" maxlength="20" required=""/>
                         </li>
                         <li
                             class="user-confirm-new-password-container"
@@ -143,10 +144,11 @@
                             <label for="user-confirm-new-password"
                                    >Confirm New Password</label
                             >
-                            <input type="password" id="user-confirm-new-password" />
+                            <input type="password" id="user-confirm-new-password" required=""/>
+                            <span id="password-error" style="color: red; display: none;">Passwords do not match</span>
                         </li>
-
                     </ul>
+                        
                     <!--Admin Password Form Buttons-->
                     <button
                         type="button"
@@ -162,10 +164,54 @@
                         >
                         Cancel
                     </button>
-                    <button type="submit" class="save-change-password-btn">Save</button>
+                    <button type="submit" class="save-change-password-btn" name="btnNewPass">Save</button>
                 </form>
             </div>
         </div>
+        <script>
+            document.getElementById("user-confirm-new-password").addEventListener("input", function () {
+                const newPassword = document.getElementById("user-new-password").value;
+                const confirmPassword = this.value;
+                const errorSpan = document.getElementById("password-error");
+
+                if (confirmPassword === "") {
+                    errorSpan.textContent = "Confirm New Password cannot be empty";
+                    errorSpan.style.display = "block";
+                } else if (newPassword !== confirmPassword) {
+                    errorSpan.textContent = "Passwords do not match";
+                    errorSpan.style.display = "block";
+                } else {
+                    errorSpan.style.display = "none";
+                }
+            });
+
+            document.getElementById("user-new-password").addEventListener("input", function () {
+                const confirmPassword = document.getElementById("user-confirm-new-password").value;
+                const errorSpan = document.getElementById("password-error");
+
+                if (confirmPassword && this.value !== confirmPassword) {
+                    errorSpan.textContent = "Passwords do not match";
+                    errorSpan.style.display = "block";
+                } else {
+                    errorSpan.style.display = "none";
+                }
+            });
+            function validatePasswords() {
+                const newPassword = document.getElementById("user-new-password").value;
+                const confirmPassword = document.getElementById("user-confirm-new-password").value;
+                const passwordError = document.getElementById("password-error");
+
+                // Check if passwords match
+                if (newPassword !== confirmPassword) {
+                    passwordError.style.display = "block";
+                    passwordError.textContent = "Passwords do not match";
+                    return false; // Prevent form submission
+                } else {
+                    passwordError.style.display = "none";
+                    return true; // Allow form submission
+                }
+            }
+        </script>
     </body>
 </html>
 

@@ -280,4 +280,23 @@ public class BrandDAO {
         }
     }
 
+    public List<Brand> checkBrandName() {
+        Connection conn = DBConnection.getConnection();
+        List<Brand> brandList = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Statement st = conn.createStatement();
+            rs = st.executeQuery("SELECT brand_name FROM Brand");
+            while (rs.next()) {
+                Brand brand = new Brand();
+                brand.setBrand_name(rs.getString("brand_name"));
+                brandList.add(brand);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Log error
+        }
+
+        return brandList;
+    }
+
 }

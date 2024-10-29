@@ -155,15 +155,10 @@ public class Login extends HttpServlet {
         if (request.getParameter("btnLogin") != null) {
             String us = request.getParameter("email");
             String pwd = request.getParameter("password");
-//            String rememberMe = request.getParameter("remember"); // Get the checkbox value
 
             Users acc = new Users(us, pwd);
 
             if (dao.login(acc)) {
-//                String picture = acc.getPicture();
-//                System.out.println("Login successful, picture: " + picture); // Debug statement
-//                session.setAttribute("email", us);
-//                session.setAttribute("picture", picture);
                 boolean check = acc.isStatus_user();
 
                 if (!check) {
@@ -171,13 +166,11 @@ public class Login extends HttpServlet {
                     response.sendRedirect("/Login"); // Redirect back to the login page
                     return;
                 }
-//                if ("true".equals(rememberMe)) {
                 int id = dao.GetIdUser(us);
                 Cookie userCookie = new Cookie("id", id + "");
                 userCookie.setMaxAge(3 * 24 * 60 * 60); // 3 days
                 userCookie.setHttpOnly(true); // Recommended for security
                 response.addCookie(userCookie);
-//                }
                 if (dao.getTypeByEmail(us) == 1) {
                     response.sendRedirect("/Admin");
                 } else {
