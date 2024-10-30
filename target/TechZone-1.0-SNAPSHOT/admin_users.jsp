@@ -69,16 +69,20 @@
                            ><i class="fa-solid fa-map"></i>Brands</a
                         >
                     </li>
+                    <li>
+                        <a href="/Admin/Voucher"
+                           ><i class="fa-solid fa-map"></i>Vouchers</a
+                        >
+                    </li>
                 </ul>
             </div>
-
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
                     <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="/Admin/Profile">Profile</a></li>
+                            <li><a href="#">Profile</a></li>
                             <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>

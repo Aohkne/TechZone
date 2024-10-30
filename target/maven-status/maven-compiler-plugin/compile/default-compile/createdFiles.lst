@@ -1,6 +1,7 @@
 Controllers\Home.class
 DAOs\CategoryDAO.class
 Controllers\Brand.class
+Controllers\Vouchers.class
 Controllers\Voucher.class
 Controllers\Cart.class
 Controllers\Error.class

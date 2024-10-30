@@ -49,6 +49,11 @@ public class Users {
         this.email = email;
     }
 
+    public Users(int user_id, String username) {
+        this.user_id = user_id;
+        this.username = username;
+    }
+
     
     
 

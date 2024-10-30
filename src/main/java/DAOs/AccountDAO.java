@@ -590,5 +590,44 @@ public class AccountDAO {
 
         return isUpdated;
     }
+    public List<Users> GetUser() {
+        List<Users> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
+        Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
+        ResultSet rs = null;
+
+        if (conn != null) {
+            try {
+                Statement st = conn.createStatement();
+                rs = st.executeQuery("SELECT user_id, username FROM Users");
+
+                // Duyệt qua ResultSet và tạo đối tượng Users
+                while (rs.next()) {
+                    Users user = new Users(); // Tạo một đối tượng Users mới
+                    //set id
+                    user.setUser_id(rs.getInt("user_id"));
+                    user.setUsername(rs.getString("username"));
+                   
+
+                    // Thêm người dùng vào danh sách
+                    userList.add(user);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Log lỗi
+            } finally {
+                // Đóng ResultSet và Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Log lỗi khi đóng
+                }
+            }
+        }
+        return userList; // Trả về danh sách người dùng
+    }
 
 }

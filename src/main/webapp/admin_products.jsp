@@ -61,6 +61,11 @@
                            ><i class="fa-solid fa-map"></i>Brands</a
                         >
                     </li>
+                    <li>
+                        <a href="/Admin/Vouchers"
+                           ><i class="fa-solid fa-map"></i>Vouchers</a
+                        >
+                    </li>
                 </ul>
             </div>
             <div class="account dropdown-button">

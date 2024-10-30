@@ -19,6 +19,8 @@ public class Voucher {
     private Date voucher_date;       // Thay đổi tên để giống với tên trong SQL
     private Date voucher_expire_date; // Thay đổi tên để giống với tên trong SQL
     private int user_id;             // Thay đổi tên để giống với tên trong SQL
+    
+    private String username;
 
     // Fields from Voucher table
     private int voucher_id;          // Thay đổi tên để giống với tên trong SQL
@@ -26,6 +28,44 @@ public class Voucher {
     private String voucher_img;       // Thay đổi tên để giống với tên trong SQL
     private String voucher_description; // Thay đổi tên để giống với tên trong SQL
 
+    public Voucher() {
+    }
+
+    public Voucher(int voucherDetail_id, String voucher_name, int voucher_quantity, int voucher_discount, Date voucher_expire_date, int user_id, int voucher_id) {
+        this.voucherDetail_id = voucherDetail_id;
+        this.voucher_name = voucher_name;
+        this.voucher_quantity = voucher_quantity;
+        this.voucher_discount = voucher_discount;
+        this.voucher_expire_date = voucher_expire_date;
+        this.user_id = user_id;
+        this.voucher_id = voucher_id;
+    }
+
+    public Voucher(int voucherDetail_id, String voucher_name, int voucher_quantity, Date voucher_expire_date, int user_id, String username, int voucher_id, String voucher_type) {
+        this.voucherDetail_id = voucherDetail_id;
+        this.voucher_name = voucher_name;
+        this.voucher_quantity = voucher_quantity;
+        this.voucher_expire_date = voucher_expire_date;
+        this.user_id = user_id;
+        this.username = username;
+        this.voucher_id = voucher_id;
+        this.voucher_type = voucher_type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Voucher(int voucher_id, String voucher_type) {
+        this.voucher_id = voucher_id;
+        this.voucher_type = voucher_type;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
     // Getters and Setters
     public int getVoucherDetail_id() {
         return voucherDetail_id;
