@@ -170,10 +170,10 @@ public class ProductDAO {
 
         if (conn != null) {
             String query = "SELECT p.*, pd.* FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id WHERE (pd.color_name = 'default' and p.cat_id = ?)";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, id);
 
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         // Khởi tạo đối tượng Product từ dữ liệu trong ResultSet
                         Product product = new Product();
@@ -203,10 +203,10 @@ public class ProductDAO {
 
         if (conn != null) {
             String query = "SELECT * FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id WHERE pd.color_name = 'default' and p.cat_id = ? ORDER BY COALESCE(p.pro_sale, p.pro_price) ASC";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, id);
 
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         // Khởi tạo đối tượng Product từ dữ liệu trong ResultSet
                         Product product = new Product();
@@ -236,10 +236,10 @@ public class ProductDAO {
 
         if (conn != null) {
             String query = "SELECT * FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id  WHERE pd.color_name = 'default' and cat_id = ? ORDER BY COALESCE(pro_sale, pro_price) DESC";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, id);
 
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         // Khởi tạo đối tượng Product từ dữ liệu trong ResultSet
                         Product product = new Product();
@@ -269,9 +269,9 @@ public class ProductDAO {
 
         if (conn != null) {
             String query = "SELECT * FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id where pd.color_name = 'default' ORDER BY COALESCE(pro_sale, pro_price) ASC";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
 
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         // Khởi tạo đối tượng Product từ dữ liệu trong ResultSet
                         Product product = new Product();
@@ -301,9 +301,9 @@ public class ProductDAO {
 
         if (conn != null) {
             String query = "SELECT * FROM Product p LEFT JOIN Product_Details pd ON p.pro_id = pd.pro_id where pd.color_name = 'default' ORDER BY COALESCE(pro_sale, pro_price) DESC";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
 
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         // Khởi tạo đối tượng Product từ dữ liệu trong ResultSet
                         Product product = new Product();
@@ -944,7 +944,7 @@ public class ProductDAO {
 
         if (conn != null) {
             try {
-                System.out.println("ll"+proId);
+                System.out.println("ll" + proId);
                 // Insert product details into Product_Details table
                 String insertProductDetailSQL = "INSERT INTO Product_Details (color_name, quantity, image, pro_id) "
                         + "VALUES (?, ?, ?, ?)";

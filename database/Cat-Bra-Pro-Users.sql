@@ -110,6 +110,7 @@ CREATE TABLE Product_Details (
 );
 
 
+
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
 VALUES
@@ -278,23 +279,21 @@ EXEC AddOrUpdateVoucher
 
 
 select * from VoucherDetail
+drop table Order_Details
+drop table [Order]
+drop table Payment
 
-CREATE TABLE Order_Details (
-    order_detail_id INTEGER PRIMARY KEY,
-    quantity INTEGER,
-    price DECIMAL(10, 2),
-    order_id INTEGER,
-    proDetail_id INTEGER,
-	voucherDetail_id int,
-	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
-    FOREIGN KEY (order_id) REFERENCES [Order](order_id)
+select * from [Order]
+select * from Order_Details
+select * from Payment
+
+
+CREATE TABLE Payment (
+    payment_id INT PRIMARY KEY IDENTITY(1,1),
+    payment_method VARCHAR(50),  -- Payment methods like Credit, PayPal, etc.
 );
-
-
-
 CREATE TABLE [Order] (
-    order_id INTEGER PRIMARY KEY,
-    total DECIMAL(12, 2),
+    order_id INT PRIMARY KEY IDENTITY(1,1),
     status VARCHAR(50), 
     order_date DATE DEFAULT GETDATE(),
 	user_id INTEGER,
@@ -303,10 +302,18 @@ CREATE TABLE [Order] (
     FOREIGN KEY (payment_id) REFERENCES Payment(payment_id)
 );
 
-CREATE TABLE Payment (
-    payment_id INT PRIMARY KEY IDENTITY(1,1),
-    payment_method VARCHAR(50),  -- Payment methods like Credit, PayPal, etc.
+
+CREATE TABLE Order_Details (
+    order_detail_id INT PRIMARY KEY IDENTITY(1,1),
+    quantity INTEGER,
+    price DECIMAL(10, 2),
+    order_id INTEGER,
+    proDetail_id INTEGER,
+	voucherDetail_id int,
+	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
+    FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 );
+INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id) VALUES (5, 1804000, 9, 30, 1)
 
 
 

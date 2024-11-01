@@ -3,6 +3,7 @@ DAOs\CategoryDAO.class
 Controllers\Brand.class
 Controllers\Vouchers.class
 Controllers\Voucher.class
+DAOs\OrderDAO.class
 Controllers\Cart.class
 Controllers\Error.class
 Controllers\Payment.class
@@ -10,6 +11,7 @@ Models\Category.class
 Controllers\Login$2.class
 Models\Product.class
 Controllers\Product.class
+Models\Pay.class
 Models\Product_Details.class
 Models\Brand.class
 DAOs\VoucherDAO.class
@@ -20,11 +22,13 @@ Models\Voucher.class
 Controllers\Admin.class
 Controllers\Logout.class
 DAOs\AccountDAO.class
+Models\OrderDetail.class
 Controllers\Categories.class
 DAOs\ProductDAO.class
 Filter\MyFilter.class
 Controllers\User.class
 Controllers\Login.class
+Models\Order.class
 DB\DBConnection.class
 Models\Users.class
 Controllers\Login$1.class

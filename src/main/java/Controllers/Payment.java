@@ -5,8 +5,12 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.OrderDAO;
 import DAOs.UserDAO;
 import DAOs.VoucherDAO;
+import Models.Order;
+import Models.OrderDetail;
+import Models.Pay;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,8 +18,10 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,8 +106,6 @@ public class Payment extends HttpServlet {
         request.setAttribute("isId", isId);
 
         //Order
-        
-        
         request.getRequestDispatcher("user_payment.jsp").forward(request, response);
     }
 
@@ -116,7 +120,80 @@ public class Payment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        //Get User data
+        Cookie[] cookies = request.getCookies();
+        String idUser = "";
+        boolean isId = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    idUser = cookie.getValue();
+                    UserDAO userdao = new UserDAO();
+                    AccountDAO dao = new AccountDAO();
+                    int userId = Integer.parseInt(idUser);
+
+                    try {
+                        ResultSet rs = userdao.getUserById(idUser);
+                        int userType = dao.getTypeById(userId);
+
+                        if (userType == 1) {
+                            response.sendRedirect("/Admin");
+                            return;
+                        }
+
+                        if (rs != null && rs.next()) {
+                            request.setAttribute("username", rs.getString("username"));
+                            request.setAttribute("address", rs.getString("address"));
+                            isId = true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+
+        //Get order
+        String[] productDetailIDList = request.getParameter("productDetailIDList").split(",");
+        String[] quantityList = request.getParameter("quantityList").split(",");
+        String[] voucherDetailIDList = request.getParameter("voucherDetailIDList").split(",");
+        String[] priceList = request.getParameter("priceList").split(",");
+        String paymentMethod = request.getParameter("payment");
+
+        //Payment
+        Pay payment = new Pay();
+        payment.setPaymentMethod(paymentMethod);
+
+        //Order
+        Order order = new Order();
+        order.setStatus("Not Yet");
+        order.setUserId(Integer.parseInt(idUser));
+
+        //OrderDetail
+        List<OrderDetail> orderDetailsList = new ArrayList<>();
+
+        for (int i = 0; i < productDetailIDList.length; i++) {
+            OrderDetail orderdetail = new OrderDetail();
+            orderdetail.setQuantity(Integer.parseInt(quantityList[i]));
+            orderdetail.setPrice(BigDecimal.valueOf(Long.parseLong(priceList[i])));
+            orderdetail.setProDetailId(Integer.parseInt(productDetailIDList[i]));
+            orderdetail.setVoucherDetailId(Integer.parseInt(voucherDetailIDList[i]));
+
+            orderDetailsList.add(orderdetail);
+        }
+
+        OrderDAO orderdao = new OrderDAO();
+        orderdao.addProduct(payment, order, orderDetailsList);
+
+        String message = "Your order has been placed successfully!";
+        String submessage = "We will process it shortly.";
+
+        System.out.println(message);
+
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("user_payment.jsp").forward(request, response);
     }
 
     /**
