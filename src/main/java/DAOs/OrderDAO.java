@@ -60,12 +60,12 @@ public class OrderDAO {
 
                 // Insert Order Detail
                 for (OrderDetail orderDetail : orderDetails) {
-                    System.out.println(orderDetail.getQuantity());
-                    System.out.println(orderDetail.getPrice());
-                    System.out.println(orderId);
-                    System.out.println(orderDetail.getProDetailId());
-                    System.out.println(orderDetail.getVoucherDetailId());
-                    System.out.println("---------------");
+//                    System.out.println(orderDetail.getQuantity());
+//                    System.out.println(orderDetail.getPrice());
+//                    System.out.println(orderId);
+//                    System.out.println(orderDetail.getProDetailId());
+//                    System.out.println(orderDetail.getVoucherDetailId());
+//                    System.out.println("---------------");
 
                     if (orderDetail.getVoucherDetailId() > 0) {
                         String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id) "

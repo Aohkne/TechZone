@@ -9,6 +9,7 @@ package Models;
  * @author HP
  */
 public class Product_Details {
+
     private int proDetail_id;
     private String color_name;
     private int quantity;
@@ -30,7 +31,6 @@ public class Product_Details {
         this.quantity = quantity;
     }
 
-    
     public Product_Details(int proDetail_id, String color_name, int quantity, String image, int pro_id) {
         this.proDetail_id = proDetail_id;
         this.color_name = color_name;
@@ -43,7 +43,6 @@ public class Product_Details {
         this.proDetail_id = proDetail_id;
         this.image = image;
     }
-    
 
     public int getProDetail_id() {
         return proDetail_id;
@@ -84,5 +83,5 @@ public class Product_Details {
     public void setPro_id(int pro_id) {
         this.pro_id = pro_id;
     }
-    
+
 }

@@ -334,6 +334,11 @@
                             ${product.madein}
                         </div>
 
+                        <div class="product__from">
+                            <span>Remaining</span>
+                            ${quantity}
+                        </div>
+
                         <div class="product__description">
                             ${product.description}
                         </div>

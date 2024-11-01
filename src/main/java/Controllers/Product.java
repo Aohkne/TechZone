@@ -132,7 +132,11 @@ public class Product extends HttpServlet {
                     while (proDetail != null && proDetail.next() && countImg < 4) {
                         int proDetailId = Integer.parseInt(proDetail.getString("proDetail_id"));
                         String image = proDetail.getString("image");
-
+                        if (countImg == 0) {
+                            String quantity = proDetail.getString("quantity");
+                            request.setAttribute("quantity", quantity);
+                            System.out.println(quantity);
+                        }
                         // Thêm ProductDetail vào danh sách
                         Product_Details detail = new Product_Details(proDetailId, image);
                         productDetails.add(detail);

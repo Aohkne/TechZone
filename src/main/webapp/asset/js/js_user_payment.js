@@ -102,3 +102,24 @@ function updateOrder() {
 }
 
 updateOrder();
+
+//Delete Order
+
+let home = document.querySelector('.message__btn');
+
+home.onclick = () => {
+    let list = JSON.parse(localStorage.getItem("productList"));
+
+    if (list) {
+        let newList = [];
+
+
+        list.forEach((e) => {
+            if (!e.check) {
+                newList.push(e);
+            }
+        });
+
+        localStorage.setItem("productList", JSON.stringify(newList));
+    }
+};

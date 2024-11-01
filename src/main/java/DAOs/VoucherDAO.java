@@ -331,6 +331,45 @@ public class VoucherDAO {
         return userList; // Trả về danh sách người dùng
     }
 
+    public void updateVoucherQuantity(int voucherDetailId) {
+        Connection conn = DBConnection.getConnection();
+        if (conn != null) {
+            try {
+                String selectSql = "SELECT voucher_quantity FROM VoucherDetail WHERE voucherDetail_id = ?";
+                PreparedStatement selectPst = conn.prepareStatement(selectSql);
+                selectPst.setInt(1, voucherDetailId);
+
+                ResultSet rs = selectPst.executeQuery();
+                if (rs.next()) {
+                    int currentQuantity = rs.getInt("voucher_quantity");
+                    if (currentQuantity > 1) {
+                        String updateSql = "UPDATE VoucherDetail SET voucher_quantity = voucher_quantity - 1 WHERE voucherDetail_id = ?";
+                        PreparedStatement updatePst = conn.prepareStatement(updateSql);
+                        updatePst.setInt(1, voucherDetailId);
+                        updatePst.executeUpdate();
+                    } else if (currentQuantity == 1) {
+                        String deleteSql = "DELETE FROM VoucherDetail WHERE voucherDetail_id = ?";
+                        PreparedStatement deletePst = conn.prepareStatement(deleteSql);
+                        deletePst.setInt(1, voucherDetailId);
+                        deletePst.executeUpdate();
+                    }
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("Failed to establish a database connection.");
+        }
+    }
+
     // Phương thức để thêm voucher bằng stored procedure AddOrUpdateVoucher
     public boolean addVoucher(Voucher newVoucher) {
         Connection conn = DBConnection.getConnection();
@@ -422,6 +461,7 @@ public class VoucherDAO {
         }
         return false; // Trả về false nếu không xóa được
     }
+
     public List<Models.Voucher> GetVoucher() {
         List<Models.Voucher> userList = new ArrayList<>(); // Tạo danh sách để lưu trữ người dùng
         Connection conn = DBConnection.getConnection(); // Kết nối đến cơ sở dữ liệu
@@ -438,7 +478,6 @@ public class VoucherDAO {
                     //set id
                     user.setVoucher_id(rs.getInt("voucher_id"));
                     user.setVoucher_type(rs.getString("voucher_type"));
-                 
 
                     // Thêm người dùng vào danh sách
                     userList.add(user);

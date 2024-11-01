@@ -6,6 +6,7 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.OrderDAO;
+import DAOs.ProductDAO;
 import DAOs.UserDAO;
 import DAOs.VoucherDAO;
 import Models.Order;
@@ -182,13 +183,20 @@ public class Payment extends HttpServlet {
             orderdetail.setVoucherDetailId(Integer.parseInt(voucherDetailIDList[i]));
 
             orderDetailsList.add(orderdetail);
+
+            //Update Voucher
+            VoucherDAO voucherdao = new VoucherDAO();
+            voucherdao.updateVoucherQuantity(Integer.parseInt(voucherDetailIDList[i]));
+
+            //Update Product
+            ProductDAO productdao = new ProductDAO();
+            productdao.updateProductQuantity(Integer.parseInt(productDetailIDList[i]), Integer.parseInt(quantityList[i]));
         }
 
+        //Add Order
         OrderDAO orderdao = new OrderDAO();
         orderdao.addProduct(payment, order, orderDetailsList);
-
-        String message = "Your order has been placed successfully!";
-        String submessage = "We will process it shortly.";
+        String message = "Your order has been placed!";
 
         System.out.println(message);
 

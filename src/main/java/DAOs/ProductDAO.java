@@ -230,6 +230,47 @@ public class ProductDAO {
         return productList;
     }
 
+    public void updateProductQuantity(int proDetailId, int quantityToReduce) {
+        Connection conn = DBConnection.getConnection();
+        if (conn != null) {
+            try {
+                String selectSql = "SELECT quantity FROM Product_Details WHERE proDetail_id = ?";
+                PreparedStatement selectPst = conn.prepareStatement(selectSql);
+                selectPst.setInt(1, proDetailId);
+
+                ResultSet rs = selectPst.executeQuery();
+                if (rs.next()) {
+                    int currentQuantity = rs.getInt("quantity");
+
+                    if (currentQuantity > quantityToReduce) {
+                        String updateSql = "UPDATE Product_Details SET quantity = quantity - ? WHERE proDetail_id = ?";
+                        PreparedStatement updatePst = conn.prepareStatement(updateSql);
+                        updatePst.setInt(1, quantityToReduce);
+                        updatePst.setInt(2, proDetailId);
+                        updatePst.executeUpdate();
+                    } else if (currentQuantity <= quantityToReduce) {
+                        System.out.println("Cannot reduce quantity. Current quantity is " + currentQuantity + ", requested reduction is " + quantityToReduce);
+                    }
+                } else {
+                    System.out.println("No product detail found with proDetail_id: " + proDetailId);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                // Always close the connection and statements to avoid leaks
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("Failed to establish a database connection.");
+        }
+    }
+
     public List<Models.Product> getProductDecreaseByCatId(String id) {
         Connection conn = DBConnection.getConnection();
         List<Models.Product> productList = new ArrayList<>();

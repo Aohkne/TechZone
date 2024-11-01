@@ -4,6 +4,7 @@
     Author     : Le Huu Khoa - CE181099
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,28 +123,63 @@
 
 
                 </div>
+
+                <c:if test="${message != null}">
+                    <!-- Message -->
+                    <div class="message__container">
+                        <div class="message__content">
+                            <div class="order animate">
+                                <span class="default"></span>
+                                <span class="success">
+                                    <svg viewBox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <div class="box"></div>
+                                <div class="truck">
+                                    <div class="back"></div>
+                                    <div class="front">
+                                        <div class="window"></div>
+                                    </div>
+                                    <div class="light top"></div>
+                                    <div class="light bottom"></div>
+                                </div>
+                                <div class="lines"></div>
+                            </div>
+                            <div class="message__title">
+                                Your order has been placed!
+                                <span>Sit back and relax</span>
+                                <a href="/Home" class="message__btn">
+                                    Home
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                </c:if>
+
             </div>
         </form>
 
         <!-- Hmtl to PNG -->
         <script>
-            function autoClick() {
-                $(".saveBtn").click();
-            }
-            $(document).ready(function () {
-                var element = $(".app");
+        function autoClick() {
+            $(".saveBtn").click();
+        }
+        $(document).ready(function () {
+            var element = $(".app");
 
-                $(".saveBtn").on('click', function () {
+            $(".saveBtn").on('click', function () {
 
-                    html2canvas(element, {
-                        onrendered: function (canvas) {
-                            var imageData = canvas.toDataURL("image/png");
-                            var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
-                            $(".saveBtn").attr("download", "your-order.png").attr("href", newData);
-                        }
-                    });
+                html2canvas(element, {
+                    onrendered: function (canvas) {
+                        var imageData = canvas.toDataURL("image/png");
+                        var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                        $(".saveBtn").attr("download", "your-order.png").attr("href", newData);
+                    }
                 });
             });
+        });
         </script>
 
     </body>

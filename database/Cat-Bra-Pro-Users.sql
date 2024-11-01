@@ -110,7 +110,6 @@ CREATE TABLE Product_Details (
 );
 
 
-
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
 VALUES
