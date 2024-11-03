@@ -490,6 +490,9 @@
 
             .historyorder__btn {
                 padding: 5px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .historyorder__btn button {
@@ -512,15 +515,46 @@
             }
 
             .reorder__btn {
-                margin-right: 30px;
-                color: #242424;
-                background-color: #FDC62E;
+                color: #fff;
+                background-color: #2CD06F;
             }
 
-            .delete__btn {
+            .cancel__btn {
                 color: #fff;
-                background-color: var(--primary-red-color);
+                background-color: #FF0000;
             }
+
+            .list__delivery {
+                display: flex;
+                padding: 15px 20px;
+            }
+
+            .list__status {
+                font-size: 20px;
+                color: #888;
+            }
+
+            .list__status-content {
+                font-size: 20px;
+                padding: 0px 20px;
+                font-weight: 800;
+                color: #2CD06F;
+            }
+
+            .list__status-content-notyet {
+                font-size: 20px;
+                padding: 0px 30px;
+                font-weight: 800;
+                color: #FF0000;
+            }
+
+            .list__status-content-progress {
+                font-size: 20px;
+                padding: 0px 25px;
+                font-weight: 800;
+                color: #FDC62E;
+            }
+
 
 
 
