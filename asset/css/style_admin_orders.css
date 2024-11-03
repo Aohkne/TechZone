@@ -6,7 +6,7 @@ main {
     padding: 10px 20px 0 280px;
 }
 /* SIDEBAR */
-.list li:nth-child(2) {
+.list li:nth-child(8) {
     background-color: #00acc1;
     box-shadow: 0 0 10px #00acc1;
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Products</title>
+    <title>Admin Orders</title>
     <!-- Style admin orders -->
     <link rel="stylesheet" href="/asset/css/style_admin_orders.css" />
     <!-- Style sidebar -->
@@ -110,9 +110,24 @@
         </div>
         <!-- CHANGE STATUS -->
         <div class="change-status-container">
-          <button class="change-new-status-btn">New Orders</button>
-          <button class="change-on-going-status-btn">On Going</button>
-          <button class="change-completed-status-btn">Completed</button>
+          <button
+            class="change-new-status-btn"
+            onclick="showOrdersByStatus('New')"
+          >
+            New
+          </button>
+          <button
+            class="change-on-going-status-btn"
+            onclick="showOrdersByStatus('On Going')"
+          >
+            On Going
+          </button>
+          <button
+            class="change-completed-status-btn"
+            onclick="showOrdersByStatus('Completed')"
+          >
+            Completed
+          </button>
         </div>
       </div>
       <!-- ORDERS CONTAINER -->
@@ -180,7 +195,9 @@
           <p><strong>Date:</strong> 26/10/2024</p>
           <hr />
           <p><strong>Total Price:</strong> $700</p>
-          <button class="order-card-accept-btn">Accept</button>
+          <button class="order-card-accept-btn" onclick="acceptOrder(this)">
+            Accept
+          </button>
         </div>
         <div class="order-card">
           <!-- The Orders status -->
@@ -238,144 +255,16 @@
                 </li></ul
             ></span>
           </button>
-          <p><strong>Order ID:</strong> 1</p>
+          <p><strong>Order ID:</strong> 2</p>
           <hr />
           <p><strong>User ID:</strong> 1</p>
           <p><strong>Payment ID:</strong> 1</p>
           <p><strong>Date:</strong> 26/10/2024</p>
           <hr />
           <p><strong>Total Price:</strong> $700</p>
-          <button class="order-card-accept-btn">Accept</button>
-        </div>
-        <div class="order-card">
-          <!-- The Orders status -->
-          <div class="order-card-status">New</div>
-          <!-- When this button is clicked, view the details of the order -->
-          <button
-            class="order-card-view-detail-btn"
-            onclick="expandOrderDetail()"
-          >
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="order-detail"
-              ><p class="order-detail-total-items">Total Items: 2</p>
-              <ul class="order-detail-item-list">
-                <li class="order-detail-item-container">
-                  <div class="order-detail-item">
-                    <p class="order-detail-item-id">
-                      <strong>Product ID: </strong>1
-                    </p>
-                    <hr />
-                    <p class="order-detail-item-quantity">
-                      <strong>Quantity: </strong>1
-                    </p>
-                    <p class="order-detail-item-color">
-                      <strong>Color: </strong>Pink
-                    </p>
-                    <p class="order-detail-item-price">
-                      <strong>Price: </strong>350$
-                    </p>
-                    <img
-                      class="order-detail-item-image"
-                      src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
-                    />
-                  </div>
-                </li>
-                <li>
-                  <div class="order-detail-item">
-                    <p class="order-detail-item-id">
-                      <strong>Product ID: </strong>1
-                    </p>
-                    <hr />
-                    <p class="order-detail-item-quantity">
-                      <strong>Quantity: </strong>1
-                    </p>
-                    <p class="order-detail-item-color">
-                      <strong>Color: </strong>Pink
-                    </p>
-                    <p class="order-detail-item-price">
-                      <strong>Price: </strong>350$
-                    </p>
-                    <img
-                      class="order-detail-item-image"
-                      src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
-                    />
-                  </div>
-                </li></ul
-            ></span>
+          <button class="order-card-accept-btn" onclick="acceptOrder(this)">
+            Accept
           </button>
-          <p><strong>Order ID:</strong> 1</p>
-          <hr />
-          <p><strong>User ID:</strong> 1</p>
-          <p><strong>Payment ID:</strong> 1</p>
-          <p><strong>Date:</strong> 26/10/2024</p>
-          <hr />
-          <p><strong>Total Price:</strong> $700</p>
-          <button class="order-card-accept-btn">Accept</button>
-        </div>
-        <div class="order-card">
-          <!-- The Orders status -->
-          <div class="order-card-status">New</div>
-          <!-- When this button is clicked, view the details of the order -->
-          <button
-            class="order-card-view-detail-btn"
-            onclick="expandOrderDetail()"
-          >
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="order-detail"
-              ><p class="order-detail-total-items">Total Items: 2</p>
-              <ul class="order-detail-item-list">
-                <li class="order-detail-item-container">
-                  <div class="order-detail-item">
-                    <p class="order-detail-item-id">
-                      <strong>Product ID: </strong>1
-                    </p>
-                    <hr />
-                    <p class="order-detail-item-quantity">
-                      <strong>Quantity: </strong>1
-                    </p>
-                    <p class="order-detail-item-color">
-                      <strong>Color: </strong>Pink
-                    </p>
-                    <p class="order-detail-item-price">
-                      <strong>Price: </strong>350$
-                    </p>
-                    <img
-                      class="order-detail-item-image"
-                      src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
-                    />
-                  </div>
-                </li>
-                <li>
-                  <div class="order-detail-item">
-                    <p class="order-detail-item-id">
-                      <strong>Product ID: </strong>1
-                    </p>
-                    <hr />
-                    <p class="order-detail-item-quantity">
-                      <strong>Quantity: </strong>1
-                    </p>
-                    <p class="order-detail-item-color">
-                      <strong>Color: </strong>Pink
-                    </p>
-                    <p class="order-detail-item-price">
-                      <strong>Price: </strong>350$
-                    </p>
-                    <img
-                      class="order-detail-item-image"
-                      src="/asset/img/img_all/img_product/img_phone/iphone13.jpg"
-                    />
-                  </div>
-                </li></ul
-            ></span>
-          </button>
-          <p><strong>Order ID:</strong> 1</p>
-          <hr />
-          <p><strong>User ID:</strong> 1</p>
-          <p><strong>Payment ID:</strong> 1</p>
-          <p><strong>Date:</strong> 26/10/2024</p>
-          <hr />
-          <p><strong>Total Price:</strong> $700</p>
-          <button class="order-card-accept-btn">Accept</button>
         </div>
       </div>
     </main>
