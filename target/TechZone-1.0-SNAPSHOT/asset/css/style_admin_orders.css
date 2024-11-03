@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* MAIN CONTENT */
+main {
+    background-color: #eeeeee;
+    flex-grow: 1;
+    padding: 10px 20px 0 280px;
+}
+/* SIDEBAR */
+.list li:nth-child(2) {
+    background-color: #00acc1;
+    box-shadow: 0 0 10px #00acc1;
+}
+/* Navbar */
+main nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+main nav .title {
+    font-size: 32px;
+    font-weight: 300;
+}
+main nav .search-bar {
+    display: flex;
+    align-items: center;
+}
+main nav .search-bar input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+}
+main nav .search-bar i {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+/* Cards */
+main .card-container {
+    margin-top: 60px;
+    display: flex;
+    gap: 30px;
+    padding: 0 6rem;
+}
+main .card {
+    background-color: #ffffff;
+    width: 280px;
+    height: 130px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+main .card .card-name{
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: #999;
+    padding-top: 10px;
+    padding-right: 15px
+}
+main .card .card-value {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 50px;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+main .card .card-icon {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #ffffff;
+    top: -20px;
+    left: 10px;
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+}
+main .card hr {
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    border: 1px solid #eee;
+    width: 90%;
+}
+main .card .card-graph {
+    position: absolute;
+    bottom: 10px;
+    left: 34%;
+    color: #999;
+}
+
+main .card .card-graph:hover {
+    color: #000000;
+    cursor: pointer;
+}
+/* CHANGE STATUS */
+.change-status-container {
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-top: auto;
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 5rem;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14);
+}
+.change-status-container button {
+    line-height: 3rem;
+    width: 8rem;
+    margin: auto;
+    background-color: #22C3D7;
+    border-radius: 6rem;
+    border: 1px solid #177581;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 18px;
+}
+/* ORDERS CONTAINER */
+.orders-container {
+    display: grid;
+    grid-template-columns: repeat(3, 20rem);
+    gap: 5rem;
+    justify-content: center;
+    /* border: 1px solid red; */
+    margin-top: 7rem;
+
+}
+/* Order card */
+.order-card {
+    border: 1px solid #22C3D7;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14);
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: relative;
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    .order-card-status {
+        position: absolute;
+        background-color: #22C3D7;
+        padding: 0.25rem 1.5rem;
+        border-radius: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -2rem;
+        font-weight: 500;
+        color: #ffffff;
+    }
+    /* View order card detail button */
+    .order-card-view-detail-btn {
+        background-color: #22C3D7;
+        color: #ffffff;
+        border: none;
+        position: absolute;
+        right: -1.75rem;
+        top: -2.75rem;
+        padding: 0.75rem;
+        font-size: 30px;
+        z-index: 1;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: width 0.5s ease, height 0.5s ease; /* Smooth transition */
+        width: 4rem; /* Initial width */
+        height: 4rem; /* Initial height */
+    }
+    /* View order card detail button when hovered */
+    .order-card-view-detail-btn:hover {
+        width: 23rem;
+        height: 16rem;
+        display: flex;
+        z-index: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .order-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 23vw;
+        }
+        /* When hovered, hide the shopping cart icon */
+        .fa-cart-shopping {
+            display: none;
+        }
+    }
+    /* Scroll bar for the order card detail when hovered */
+    .order-card-view-detail-btn::-webkit-scrollbar {
+        width: 10px;
+    }
+    .order-card-view-detail-btn::-webkit-scrollbar-track {
+        background: #22C3D7; /* Background color of the track */
+    border-radius: 5px;
+    }
+    .order-card-view-detail-btn::-webkit-scrollbar-thumb {
+        background-color: hsl(187, 73%, 30%); /* Color of the scroll thumb */
+    border-radius: 5px;
+    }
+    /* When the view order card detail button not hovered, hide the order detail */
+    .order-detail {
+        display: none;
+    }
+    /* Order detail total items */
+    .order-detail-total-items {
+        background-color: #FEA21F;
+        border-radius: 50px;
+        font-size: 20px;
+        
+    }
+    /* List containing all of the order detail items */
+    .order-detail-item-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    /* Order detail item */
+    .order-detail-item {
+        background-color: #ffffff;
+        position: relative;
+        border-radius: 10px;
+        color: #000000;
+        text-align: start;
+        width: 21vw;
+        padding: 0.5rem;
+        line-height: 2rem;
+    }
+    /* Item id */
+    .order-detail-item-id {
+        font-size: 20px;
+    }
+    /* Item quantity, color, price */
+    .order-detail-item-quantity, .order-detail-item-color, .order-detail-item-price {
+        font-size: 16px;
+    }
+    /* Item image */
+    .order-detail-item-image {
+        width: 25%;
+        position: absolute;
+        top: 3rem;
+        right: 1rem;
+    }
+    /* Accept Order button */
+    .order-card-accept-btn {
+        background-color: #2CD06F;
+        border: 1px solid #2CD06F;
+        padding: 0.5rem 1rem;
+        position: absolute;
+        right: 1rem;
+        bottom: 0.25rem;
+        border-radius: 10px;
+        border: none;
+        color: #ffffff;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.1s ease;
+    }
+    /* Accept Order button when hovered and active */
+    .order-card-accept-btn:hover {
+        border: 1px solid #2CD06F;
+        background-color: #ffffff;
+        color: #2CD06F;
+    }
+    .order-card-accept-btn:active {
+        scale: 0.95;
+    }
+}

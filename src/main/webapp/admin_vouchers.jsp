@@ -62,6 +62,11 @@
                            ><i class="fa-solid fa-map"></i>Vouchers</a
                         >
                     </li>
+                    <li>
+                        <a href="/Admin/Orders"
+                           ><i class="fa-solid fa-table-list"></i>Orders</a
+                        >
+                    </li>
                 </ul>
             </div>
             <div class="account dropdown-button">

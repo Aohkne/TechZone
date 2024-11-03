@@ -70,8 +70,13 @@
                         >
                     </li>
                     <li>
-                        <a href="/Admin/Voucher"
+                        <a href="/Admin/Vouchers"
                            ><i class="fa-solid fa-map"></i>Vouchers</a
+                        >
+                    </li>
+                    <li>
+                        <a href="/Admin/Orders"
+                           ><i class="fa-solid fa-table-list"></i>Orders</a
                         >
                     </li>
                 </ul>
@@ -82,7 +87,7 @@
                     <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="/Admin/Profile">Profile</a></li>
                             <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>
