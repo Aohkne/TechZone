@@ -514,46 +514,48 @@
                 /* Loại bỏ bóng */
             }
 
-            .reorder__btn {
-                color: #fff;
+
+            .list__btn.green {
                 background-color: #2CD06F;
+                color: #fff;
             }
 
-            .cancel__btn {
-                color: #fff;
+            .list__btn.red {
                 background-color: #FF0000;
+                color: #fff;
             }
+
 
             .list__delivery {
                 display: flex;
-                padding: 15px 20px;
+                width: 200px;
             }
 
             .list__status {
                 font-size: 20px;
                 color: #888;
+                min-width: 40%;
             }
 
             .list__status-content {
                 font-size: 20px;
-                padding: 0px 20px;
                 font-weight: 800;
+                text-align: left;
+            }
+
+            .list__status-content.green {
                 color: #2CD06F;
             }
 
-            .list__status-content-notyet {
-                font-size: 20px;
-                padding: 0px 30px;
-                font-weight: 800;
+            .list__status-content.yellow {
+                color: #FDC62E;
+            }
+
+            .list__status-content.red {
                 color: #FF0000;
             }
 
-            .list__status-content-progress {
-                font-size: 20px;
-                padding: 0px 25px;
-                font-weight: 800;
-                color: #FDC62E;
-            }
+
 
 
 
