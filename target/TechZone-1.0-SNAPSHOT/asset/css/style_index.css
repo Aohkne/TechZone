@@ -121,10 +121,26 @@
     border-top-right-radius: 5px;
 }
 
+
+.notification__list{
+    max-height: 132px;
+    overflow-y: auto;
+    a{
+        text-decoration: none;
+    }
+}
+
 .notification__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 15px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
+}
+
+.notification__item.active {
+    background-color: #ccc;
 }
 
 .notification__item:hover {
@@ -136,7 +152,6 @@
 }
 
 .notification__info {
-    display: inline-block;
     margin-right: 30px;
 }
 
@@ -157,8 +172,6 @@
 .notification__time {
     color: #888;
     font-size: 1.6rem;
-    display: inline-block;
-    transform: translateY(-10px);
 }
 
 .account__register:hover,

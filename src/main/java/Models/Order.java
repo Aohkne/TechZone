@@ -13,7 +13,6 @@ import java.sql.Date;
 public class Order {
 
     private int orderId;
-    private String status;
     private Date orderDate;
     private int userId;
     private int paymentId;
@@ -21,9 +20,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, String status, Date orderDate, int userId, int paymentId) {
+    public Order(int orderId, Date orderDate, int userId, int paymentId) {
         this.orderId = orderId;
-        this.status = status;
         this.orderDate = orderDate;
         this.userId = userId;
         this.paymentId = paymentId;
@@ -35,14 +33,6 @@ public class Order {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Date getOrderDate() {

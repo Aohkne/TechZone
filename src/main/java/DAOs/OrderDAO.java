@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +34,7 @@ public class OrderDAO {
                 // Insert payment 
                 String insertPayment = "INSERT INTO Payment (payment_method)"
                         + "VALUES (?)";
-                PreparedStatement pst = conn.prepareStatement(insertPayment, Statement.RETURN_GENERATED_KEYS); // Return generated keys
+                PreparedStatement pst = conn.prepareStatement(insertPayment, Statement.RETURN_GENERATED_KEYS);
                 pst.setString(1, payment.getPaymentMethod());
                 pst.executeUpdate();
 
@@ -43,12 +46,11 @@ public class OrderDAO {
                 }
 
                 // Insert Order 
-                String insertOrder = "INSERT INTO [Order] (status, user_id, payment_id) "
-                        + "VALUES (?, ?, ?)";
-                pst = conn.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS); // Return generated keys
-                pst.setString(1, order.getStatus());
-                pst.setInt(2, order.getUserId());
-                pst.setInt(3, paymentId);
+                String insertOrder = "INSERT INTO [Order] (user_id, payment_id) "
+                        + "VALUES (?, ?)";
+                pst = conn.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
+                pst.setInt(1, order.getUserId());
+                pst.setInt(2, paymentId);
                 pst.executeUpdate();
 
                 //Get Order ID
@@ -68,8 +70,8 @@ public class OrderDAO {
 //                    System.out.println("---------------");
 
                     if (orderDetail.getVoucherDetailId() > 0) {
-                        String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id) "
-                                + "VALUES (?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id, status, check)"
+                                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
                         pst = conn.prepareStatement(sql);
 
                         pst.setInt(1, orderDetail.getQuantity());
@@ -77,10 +79,12 @@ public class OrderDAO {
                         pst.setInt(3, orderId);
                         pst.setInt(4, orderDetail.getProDetailId());
                         pst.setInt(5, orderDetail.getVoucherDetailId());
+                        pst.setString(6, orderDetail.getStatus());
+                        pst.setString(7, orderDetail.getCheck());
                         pst.executeUpdate();
                     } else {
-                        String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id) "
-                                + "VALUES (?, ?, ?, ?)";
+                        String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, [status], [check]) "
+                                + "VALUES (?, ?, ?, ?, ?, ?)";
                         pst = conn.prepareStatement(sql);
                         System.out.println("---+1231+");
 
@@ -88,6 +92,8 @@ public class OrderDAO {
                         pst.setBigDecimal(2, orderDetail.getPrice());
                         pst.setInt(3, orderId);
                         pst.setInt(4, orderDetail.getProDetailId());
+                        pst.setString(5, orderDetail.getStatus());
+                        pst.setString(6, orderDetail.getCheck());
                         pst.executeUpdate();
                     }
 
@@ -101,6 +107,49 @@ public class OrderDAO {
                 }
             }
         }
+    }
+
+    public List<OrderDetail> getAllOrderDetailsByUserId(int userId) {
+        Connection conn = DBConnection.getConnection();
+        List<OrderDetail> orderDetailsList = new ArrayList<>();
+
+        if (conn != null) {
+            try {
+                String query = "SELECT od.order_detail_id, od.quantity, od.price, od.order_id, "
+                        + "od.proDetail_id, od.voucherDetail_id, od.[status], od.[check], "
+                        + "p.pro_name, o.order_date "
+                        + // Fetching order_date from Order table
+                        "FROM Order_Details od "
+                        + "JOIN [Order] o ON od.order_id = o.order_id "
+                        + "JOIN Product_Details pd ON od.proDetail_id = pd.proDetail_id "
+                        + "JOIN [Product] p ON pd.pro_id = p.pro_id "
+                        + "WHERE o.user_id = ?";
+
+                PreparedStatement pst = conn.prepareStatement(query);
+                pst.setInt(1, userId);
+                ResultSet resultSet = pst.executeQuery();
+
+                while (resultSet.next()) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrderDetailId(resultSet.getInt("order_detail_id"));
+                    orderDetail.setQuantity(resultSet.getInt("quantity"));
+                    orderDetail.setPrice(resultSet.getBigDecimal("price"));
+                    orderDetail.setOrderId(resultSet.getInt("order_id"));
+                    orderDetail.setProDetailId(resultSet.getInt("proDetail_id"));
+                    orderDetail.setVoucherDetailId(resultSet.getInt("voucherDetail_id"));
+                    orderDetail.setStatus(resultSet.getString("status"));
+                    orderDetail.setCheck(resultSet.getString("check"));
+                    orderDetail.setProName(resultSet.getString("pro_name"));
+                    orderDetail.setOrderDate(resultSet.getDate("order_date")); // Setting order_date
+
+                    orderDetailsList.add(orderDetail);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return orderDetailsList;
     }
 
 }

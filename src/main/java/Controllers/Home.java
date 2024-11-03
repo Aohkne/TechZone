@@ -5,9 +5,11 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
 import DB.DBConnection;
+import Models.OrderDetail;
 import Models.Product;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -115,6 +117,14 @@ public class Home extends HttpServlet {
                                 request.setAttribute("avatar", rs.getString("avatar"));
                                 request.setAttribute("email", rs.getString("email"));
                                 isId = true;
+
+                                // Get Notification 
+                                OrderDAO orderdao = new OrderDAO();
+                                List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserId(userId);
+
+                                // Set the order details in request scope
+                                request.setAttribute("orderDetails", orderDetails);
+
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -128,7 +138,7 @@ public class Home extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
-        
+
     }
 
     /**

@@ -169,7 +169,6 @@ public class Payment extends HttpServlet {
 
         //Order
         Order order = new Order();
-        order.setStatus("Not Yet");
         order.setUserId(Integer.parseInt(idUser));
 
         //OrderDetail
@@ -181,6 +180,8 @@ public class Payment extends HttpServlet {
             orderdetail.setPrice(BigDecimal.valueOf(Long.parseLong(priceList[i])));
             orderdetail.setProDetailId(Integer.parseInt(productDetailIDList[i]));
             orderdetail.setVoucherDetailId(Integer.parseInt(voucherDetailIDList[i]));
+            orderdetail.setStatus("Not Yet");
+            orderdetail.setCheck("false");
 
             orderDetailsList.add(orderdetail);
 

@@ -6,6 +6,7 @@
 
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,25 +78,41 @@
 
                             <div class="notification__list">
 
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
-
-
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
-
+                                <c:choose>
+                                    <c:when test="${not empty orderDetails}">
+                                        <c:forEach var="orderDetail" items="${orderDetails}">
+                                            <c:choose>
+                                                <c:when test="${orderDetail.check == 'true'}">
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item active">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="9">No order details found for this user.</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
 
                             </div>
                         </div>
@@ -564,7 +581,7 @@
 </div>
 
 <div class="footer__copyright">
-    © 2024 - Group 6
+    Â© 2024 - Group 6
 </div>
 
 

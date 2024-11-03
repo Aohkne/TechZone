@@ -293,7 +293,6 @@ CREATE TABLE Payment (
 );
 CREATE TABLE [Order] (
     order_id INT PRIMARY KEY IDENTITY(1,1),
-    status VARCHAR(50), 
     order_date DATE DEFAULT GETDATE(),
 	user_id INTEGER,
     payment_id INTEGER,
@@ -309,10 +308,12 @@ CREATE TABLE Order_Details (
     order_id INTEGER,
     proDetail_id INTEGER,
 	voucherDetail_id int,
+    status VARCHAR(50), -- tình trạng đơn hàng
+	check VARCHAR(50), -- check người dùng có coi thông báo chưa
 	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
     FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 );
-INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id) VALUES (5, 1804000, 9, 30, 1)
+
 
 
 

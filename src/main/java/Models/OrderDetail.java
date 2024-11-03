@@ -5,6 +5,7 @@
 package Models;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  *
@@ -18,17 +19,27 @@ public class OrderDetail {
     private int orderId;
     private int proDetailId;
     private int voucherDetailId;
+    private String status;
+    private String check;
+
+    // thêm để lấy in ra notification cho dễ
+    private String proName;
+    private Date orderDate;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderDetailId, int quantity, BigDecimal price, int orderId, int proDetailId, int voucherDetailId) {
+    public OrderDetail(int orderDetailId, int quantity, BigDecimal price, int orderId, int proDetailId, int voucherDetailId, String status, String check, String proName, Date orderDate) {
         this.orderDetailId = orderDetailId;
         this.quantity = quantity;
         this.price = price;
         this.orderId = orderId;
         this.proDetailId = proDetailId;
         this.voucherDetailId = voucherDetailId;
+        this.status = status;
+        this.check = check;
+        this.proName = proName;
+        this.orderDate = orderDate;
     }
 
     public int getOrderDetailId() {
@@ -77,6 +88,38 @@ public class OrderDetail {
 
     public void setVoucherDetailId(int voucherDetailId) {
         this.voucherDetailId = voucherDetailId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+
+    public String getProName() {
+        return proName;
+    }
+
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
 }
