@@ -122,7 +122,7 @@
 
                     <li class="user__item">
                         <i class="fa-solid fa-circle-question"></i>
-                        <a class="user__link" href="">Help</a>
+                        <a class="user__link" href="./user_help.jsp">Help</a>
                     </li>
 
 
@@ -159,18 +159,13 @@
                                     </a>
                                 </div>
                                 <div class="account__item">
-                                    <a href="#" class="account__link">
+                                    <a href="/History" class="account__link">
                                         Order History
                                     </a>
                                 </div>
                                 <div class="account__item">
                                     <a href="/Voucher" class="account__link">
                                         Voucher
-                                    </a>
-                                </div>
-                                <div class="account__item">
-                                    <a href="#" class="account__link">
-                                        Shipping
                                     </a>
                                 </div>
                                 <div class="account__item">
@@ -396,7 +391,7 @@
                     <c:set var="count" value="0"/>
 
                     <c:forEach var="product" items="${products}">
-                        <c:if test="${count < 6}">
+                        <c:if test="${count < 6  && product.pro_quantity >0}">
                             <div class="product__item col l-2">
                                 <a href="./Product?id=${product.proDetail_id}">
                                     <input type="hidden" value="${product.pro_id}">

@@ -6,8 +6,10 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.BrandDAO;
+import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
+import Models.OrderDetail;
 import Models.Product_Details;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -69,6 +71,13 @@ public class Product extends HttpServlet {
                                 request.setAttribute("avatar", rs.getString("avatar"));
                                 request.setAttribute("email", rs.getString("email"));
                                 isId = true;
+
+                                // Get Notification 
+                                OrderDAO orderdao = new OrderDAO();
+                                List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserIdForNotification(userId);
+
+                                // Set the order details in request scope
+                                request.setAttribute("orderDetails", orderDetails);
                             }
                         } catch (SQLException e) {
                         }
@@ -162,7 +171,7 @@ public class Product extends HttpServlet {
                 e.printStackTrace();
             }
 
-            request.getRequestDispatcher("user_products.jsp").forward(request, response);
+//            request.getRequestDispatcher("user_products.jsp").forward(request, response); //tại dòng này mà ngồi hơn 1 tiếng đồng hồ
         }
     }
 

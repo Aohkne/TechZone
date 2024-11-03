@@ -42,9 +42,6 @@ public class Product {
         this.pro_name = pro_name;
     }
 
- 
-
-    
     public Product(String pro_name, String description, String pro_price, String pro_sale, String madein, int cat_id, String brand_id) {
         this.pro_name = pro_name;
         this.description = description;
@@ -69,11 +66,12 @@ public class Product {
         this.color_name = color_name;
     }
 
-    public Product(int pro_id, String pro_name, String pro_price, String pro_image, int proDetail_id) {
+    public Product(int pro_id, String pro_name, String pro_price, String pro_image, int pro_quantity, int proDetail_id) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.pro_price = pro_price;
         this.pro_image = pro_image;
+        this.pro_quantity = pro_quantity;
         this.proDetail_id = proDetail_id;
     }
 

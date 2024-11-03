@@ -30,6 +30,7 @@
         <script src="./asset/js/js_all/js_chat.js" defer></script>
         <script src="./asset/js/js_all/js_cart.js" defer></script>
         <script src="./asset/js/js_all/js_accountUser.js" defer></script>
+        <script src="./asset/js/js_user_voucher.js" defer></script>
     </head>
 
     <body>
@@ -74,24 +75,41 @@
 
                             <div class="notification__list">
 
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
-
-
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${not empty orderDetails}">
+                                        <c:forEach var="orderDetail" items="${orderDetails}">
+                                            <c:choose>
+                                                <c:when test="${orderDetail.check == 'true'}">
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item active">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="9">No order details found for this user.</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
 
 
                             </div>
@@ -102,7 +120,7 @@
 
                     <li class="user__item">
                         <i class="fa-solid fa-circle-question"></i>
-                        <a class="user__link" href="">Help</a>
+                        <a class="user__link" href="./user_help.jsp">Help</a>
                     </li>
 
 
@@ -138,18 +156,13 @@
                                     </a>
                                 </div>
                                 <div class="account__item">
-                                    <a href="#" class="account__link">
+                                    <a href="/History" class="account__link">
                                         Order History
                                     </a>
                                 </div>
                                 <div class="account__item">
                                     <a href="/Voucher" class="account__link">
                                         Voucher
-                                    </a>
-                                </div>
-                                <div class="account__item">
-                                    <a href="#" class="account__link">
-                                        Shipping
                                     </a>
                                 </div>
                                 <div class="account__item">
@@ -306,7 +319,7 @@
                 <div class="orderhistory__picture">
                     <img src="./asset/img/img_history/orderhistory.png" alt="">
                 </div>
-                <a href="./user_history.html">
+                <a href="/History">
                     <div class="orderhistory__content">Order History</div>
                 </a>
 
@@ -315,18 +328,10 @@
                 <div class="voucher__picture">
                     <img src="./asset/img/img_history/voucherorderhistory.png" alt="">
                 </div>
-                <a href="./user_voucher.html">
+                <a href="/Voucher">
                     <div class="voucher__content">Voucher</div>
                 </a>
-            </div>
-            <div class="nav__content">
-                <div class="shipping__picture">
-                    <img src="./asset/img/img_history/shipping.png" alt="">
-                </div>
-                <a href="./user_shipping.html">
-                    <div class="shipping__content">Shipping</div>
-                </a>
-            </div>
+            </div>  
         </div>
 
         <!-- C?t 2: 85% -->

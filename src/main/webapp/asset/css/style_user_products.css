@@ -121,10 +121,25 @@
     border-top-right-radius: 5px;
 }
 
+.notification__list{
+    max-height: 132px;
+    overflow-y: auto;
+    a{
+        text-decoration: none;
+    }
+}
+
 .notification__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 15px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
+}
+
+.notification__item.active {
+    background-color: #ccc;
 }
 
 .notification__item:hover {
@@ -189,14 +204,15 @@
     padding: 0 20px;
 }
 
-.navSearch__logo {}
+.navSearch__logo {
+}
 
 .navSearch__logo img {
     height: 90px;
 }
 
 .navSearch__search {
-   margin-top: auto;
+    margin-top: auto;
     background-color: var(--white-color);
     height: 50px;
     border-radius: 8px;
@@ -326,9 +342,11 @@
     color: #888;
 }
 
-.product__brand {}
+.product__brand {
+}
 
-.product__from {}
+.product__from {
+}
 
 .product__description {
     color: #888;

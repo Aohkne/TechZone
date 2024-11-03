@@ -6,8 +6,10 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.CategoryDAO;
+import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
+import Models.OrderDetail;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -69,6 +71,13 @@ public class Category extends HttpServlet {
                             request.setAttribute("avatar", rs.getString("avatar"));
                             request.setAttribute("email", rs.getString("email"));
                             isId = true;
+
+                            // Get Notification 
+                            OrderDAO orderdao = new OrderDAO();
+                            List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserIdForNotification(userId);
+
+                            // Set the order details in request scope
+                            request.setAttribute("orderDetails", orderDetails);
                         }
                     } catch (SQLException e) {
                     }
@@ -78,11 +87,7 @@ public class Category extends HttpServlet {
         }
 
         request.setAttribute("isId", isId);
-        
-        
-        
-        
-        
+
         CategoryDAO categoryDAO = new CategoryDAO();
         ProductDAO productdao = new ProductDAO();
         ResultSet categories = categoryDAO.getAllCategory();
@@ -102,7 +107,7 @@ public class Category extends HttpServlet {
             request.setAttribute("idCat", idCat);
             productList = productdao.getProductByBrandId(idCat);
         } else if (increase != null && increase.matches("-?\\d+")) {
-            
+
             request.setAttribute("idCat", increase);
             productList = productdao.getProductIncreaseByCatId(increase);
         } else if (decrease != null && decrease.matches("-?\\d+")) {

@@ -120,7 +120,7 @@ public class Home extends HttpServlet {
 
                                 // Get Notification 
                                 OrderDAO orderdao = new OrderDAO();
-                                List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserId(userId);
+                                List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserIdForNotification(userId);
 
                                 // Set the order details in request scope
                                 request.setAttribute("orderDetails", orderDetails);

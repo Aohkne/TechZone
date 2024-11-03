@@ -5,8 +5,10 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.OrderDAO;
 import DAOs.UserDAO;
 import DAOs.VoucherDAO;
+import Models.OrderDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -62,7 +64,7 @@ public class Cart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //Get User data
         Cookie[] cookies = request.getCookies();
         String idUser = "";
@@ -90,6 +92,13 @@ public class Cart extends HttpServlet {
                             request.setAttribute("email", rs.getString("email"));
                             request.setAttribute("address", rs.getString("address"));
                             isId = true;
+
+                            // Get Notification 
+                            OrderDAO orderdao = new OrderDAO();
+                            List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserIdForNotification(userId);
+
+                            // Set the order details in request scope
+                            request.setAttribute("orderDetails", orderDetails);
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -100,8 +109,7 @@ public class Cart extends HttpServlet {
         }
 
         request.setAttribute("isId", isId);
-        
-        
+
         //Voucher
         VoucherDAO voucherdao = new VoucherDAO();
         List<Models.Voucher> voucher = voucherdao.getVouchersByUserId(idUser);

@@ -1,12 +1,13 @@
 //Update cart
+let list = [];
 function updateCartList() {
     let cartList = document.querySelector(".cart__list");
 
     let out = "";
     var i = 1;
 
-    list = JSON.parse(localStorage.getItem("productList"));
-    if (list) {
+    if (JSON.parse(localStorage.getItem("productList"))) {
+        list = JSON.parse(localStorage.getItem("productList"));
         //Update Cart
         list.forEach((e) => {
             var total = 0;
@@ -334,4 +335,42 @@ function checkOrder() {
 function addDataVoucher(id, quantity, data) {
     const item = {id, quantity};
     data.push(item);
+}
+
+// Open - close notification
+
+let userItem = document.querySelectorAll('.user__item');
+let notificationBtn = userItem[0].querySelectorAll('.user__link')[0];
+let notificationPopup = document.querySelector('.notification__popup');
+
+show(notificationBtn, notificationPopup);
+
+//show hide Function
+/**
+ * Click : object that click
+ * Effect : object that show or hide
+ */
+function show(Click, Effect) {
+
+    Click.onclick = () => {
+
+        if (Effect.style.display == '' || Effect.style.display == 'none') {
+            Effect.style.display = 'block';
+        } else {
+            Effect.style.display = 'none';
+        }
+
+
+        //check if onclick != element before click or child of element
+        document.onclick = (event) => {
+            let voucherWrapper = document.querySelector(".voucher_wrapper");
+            if (!userItem[0].contains(event.target) && Effect.style.display == 'block') {
+                Effect.style.display = 'none';
+            } else if (event.target == voucherWrapper) {
+                voucherWrapper.style.display = "none";
+            }
+        }
+
+    }
+
 }

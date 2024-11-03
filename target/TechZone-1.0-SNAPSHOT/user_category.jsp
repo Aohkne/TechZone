@@ -79,24 +79,41 @@
 
                             <div class="notification__list">
 
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
-
-
-                                <div class="notification__item">
-                                    <div class="notification__info">
-                                        <div class="notification__heading">Order successful</div>
-                                        <div class="notification__description">Order ipad 11 pro successfully!</div>
-                                    </div>
-
-                                    <div class="notification__time">24/08</div>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${not empty orderDetails}">
+                                        <c:forEach var="orderDetail" items="${orderDetails}">
+                                            <c:choose>
+                                                <c:when test="${orderDetail.check == 'true'}">
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item active">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="/History?orderDetailId=${orderDetail.orderDetailId}">
+                                                        <div class="notification__item">
+                                                            <div class="notification__info">
+                                                                <div class="notification__heading">Order successful</div>
+                                                                <div class="notification__description">Order ${orderDetail.proName} successfully!</div>
+                                                            </div>
+                                                            <div class="notification__time">${orderDetail.orderDate}</div>
+                                                        </div>
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="9">No order details found for this user.</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
 
 
                             </div>
@@ -107,7 +124,7 @@
 
                     <li class="user__item">
                         <i class="fa-solid fa-circle-question"></i>
-                        <a class="user__link" href="">Help</a>
+                        <a class="user__link" href="./user_help.jsp">Help</a>
                     </li>
 
 
@@ -143,18 +160,13 @@
                                     </a>
                                 </div>
                                 <div class="account__item">
-                                    <a href="#" class="account__link">
+                                    <a href="/History" class="account__link">
                                         Order History
                                     </a>
                                 </div>
                                 <div class="account__item">
                                     <a href="/Voucher" class="account__link">
                                         Voucher
-                                    </a>
-                                </div>
-                                <div class="account__item">
-                                    <a href="#" class="account__link">
-                                        Shipping
                                     </a>
                                 </div>
                                 <div class="account__item">
@@ -339,33 +351,35 @@
 
         <div class="cate__content">
             <c:forEach var="product" items="${productList}">
-                <div class="cate__list">
-                    <input type="hidden" value="${product.proDetail_id}">
-                    <a href="./Product?id=${product.proDetail_id}" class="cate__items">
-                        <div class="cate__title">
-                            <div class="cate__img">
-                                <img src="${product.pro_image}" alt="${product.pro_name}">
-                            </div>
-                            <div class="content__list">
-                                <div class="cate__name">${product.pro_name}</div>
+                <c:if test="${product.pro_quantity > 0}">
+                    <div class="cate__list">
+                        <input type="hidden" value="${product.proDetail_id}">
+                        <a href="./Product?id=${product.proDetail_id}" class="cate__items">
+                            <div class="cate__title">
+                                <div class="cate__img">
+                                    <img src="${product.pro_image}" alt="${product.pro_name}">
+                                </div>
+                                <div class="content__list">
+                                    <div class="cate__name">${product.pro_name}</div>
 
-                                <c:choose>
-                                    <c:when test="${empty product.pro_sale}">
-                                        <div class="cate__price">${product.pro_price} VND</div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="cate__price">${product.pro_sale} VND</div>
-                                        <div class="cate__discount">${product.pro_price} VND</div>
-                                    </c:otherwise>
-                                </c:choose>
+                                    <c:choose>
+                                        <c:when test="${empty product.pro_sale}">
+                                            <div class="cate__price">${product.pro_price} VND</div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="cate__price">${product.pro_sale} VND</div>
+                                            <div class="cate__discount">${product.pro_price} VND</div>
+                                        </c:otherwise>
+                                    </c:choose>
 
+                                </div>
                             </div>
+                        </a>
+                        <div class="order__list">
+                            <i class="order__icon fa-solid fa-cart-plus"></i>
                         </div>
-                    </a>
-                    <div class="order__list">
-                        <i class="order__icon fa-solid fa-cart-plus"></i>
                     </div>
-                </div>
+                </c:if>
             </c:forEach>
         </div>
 

@@ -86,6 +86,7 @@ public class ProductDAO {
                     int id = Integer.parseInt(rs.getString("proDetail_id"));
                     String image = rs.getString("image");
                     String proId = rs.getString("pro_id");
+                    int quantity = rs.getInt("quantity");
 
                     ResultSet rsProduct = getProductByIdNotSale(proId);
                     while (rsProduct.next()) {
@@ -93,7 +94,10 @@ public class ProductDAO {
                         String price = rsProduct.getString("pro_price");
                         String formattedPrice = formatPrice(price);
 
-                        Product product = new Product(id, name, formattedPrice, image, id);
+                        System.out.println(name);
+                        System.out.println(quantity);
+
+                        Product product = new Product(id, name, formattedPrice, image, quantity, id);
                         products.add(product);
                     }
                 }
@@ -150,6 +154,7 @@ public class ProductDAO {
                     Product product = new Product();
                     product.setPro_id(rs.getInt("pro_id"));
                     product.setPro_name(rs.getString("pro_name"));
+                    product.setPro_quantity(rs.getInt("quantity"));
                     product.setPro_price(formatPrices(rs.getString("pro_price")));
                     product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                     product.setPro_image(rs.getString("image"));
@@ -179,6 +184,7 @@ public class ProductDAO {
                         Product product = new Product();
                         product.setPro_id(rs.getInt("pro_id"));
                         product.setPro_name(rs.getString("pro_name"));
+                        product.setPro_quantity(rs.getInt("quantity"));
                         product.setPro_price(formatPrices(rs.getString("pro_price")));
                         product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                         product.setPro_image(rs.getString("image"));
@@ -212,6 +218,7 @@ public class ProductDAO {
                         Product product = new Product();
                         product.setPro_id(rs.getInt("pro_id"));
                         product.setPro_name(rs.getString("pro_name"));
+                        product.setPro_quantity(rs.getInt("quantity"));
                         product.setPro_price(formatPrices(rs.getString("pro_price")));
                         product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                         product.setPro_image(rs.getString("image"));
@@ -242,7 +249,7 @@ public class ProductDAO {
                 if (rs.next()) {
                     int currentQuantity = rs.getInt("quantity");
 
-                    if (currentQuantity > quantityToReduce) {
+                    if (currentQuantity >= quantityToReduce) {
                         String updateSql = "UPDATE Product_Details SET quantity = quantity - ? WHERE proDetail_id = ?";
                         PreparedStatement updatePst = conn.prepareStatement(updateSql);
                         updatePst.setInt(1, quantityToReduce);
@@ -286,6 +293,7 @@ public class ProductDAO {
                         Product product = new Product();
                         product.setPro_id(rs.getInt("pro_id"));
                         product.setPro_name(rs.getString("pro_name"));
+                        product.setPro_quantity(rs.getInt("quantity"));
                         product.setPro_price(formatPrices(rs.getString("pro_price")));
                         product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                         product.setPro_image(rs.getString("image"));
@@ -318,6 +326,7 @@ public class ProductDAO {
                         Product product = new Product();
                         product.setPro_id(rs.getInt("pro_id"));
                         product.setPro_name(rs.getString("pro_name"));
+                        product.setPro_quantity(rs.getInt("quantity"));
                         product.setPro_price(formatPrices(rs.getString("pro_price")));
                         product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                         product.setPro_image(rs.getString("image"));
@@ -350,6 +359,7 @@ public class ProductDAO {
                         Product product = new Product();
                         product.setPro_id(rs.getInt("pro_id"));
                         product.setPro_name(rs.getString("pro_name"));
+                        product.setPro_quantity(rs.getInt("quantity"));
                         product.setPro_price(formatPrices(rs.getString("pro_price")));
                         product.setPro_sale(formatPrices(rs.getString("pro_sale")));
                         product.setPro_image(rs.getString("image"));

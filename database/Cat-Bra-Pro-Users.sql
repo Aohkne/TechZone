@@ -109,6 +109,11 @@ CREATE TABLE Product_Details (
     FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
 );
 
+SELECT * FROM Product_Details
+
+UPDATE Product_Details
+SET quantity = 100
+WHERE proDetail_id = 30;
 
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
@@ -268,12 +273,12 @@ END;
 
 --cách add
 EXEC AddOrUpdateVoucher 
-    @voucher_name = 'Discount 17%', 
-    @voucher_quantity = 1, 
-    @voucher_discount = 17, 
+    @voucher_name = 'Discount 10%', 
+    @voucher_quantity = 3, 
+    @voucher_discount = 10, 
     @voucher_expire_date = '2024-12-31', 
     @voucher_id = 2, 
-    @user_id = 3;
+    @user_id = 8;
 
 
 
@@ -315,12 +320,8 @@ CREATE TABLE Order_Details (
 );
 
 
-SELECT od.order_detail_id, od.quantity, od.price, od.order_id, od.proDetail_id, od.voucherDetail_id, od.[status], od.[check], p.pro_name
-FROM Order_Details od 
-JOIN [Order] o ON od.order_id = o.order_id 
-JOIN Product_Details pd ON od.proDetail_id = pd.proDetail_id 
-JOIN [Product] p ON pd.pro_id = p.pro_id 
-WHERE o.user_id = 8
+
+
 
 
 

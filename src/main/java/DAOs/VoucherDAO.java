@@ -342,16 +342,16 @@ public class VoucherDAO {
                 ResultSet rs = selectPst.executeQuery();
                 if (rs.next()) {
                     int currentQuantity = rs.getInt("voucher_quantity");
-                    if (currentQuantity > 1) {
+                    if (currentQuantity >= 1) {
                         String updateSql = "UPDATE VoucherDetail SET voucher_quantity = voucher_quantity - 1 WHERE voucherDetail_id = ?";
                         PreparedStatement updatePst = conn.prepareStatement(updateSql);
                         updatePst.setInt(1, voucherDetailId);
                         updatePst.executeUpdate();
                     } else if (currentQuantity == 1) {
-                        String deleteSql = "DELETE FROM VoucherDetail WHERE voucherDetail_id = ?";
-                        PreparedStatement deletePst = conn.prepareStatement(deleteSql);
-                        deletePst.setInt(1, voucherDetailId);
-                        deletePst.executeUpdate();
+//                        String deleteSql = "DELETE FROM VoucherDetail WHERE voucherDetail_id = ?";
+//                        PreparedStatement deletePst = conn.prepareStatement(deleteSql);
+//                        deletePst.setInt(1, voucherDetailId);
+//                        deletePst.executeUpdate();
                     }
                 }
             } catch (SQLException ex) {

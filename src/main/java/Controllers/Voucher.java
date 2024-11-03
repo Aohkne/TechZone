@@ -5,8 +5,10 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.OrderDAO;
 import DAOs.UserDAO;
 import DAOs.VoucherDAO;
+import Models.OrderDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -90,6 +92,13 @@ public class Voucher extends HttpServlet {
                             request.setAttribute("email", rs.getString("email"));
                             request.setAttribute("address", rs.getString("address"));
                             isId = true;
+
+                            // Get Notification 
+                            OrderDAO orderdao = new OrderDAO();
+                            List<OrderDetail> orderDetails = orderdao.getAllOrderDetailsByUserIdForNotification(userId);
+
+                            // Set the order details in request scope
+                            request.setAttribute("orderDetails", orderDetails);
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -106,7 +115,6 @@ public class Voucher extends HttpServlet {
         List<Models.Voucher> voucher = voucherdao.getVouchersByUserId(idUser);
 
         request.setAttribute("voucher", voucher);
-        System.out.println(voucher);
 
         request.getRequestDispatcher("user_voucher.jsp").forward(request, response);
 
