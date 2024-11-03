@@ -184,6 +184,7 @@ table td button {
 .modal {
     position: fixed;
     display: none;
+    align-items: center;
     z-index: 1;
     left: 0;
     top: 0;
@@ -243,6 +244,13 @@ table td button {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
+.modal-content .voucher-form select {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
 
 /* Close button */
 .modal-content .close-btn {
@@ -292,4 +300,30 @@ table td button {
         width: 80%;
         height: auto;
     }
+}
+
+/* Delete modal */
+#delete-modal .modal-content{
+    background-color: white;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Delete modal buttons */
+.delete-form {
+    display: flex;
+    gap: 2rem;
+}
+.delete-form button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }

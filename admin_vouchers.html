@@ -14,6 +14,7 @@
       defer
     ></script>
     <script src="/asset/js/js_all/js_account.js" defer></script>
+    <script src="/asset/js/js_all/js_modal.js"></script>
   </head>
   <body>
     <!-- SIDE BAR -->
@@ -108,6 +109,7 @@
           <button
             class="add-btn"
             style="background: linear-gradient(60deg, #66bb6a, #43a047)"
+            onclick="showModal('addModal')"
           >
             Add
           </button>
@@ -123,11 +125,11 @@
         <table>
           <thead>
             <tr>
-              <th class="review">ID</th>
-              <th class="author">Date</th>
-              <th class="product-name">Expire Date</th>
-              <th class="posted-date">Sales percentage</th>
-              <th class="operations">Stock</th>
+              <th class="voucher-id-th">ID</th>
+              <th class="voucher-name-th">Name</th>
+              <th class="voucher-discount-th">Discount</th>
+              <th class="voucher-expire-date-th">Expire Date</th>
+              <th class="voucher-quantity-th">Quantity</th>
             </tr>
           </thead>
           <tbody id="table-body"></tbody>
@@ -138,42 +140,53 @@
     <div id="addModal" class="modal">
       <div class="modal-content">
         <h1>Add Voucher</h1>
-        <span class="close-btn">&times;</span>
+        <span class="close-btn" onclick="closeModal('addModal')">&times;</span>
         <form class="voucher-form">
           <label>
-            Enter voucher ID
+            Choose voucher ID
+            <select id="voucher-id">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </label>
+          <label>
+            Enter Voucher Name
             <input
               type="text"
-              id="voucher-id"
-              placeholder="Voucher ID"
+              id="voucher-name"
+              placeholder="Voucher Name"
               required
             />
           </label>
           <label>
-            Enter voucher date
-            <input type="date" id="voucher-date" required />
+            Enter Voucher Discount
+            <input
+              type="text"
+              id="voucher-discount"
+              placeholder="Voucher Discount"
+              required
+            />
           </label>
           <label>
-            Enter expire date
-            <input type="date" id="expire-date" required />
+            Choose Voucher Expire Data
+            <input type="date" id="voucher-expire-date" required />
           </label>
           <label>
-            Enter sales percentage
+            Enter Voucher Quantity
             <input
               type="number"
-              id="sales-percentage"
-              placeholder="Sales %"
+              id="quantity"
+              placeholder="Voucher Quantity"
               required
             />
-          </label>
-          <label>
-            Enter stock
-            <input type="number" id="stock" placeholder="Stock" required />
           </label>
           <div class="add-cancel-btn">
             <button
+              type="button"
               class="cancel-btn"
               style="background: linear-gradient(60deg, #ef5350, #e53935)"
+              onclick="closeModal('addModal')"
             >
               Cancel
             </button>
@@ -188,48 +201,29 @@
         </form>
       </div>
     </div>
-
-    <!-- EDIT MODAL -->
-    <div id="editModal" class="modal">
+    <!-- DELETE MODAL -->
+    <div id="delete-modal" class="modal">
       <div class="modal-content">
-        <h1>Edit Voucher</h1>
-        <span class="close-btn">&times;</span>
-        <form class="voucher-form">
-          <label>
-            Edit voucher ID
-            <input type="text" id="edit-voucher-id" required />
-          </label>
-          <label>
-            Edit voucher date
-            <input type="date" id="edit-voucher-date" required />
-          </label>
-          <label>
-            Edit expire date
-            <input type="date" id="edit-expire-date" required />
-          </label>
-          <label>
-            Edit sales percentage
-            <input type="number" id="edit-sales-percentage" required />
-          </label>
-          <label>
-            Edit stock
-            <input type="number" id="edit-stock" required />
-          </label>
-          <div class="add-cancel-btn">
-            <button
-              class="cancel-btn"
-              style="background: linear-gradient(60deg, #ef5350, #e53935)"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="accept-btn"
-              style="background: linear-gradient(60deg, #66bb6a, #43a047)"
-            >
-              Save
-            </button>
-          </div>
+        <h1>Confirm delete?</h1>
+        <form action="" class="delete-form">
+          <button
+            type="button"
+            style="color: #000000"
+            class="cancel-delete-btn"
+            onclick="closeModal('delete-modal')"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(60deg, #ef5350, #e53935);
+              color: #ffffff;
+            "
+            class="confirm-delete-btn"
+          >
+            Delete
+          </button>
         </form>
       </div>
     </div>
