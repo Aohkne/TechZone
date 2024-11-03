@@ -308,14 +308,19 @@ CREATE TABLE Order_Details (
     order_id INTEGER,
     proDetail_id INTEGER,
 	voucherDetail_id int,
-    status VARCHAR(50), -- tình trạng đơn hàng
-	check VARCHAR(50), -- check người dùng có coi thông báo chưa
+    [status] VARCHAR(50), -- tình trạng đơn hàng
+	[check] VARCHAR(50), -- check người dùng có coi thông báo chưa
 	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
     FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 );
 
 
-
+SELECT od.order_detail_id, od.quantity, od.price, od.order_id, od.proDetail_id, od.voucherDetail_id, od.[status], od.[check], p.pro_name
+FROM Order_Details od 
+JOIN [Order] o ON od.order_id = o.order_id 
+JOIN Product_Details pd ON od.proDetail_id = pd.proDetail_id 
+JOIN [Product] p ON pd.pro_id = p.pro_id 
+WHERE o.user_id = 8
 
 
 
