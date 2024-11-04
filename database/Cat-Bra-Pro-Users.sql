@@ -315,6 +315,7 @@ CREATE TABLE Order_Details (
 	voucherDetail_id int,
     [status] VARCHAR(50), -- tình trạng đơn hàng
 	[check] VARCHAR(50), -- check người dùng có coi thông báo chưa
+	FOREIGN KEY (proDetail_id) REFERENCES [Product_Details](proDetail_id),
 	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
     FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 );

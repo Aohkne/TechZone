@@ -5,6 +5,7 @@
 package Models;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -16,6 +17,11 @@ public class Order {
     private Date orderDate;
     private int userId;
     private int paymentId;
+
+    private String payment_method;
+    private String grandTotal;
+
+    private List<OrderDetail> orderDetails;
 
     public Order() {
     }
@@ -59,4 +65,29 @@ public class Order {
         this.paymentId = paymentId;
     }
 
+    // Getter và Setter cho orderDetails
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public String getGrandTotal() {
+        return grandTotal;
+    }
+
+    public void setGrandTotal(String grandTotal) {
+        this.grandTotal = grandTotal;
+    }
+
+    public String getPayment_method() {
+        return payment_method;
+    }
+
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
+    }
+    
 }
