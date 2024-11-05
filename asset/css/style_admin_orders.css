@@ -265,13 +265,28 @@ main .card .card-graph:hover {
         cursor: pointer;
         transition: background-color 0.1s ease;
     }
+    .order-card-complete-btn{
+        background-color: #2CD06F;
+        border: 1px solid #2CD06F;
+        padding: 0.5rem 1rem;
+        position: absolute;
+        right: 1rem;
+        bottom: 0.25rem;
+        border-radius: 10px;
+        border: none;
+        color: #ffffff;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.1s ease;
+        display: none;
+    }
     /* Accept Order button when hovered and active */
-    .order-card-accept-btn:hover {
+    .order-card-accept-btn:hover, .order-card-complete-btn:hover {
         border: 1px solid #2CD06F;
         background-color: #ffffff;
         color: #2CD06F;
     }
-    .order-card-accept-btn:active {
+    .order-card-accept-btn:active, .order-card-complete-btn:active {
         scale: 0.95;
     }
 }

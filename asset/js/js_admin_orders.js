@@ -2,7 +2,14 @@
 function acceptOrder(button) {
   const orderCard = button.closest(".order-card");
   const statusElement = orderCard.querySelector(".order-card-status");
+  const completeButton = orderCard.querySelector(".order-card-complete-btn");
+  // Update the order status
   statusElement.innerText = "On Going";
+  // Hide the Accept button
+  button.style.display = "none";
+  // Show the complete button
+  completeButton.style.display = "block";
+  // Show the order list by Status New
   showOrdersByStatus("New");
 }
 
@@ -21,6 +28,16 @@ function showOrdersByStatus(status) {
   });
 }
 
+// Complete Order button
+function completeOrder(button) {
+  const orderCard = button.closest(".order-card");
+  const statusElement = orderCard.querySelector(".order-card-status");
+  statusElement.innerText = "Completed";
+  button.style.display = "none";
+  showOrdersByStatus("On Going");
+}
+
+// Default view is Status New
 window.onload = function () {
   showOrdersByStatus("New");
 };
