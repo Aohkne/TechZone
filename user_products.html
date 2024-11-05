@@ -368,10 +368,13 @@
     <!-- Comment Page -->
     <div class="Comment__Layout">
         <div class="comment">
-            <div class="input__comment">
-                <input type="text" class="form__input" placeholder="Type your comment...">
-                <input type="submit" class="send__btn" value="Send">
-            </div>
+            <form action="/User" method="POST" class="comment__form">
+                <div class="input__comment">
+                    <input type="text" class="form__input" placeholder="Type your comment...">
+                    <input type="submit" class="send__btn" value="Send">
+                </div>
+            </form>
+
         </div>
 
         <div class="comment__title">
@@ -420,10 +423,6 @@
                 <div class="edit-cmt-2" onclick="toggleEditComment2(this)">...</div>
             </div>
         </div>
-
-
-
-
     </div>
 
 
