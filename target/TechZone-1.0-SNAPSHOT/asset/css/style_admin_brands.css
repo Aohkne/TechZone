@@ -171,10 +171,12 @@ table td button {
     color: #ffffff;
     padding: 5px;
 }
-.table-container table .operations {
-    width: 121px;
+.description {
+    width:60vw;
 }
-/* MODAL */
+.operations {
+    width: 10vw;
+}
 /* MODAL */
 .modal {
     position: fixed;
@@ -307,9 +309,7 @@ table td button {
 .save-btn {
     background: linear-gradient(60deg, #66bb6a, #43a047);
 }
-.cancel-btn {
-background: linear-gradient(60deg, #ef5350, #e53935);
-}
+
 
 /* Delete modal */
 #delete-modal .modal-content{

@@ -69,12 +69,6 @@ public class OrderDAO {
 
                 // Insert Order Detail
                 for (OrderDetail orderDetail : orderDetails) {
-                    System.out.println(orderDetail.getQuantity());
-                    System.out.println(orderDetail.getPrice());
-                    System.out.println(orderId);
-                    System.out.println(orderDetail.getProDetailId());
-                    System.out.println(orderDetail.getVoucherDetailId());
-                    System.out.println("---------------");
 
                     if (orderDetail.getVoucherDetailId() > 0) {
                         String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id, [status], [check])"
@@ -398,6 +392,7 @@ public class OrderDAO {
                     order.setOrderDate(rs.getDate("order_date"));
                     order.setUserId(rs.getInt("user_id"));
                     order.setPaymentId(rs.getInt("payment_id"));
+                    order.setStatus(rs.getString("status"));
 
                     // Add the order to the list
                     orderList.add(order);
@@ -537,13 +532,13 @@ public class OrderDAO {
 
         return discountValue;
     }
-     public String paymentMethod(int paymentId) {
+
+    public String paymentMethod(int paymentId) {
         String paymentMethod = ""; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = "SELECT p.payment_method FROM Payment p JOIN [Order] o ON p.payment_id = o.payment_id WHERE o.payment_id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
-            
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+
             pst.setInt(1, paymentId);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
@@ -557,4 +552,117 @@ public class OrderDAO {
 
         return paymentMethod;
     }
+
+    public void updateStatusNew(int order_id, String status) {
+        Connection conn = DBConnection.getConnection();
+        int count;
+        try {
+            // SQL query để cập nhật thông tin trạng thái đơn hàng
+            String sql = "UPDATE [Order] SET [status] = ? WHERE order_id = ?;";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, status);  // Đặt tham số status vào chỗ ? thứ nhất
+            pst.setInt(2, order_id);   // Đặt tham số order_id vào chỗ ? thứ hai
+
+            count = pst.executeUpdate(); // Thực hiện cập nhật và lấy số dòng bị ảnh hưởng
+        } catch (SQLException e) {
+            e.printStackTrace(); // Ghi lại ngoại lệ để debug
+            count = 0; // Gán giá trị 0 trong trường hợp lỗi
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close(); // Đóng kết nối sau khi thực hiện
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateStatusDetail(int order_id, String status) {
+        Connection conn = DBConnection.getConnection();
+        int count;
+        try {
+            // SQL query để cập nhật thông tin trạng thái trong Order_Details
+            String sql = "UPDATE Order_Details SET [status] = ? WHERE order_id = ?;";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, status);  // Đặt tham số status vào chỗ ? thứ nhất
+            pst.setInt(2, order_id);   // Đặt tham số order_id vào chỗ ? thứ hai
+
+            count = pst.executeUpdate(); // Thực hiện cập nhật và lấy số dòng bị ảnh hưởng
+        } catch (SQLException e) {
+            e.printStackTrace(); // Ghi lại ngoại lệ để debug
+            count = 0; // Gán giá trị 0 trong trường hợp lỗi
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close(); // Đóng kết nối sau khi thực hiện
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+public List<Models.Order> searchOrders(String query) {
+    List<Models.Order> orderList = new ArrayList<>(); // List to store orders
+    Connection conn = DBConnection.getConnection(); // Connect to the database
+    ResultSet rs = null;
+
+    if (conn != null) {
+        try {
+            // Xây dựng câu truy vấn SQL cho tìm kiếm
+            String sql = "SELECT * FROM [Order] WHERE "
+                    + "CAST(order_id AS VARCHAR) LIKE ? OR "
+                    + "CAST(user_id AS VARCHAR) LIKE ? OR "
+                    + "status LIKE ? OR "
+                    + "CAST(order_date AS VARCHAR) LIKE ?";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            // Set the parameters with the search query
+            String searchKeyword = "%" + query + "%";
+            pst.setString(1, searchKeyword); // Search in order_id
+            pst.setString(2, searchKeyword); // Search in user_id
+            pst.setString(3, searchKeyword); // Search in status
+            pst.setString(4, searchKeyword); // Search in order_date
+
+            // Execute the query
+            rs = pst.executeQuery();
+
+            // Iterate through ResultSet and create Order objects
+            while (rs.next()) {
+                Models.Order order = new Models.Order(); // Create a new Order object
+
+                // Set the properties of the order object based on the result set
+                order.setOrderId(rs.getInt("order_id"));
+                order.setOrderDate(rs.getDate("order_date"));
+                order.setUserId(rs.getInt("user_id"));
+                order.setPaymentId(rs.getInt("payment_id"));
+                order.setStatus(rs.getString("status"));
+
+                // Add the order to the list
+                orderList.add(order);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Log any SQL exception
+        } finally {
+            // Close ResultSet, PreparedStatement, and Connection
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Log any exception when closing resources
+            }
+        }
+    }
+    return orderList; // Return the list of orders
+}
+
+
+     
 }

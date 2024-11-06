@@ -20,6 +20,7 @@ public class Order {
 
     private String payment_method;
     private String grandTotal;
+    private String status;
 
     private List<OrderDetail> orderDetails;
 
@@ -89,5 +90,14 @@ public class Order {
     public void setPayment_method(String payment_method) {
         this.payment_method = payment_method;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     
 }

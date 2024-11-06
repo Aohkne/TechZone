@@ -299,6 +299,7 @@ CREATE TABLE Payment (
 CREATE TABLE [Order] (
     order_id INT PRIMARY KEY IDENTITY(1,1),
     order_date DATE DEFAULT GETDATE(),
+	[status] VARCHAR(50), -- tình trạng đơn hàng
 	user_id INTEGER,
     payment_id INTEGER,
 	FOREIGN KEY (user_id) REFERENCES Users(user_id),

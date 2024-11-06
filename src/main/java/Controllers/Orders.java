@@ -60,10 +60,6 @@ public class Orders extends HttpServlet {
 
             if (searchResults != null) {
                 allOrder = searchResults;
-            } else {
-
-                allOrder = daos.getAllOrders();
-                // Iterate over each order to get the order_id and fetch order details
                 if (allOrder != null) {
                     // Tạo biến grandTotal để tính tổng giá trị của tất cả formattedTotalPrice
 
@@ -71,7 +67,7 @@ public class Orders extends HttpServlet {
                         int orderId = order.getOrderId(); // Lấy order_id từ từng đơn hàng                       
                         List<Models.OrderDetail> orderDetails = daos.getAllOrderDetails(orderId); // Lấy danh sách chi tiết đơn hàng cho order hiện tại
                         BigDecimal grandTotal = BigDecimal.ZERO;
-                        
+
                         for (OrderDetail detail : orderDetails) {
                             // Lấy voucherDetail_id từ detail
                             int voucherDetailId = detail.getVoucherDetailId();
@@ -104,7 +100,55 @@ public class Orders extends HttpServlet {
                         // Gán danh sách chi tiết đơn hàng vào đối tượng order hiện tại
                         order.setOrderDetails(orderDetails);
                         String method = daos.paymentMethod(orderId);
-                        System.out.println("oo"+method);
+                        order.setPayment_method(method);
+                    }
+
+                }
+                
+            } else {
+
+                allOrder = daos.getAllOrders();
+                // Iterate over each order to get the order_id and fetch order details
+                if (allOrder != null) {
+                    // Tạo biến grandTotal để tính tổng giá trị của tất cả formattedTotalPrice
+
+                    for (Models.Order order : allOrder) {
+                        int orderId = order.getOrderId(); // Lấy order_id từ từng đơn hàng                       
+                        List<Models.OrderDetail> orderDetails = daos.getAllOrderDetails(orderId); // Lấy danh sách chi tiết đơn hàng cho order hiện tại
+                        BigDecimal grandTotal = BigDecimal.ZERO;
+
+                        for (OrderDetail detail : orderDetails) {
+                            // Lấy voucherDetail_id từ detail
+                            int voucherDetailId = detail.getVoucherDetailId();
+
+                            // Gọi phương thức discount để lấy giá trị giảm giá (dưới dạng chuỗi)
+                            int discount = daos.discount(voucherDetailId);
+
+                            // Tính giá trị totalPrices ban đầu (giá * số lượng)
+                            BigDecimal totalPrices = detail.getPrice().multiply(new BigDecimal(detail.getQuantity()));
+
+                            // Tính giá trị giảm giá (discount)
+                            BigDecimal discountRate = new BigDecimal(discount).divide(new BigDecimal(100));
+                            BigDecimal discountAmount = totalPrices.multiply(discountRate);
+
+                            // Tính tổng giá trị sau khi đã trừ giảm giá
+                            BigDecimal totalPrice = totalPrices.subtract(discountAmount);
+
+                            // Cộng dồn giá trị totalPrice vào grandTotal
+                            grandTotal = grandTotal.add(totalPrice);
+
+                            // Định dạng totalPrice thành chuỗi để hiển thị
+                            String formattedTotalPrice = formatPrices(totalPrice.setScale(2, RoundingMode.HALF_UP).toString());
+
+                            // Gán giá trị totalPrice đã định dạng vào detail
+                            detail.setTotalPrice(formattedTotalPrice);
+                        }
+                        // Sau khi tính toán xong, định dạng grandTotal để hiển thị
+                        String formattedGrandTotal = formatPrices(grandTotal.setScale(2, RoundingMode.HALF_UP).toString());
+                        order.setGrandTotal(formattedGrandTotal);
+                        // Gán danh sách chi tiết đơn hàng vào đối tượng order hiện tại
+                        order.setOrderDetails(orderDetails);
+                        String method = daos.paymentMethod(orderId);
                         order.setPayment_method(method);
                     }
 
@@ -129,20 +173,44 @@ public class Orders extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        if (request.getParameter("btnsearch") != null) {
-//            // Logic xử lý tìm kiếm khi nút submit được nhấn
-//            String query = request.getParameter("query");
-//
-//            // Gọi DAO để tìm kiếm người dùng
-//            OrderDAO dao = new OrderDAO();
-//            List<Models.Order> searchResults = dao.searchOrder(query);
-//
-//            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
-//            request.setAttribute("searchResults", searchResults);
-//
-//            // Chuyển tiếp đến trang hiển thị danh sách người dùng
-//            doGet(request, response);
-//        }
+        if (request.getParameter("btnAccept") != null) {
+
+            String status = "Progress";
+
+            OrderDAO dao = new OrderDAO();
+            int order_id = Integer.parseInt(request.getParameter("order_id"));
+
+            dao.updateStatusNew(order_id, status);
+            dao.updateStatusDetail(order_id, status);
+
+            response.sendRedirect("/Admin/Orders");
+
+        } else if (request.getParameter("btnComplete") != null) {
+
+            String status = "Delivered";
+
+            OrderDAO dao = new OrderDAO();
+            int order_id = Integer.parseInt(request.getParameter("order_id"));
+
+            dao.updateStatusNew(order_id, status);
+            dao.updateStatusDetail(order_id, status);
+
+            response.sendRedirect("/Admin/Orders");
+
+        } else if (request.getParameter("btnsearch") != null) {
+            // Logic xử lý tìm kiếm khi nút submit được nhấn
+            String query = request.getParameter("query");
+
+            // Gọi DAO để tìm kiếm người dùng
+            OrderDAO dao = new OrderDAO();
+            List<Models.Order> searchResults = dao.searchOrders(query);
+
+            // Đặt kết quả tìm kiếm vào request attribute để hiển thị ở JSP
+            request.setAttribute("searchResults", searchResults);
+
+            // Chuyển tiếp đến trang hiển thị danh sách người dùng
+            doGet(request, response);
+        }
     }
 
     public String formatPrices(String price) {

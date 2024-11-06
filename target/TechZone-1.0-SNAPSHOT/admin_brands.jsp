@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="/asset/css/style_admin_brands.css" />
         <!-- Style Sidebar -->
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+        <link rel="stylesheet" href="/asset/css/css_all/style_delete_modal.css"/>
         <script src="/asset/js/js_all/js_modal.js" defer></script>
         <!-- Scripts Admin Brands -->
         <!-- Scripts Delete button -->
@@ -241,7 +242,7 @@
                         </label>
 
                         <div class="add-cancel-btn">
-                            <button style="color: #000000" class="cancel-btn" type="button" onclick="closeModal('add-modal')">Cancel</button>
+                            <button style="color: #ffffff; background: linear-gradient(60deg, #ef5350, #e53935)" class="cancel-btn" type="button" onclick="closeModal('add-modal')">Cancel</button>
                             <button type="submit" style="background: linear-gradient(60deg, #66bb6a, #43a047)" class="accept-btn" name="btnAddBrand">
                                 Add
                             </button>
@@ -293,7 +294,7 @@
                     <form action="/Admin/Brand" method="post" class="delete-form">
                         <input type="hidden" id="delete-brand-id" name="brand_id"/>
                         <button
-                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            style="color: #000000"
                             class="cancel-btn"
                             type="button"
                             onclick="closeModal('delete-modal')"

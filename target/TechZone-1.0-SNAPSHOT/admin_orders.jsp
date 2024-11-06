@@ -5,6 +5,7 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,37 +118,38 @@
                 <!-- CHANGE STATUS -->
                 <div class="change-status-container">
                     <button
-                        class="change-new-status-btn"
-                        onclick="showOrdersByStatus('New')"
+                        class="change-not-yet-btn selected"
+                        onclick="selectButton(this, 'Not Yet')"
                         >
-                        New
+                        Not Yet
                     </button>
                     <button
-                        class="change-on-going-status-btn"
-                        onclick="showOrdersByStatus('On Going')"
+                        class="change-progress-status-btn"
+                        onclick="selectButton(this, 'Progress')"
                         >
-                        On Going
+                        Progress
                     </button>
                     <button
-                        class="change-completed-status-btn"
-                        onclick="showOrdersByStatus('Completed')"
+                        class="change-delivered-status-btn"
+                        onclick="selectButton(this, 'Delivered')"
                         >
-                        Completed
+                        Delivered
                     </button>
                 </div>
             </div>
+
             <!-- ORDERS CONTAINER -->
+
+            <!-- ORDERS Not Yet -->
             <div class="orders-container">
                 <c:forEach var="order" items="${allOrder}">
+                    <div class="order-card">
+                        <!-- The Orders status -->
+                        <div class="order-status-text" type="hidden">${order.status}</div>
+                        <div class="order-card-status">${order.status}</div>
 
-                    <div class="order-card">                       
-                        <!-- The Orders status -->                   
-                        <div class="order-card-status">New</div>
                         <!-- When this button is clicked, view the details of the order -->
-                        <button
-                            class="order-card-view-detail-btn"
-                            onclick="expandOrderDetail()"
-                            >
+                        <button class="order-card-view-detail-btn" onclick="expandOrderDetail()">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span class="order-detail">
                                 <p class="order-detail-total-items">Total Items: 2</p>
@@ -155,14 +157,13 @@
                                 <ul class="order-detail-item-list">
                                     <c:forEach var="product" items="${order.orderDetails}">
                                         <li class="order-detail-item-container">
-
                                             <div class="order-detail-item">
                                                 <p class="order-detail-item-id">
                                                     <strong>Product ID: </strong>${product.proDetail_id}
                                                 </p>
                                                 <hr />
                                                 <p class="order-detail-item-quantity">
-                                                    <strong>Quantity: </strong>${product.pro_name}
+                                                    <strong>Product Name: </strong>${product.pro_name}
                                                 </p>
                                                 <p class="order-detail-item-quantity">
                                                     <strong>Quantity: </strong>${product.quantity}
@@ -173,38 +174,46 @@
                                                 <p class="order-detail-item-price">
                                                     <strong>Total: </strong>${product.totalPrice}
                                                 </p>
-
-
-                                                <img
-                                                    class="order-detail-item-image"
-                                                    src=".${product.pro_image}"
-                                                    />
+                                                <img class="order-detail-item-image" src=".${product.pro_image}" />
                                             </div>
-
                                         </li>
-                                    </c:forEach> 
-                                </ul
-
-                                ></span>  
+                                    </c:forEach>
+                                </ul>
+                            </span>
                         </button>
 
+                        <form action="/Admin/Orders" method="POST">
+                            <!-- Display Order Information -->
+                            <input type="hidden" name="order_id" value="${order.orderId}" />
+                            <p><strong>Order ID:</strong> ${order.orderId}</p>
+                            <hr />
+                            <p><strong>User ID:</strong> ${order.userId}</p>
+                            <p><strong>Payment Method:</strong> ${order.payment_method}</p>
+                            <p><strong>Date:</strong> <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy"/></p>
+                            <hr />
+                            <p><strong>Total Price: </strong>${order.grandTotal} </p>
 
-                        <!-- Display Order Information -->
-                        <p><strong>Order ID:</strong> ${order.orderId}</p>
-                        <hr />
-                        <p><strong>User ID:</strong> ${order.userId}</p>
-                        <p><strong>Payment Method:</strong> ${order.payment_method}</p>
-                        <p><strong>Date:</strong> <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy"/></p>
-                        <hr />
-                        <p><strong>Total Price: </strong>${order.grandTotal} </p>
+                            <!-- Accept button: chỉ hiển thị nếu trạng thái là "Not Yet" -->
+                            <c:if test="${fn:toLowerCase(fn:trim(order.status)) eq 'not yet'}">
+                                <button class="order-card-accept-btn" onclick="acceptOrder(this)" name="btnAccept">
+                                    Accept
+                                </button>
+                            </c:if>
 
-                        <button class="order-card-accept-btn" onclick="acceptOrder(this)">
-                            Accept
-                        </button>
+                            <c:if test="${fn:toLowerCase(fn:trim(order.status)) eq 'progress'}">
+                                <button class="order-card-complete-btn" onclick="completeOrder(this)" name="btnComplete">
+                                    Complete
+                                </button>
+                            </c:if>
+                        </form>
                     </div>
-
                 </c:forEach>
             </div>
+
+
+            <!-- ORDERS Ongoing -->
+
+
         </main>
     </body>
 </html>
