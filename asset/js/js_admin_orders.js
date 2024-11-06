@@ -37,6 +37,20 @@ function completeOrder(button) {
   showOrdersByStatus("On Going");
 }
 
+function selectButton(button, status) {
+  // Remove 'selected' class from all buttons in the container
+  const buttons = document.querySelectorAll(".change-status-container button");
+  buttons.forEach((btn) => {
+    btn.classList.remove("selected");
+  });
+
+  // Add 'selected' class to the clicked button
+  button.classList.add("selected");
+
+  // Call the existing function to show orders by status
+  showOrdersByStatus(status);
+}
+
 // Default view is Status New
 window.onload = function () {
   showOrdersByStatus("New");

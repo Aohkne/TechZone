@@ -66,11 +66,6 @@
               ><i class="fa-solid fa-table-list"></i>Orders</a
             >
           </li>
-          <li>
-            <a href="admin_chat.html"
-              ><i class="fa-solid fa-message"></i>Chat</a
-            >
-          </li>
         </ul>
       </div>
       <div class="account dropdown-button">
@@ -111,20 +106,20 @@
         <!-- CHANGE STATUS -->
         <div class="change-status-container">
           <button
-            class="change-new-status-btn"
-            onclick="showOrdersByStatus('New')"
+            class="change-new-status-btn selected"
+            onclick="selectButton(this, 'New')"
           >
             New
           </button>
           <button
             class="change-on-going-status-btn"
-            onclick="showOrdersByStatus('On Going')"
+            onclick="selectButton(this, 'On Going')"
           >
             On Going
           </button>
           <button
             class="change-completed-status-btn"
-            onclick="showOrdersByStatus('Completed')"
+            onclick="selectButton(this, 'Completed')"
           >
             Completed
           </button>

@@ -120,13 +120,15 @@ main .card .card-graph:hover {
     line-height: 3rem;
     width: 8rem;
     margin: auto;
-    background-color: #22C3D7;
     border-radius: 6rem;
-    border: 1px solid #177581;
+    border: none;
     cursor: pointer;
     color: #ffffff;
     font-weight: 500;
     font-size: 18px;
+}
+.selected {
+    background-color: #22C3D7;
 }
 /* ORDERS CONTAINER */
 .orders-container {
