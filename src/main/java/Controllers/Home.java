@@ -5,10 +5,13 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.CoversationDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
 import DB.DBConnection;
+import Models.Conversation;
+import Models.Message;
 import Models.OrderDetail;
 import Models.Product;
 import jakarta.servlet.RequestDispatcher;
@@ -114,6 +117,7 @@ public class Home extends HttpServlet {
 
                             if (rs != null && rs.next()) {
                                 request.setAttribute("username", rs.getString("username"));
+                                request.setAttribute("userId", userId);
                                 request.setAttribute("avatar", rs.getString("avatar"));
                                 request.setAttribute("email", rs.getString("email"));
                                 isId = true;
@@ -124,6 +128,25 @@ public class Home extends HttpServlet {
 
                                 // Set the order details in request scope
                                 request.setAttribute("orderDetails", orderDetails);
+
+                                CoversationDAO coversationdao = new CoversationDAO();
+
+                                //Sent Message
+                                String inputMessage = request.getParameter("messageInput");
+                                if (inputMessage != null) {
+                                    coversationdao.sendMessage(userId, inputMessage);
+                                    System.out.println(inputMessage);
+                                }
+
+                                //Get Message
+                                List<Conversation> conversations = coversationdao.getConversationsByUserId(userId);
+
+                                if (!conversations.isEmpty()) {
+                                    int firstConversationId = conversations.get(0).getConversationId();
+                                    List<Message> messages = coversationdao.getMessagesByConversationId(firstConversationId);
+
+                                    request.setAttribute("messages", messages);
+                                }
 
                             }
                         } catch (SQLException e) {

@@ -169,6 +169,7 @@ public class Payment extends HttpServlet {
         //Order
         Order order = new Order();
         order.setUserId(Integer.parseInt(idUser));
+        order.setStatus("Not Yet");
 
         //OrderDetail
         List<OrderDetail> orderDetailsList = new ArrayList<>();
@@ -189,8 +190,8 @@ public class Payment extends HttpServlet {
             voucherdao.updateVoucherQuantity(Integer.parseInt(voucherDetailIDList[i]));
 
             //Update Product
-            ProductDAO productdao = new ProductDAO();
-            productdao.updateProductQuantity(Integer.parseInt(productDetailIDList[i]), Integer.parseInt(quantityList[i]));
+//            ProductDAO productdao = new ProductDAO();
+//            productdao.updateProductQuantity(Integer.parseInt(productDetailIDList[i]), Integer.parseInt(quantityList[i]));
         }
 
         //Add Order

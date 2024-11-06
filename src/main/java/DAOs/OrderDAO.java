@@ -53,11 +53,12 @@ public class OrderDAO {
                 }
 
                 // Insert Order 
-                String insertOrder = "INSERT INTO [Order] (user_id, payment_id) "
-                        + "VALUES (?, ?)";
+                String insertOrder = "INSERT INTO [Order] (user_id,[status] ,payment_id) "
+                        + "VALUES (?, ?, ?)";
                 pst = conn.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
                 pst.setInt(1, order.getUserId());
-                pst.setInt(2, paymentId);
+                pst.setString(2, order.getStatus());
+                pst.setInt(3, paymentId);
                 pst.executeUpdate();
 
                 //Get Order ID
@@ -74,7 +75,6 @@ public class OrderDAO {
                         String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, voucherDetail_id, [status], [check])"
                                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
                         pst = conn.prepareStatement(sql);
-                        System.out.println("123");
                         pst.setInt(1, orderDetail.getQuantity());
                         pst.setBigDecimal(2, orderDetail.getPrice());
                         pst.setInt(3, orderId);
@@ -88,7 +88,6 @@ public class OrderDAO {
                         String sql = "INSERT INTO Order_Details (quantity, price, order_id, proDetail_id, [status], [check]) "
                                 + "VALUES (?, ?, ?, ?, ?, ?)";
                         pst = conn.prepareStatement(sql);
-                        System.out.println("---+1231+");
 
                         pst.setInt(1, orderDetail.getQuantity());
                         pst.setBigDecimal(2, orderDetail.getPrice());
@@ -172,7 +171,7 @@ public class OrderDAO {
                 + "LEFT JOIN Voucher v ON vd.voucher_id = v.voucher_id "
                 + "WHERE o.user_id = ?";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
 
             pst.setInt(1, userId);
             ResultSet resultSet = pst.executeQuery();
@@ -223,7 +222,7 @@ public class OrderDAO {
                 + "LEFT JOIN Voucher v ON vd.voucher_id = v.voucher_id "
                 + "WHERE p.pro_name LIKE ?"; // Filter for product name
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, "%" + proName + "%");
 
             ResultSet resultSet = pst.executeQuery();
@@ -266,7 +265,7 @@ public class OrderDAO {
 
         if (conn != null) {
             String query = "DELETE FROM Order_Details WHERE order_detail_id = ?";
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
+            try ( PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, id);
                 int affectedRows = pst.executeUpdate();
 
@@ -289,7 +288,7 @@ public class OrderDAO {
     public void updateCheckStatusToTrue(String orderDetailId) {
         String query = "UPDATE Order_Details SET [check] = 'true' WHERE order_detail_id = ?";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
 
             pst.setString(1, orderDetailId);
             int rowsAffected = pst.executeUpdate();
@@ -515,11 +514,11 @@ public class OrderDAO {
         int discountValue = 0; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = "SELECT voucher_discount FROM VoucherDetail WHERE voucherDetail_id = ?";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
 
             if (conn != null) {
                 pst.setInt(1, voucherDetailId);
-                try (ResultSet rs = pst.executeQuery()) {
+                try ( ResultSet rs = pst.executeQuery()) {
                     if (rs.next()) {
                         // Lấy giá trị voucher_discount từ ResultSet
                         discountValue = rs.getInt("voucher_discount");
@@ -537,10 +536,10 @@ public class OrderDAO {
         String paymentMethod = ""; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = "SELECT p.payment_method FROM Payment p JOIN [Order] o ON p.payment_id = o.payment_id WHERE o.payment_id = ?";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setInt(1, paymentId);
-            try (ResultSet rs = pst.executeQuery()) {
+            try ( ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     // Lấy giá trị payment_method từ ResultSet
                     paymentMethod = rs.getString("payment_method");
@@ -604,65 +603,64 @@ public class OrderDAO {
             }
         }
     }
-public List<Models.Order> searchOrders(String query) {
-    List<Models.Order> orderList = new ArrayList<>(); // List to store orders
-    Connection conn = DBConnection.getConnection(); // Connect to the database
-    ResultSet rs = null;
 
-    if (conn != null) {
-        try {
-            // Xây dựng câu truy vấn SQL cho tìm kiếm
-            String sql = "SELECT * FROM [Order] WHERE "
-                    + "CAST(order_id AS VARCHAR) LIKE ? OR "
-                    + "CAST(user_id AS VARCHAR) LIKE ? OR "
-                    + "status LIKE ? OR "
-                    + "CAST(order_date AS VARCHAR) LIKE ?";
+    public List<Models.Order> searchOrders(String query) {
+        List<Models.Order> orderList = new ArrayList<>(); // List to store orders
+        Connection conn = DBConnection.getConnection(); // Connect to the database
+        ResultSet rs = null;
 
-            PreparedStatement pst = conn.prepareStatement(sql);
-
-            // Set the parameters with the search query
-            String searchKeyword = "%" + query + "%";
-            pst.setString(1, searchKeyword); // Search in order_id
-            pst.setString(2, searchKeyword); // Search in user_id
-            pst.setString(3, searchKeyword); // Search in status
-            pst.setString(4, searchKeyword); // Search in order_date
-
-            // Execute the query
-            rs = pst.executeQuery();
-
-            // Iterate through ResultSet and create Order objects
-            while (rs.next()) {
-                Models.Order order = new Models.Order(); // Create a new Order object
-
-                // Set the properties of the order object based on the result set
-                order.setOrderId(rs.getInt("order_id"));
-                order.setOrderDate(rs.getDate("order_date"));
-                order.setUserId(rs.getInt("user_id"));
-                order.setPaymentId(rs.getInt("payment_id"));
-                order.setStatus(rs.getString("status"));
-
-                // Add the order to the list
-                orderList.add(order);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Log any SQL exception
-        } finally {
-            // Close ResultSet, PreparedStatement, and Connection
+        if (conn != null) {
             try {
-                if (rs != null) {
-                    rs.close();
+                // Xây dựng câu truy vấn SQL cho tìm kiếm
+                String sql = "SELECT * FROM [Order] WHERE "
+                        + "CAST(order_id AS VARCHAR) LIKE ? OR "
+                        + "CAST(user_id AS VARCHAR) LIKE ? OR "
+                        + "status LIKE ? OR "
+                        + "CAST(order_date AS VARCHAR) LIKE ?";
+
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                // Set the parameters with the search query
+                String searchKeyword = "%" + query + "%";
+                pst.setString(1, searchKeyword); // Search in order_id
+                pst.setString(2, searchKeyword); // Search in user_id
+                pst.setString(3, searchKeyword); // Search in status
+                pst.setString(4, searchKeyword); // Search in order_date
+
+                // Execute the query
+                rs = pst.executeQuery();
+
+                // Iterate through ResultSet and create Order objects
+                while (rs.next()) {
+                    Models.Order order = new Models.Order(); // Create a new Order object
+
+                    // Set the properties of the order object based on the result set
+                    order.setOrderId(rs.getInt("order_id"));
+                    order.setOrderDate(rs.getDate("order_date"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setPaymentId(rs.getInt("payment_id"));
+                    order.setStatus(rs.getString("status"));
+
+                    // Add the order to the list
+                    orderList.add(order);
                 }
-                if (conn != null) {
-                    conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Log any SQL exception
+            } finally {
+                // Close ResultSet, PreparedStatement, and Connection
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Log any exception when closing resources
                 }
-            } catch (SQLException e) {
-                e.printStackTrace(); // Log any exception when closing resources
             }
         }
+        return orderList; // Return the list of orders
     }
-    return orderList; // Return the list of orders
-}
 
-
-     
 }

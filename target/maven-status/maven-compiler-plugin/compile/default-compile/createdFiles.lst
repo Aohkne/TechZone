@@ -1,9 +1,11 @@
 Controllers\Home.class
+DAOs\CoversationDAO.class
 DAOs\CategoryDAO.class
 Controllers\Brand.class
 Controllers\Vouchers.class
 Controllers\Voucher.class
 DAOs\OrderDAO.class
+Models\Message.class
 Controllers\History.class
 Controllers\Cart.class
 Controllers\Error.class
@@ -27,6 +29,7 @@ DAOs\AccountDAO.class
 Models\OrderDetail.class
 Controllers\Categories.class
 DAOs\ProductDAO.class
+Models\Conversation.class
 Filter\MyFilter.class
 Controllers\User.class
 Controllers\Login.class
