@@ -81,6 +81,11 @@
                            ><i class="fa-solid fa-table-list"></i>Orders</a
                         >
                     </li>
+                    <li>
+                        <a href="/Admin/Chat"
+                           ><i class="fa-solid fa-table-list"></i>Chat</a
+                        >
+                    </li>
                 </ul>
             </div>
             <div class="account dropdown-button">

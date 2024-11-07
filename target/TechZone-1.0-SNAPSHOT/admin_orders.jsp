@@ -67,12 +67,17 @@
                     </li>
                     <li>
                         <a href="/Admin/Vouchers"
-                           ><i class="fa-solid fa-ticket"></i>Vouchers</a
+                           ><i class="fa-solid fa-map"></i>Vouchers</a
                         >
                     </li>
                     <li>
                         <a href="/Admin/Orders"
                            ><i class="fa-solid fa-table-list"></i>Orders</a
+                        >
+                    </li>
+                    <li>
+                        <a href="/Admin/Chat"
+                           ><i class="fa-solid fa-table-list"></i>Chat</a
                         >
                     </li>
                 </ul>
