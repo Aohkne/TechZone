@@ -415,6 +415,71 @@
             </div>
         </div>
     </div>
+    
+    
+    
+    <!-- Comment Page -->
+    <div class="Comment__Layout">
+        <div class="comment">
+            <form action="./Product" method="GET" class="comment__form">
+                <div class="input__comment">
+                    <input type="hidden" name="id" value="${id}">
+                    <input type="text" class="form__input" name="comment_input" placeholder="Type your comment...">
+                    <input type="submit" class="send__btn" value="Send">
+                </div>
+            </form>
+        </div>
+
+        <div class="comment__title">
+            <div class="cmt-header">Comments</div>
+            <div class="cmt-quantity">27</div>
+        </div>
+        <div class="comment__user">
+            <div class="cmt__user-header">
+                <div class="cmt-picture">
+                    <img src="./asset/img/img_user/defaultAvt.jpg" alt="User_img">
+                </div>
+                <div class="cmt__name">Nguyen Thanh Bao</div>
+                <div class="cmt__date">26/10/2024</div>
+            </div>
+
+            <div class="cmt-content">
+                <div class="cmt__user-content">Cai may tinh nay sai nhu db de nghi web nghi ban di </div>
+            </div>
+
+            <div class="reply-content">
+                <i class="logo-reply ti-comment-alt"></i>
+                <div class="reply-title" onclick="toggleReplyBox(this)">Reply</div>
+                <div class="edit-cmt" onclick="toggleEditComment(this)">...</div>
+                <div class="more-cmt" onclick="toggleReplyContent(this)">
+                    <i class="more-arrow fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+        </div>
+        <!--con-->
+        <div class="reply-user" style="display: none;">
+            <div class="reply__user-header">
+                <div class="reply-picture">
+                    <img src="./asset/img/img_user/defaultAvt.jpg" alt="User_img">
+                </div>
+                <div class="reply__name">Nguyen Thanh Bao</div>
+                <div class="reply__date">26/10/2024</div>
+            </div>
+
+            <div class="reply-content__user">
+                <div class="reply__user-content">Cai may tinh nay sai nhu db de nghi web nghi ban di </div>
+            </div>
+
+            <div class="reply-content-2">
+                <i class="logo-reply ti-comment-alt"></i>
+                <div class="reply-title-2" onclick="toggleReplyBox2(this)">Reply</div>
+                <div class="edit-cmt-2" onclick="toggleEditComment2(this)">...</div>
+            </div>
+        </div>
+
+
+    </div>
 
 </body>
 

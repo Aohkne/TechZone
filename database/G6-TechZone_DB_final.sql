@@ -331,6 +331,27 @@ CREATE TABLE Message (
     FOREIGN KEY (conversation_id) REFERENCES Conversation(conversation_id)
 );
 
+CREATE TABLE Comment (
+    comment_id INT IDENTITY(1,1) PRIMARY KEY,
+    contents TEXT,
+    created_at DATE DEFAULT GETDATE(),
+    pro_id INT,
+    user_id INT,
+    FOREIGN KEY (pro_id) REFERENCES [Product](pro_id), -- Giả định bảng Project có cột id làm khóa chính
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)    -- Giả định bảng User có cột id làm khóa chính
+);
+
+CREATE TABLE Comment_Reply (
+    reply_id INT IDENTITY(1,1) PRIMARY KEY,
+    contents TEXT,
+    created_at DATE DEFAULT GETDATE(),
+    comment_id INT,
+    user_id INT,
+    FOREIGN KEY (comment_id) REFERENCES Comment(comment_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)    -- Giả định bảng User có cột id làm khóa chính
+);
+
+Select * from Comment
 
 
 

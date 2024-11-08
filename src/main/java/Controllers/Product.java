@@ -6,6 +6,7 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.BrandDAO;
+import DAOs.CommentDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
@@ -46,6 +47,8 @@ public class Product extends HttpServlet {
 
         if (path.startsWith("/Home/Product") || path.startsWith("/Product")) {
             String id = (String) request.getParameter("id");
+             request.setAttribute("id", id);
+            
             Cookie[] cookies = request.getCookies();
             String idUser = "";
             boolean isId = false;
@@ -78,6 +81,19 @@ public class Product extends HttpServlet {
 
                                 // Set the order details in request scope
                                 request.setAttribute("orderDetails", orderDetails);
+                            
+                                // Comment
+                                CommentDAO commentdao = new CommentDAO();
+                                String comment_input = request.getParameter("comment_input");
+                                System.out.println(comment_input);
+                                if(comment_input != null){
+                                    int productId = Integer.parseInt(id);
+                                    commentdao.addComment(comment_input, productId, userId);
+                                }
+                               
+                                
+                                
+                            
                             }
                         } catch (SQLException e) {
                         }

@@ -427,3 +427,372 @@
         }
     }
 }
+
+
+.Comment__Layout {
+    background-color: #EDEDED;
+    padding: 40px 30px;
+    margin: 30px 21px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.comment {
+    border-bottom: 2px solid #242424;
+    height: 150px;
+}
+
+.input__comment {
+    padding: 60px 10px;
+    background-color: #fff;
+    position: relative;
+    border-radius: 5px;
+}
+
+.form__input {
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    width: 98%;
+    font-size: 20px;
+    border: none;
+    outline: none
+}
+
+.send__btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 15px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #FDC62E;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.send__btn:hover {
+    transform: translateY(5px);
+    /* Chuyển xuống 5px */
+    box-shadow: none;
+    /* Loại bỏ bóng */
+    cursor: pointer;
+}
+
+.comment__title {
+    display: flex;
+    padding: 20px 0px;
+    font-weight: 700;
+}
+
+.cmt-header {
+    font-size: 35px;
+    padding: 8px 10px;
+}
+
+.cmt-quantity {
+    font-size: 20px;
+    padding: 8px 10px;
+    background-color: #FDC62E;
+    border-radius: 10px;
+}
+
+
+.cmt__user-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.cmt-picture img {
+    display: block;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.cmt__name {
+    font-weight: 800;
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+.cmt__date {
+    color: #888;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 0px 10px;
+}
+
+.cmt__user-content {
+    font-weight: 800;
+    font-size: 20px;
+    padding-top: 8px;
+    padding-left: 90px;
+    border: none;
+    outline: none;
+}
+
+.reply-content {
+    display: flex;
+    align-items: center;
+    padding: 50px 90px;
+    /* background-color: red; */
+    position: relative;
+
+}
+
+.logo-reply {
+    font-size: 20px;
+    color: #FDC62E;
+}
+
+.reply-title {
+    color: #FDC62E;
+    font-size: 25px;
+    padding-left: 8px;
+    padding-bottom: 5px;
+
+}
+
+.reply-title:hover {
+    cursor: pointer;
+}
+
+.reply__date {
+    color: #888;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 0px 10px;
+}
+
+.edit-cmt {
+    font-size: 25px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+
+.edit-cmt:hover {
+    cursor: pointer;
+}
+
+
+.reply-content-2 {
+    display: flex;
+    align-items: center;
+    padding: 50px 170px;
+    position: relative;
+}
+
+
+.reply-title-2 {
+    color: #FDC62E;
+    font-size: 25px;
+    padding-left: 8px;
+    padding-bottom: 5px;
+
+}
+
+.reply-title-2:hover {
+    cursor: pointer;
+}
+
+
+.edit-cmt-2 {
+    font-size: 25px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+
+.edit-cmt-2:hover {
+    cursor: pointer;
+}
+
+.more-cmt {
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+    font-size: 20px;
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.more-cmt:hover {
+    cursor: pointer;
+}
+
+.reply-user {
+    padding: 20px 0px;
+}
+
+.reply__user-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 90px;
+}
+
+.reply-picture img {
+    display: block;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.reply__name {
+    font-weight: 800;
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+.reply__user-content {
+    font-weight: 800;
+    font-size: 20px;
+    padding-top: 8px;
+    padding-left: 170px;
+    border: none;
+    outline: none;
+}
+
+/* Khung chat reply */
+.reply-box {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-left: 90px;
+}
+
+.reply-box-2 {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-left: 165px;
+}
+
+.reply-input {
+    min-width: 90%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: none;
+    outline: none;
+}
+
+.reply-input-2 {
+    min-width: 90%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: none;
+    outline: none;
+}
+
+.reply-send-btn {
+    margin-left: 40px;
+    padding: 8px 15px;
+    background-color: #FDC62E;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.reply-send-btn:hover {
+    transform: translateY(5px);
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.reply-send-btn-2 {
+    margin-left: 30px;
+    padding: 8px 15px;
+    background-color: #FDC62E;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reply-send-btn-2:hover {
+    transform: translateY(5px);
+    box-shadow: none;
+    cursor: pointer;
+}
+
+/* Edit comment */
+
+/* CSS cho Edit Comment */
+.edit-comment {
+    font-size: 16px;
+    color: #242424;
+    font-weight: 800;
+    background-color: #FDC62E;
+    padding: 10px 10px;
+    max-width: 120px;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 110px;
+    margin-top: 40px;
+}
+
+.edit-comment-2 {
+    font-size: 16px;
+    color: #242424;
+    font-weight: 800;
+    background-color: #FDC62E;
+    padding: 10px 10px;
+    max-width: 120px;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 110px;
+    margin-top: 40px;
+}
+
+/* CSS cho nút Save */
+.save-btn {
+    font-size: 16px;
+    color: #242424;
+    font-weight: 700;
+    background-color: #FDC62E;
+    padding: 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 110px;
+    margin-top: 40px;
+    border: none;
+}
+
+.save-btn-2 {
+    font-size: 16px;
+    color: #242424;
+    font-weight: 700;
+    background-color: #FDC62E;
+    padding: 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 110px;
+    margin-top: 40px;
+    border: none;
+}

@@ -19,7 +19,7 @@ public class DBConnection {
         try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://KHOA\\\\SQLEXPRESS:1433;databaseName=SWP;user=sa;password=12345;encrypt=true;trustServerCertificate=true;";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=SWP;user=sa;password=12345678;encrypt=true;trustServerCertificate=true;";
             conn = DriverManager.getConnection(url);
         } catch (Exception ex) {
             conn = null;
