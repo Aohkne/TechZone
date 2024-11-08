@@ -5,7 +5,7 @@
 package Controllers;
 
 import DAOs.AccountDAO;
-import DAOs.CoversationDAO;
+import DAOs.ConversationDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
@@ -129,7 +129,7 @@ public class Home extends HttpServlet {
                                 // Set the order details in request scope
                                 request.setAttribute("orderDetails", orderDetails);
 
-                                CoversationDAO coversationdao = new CoversationDAO();
+                                ConversationDAO coversationdao = new ConversationDAO();
 
                                 //Sent Message
                                 String inputMessage = request.getParameter("messageInput");

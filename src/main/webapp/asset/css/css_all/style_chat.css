@@ -84,14 +84,19 @@ html ::-webkit-scrollbar-track {
     span {
         padding: 5px 10px;
         border-radius: 5px;
-        background-color: var(--primary-yellow-color);
+        border: 1px solid var(--primary-black-color);
+        background-color: var(--white-color);
     }
-
+    &.user {
+        justify-content: right;
+        span {
+            border: none;
+            background-color: var(--primary-yellow-color);
+        }
+    }
 }
 
-.user {
-    justify-content: right;
-}
+
 
 .chat__input {
     display: flex;
@@ -114,8 +119,6 @@ html ::-webkit-scrollbar-track {
         outline: none;
         background-color: #E5E7EA;
     }
-
-
 }
 
 .chat__sent {

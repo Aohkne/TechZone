@@ -1,5 +1,4 @@
 Controllers\Home.class
-DAOs\CoversationDAO.class
 DAOs\CategoryDAO.class
 Controllers\Brand.class
 Controllers\Vouchers.class
@@ -15,6 +14,7 @@ Controllers\Login$2.class
 Models\Product.class
 Controllers\Product.class
 Controllers\Orders.class
+DAOs\ConversationDAO.class
 Models\Pay.class
 Models\Product_Details.class
 Models\Brand.class
@@ -24,6 +24,7 @@ DAOs\BrandDAO.class
 DAOs\UserDAO.class
 Models\Voucher.class
 Controllers\Admin.class
+Controllers\Chat.class
 Controllers\Logout.class
 DAOs\AccountDAO.class
 Models\OrderDetail.class

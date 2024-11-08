@@ -64,6 +64,10 @@
         <servlet-name>Orders</servlet-name>
         <servlet-class>Controllers.Orders</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Chat</servlet-name>
+        <servlet-class>Controllers.Chat</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -131,6 +135,10 @@
     <servlet-mapping>
         <servlet-name>Orders</servlet-name>
         <url-pattern>/Admin/Orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Chat</servlet-name>
+        <url-pattern>/Admin/Chat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

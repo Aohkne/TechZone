@@ -127,7 +127,6 @@ public class History extends HttpServlet {
                             if (searchOrder != null) {
                                 orderDetailsMap = orderdao.getOrderDetailsByProductName(searchOrder);
                             } else {
-                                System.out.println("546");
                                 orderDetailsMap = orderdao.getAllOrderDetailsByUserId(userId);
 
                             }

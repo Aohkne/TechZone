@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,7 +40,7 @@ public class UserDAO {
         Users user = null;
         String query = "SELECT * FROM Users WHERE user_id = ?";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, idUser);
             ResultSet rs = ps.executeQuery();
@@ -143,6 +145,35 @@ public class UserDAO {
             }
         }
         return isUpdated;
+    }
+
+    public List<Users> getUsersById(int userId) {
+        List<Users> users = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE user_id = ?";
+
+        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setInt(1, userId);
+            try ( ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Users user = new Users();
+                    user.setUsername(rs.getString("username"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setAddress(rs.getString("address"));
+                    user.setRole(rs.getInt("role"));
+                    user.setCreate_at(rs.getDate("create_at"));
+                    user.setAvatar(rs.getString("avatar"));
+                    user.setStatus_user(rs.getBoolean("status_user"));
+                    users.add(user); // Thêm User vào danh sách
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ nếu có
+        }
+        return users;
     }
 
 }
