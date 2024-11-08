@@ -135,7 +135,6 @@ public class Home extends HttpServlet {
                                 String inputMessage = request.getParameter("messageInput");
                                 if (inputMessage != null) {
                                     coversationdao.sendMessage(userId, inputMessage);
-                                    System.out.println(inputMessage);
                                 }
 
                                 //Get Message

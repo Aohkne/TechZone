@@ -7,9 +7,12 @@ package Controllers;
 import DAOs.AccountDAO;
 import DAOs.BrandDAO;
 import DAOs.CommentDAO;
+import DAOs.ConversationDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
+import Models.Conversation;
+import Models.Message;
 import Models.OrderDetail;
 import Models.Product_Details;
 import jakarta.servlet.annotation.WebServlet;
@@ -47,8 +50,8 @@ public class Product extends HttpServlet {
 
         if (path.startsWith("/Home/Product") || path.startsWith("/Product")) {
             String id = (String) request.getParameter("id");
-             request.setAttribute("id", id);
-            
+            request.setAttribute("id", id);
+
             Cookie[] cookies = request.getCookies();
             String idUser = "";
             boolean isId = false;
@@ -71,6 +74,7 @@ public class Product extends HttpServlet {
 
                             if (rs != null && rs.next()) {
                                 request.setAttribute("username", rs.getString("username"));
+                                request.setAttribute("userId", userId);
                                 request.setAttribute("avatar", rs.getString("avatar"));
                                 request.setAttribute("email", rs.getString("email"));
                                 isId = true;
@@ -81,19 +85,35 @@ public class Product extends HttpServlet {
 
                                 // Set the order details in request scope
                                 request.setAttribute("orderDetails", orderDetails);
-                            
+
+                                ConversationDAO coversationdao = new ConversationDAO();
+
+                                //Sent Message
+                                String inputMessage = request.getParameter("messageInput");
+                                if (inputMessage != null) {
+                                    coversationdao.sendMessage(userId, inputMessage);
+                                    System.out.println(inputMessage);
+                                }
+
+                                //Get Message
+                                List<Conversation> conversations = coversationdao.getConversationsByUserId(userId);
+
+                                if (!conversations.isEmpty()) {
+                                    int firstConversationId = conversations.get(0).getConversationId();
+                                    List<Message> messages = coversationdao.getMessagesByConversationId(firstConversationId);
+
+                                    request.setAttribute("messages", messages);
+                                }
+
                                 // Comment
                                 CommentDAO commentdao = new CommentDAO();
                                 String comment_input = request.getParameter("comment_input");
                                 System.out.println(comment_input);
-                                if(comment_input != null){
+                                if (comment_input != null) {
                                     int productId = Integer.parseInt(id);
                                     commentdao.addComment(comment_input, productId, userId);
                                 }
-                               
-                                
-                                
-                            
+
                             }
                         } catch (SQLException e) {
                         }

@@ -367,11 +367,11 @@
                                 <div class="history__items">
                                     <div class="history__items-pro">
                                         <div class="list__picture">
-                                            <img src="${orderDetail[4]}" alt="">
+                                            <img src="${orderDetail[5]}" alt="">
                                         </div>
                                         <div class="list__content">
-                                            <div class="list__name">${orderDetail[5]}</div>
-                                            <div class="list__des">${orderDetail[6]}</div>
+                                            <div class="list__name">${orderDetail[6]}</div>
+                                            <div class="list__des">${orderDetail[7]}</div>
                                         </div>
                                     </div>
                                     <div class="list__total">
@@ -382,9 +382,9 @@
                                 <div class="voucher__list-title">
                                     <div class="voucherlist__content">
                                         <div class="voucher__list-picture">
-                                            <img src="${orderDetail[8]}" alt="">
+                                            <img src="${orderDetail[9]}" alt="">
                                         </div>
-                                        <div class="discount__content">${orderDetail[9]}</div>
+                                        <div class="discount__content">${orderDetail[10]}</div>
                                     </div>
                                     <div class="historyorder__btn">
 
@@ -396,10 +396,10 @@
                                                 </div>
                                                 <a href="/History?OrderDetailId=${orderDetail[0]}" class="list__btn red">Cancel</a>
                                             </c:when>
-                                            <c:when test="${status == 'Process'}">
+                                            <c:when test="${orderDetail[3] == 'Process'}">
                                                 <div class="list__delivery">
                                                     <div class="list__status">Status:</div>
-                                                    <div class="list__status-content yellow">Progress</div>
+                                                    <div class="list__status-content yellow">Process</div>
 
                                                 </div>
                                                 <a href="/History?OrderDetailId=${orderDetail[0]}" class="list__btn red">Cancel</a>
@@ -409,7 +409,7 @@
                                                     <div class="list__status">Status:</div>
                                                     <div class="list__status-content green">Delivered</div>
                                                 </div>
-                                                <a class="list__btn green">Reorder</a>
+                                                <a href="/Product?id=${orderDetail[4]}" class="list__btn green">Reorder</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

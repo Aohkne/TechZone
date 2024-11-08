@@ -24,6 +24,7 @@
     background-color: var(--primary-yellow-color);
     border-radius: 10px;
     box-shadow: 1px 1px 5px var(--primary-black-color);
+    z-index: 2;
 }
 
 .chat__title {

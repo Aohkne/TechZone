@@ -416,20 +416,26 @@
             <div class="chat__item admin">
                 <span>How can I help you ?</span>
             </div>
-            <div class="chat__item user">
-                <span>???</span>
-            </div>
+            <!--                <div class="chat__item user">
+                                <span>???</span>
+                            </div>-->
+
+            <c:forEach items="${messages}" var="message">
+                <div class="chat__item ${message.senderId == userId ? 'user' : 'admin'}"> 
+                    <span>${message.messageText}</span>
+                </div>
+            </c:forEach>
 
         </div>
         <div class="chat__input">
-            <input type="text" placeholder="Chat Something">
-            <div class="chat__sent">
-                <i class="fa-solid fa-paper-plane"></i>
-            </div>
+            <form action="/Home" method="GET">
+                <input type="text" placeholder="Chat Something" name="messageInput">
+                <button type="submit" class="chat__sent">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
         </div>
     </div>
-</div>
-
 </div>
 
 

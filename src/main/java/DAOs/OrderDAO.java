@@ -159,10 +159,10 @@ public class OrderDAO {
     public Map<Integer, List<Object[]>> getAllOrderDetailsByUserId(int userId) {
         Map<Integer, List<Object[]>> orderDetailsMap = new HashMap<>();
 
-        // Câu truy vấn để lấy các trường từ các bảng liên quan
+        // Updated query to include pd.proDetail_id
         String query = "SELECT od.order_detail_id, od.quantity AS order_quantity, od.price AS order_price, "
-                + "od.status AS order_status, pd.image AS product_image, p.pro_name, p.description AS product_description, "
-                + "v.voucher_type, v.voucher_img, vd.voucher_name "
+                + "od.status AS order_status, pd.proDetail_id, pd.image AS product_image, p.pro_name, "
+                + "p.description AS product_description, v.voucher_type, v.voucher_img, vd.voucher_name "
                 + "FROM Order_Details od "
                 + "JOIN [Order] o ON od.order_id = o.order_id "
                 + "JOIN Product_Details pd ON od.proDetail_id = pd.proDetail_id "
@@ -179,21 +179,23 @@ public class OrderDAO {
             List<Object[]> orderDetailsList = new ArrayList<>();
 
             while (resultSet.next()) {
-                Object[] orderDetailData = new Object[10];
+                Object[] orderDetailData = new Object[11]; // Updated array size to 11
                 orderDetailData[0] = resultSet.getInt("order_detail_id");
                 orderDetailData[1] = resultSet.getInt("order_quantity");
-                // Format money
+
+                // Format price
                 BigDecimal price = resultSet.getBigDecimal("order_price");
                 String formattedPrice = NumberFormat.getInstance(Locale.GERMANY).format(price);
                 orderDetailData[2] = formattedPrice;
 
                 orderDetailData[3] = resultSet.getString("order_status");
-                orderDetailData[4] = resultSet.getString("product_image");
-                orderDetailData[5] = resultSet.getString("pro_name");
-                orderDetailData[6] = resultSet.getString("product_description");
-                orderDetailData[7] = resultSet.getString("voucher_type");
-                orderDetailData[8] = resultSet.getString("voucher_img");
-                orderDetailData[9] = resultSet.getString("voucher_name");
+                orderDetailData[4] = resultSet.getInt("proDetail_id");
+                orderDetailData[5] = resultSet.getString("product_image");
+                orderDetailData[6] = resultSet.getString("pro_name");
+                orderDetailData[7] = resultSet.getString("product_description");
+                orderDetailData[8] = resultSet.getString("voucher_type");
+                orderDetailData[9] = resultSet.getString("voucher_img");
+                orderDetailData[10] = resultSet.getString("voucher_name");
 
                 orderDetailsList.add(orderDetailData);
             }
@@ -210,10 +212,10 @@ public class OrderDAO {
     public Map<Integer, List<Object[]>> getOrderDetailsByProductName(String proName) {
         Map<Integer, List<Object[]>> orderDetailsMap = new HashMap<>();
 
-        // SQL query to fetch order details based on product name
+        // Updated query to include pd.proDetail_id
         String query = "SELECT od.order_detail_id, od.quantity AS order_quantity, od.price AS order_price, "
-                + "od.status AS order_status, pd.image AS product_image, p.pro_name, p.description AS product_description, "
-                + "v.voucher_type, v.voucher_img, vd.voucher_name "
+                + "od.status AS order_status, pd.proDetail_id, pd.image AS product_image, p.pro_name, "
+                + "p.description AS product_description, v.voucher_type, v.voucher_img, vd.voucher_name "
                 + "FROM Order_Details od "
                 + "JOIN [Order] o ON od.order_id = o.order_id "
                 + "JOIN Product_Details pd ON od.proDetail_id = pd.proDetail_id "
@@ -231,21 +233,23 @@ public class OrderDAO {
             List<Object[]> orderDetailsList = new ArrayList<>();
 
             while (resultSet.next()) {
-                Object[] orderDetailData = new Object[10];
+                Object[] orderDetailData = new Object[11]; // Updated array size to 11
                 orderDetailData[0] = resultSet.getInt("order_detail_id");
                 orderDetailData[1] = resultSet.getInt("order_quantity");
-                // Format money
+
+                // Format price
                 BigDecimal price = resultSet.getBigDecimal("order_price");
                 String formattedPrice = NumberFormat.getInstance(Locale.GERMANY).format(price);
                 orderDetailData[2] = formattedPrice;
 
                 orderDetailData[3] = resultSet.getString("order_status");
-                orderDetailData[4] = resultSet.getString("product_image");
-                orderDetailData[5] = resultSet.getString("pro_name");
-                orderDetailData[6] = resultSet.getString("product_description");
-                orderDetailData[7] = resultSet.getString("voucher_type");
-                orderDetailData[8] = resultSet.getString("voucher_img");
-                orderDetailData[9] = resultSet.getString("voucher_name");
+                orderDetailData[4] = resultSet.getInt("proDetail_id");
+                orderDetailData[5] = resultSet.getString("product_image");
+                orderDetailData[6] = resultSet.getString("pro_name");
+                orderDetailData[7] = resultSet.getString("product_description");
+                orderDetailData[8] = resultSet.getString("voucher_type");
+                orderDetailData[9] = resultSet.getString("voucher_img");
+                orderDetailData[10] = resultSet.getString("voucher_name");
 
                 orderDetailsList.add(orderDetailData);
             }

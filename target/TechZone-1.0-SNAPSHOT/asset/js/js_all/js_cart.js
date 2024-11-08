@@ -120,8 +120,8 @@ function addItem(
         check = false,
         voucher = {
         id: null,
-                img: "./asset/img/img_all/img_cart/voucher_rare.png",
-                voucher: "Voucher",
+        img: "./asset/img/img_all/img_cart/voucher_rare.png",
+        voucher: "Voucher",
         }
 ) {
     const item = {id, img, name, price, quantity, check, voucher};

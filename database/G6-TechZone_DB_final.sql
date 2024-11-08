@@ -266,15 +266,15 @@ EXEC AddOrUpdateVoucher
 
 
 
-select * from VoucherDetail
-drop table Order_Details
-drop table [Order]
-drop table Payment
+
 
 select * from [Order]
 select * from Order_Details
 select * from Payment
 
+update Order_Details
+set [status] = 'Delivered'
+where order_detail_id = 3
 
 CREATE TABLE Payment (
     payment_id INT PRIMARY KEY IDENTITY(1,1),
@@ -283,7 +283,7 @@ CREATE TABLE Payment (
 CREATE TABLE [Order] (
     order_id INT PRIMARY KEY IDENTITY(1,1),
     order_date DATE DEFAULT GETDATE(),
-	[status] VARCHAR(50), -- tình trạng đơn hàng
+	[status] VARCHAR(50), -- Not Yet, Process, Delivered
 	user_id INTEGER,
     payment_id INTEGER,
 	FOREIGN KEY (user_id) REFERENCES Users(user_id),
@@ -298,7 +298,7 @@ CREATE TABLE Order_Details (
     order_id INTEGER,
     proDetail_id INTEGER,
 	voucherDetail_id int,
-    [status] VARCHAR(50), -- tình trạng đơn hàng
+    [status] VARCHAR(50), -- Not Yet, Progress, Delivered
 	[check] VARCHAR(50), -- check người dùng có coi thông báo chưa
 	FOREIGN KEY (proDetail_id) REFERENCES [Product_Details](proDetail_id),
 	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),

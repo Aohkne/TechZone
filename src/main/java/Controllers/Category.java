@@ -6,9 +6,12 @@ package Controllers;
 
 import DAOs.AccountDAO;
 import DAOs.CategoryDAO;
+import DAOs.ConversationDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import DAOs.UserDAO;
+import Models.Conversation;
+import Models.Message;
 import Models.OrderDetail;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -68,6 +71,7 @@ public class Category extends HttpServlet {
 
                         if (rs != null && rs.next()) {
                             request.setAttribute("username", rs.getString("username"));
+                            request.setAttribute("userId", userId);
                             request.setAttribute("avatar", rs.getString("avatar"));
                             request.setAttribute("email", rs.getString("email"));
                             isId = true;
@@ -78,6 +82,25 @@ public class Category extends HttpServlet {
 
                             // Set the order details in request scope
                             request.setAttribute("orderDetails", orderDetails);
+
+                            ConversationDAO coversationdao = new ConversationDAO();
+
+                            //Sent Message
+                            String inputMessage = request.getParameter("messageInput");
+                            if (inputMessage != null) {
+                                coversationdao.sendMessage(userId, inputMessage);
+                            }
+                            System.out.println(userId);
+
+                            //Get Message
+                            List<Conversation> conversations = coversationdao.getConversationsByUserId(userId);
+
+                            if (!conversations.isEmpty()) {
+                                int firstConversationId = conversations.get(0).getConversationId();
+                                List<Message> messages = coversationdao.getMessagesByConversationId(firstConversationId);
+
+                                request.setAttribute("messages", messages);
+                            }
                         }
                     } catch (SQLException e) {
                     }

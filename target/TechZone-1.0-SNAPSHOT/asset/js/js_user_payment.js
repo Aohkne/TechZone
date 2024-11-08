@@ -58,7 +58,6 @@ function updateOrder() {
                   </div>
                   <div class="leftContainer__content">
                       <div class="leftContainer__name">${e.name}</div>
-                      <div class="leftContainer__description">description</div>
                   </div>
                   <div class="leftContainer__price"><span>${e.quantity} x </span>${price}</div>
               </div>

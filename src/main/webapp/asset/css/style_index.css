@@ -730,6 +730,7 @@
 }
 
 .survey__input {
+    display: flex;
     background-color: #D9D9D9;
     padding: 10px 5px;
     margin: 5px 0;
@@ -737,7 +738,7 @@
 }
 
 .survey__input input {
-    width: 80%;
+    flex: 1;
     font-size: 1.8rem;
     background-color: transparent;
     outline: none;

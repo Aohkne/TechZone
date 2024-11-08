@@ -9,6 +9,7 @@ Controllers\History.class
 Controllers\Cart.class
 Controllers\Error.class
 Controllers\Payment.class
+DAOs\CommentDAO.class
 Models\Category.class
 Controllers\Login$2.class
 Models\Product.class

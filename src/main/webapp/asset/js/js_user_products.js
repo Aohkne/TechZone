@@ -47,10 +47,50 @@ function show(Click, Effect) {
         }
     }
 
+}
 
+let buyBtn = document.querySelector('.buy__btn');
+
+
+buyBtn.onclick = () => {
+    let productContainer = document.querySelector('.product__container');
+
+    let id = productContainer.querySelector("input[type=hidden]").value;
+    let img = productContainer.querySelector(".product__img img").src;
+    let name = productContainer.querySelector(".product__name").textContent;
+    let price = productContainer.querySelector(".product__price").textContent;
+    let quantity = productContainer.querySelector(".product__num").textContent;
+
+    //Check local Storage exist
+    if (JSON.parse(localStorage.getItem("productList"))) {
+        list = JSON.parse(localStorage.getItem("productList"));
+    }
+
+    addItem(id, img, name, price, quantity, true);
+
+    //add to local Storage
+    localStorage.setItem("productList", JSON.stringify(list));
+
+    window.location.href = "/Payment";
 }
 
 
+function addItem(
+        id,
+        img,
+        name,
+        price,
+        quantity,
+        check = false,
+        voucher = {
+        id: null,
+                img: "./asset/img/img_all/img_cart/voucher_rare.png",
+                voucher: "Voucher",
+        }
+) {
+    const item = {id, img, name, price, quantity, check, voucher};
+    list.push(item);
+}
 
 
 function toggleReplyBox(replyButton) {
