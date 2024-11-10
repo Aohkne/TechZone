@@ -13,14 +13,15 @@
         <title>Comments</title>
         <link rel="stylesheet" href="/asset/css/style_admin_reviews.css" />
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
+        <link rel="stylesheet" href="/asset/css/css_all/style_delete_modal.css">
         <script src="/asset/js/js_admin_reviews.js" defer></script>
-        <script src="/asset/js/js_all/js_delete-button.js"></script>
+        <script src="/asset/js/js_all/js_modal.js" defer></script>
         <script
             src="https://kit.fontawesome.com/d40f80c35f.js"
             crossorigin="anonymous"
             defer
         ></script>
-        <script src="/JS/admin_reviews.js"></script>
+        <script src="/asset/js/js_admin_reviews.js"></script>
         <script src="/asset/js/js_all/js_account.js" defer></script>
     </head>
     <body>
@@ -94,7 +95,7 @@
         <!-- MAIN CONTENT -->
         <main>
             <nav>
-                <p class="title">Reviews</p>
+                <p class="title">Comments</p>
                 <div class="search-bar">
                     <form method="POST" action="/Admin/Review"> 
                         <input type="text" name="query" placeholder="Search" required />
@@ -173,41 +174,41 @@
                     </c:if>
                 </table>
             </div>
-             <!-- DELETE MODAL -->
-            <div id="delete-modal" class="modal">
-                <div class="delete-modal-content">
-                    <h1>Confirm delete?</h1>
-                    <form action="/Admin/Review" method="post" class="delete-form">
-                        <input type="hidden" id="delete-brand-id" name="brand_id"/>
-                        <button
-                            style="color: #000000"
-                            class="cancel-btn"
-                            type="button"
-                            onclick="closeModal('delete-modal')"
-                            >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                            class="confirm-delete-btn"
-                            name="btnDeleteCmt"
-                            >
-                            Delete
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <!-- DELETE MODAL -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <h1>Confirm delete?</h1>
+        <form action="/Admin/Review" method="post" class="delete-form">
+            <!-- Update the hidden input field to match the brand ID -->
+            <input type="hidden" id="delete-brand-id" name="comment_id"/>
+            <button
+                style="background:#ffffff; color:#000000"
+                class="cancel-btn"
+                type="button"
+                onclick="closeModal('delete-modal')">
+                Cancel
+            </button>
+            <button
+                type="submit"
+                style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
+                class="confirm-delete-btn"
+                name="btnDeleteComment">
+                Delete
+            </button>
+        </form>
+    </div>
+</div>
+
         </main>
         <script>
-            function deleteCmt(brandId) {
+            function deleteCmt(commentId) {
+    // Set the value in the hidden input field
+    document.getElementById('delete-brand-id').value = commentId;
 
-                // Set values in modal fields
-                document.getElementById('delete-brand-id').value = brandId;
-
-                const editModal = document.getElementById("deleteModal");
-                editModal.style.display = "block";
-            }
+    // Display the modal
+    const deleteModal = document.getElementById('delete-modal');
+    deleteModal.style.display = 'block';
+}
         </script>
     </body>
 </html>

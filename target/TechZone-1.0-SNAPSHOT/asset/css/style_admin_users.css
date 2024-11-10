@@ -8,12 +8,12 @@ main {
     flex-grow: 1;
     padding: 10px 20px 0 280px;
 }
-/* Navbar */
 .list li:nth-child(4) {
     background-color: #00acc1; /* Example background color */
     box-shadow: 0 0 10px #00acc1; /* Example box shadow */
     color: white; /* Example text color */
 }
+/* Navbar */
 main nav {
     display: flex;
     justify-content: space-between;
@@ -46,7 +46,7 @@ main nav .search-bar i {
 main .card-container {
     margin-top: 60px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 30px;
 }
