@@ -123,7 +123,6 @@
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
 

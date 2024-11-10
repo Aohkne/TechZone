@@ -111,7 +111,6 @@
                         <i class="fa-solid fa-street-view"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Products</p>
@@ -123,7 +122,6 @@
                         <i class="fa-solid fa-box"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Categories</p>
@@ -135,7 +133,6 @@
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Users</p>
@@ -147,7 +144,6 @@
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Comments</p>
@@ -159,7 +155,6 @@
                         <i class="fa-solid fa-comment"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Brands</p>
@@ -171,7 +166,6 @@
                         <i class="fa-solid fa-map"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
                     <p class="card-name">Earnings</p>
@@ -183,7 +177,6 @@
                         <i class="fa-solid fa-dollar-sign"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
             </div>
             <br>

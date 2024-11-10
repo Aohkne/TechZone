@@ -147,7 +147,6 @@
                         <i class="fa-solid fa-map"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
                     <button

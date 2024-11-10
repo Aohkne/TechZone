@@ -107,7 +107,7 @@
             </nav>
             <div class="card-container">
                 <div class="card">
-                    <p class="card-name">Reviews</p>
+                    <p class="card-name">Comments</p>
                     <p class="card-value">${countBrand}</p>
                     <div
                         class="card-icon"
@@ -116,7 +116,6 @@
                         <i class="fa-solid fa-comment"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
                     <form action="/Admin/Review" method="POST"> 
@@ -132,7 +131,7 @@
             </div>
             <!-- REVIEWS TABLE -->
             <div class="reviews-table">
-                <h1 class="table-name">REVIEWS LIST</h1>
+                <h1 class="table-name">COMMENTS LIST</h1>
                 <table>
                     <tr>
                         <th class="rev">ID</th>

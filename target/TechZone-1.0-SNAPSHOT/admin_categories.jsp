@@ -126,7 +126,6 @@
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
 
                 <div class="buttons-container">

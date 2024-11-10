@@ -129,7 +129,6 @@
                         <i class="fa-solid fa-ticket"></i>
                     </div>
                     <hr />
-                    <p class="card-graph">Graph Details</p>
                 </div>
 
 

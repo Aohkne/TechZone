@@ -46,7 +46,7 @@ main nav .search-bar i {
 main .card-container {
     margin-top: 60px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     flex-wrap: wrap;
     gap: 30px;
 }

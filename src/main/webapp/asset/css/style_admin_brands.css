@@ -132,7 +132,7 @@ main .card .card-graph:hover {
     flex: 1;
 }
 /* brands TABLE */
-.table-container .table-name {
+.brands-table .table-name {
     text-align: center;
     background: linear-gradient(60deg, #26c6da, #00acc1);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
@@ -146,10 +146,10 @@ table, th, tr, td {
     text-align: start;
     padding: 20px;
 }
-.table-container {
+.brands-table {
     margin-top: 3rem;
 }
-.table-container table {
+.brands-table table {
     width: 100%;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     border-radius: 5px;
@@ -160,7 +160,7 @@ table, th, tr, td {
 tr {
     border-bottom: 1px solid #eee;
 }
-.table-container td i {
+.brands-table td i {
     font-size: 32px;
 }
 table td button {
