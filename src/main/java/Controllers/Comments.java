@@ -157,20 +157,20 @@ public class Comments extends HttpServlet {
             request.setAttribute("sortResults", sortResults);
 
             doGet(request, response);
-        } else if (request.getParameter("btnDeleteCmt") != null) {
+        } else if (request.getParameter("btnDeleteComment") != null) {
             try {
                 // Lấy brand_id từ request và chuyển thành số nguyên
-                int brand_id = Integer.parseInt(request.getParameter("brand_id"));
+                int brand_id = Integer.parseInt(request.getParameter("comment_id"));
 
                 // Tạo một instance của BrandDAO
-                BrandDAO dao = new BrandDAO();
+                CommentDAO dao = new CommentDAO();
 
                 // Gọi hàm deleteBrand để xóa brand
-                boolean result = dao.deleteBrand(brand_id);
+                boolean result = dao.deleteComment(brand_id);
 
                 if (result) {
                     // Nếu xóa thành công, chuyển hướng về trang quản lý Brand
-                    response.sendRedirect("/Admin/Brand");
+                    response.sendRedirect("/Admin/Review");
                 } else {
                     // Nếu không xóa được, hiện thông báo lỗi
                     request.setAttribute("errorMessage", "Cannot delete this brand because it still has products.");

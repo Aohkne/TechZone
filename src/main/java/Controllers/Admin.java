@@ -10,8 +10,11 @@ import DAOs.CategoryDAO;
 import DAOs.CommentDAO;
 import DAOs.OrderDAO;
 import DAOs.ProductDAO;
+import DAOs.UserDAO;
+import DAOs.VoucherDAO;
 import Models.Product_Details;
 import Models.Users;
+import com.google.gson.Gson;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -93,7 +96,8 @@ public class Admin extends HttpServlet {
             CommentDAO dao3 = new CommentDAO();
             BrandDAO dao4 = new BrandDAO();
             OrderDAO dao5 = new OrderDAO();
-            
+            VoucherDAO dao6 = new VoucherDAO();
+
             int userId = -1;
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -106,9 +110,34 @@ public class Admin extends HttpServlet {
             }
             String name = dao.GetNameAdmin(userId);
             int counts = dao.GetTotalUser();
-            
-            int count1 = dao3.GetTotalComment();
+            int count1 = dao1.GetTotalProduct();
+            int count2 = dao2.GetTotalCategory();
+            int count3 = dao3.GetTotalComment();
+            int count4 = dao4.GetTotalBrand();
+            double count5 = dao5.getTotal();
+            String count7 = dao5.formatPricess(count5);
+            int count6 = dao6.GetTotalVoucher();
 
+            UserDAO userDAO = new UserDAO();
+            List<Integer> usersPerMonth = userDAO.getUsersPerMonth();
+            String[] labels = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
+            // Chuyển đổi List<Integer> sang Integer[]
+            Integer[] usersPerMonthArray = new Integer[usersPerMonth.size()];
+            usersPerMonth.toArray(usersPerMonthArray);
+
+            // Chuyển dữ liệu biểu đồ thành JSON để sử dụng trong JSP
+            ChartData chartData = new ChartData(labels, usersPerMonthArray);
+            Gson gson = new Gson();
+            String chartJson = gson.toJson(chartData);
+            // Đặt thuộc tính để chuyển đến JSP
+            request.setAttribute("chartData", chartJson);
+
+            request.setAttribute("count6", count6);
+            request.setAttribute("count5", count7);
+            request.setAttribute("count4", count4);
+            request.setAttribute("count3", count3);
+            request.setAttribute("count2", count2);
             request.setAttribute("count1", count1);
             request.setAttribute("countUser", counts);
             request.setAttribute("name", name);
@@ -199,7 +228,7 @@ public class Admin extends HttpServlet {
 
             request.setAttribute("allProduct", allProduct);
             request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
-        }  else if (path.equals("/Admin/Profile")) {
+        } else if (path.equals("/Admin/Profile")) {
             AccountDAO dao = new AccountDAO();
             int userId = -1;
             Cookie[] cookies = request.getCookies();
@@ -439,43 +468,42 @@ public class Admin extends HttpServlet {
             // Có thể thêm thông báo cập nhật thành công nếu muốn
             response.sendRedirect("/Admin/Profile");
         } else if (request.getParameter("btnNewPass") != null) {
-    try {
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
-        String old = request.getParameter("oldPass");
-        String newPass = request.getParameter("newPass");
+            try {
+                int user_id = Integer.parseInt(request.getParameter("user_id"));
+                String old = request.getParameter("oldPass");
+                String newPass = request.getParameter("newPass");
 
-        // AccountDAO instance to interact with database
-        AccountDAO dao = new AccountDAO();
-        String pd = dao.checkOldPassword(user_id);
-        String hashedOldPassword = dao.md5Hash(old);
-        String hashedNewPassword = dao.md5Hash(newPass);
+                // AccountDAO instance to interact with database
+                AccountDAO dao = new AccountDAO();
+                String pd = dao.checkOldPassword(user_id);
+                String hashedOldPassword = dao.md5Hash(old);
+                String hashedNewPassword = dao.md5Hash(newPass);
 
-        HttpSession session = request.getSession(); // Obtain session object to store messages
+                HttpSession session = request.getSession(); // Obtain session object to store messages
 
-        System.out.println("Old password from DB: " + pd);
-        
-        System.out.println("New hashed password: " + hashedOldPassword);
+                System.out.println("Old password from DB: " + pd);
 
-        // Validate the old password and check the new password
-        if (pd == null || !pd.equals(hashedOldPassword)) {
-            // Old password is incorrect
-            session.setAttribute("error", "Old password is incorrect");
-        } else if (pd.equals(hashedNewPassword)) {
-            // New password must be different from the old password
-            session.setAttribute("error", "New password must be different from the old password");
-        } else {
-            // Update password in the database and set success message
-            dao.updatePassword(user_id, hashedNewPassword);
-            session.setAttribute("success", "Password updated successfully");
+                System.out.println("New hashed password: " + hashedOldPassword);
+
+                // Validate the old password and check the new password
+                if (pd == null || !pd.equals(hashedOldPassword)) {
+                    // Old password is incorrect
+                    session.setAttribute("error", "Old password is incorrect");
+                } else if (pd.equals(hashedNewPassword)) {
+                    // New password must be different from the old password
+                    session.setAttribute("error", "New password must be different from the old password");
+                } else {
+                    // Update password in the database and set success message
+                    dao.updatePassword(user_id, hashedNewPassword);
+                    session.setAttribute("success", "Password updated successfully");
+                }
+
+                response.sendRedirect("/Admin/Profile"); // Redirect to Profile page
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-        response.sendRedirect("/Admin/Profile"); // Redirect to Profile page
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-
 
     }
     // Hàm để lấy tên tệp tin từ phần tệp (Part)
@@ -492,7 +520,16 @@ public class Admin extends HttpServlet {
         return null; // Trả về null nếu không tìm thấy tên tệp
     }
 
+    private class ChartData {
 
+        private String[] labels;
+        private Integer[] data;
+
+        public ChartData(String[] labels, Integer[] data) {
+            this.labels = labels;
+            this.data = data;
+        }
+    }
 
     /**
      * Returns a short description of the servlet.

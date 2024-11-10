@@ -175,40 +175,40 @@
                 </table>
             </div>
             <!-- DELETE MODAL -->
-<div id="delete-modal" class="modal">
-    <div class="modal-content">
-        <h1>Confirm delete?</h1>
-        <form action="/Admin/Review" method="post" class="delete-form">
-            <!-- Update the hidden input field to match the brand ID -->
-            <input type="hidden" id="delete-brand-id" name="comment_id"/>
-            <button
-                style="background:#ffffff; color:#000000"
-                class="cancel-btn"
-                type="button"
-                onclick="closeModal('delete-modal')">
-                Cancel
-            </button>
-            <button
-                type="submit"
-                style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
-                class="confirm-delete-btn"
-                name="btnDeleteComment">
-                Delete
-            </button>
-        </form>
-    </div>
-</div>
+            <div id="delete-modal" class="modal">
+                <div class="modal-content">
+                    <h1>Confirm delete?</h1>
+                    <form action="/Admin/Review" method="post" class="delete-form">
+                        <!-- Update the hidden input field to match the brand ID -->
+                        <input type="hidden" id="delete-brand-id" name="comment_id"/>
+                        <button
+                            style="background:#ffffff; color:#000000"
+                            class="cancel-btn"
+                            type="button"
+                            onclick="closeModal('delete-modal')">
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935); color:#ffffff"
+                            class="confirm-delete-btn"
+                            name="btnDeleteComment">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
 
         </main>
         <script>
             function deleteCmt(commentId) {
-    // Set the value in the hidden input field
-    document.getElementById('delete-brand-id').value = commentId;
+                // Set the value in the hidden input field
+                document.getElementById('delete-brand-id').value = commentId;
 
-    // Display the modal
-    const deleteModal = document.getElementById('delete-modal');
-    deleteModal.style.display = 'block';
-}
+                // Display the modal
+                const deleteModal = document.getElementById('delete-modal');
+                deleteModal.style.display = 'block';
+            }
         </script>
     </body>
 </html>

@@ -54,7 +54,7 @@
                     </li>
                     <li>
                         <a href="/Admin/Review"
-                           ><i class="fa-solid fa-comment"></i>Reviews</a
+                           ><i class="fa-solid fa-comment"></i>Comments</a
                         >
                     </li>
                     <li>

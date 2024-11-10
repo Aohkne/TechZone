@@ -171,7 +171,7 @@ public class OrderDAO {
                 + "LEFT JOIN Voucher v ON vd.voucher_id = v.voucher_id "
                 + "WHERE o.user_id = ?";
 
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
 
             pst.setInt(1, userId);
             ResultSet resultSet = pst.executeQuery();
@@ -224,7 +224,7 @@ public class OrderDAO {
                 + "LEFT JOIN Voucher v ON vd.voucher_id = v.voucher_id "
                 + "WHERE p.pro_name LIKE ?"; // Filter for product name
 
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, "%" + proName + "%");
 
             ResultSet resultSet = pst.executeQuery();
@@ -269,7 +269,7 @@ public class OrderDAO {
 
         if (conn != null) {
             String query = "DELETE FROM Order_Details WHERE order_detail_id = ?";
-            try ( PreparedStatement pst = conn.prepareStatement(query)) {
+            try (PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, id);
                 int affectedRows = pst.executeUpdate();
 
@@ -292,7 +292,7 @@ public class OrderDAO {
     public void updateCheckStatusToTrue(String orderDetailId) {
         String query = "UPDATE Order_Details SET [check] = 'true' WHERE order_detail_id = ?";
 
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
 
             pst.setString(1, orderDetailId);
             int rowsAffected = pst.executeUpdate();
@@ -518,11 +518,11 @@ public class OrderDAO {
         int discountValue = 0; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = "SELECT voucher_discount FROM VoucherDetail WHERE voucherDetail_id = ?";
 
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
 
             if (conn != null) {
                 pst.setInt(1, voucherDetailId);
-                try ( ResultSet rs = pst.executeQuery()) {
+                try (ResultSet rs = pst.executeQuery()) {
                     if (rs.next()) {
                         // Lấy giá trị voucher_discount từ ResultSet
                         discountValue = rs.getInt("voucher_discount");
@@ -540,10 +540,10 @@ public class OrderDAO {
         String paymentMethod = ""; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = "SELECT p.payment_method FROM Payment p JOIN [Order] o ON p.payment_id = o.payment_id WHERE o.payment_id = ?";
 
-        try ( Connection conn = DBConnection.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setInt(1, paymentId);
-            try ( ResultSet rs = pst.executeQuery()) {
+            try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     // Lấy giá trị payment_method từ ResultSet
                     paymentMethod = rs.getString("payment_method");
@@ -665,6 +665,81 @@ public class OrderDAO {
             }
         }
         return orderList; // Return the list of orders
+    }
+
+    public double getTotal() {
+        Connection conn = DBConnection.getConnection();
+        double totalPrice = 0.0; // Sửa thành kiểu double để phản ánh giá trị chính xác
+
+        if (conn != null) {
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+            try {
+                // Query to sum total value of orders in the Order_Details table with voucher discount, handling null values
+                String sql = "SELECT SUM(od.price * od.quantity - "
+                        + "(od.price * od.quantity * COALESCE(vd.voucher_discount, 0) / 100.0)) "
+                        + "FROM [Order_Details] od "
+                        + "LEFT JOIN VoucherDetail vd ON vd.voucherDetail_id = od.voucherDetail_id";
+                pst = conn.prepareStatement(sql);
+
+                // Execute the query and get the result
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    totalPrice = rs.getDouble(1); // Lấy kết quả dạng double
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                // Close the resources
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (pst != null) {
+                        pst.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return totalPrice;
+    }
+
+    public String formatPricess(double price) {
+        // Chuyển đổi giá trị `double` sang `String` để định dạng
+        String priceString = String.format("%.2f", price); // Chuyển giá trị double thành chuỗi với 2 chữ số thập phân
+
+        // Tách phần nguyên và phần thập phân (nếu có)
+        String[] parts = priceString.split("\\.");
+        String integerPart = parts[0]; // Phần nguyên của giá
+        String decimalPart = parts.length > 1 ? parts[1] : ""; // Phần thập phân của giá (nếu có)
+
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+
+        // Định dạng phần nguyên: Duyệt từ cuối chuỗi tới đầu để thêm dấu "." mỗi ba chữ số
+        for (int i = integerPart.length() - 1; i >= 0; i--) {
+            if (count == 3) {
+                result.append(".");
+                count = 0; // Đặt lại count về 0 sau khi thêm dấu "."
+            }
+            result.append(integerPart.charAt(i));
+            count++;
+        }
+
+        // Đảo ngược chuỗi để có kết quả cuối cùng
+        result.reverse();
+
+        // Nếu phần thập phân không phải là "00", thêm vào sau phần nguyên
+        if (!decimalPart.equals("00")) {
+            result.append(",").append(decimalPart); // Dùng dấu "," để phân cách phần thập phân
+        }
+
+        return result.toString();
     }
 
 }

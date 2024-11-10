@@ -3,8 +3,7 @@
     Created on : Sep 17, 2024, 10:15:48 PM
     Author     : Le Huu Khoa - CE181099
 --%>
-
-<%@page import="DAOs.AccountDAO"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -103,8 +102,8 @@
 
             <div class="card-container">
                 <div class="card">
-                    <p class="card-name">Views</p>
-                    <p class="card-value">5,892</p>
+                    <p class="card-name">Vouchers</p>
+                    <p class="card-value">${count6}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
@@ -116,7 +115,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Products</p>
-                    <p class="card-value">4</p>
+                    <p class="card-value">${count1}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -128,7 +127,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Categories</p>
-                    <p class="card-value">3</p>
+                    <p class="card-value">${count2}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -152,7 +151,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Comments</p>
-                    <p class="card-value">${count1}</p>
+                    <p class="card-value">${count3}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ef5350, #e53935)"
@@ -164,7 +163,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Brands</p>
-                    <p class="card-value">4</p>
+                    <p class="card-value">${count4}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #26c6da, #00acc1)"
@@ -176,7 +175,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Earnings</p>
-                    <p class="card-value">$17,640</p>
+                    <p class="card-value">$${count5}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #66bb6a, #43a047)"
@@ -187,6 +186,59 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
             </div>
+            <br>
+            <!-- CHARTS -->
+            <div class="charts-container">
+                <div class="users-chart">
+                    <canvas id="users-chart" aria-label="Users Chart" role="text"></canvas>
+                </div>
+            </div>
         </main>
     </body>
+    <!-- Import chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Lấy dữ liệu biểu đồ từ backend
+        let chartDataJson = '<%= request.getAttribute("chartData") %>';
+
+        // Kiểm tra dữ liệu nhận được
+        console.log("Chart Data JSON:", chartDataJson);
+
+        if (!chartDataJson || chartDataJson.trim() === '') {
+            console.warn("Chart data is empty or undefined.");
+        } else {
+            try {
+                // Parse JSON và kiểm tra cấu trúc dữ liệu
+                const chartData = JSON.parse(chartDataJson);
+
+                // Nếu dữ liệu hợp lệ, tạo biểu đồ
+                new Chart(document.getElementById("users-chart"), {
+                    type: "bar",
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [
+                            {
+                                label: "Users per month",
+                                backgroundColor: "#ffa726",
+                                data: chartData.data,
+                                borderWidth: 1,
+                            },
+                        ],
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                        },
+                    },
+                });
+            } catch (e) {
+                console.error("Error parsing chart data JSON:", e);
+            }
+        }
+    </script>
+
+
 </html>

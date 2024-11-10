@@ -19,9 +19,6 @@
         <title>Users</title>
         <link rel="stylesheet" href="/asset/css/style_admin_users.css" />
         <link rel="stylesheet" href="/asset/css/css_all/style_sidebar.css" />
-        <link
-            href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
-            rel='stylesheet'>
         <script src="/asset/js/js_admin_users.js" defer></script>
         <script src="/asset/js/js_all/js_delete-button.js"></script>
         <script
@@ -61,7 +58,7 @@
                     </li>
                     <li>
                         <a href="/Admin/Review"
-                           ><i class="fa-solid fa-comment"></i>Reviews</a
+                           ><i class="fa-solid fa-comment"></i>Comments</a
                         >
                     </li>
                     <li>
@@ -200,6 +197,7 @@
 
         </main>
         <script>
+            
             function toggleButtons(id, show) {
                 var btnShow = document.getElementById("btn-show-" + id);
                 var btnHide = document.getElementById("btn-hide-" + id);

@@ -41,3 +41,4 @@ DB\DBConnection.class
 Models\Comment.class
 Models\Users.class
 Controllers\Login$1.class
+Controllers\Admin$ChartData.class
