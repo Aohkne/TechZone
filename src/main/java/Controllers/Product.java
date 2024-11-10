@@ -26,6 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -92,7 +93,7 @@ public class Product extends HttpServlet {
                                 String inputMessage = request.getParameter("messageInput");
                                 if (inputMessage != null) {
                                     coversationdao.sendMessage(userId, inputMessage);
-                                    System.out.println(inputMessage);
+
                                 }
 
                                 //Get Message
@@ -105,14 +106,34 @@ public class Product extends HttpServlet {
                                     request.setAttribute("messages", messages);
                                 }
 
-                                // Comment
+                                //Set Comment
                                 CommentDAO commentdao = new CommentDAO();
                                 String comment_input = request.getParameter("comment_input");
-                                System.out.println(comment_input);
+                                int productId = Integer.parseInt(id);
                                 if (comment_input != null) {
-                                    int productId = Integer.parseInt(id);
                                     commentdao.addComment(comment_input, productId, userId);
                                 }
+
+                                String btnSave = request.getParameter("btn-save");
+                                String btnDelete = request.getParameter("btn-delete");
+                                String commentID = request.getParameter("commentID");
+                                if (btnSave != null) {
+                                    //Edit comment  
+                                    String editContent = request.getParameter("edit-content");
+                                    commentdao.updateCommentContentById(commentID, editContent);
+                                } else if (btnDelete != null) {
+                                    //Delete comment
+                                    commentdao.deleteCommentById(commentID);
+                                }
+
+                                //Count Comment
+                                int countMessage = commentdao.countCommentsByProId(productId);
+                                request.setAttribute("countMessage", countMessage);
+
+                                //Get Comment
+                                Map<Integer, List<Object[]>> userComments = commentdao.getUserCommentsByProductId(productId);
+                                request.setAttribute("userComments", userComments);
+                                System.out.println(userComments);
 
                             }
                         } catch (SQLException e) {
@@ -121,7 +142,6 @@ public class Product extends HttpServlet {
                     }
                 }
             }
-
             request.setAttribute("isId", isId);
 
             ProductDAO productDAO = new ProductDAO();

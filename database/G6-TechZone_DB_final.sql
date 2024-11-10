@@ -180,6 +180,8 @@ VALUES ('le huu khoa', 'E10ADC3949BA59ABBE56E057F20F883E', 'khoa@gmail.com', '09
 
 
 
+
+
 --Voucher
 CREATE TABLE Voucher (
     voucher_id INT PRIMARY KEY IDENTITY(1,1),
@@ -341,22 +343,10 @@ CREATE TABLE Comment (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)    -- Giả định bảng User có cột id làm khóa chính
 );
 
-CREATE TABLE Comment_Reply (
-    reply_id INT IDENTITY(1,1) PRIMARY KEY,
-    contents TEXT,
-    created_at DATE DEFAULT GETDATE(),
-    comment_id INT,
-    user_id INT,
-    FOREIGN KEY (comment_id) REFERENCES Comment(comment_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)    -- Giả định bảng User có cột id làm khóa chính
-);
 
 Select * from Comment
+drop table Comment
 
-
-
-
-	
 
 
 

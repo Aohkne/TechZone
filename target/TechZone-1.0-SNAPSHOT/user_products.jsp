@@ -159,7 +159,7 @@
                             </div>
                             <div class="account__list">
                                 <div class="account__item">
-                                    <a href="./user_profile.jsp" class="account__link">
+                                    <a href="/User" class="account__link">
                                         My Profile
                                     </a>
                                 </div>
@@ -425,7 +425,18 @@
         </div>
     </div>
 
-
+    <!--
+              Username: {entry.value[0][0]}
+              Avatar: {entry.value[0][1]}
+              Created At: {entry.value[0][2]}
+              Content: {entry.value[0][3]}
+           
+           
+              reply_user_name: {reply[0]}
+              Avatar_reply: {reply[1]}
+              content_reply: {reply[3]}
+              time: {reply[2]}
+    -->
 
     <!-- Comment Page -->
     <div class="Comment__Layout">
@@ -441,54 +452,53 @@
 
         <div class="comment__title">
             <div class="cmt-header">Comments</div>
-            <div class="cmt-quantity">27</div>
+            <div class="cmt-quantity">${countMessage != null ? countMessage : 0}</div>
         </div>
-        <div class="comment__user">
-            <div class="cmt__user-header">
-                <div class="cmt-picture">
-                    <img src="./asset/img/img_user/defaultAvt.jpg" alt="User_img">
-                </div>
-                <div class="cmt__name">Nguyen Thanh Bao</div>
-                <div class="cmt__date">26/10/2024</div>
-            </div>
 
-            <div class="cmt-content">
-                <div class="cmt__user-content">Cai may tinh nay sai nhu db de nghi web nghi ban di </div>
-            </div>
 
-            <div class="reply-content">
-                <i class="logo-reply ti-comment-alt"></i>
-                <div class="reply-title" onclick="toggleReplyBox(this)">Reply</div>
-                <div class="edit-cmt" onclick="toggleEditComment(this)">...</div>
-                <div class="more-cmt" onclick="toggleReplyContent(this)">
-                    <i class="more-arrow fa-solid fa-angle-down"></i>
-                </div>
-            </div>
 
-        </div>
-        <!--con-->
-        <div class="reply-user" style="display: none;">
-            <div class="reply__user-header">
-                <div class="reply-picture">
-                    <img src="./asset/img/img_user/defaultAvt.jpg" alt="User_img">
-                </div>
-                <div class="reply__name">Nguyen Thanh Bao</div>
-                <div class="reply__date">26/10/2024</div>
-            </div>
+        <c:forEach var="entry" items="${userComments}">
+            <form action="./Product" method="GET">     
+                <input type="hidden" name="id" value="${id}">
+                <c:set var="proId" value="${entry.key}" />
+                <c:forEach var="comment" items="${entry.value}">
+                <input type="hidden" name="commentID" value="${comment[4]}">
 
-            <div class="reply-content__user">
-                <div class="reply__user-content">Cai may tinh nay sai nhu db de nghi web nghi ban di </div>
-            </div>
+                    <div class="comment__user">
+                        <div class="cmt__user-header">
+                            <div class="cmt-picture">
+                                <img src="${comment[1]}" alt="User_img">
+                            </div>
+                            <div class="cmt__name">${comment[0]}</div>
+                            <div class="cmt__date">${comment[2]}</div>
+                        </div>
 
-            <div class="reply-content-2">
-                <i class="logo-reply ti-comment-alt"></i>
-                <div class="reply-title-2" onclick="toggleReplyBox2(this)">Reply</div>
-                <div class="edit-cmt-2" onclick="toggleEditComment2(this)">...</div>
-            </div>
-        </div>
+                        <div class="cmt-content">
+                            <input name="edit-content" class="cmt__user-content" value="${comment[3]}" readonly>
+                        </div>
+
+                        <div class="reply-content">
+
+                            <div class="edit-cmt" onclick="toggleButtons(this)">
+                                <i class="edit fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                            <a class="edit-btn" style="display: none;" onclick="enableEdit(this)">Edit</a>
+                            <button class="save" name ="btn-save" type="submit" style="display: none;" onclick="saveEdit(this)">Save</button>
+                            <button class="delete-btn" name ="btn-delete" type="submit" style="display: none;">Delete</button>
+
+                        </div>
+                    </div>
+                </c:forEach>
+            </form>  
+
+        </c:forEach>
+
+
 
 
     </div>
+
+
 
 </body>
 

@@ -126,7 +126,7 @@
                                 <c:forEach var="entry" items="${conversations}">
                                     <c:forEach var="conv" items="${entry.value}">
                                         <li class="person" onclick="openChatbox('chatbox${conv[3]}')">
-                                            <img src="${conv[2].substring(1)}" class="person-image">
+                                            <img src="${conv[2]}" class="person-image">
                                             <p class="person-name">${conv[1]}</p>
                                             <p class="person-message" style="color: black">
                                                 ${conv[4]}
@@ -167,7 +167,7 @@
                                     style="display: flex; align-items: center; margin-bottom: 40px"
                                     >
                                     <img
-                                        src="${info[2].substring(1)}"
+                                        src="${info[2]}"
                                         style="
                                         width: 80px;
                                         height: 80px;
