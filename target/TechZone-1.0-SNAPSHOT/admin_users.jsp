@@ -132,12 +132,6 @@
 
                     <form action="/Admin/Users" method="POST"> 
                         <button
-                            class="add-btn"
-                            style="background: linear-gradient(60deg, #66bb6a, #43a047)"
-                            >
-                            Add
-                        </button>
-                        <button
                             class="sort-btn"
                             style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
                             name="btnSort"

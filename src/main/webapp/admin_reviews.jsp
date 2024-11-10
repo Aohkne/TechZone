@@ -3,7 +3,7 @@
     Created on : Sep 17, 2024, 10:18:42 PM
     Author     : Le Huu Khoa - CE181099
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="DAOs.AccountDAO"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,7 @@
                     </li>
                     <li>
                         <a href="/Admin/Review"
-                           ><i class="fa-solid fa-comment"></i>Reviews</a
+                           ><i class="fa-solid fa-comment"></i>Comments</a
                         >
                     </li>
                     <li>
@@ -96,15 +96,18 @@
             <nav>
                 <p class="title">Reviews</p>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search" /><i
-                        class="fa-solid fa-magnifying-glass"
-                        ></i>
+                    <form method="POST" action="/Admin/Review"> 
+                        <input type="text" name="query" placeholder="Search" required />
+                        <button type="submit" name="btnsearch" style="border: none">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
             </nav>
             <div class="card-container">
                 <div class="card">
                     <p class="card-name">Reviews</p>
-                    <p class="card-value">5</p>
+                    <p class="card-value">${countBrand}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ef5350, #e53935)"
@@ -115,9 +118,15 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="buttons-container">
-                    <button style="background: linear-gradient(60deg, #ffa726, #fb8c00)">
-                        Sort
-                    </button>
+                    <form action="/Admin/Review" method="POST"> 
+                        <button
+                            class="sort-btn"
+                            style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
+                            name="btnSort"
+                            type="submit">
+                            Sort
+                        </button>
+                    </form>
                 </div>
             </div>
             <!-- REVIEWS TABLE -->
@@ -125,83 +134,81 @@
                 <h1 class="table-name">REVIEWS LIST</h1>
                 <table>
                     <tr>
-                        <th class="review">Reviews</th>
-                        <th class="author">Author</th>
-                        <th class="product-name">Product Name</th>
-                        <th class="posted-date">Posted Date</th>
+                        <th class="rev">ID</th>
+                        <th class="author">Content</th>
+                        <th class="product-name">Date</th>
+                        <th class="posted-date">Product</th>
+                        <th class="posted-date">Name</th>
                         <th class="operations">Operations</th>
                     </tr>
-                    <tr>
-                        <td>S?n ph?m này r?t là t?, pin y?u, r?t xu?ng m?t cái là h?...</td>
-                        <td>Bao Bao</td>
-                        <td>IPhone 13</td>
-                        <td>15/9/2024 | 7:18 PM</td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            S?n ph?m r?t tuy?t v?i! Camera siêu nét, ch?i game r?t m??t và r?t
-                            r?!
-                        </td>
-                        <td>Khoa Le</td>
-                        <td>Oppo Reno 12</td>
-                        <td>15/9/2024 | 7:18 PM</td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>C?ng ???c</td>
-                        <td>Quy Nguyen</td>
-                        <td>Xiaomi 13C</td>
-                        <td>15/9/2024 | 7:18 PM</td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tôi không thích s?n ph?m này!</td>
-                        <td>Gia Chan</td>
-                        <td>Samsung A05</td>
-                        <td>15/9/2024 | 7:18 PM</td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ádsadjsadsadjlkasdlksalkdalsk</td>
-                        <td>Tre trau 123</td>
-                        <td>IPhone 13</td>
-                        <td>15/9/2024 | 7:18 PM</td>
-                        <td>
-                            <button
-                                style="background: linear-gradient(60deg, #ef5350, #e53935)"
-                                >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+
+                    <c:if test="${not empty allBrand}">
+                        <c:forEach var="user" items="${allBrand}">
+                            <tr>
+                                <td>${user.comment_id}</td>
+                                <td>${user.contents}</td>
+                                <td>${user.create_at}</td>
+                                <td>${user.product_name}</td>
+                                <td>${user.username}</td>
+
+                                <td>
+                                    <button
+                                        style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                                        name=""
+                                        type="button"
+                                        class="delete-btn"
+                                        onclick="showModal('delete-modal'); deleteCmt(${user.comment_id});"
+                                        >
+                                        Delete
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty allBrand}">
+                        <tr>
+                            <td colspan="4">No users found</td>
+                        </tr>
+                    </c:if>
                 </table>
             </div>
+             <!-- DELETE MODAL -->
+            <div id="delete-modal" class="modal">
+                <div class="delete-modal-content">
+                    <h1>Confirm delete?</h1>
+                    <form action="/Admin/Review" method="post" class="delete-form">
+                        <input type="hidden" id="delete-brand-id" name="brand_id"/>
+                        <button
+                            style="color: #000000"
+                            class="cancel-btn"
+                            type="button"
+                            onclick="closeModal('delete-modal')"
+                            >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            style="background: linear-gradient(60deg, #ef5350, #e53935)"
+                            class="confirm-delete-btn"
+                            name="btnDeleteCmt"
+                            >
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
         </main>
+        <script>
+            function deleteCmt(brandId) {
+
+                // Set values in modal fields
+                document.getElementById('delete-brand-id').value = brandId;
+
+                const editModal = document.getElementById("deleteModal");
+                editModal.style.display = "block";
+            }
+        </script>
     </body>
 </html>
 

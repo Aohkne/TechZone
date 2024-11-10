@@ -82,11 +82,11 @@
             <div class="account dropdown-button">
                 <div class="account-icon-name">
                     <i class="fa-solid fa-user"></i>
-                    <p class="account-name">Nguyen Trong Quy</p>
+                    <p class="account-name">${name}</p>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="admin_profile.html">Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="/Admin/Profile">Profile</a></li>
+                            <li><a href="/Logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -96,11 +96,6 @@
         <main>
             <nav>
                 <p class="title">Chat</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search" /><i
-                        class="fa-solid fa-magnifying-glass"
-                        ></i>
-                </div>
             </nav>
             <section class="chat-section">
                 <!-- 

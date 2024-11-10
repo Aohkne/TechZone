@@ -82,7 +82,10 @@ public class Chat extends HttpServlet {
                         idUser = cookie.getValue();
                         UserDAO userdao = new UserDAO();
                         AccountDAO dao = new AccountDAO();
+                       
                         int userId = Integer.parseInt(idUser);
+                        String name = dao.GetNameAdmin(userId);
+                        request.setAttribute("name", name);
 
                         try {
                             ResultSet rs = userdao.getUserById(idUser);

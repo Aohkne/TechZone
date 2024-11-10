@@ -7,6 +7,8 @@ package Controllers;
 import DAOs.AccountDAO;
 import DAOs.BrandDAO;
 import DAOs.CategoryDAO;
+import DAOs.CommentDAO;
+import DAOs.OrderDAO;
 import DAOs.ProductDAO;
 import Models.Product_Details;
 import Models.Users;
@@ -86,6 +88,12 @@ public class Admin extends HttpServlet {
         // Nếu đường dẫn là "/Admin", hiển thị trang quản trị
         if (path.equals("/Admin") || path.equals("/Admin/Dashboard")) {
             AccountDAO dao = new AccountDAO();
+            ProductDAO dao1 = new ProductDAO();
+            CategoryDAO dao2 = new CategoryDAO();
+            CommentDAO dao3 = new CommentDAO();
+            BrandDAO dao4 = new BrandDAO();
+            OrderDAO dao5 = new OrderDAO();
+            
             int userId = -1;
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -98,7 +106,10 @@ public class Admin extends HttpServlet {
             }
             String name = dao.GetNameAdmin(userId);
             int counts = dao.GetTotalUser();
+            
+            int count1 = dao3.GetTotalComment();
 
+            request.setAttribute("count1", count1);
             request.setAttribute("countUser", counts);
             request.setAttribute("name", name);
             request.getRequestDispatcher("/admin_dashboard.jsp").forward(request, response);
@@ -188,9 +199,7 @@ public class Admin extends HttpServlet {
 
             request.setAttribute("allProduct", allProduct);
             request.getRequestDispatcher("/admin_products.jsp").forward(request, response);
-        } else if (path.equals("/Admin/Review")) {
-            request.getRequestDispatcher("/admin_reviews.jsp").forward(request, response);
-        } else if (path.equals("/Admin/Profile")) {
+        }  else if (path.equals("/Admin/Profile")) {
             AccountDAO dao = new AccountDAO();
             int userId = -1;
             Cookie[] cookies = request.getCookies();

@@ -52,7 +52,7 @@
                     </li>
                     <li>
                         <a href="/Admin/Review"
-                           ><i class="fa-solid fa-comment"></i>Reviews</a
+                           ><i class="fa-solid fa-comment"></i>Comments</a
                         >
                     </li>
                     <li>
@@ -140,7 +140,7 @@
                 </div>
                 <div class="card">
                     <p class="card-name">Users</p>
-                    <p class="card-value">5</p>
+                    <p class="card-value">${countUser}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
@@ -151,8 +151,8 @@
                     <p class="card-graph">Graph Details</p>
                 </div>
                 <div class="card">
-                    <p class="card-name">Reviews</p>
-                    <p class="card-value">5</p>
+                    <p class="card-name">Comments</p>
+                    <p class="card-value">${count1}</p>
                     <div
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ef5350, #e53935)"

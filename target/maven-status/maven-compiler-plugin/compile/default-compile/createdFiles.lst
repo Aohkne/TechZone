@@ -11,6 +11,7 @@ Controllers\Error.class
 Controllers\Payment.class
 DAOs\CommentDAO.class
 Models\Category.class
+Controllers\Comments.class
 Controllers\Login$2.class
 Models\Product.class
 Controllers\Product.class
@@ -37,5 +38,6 @@ Controllers\User.class
 Controllers\Login.class
 Models\Order.class
 DB\DBConnection.class
+Models\Comment.class
 Models\Users.class
 Controllers\Login$1.class
