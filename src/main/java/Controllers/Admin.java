@@ -351,7 +351,11 @@ public class Admin extends HttpServlet {
                 product.setPro_name(pro_name);
                 product.setDescription(description);
                 product.setPro_price(pro_price);
-                product.setPro_sale(pro_sale);
+                if (pro_sale == null || pro_sale.trim().isEmpty()) {
+                    product.setPro_sale(null);
+                } else {
+                    product.setPro_sale(pro_sale);
+                }
                 product.setMadein(madein);
                 product.setCat_id(cat_id);
                 product.setBrand_id(brand_id);
