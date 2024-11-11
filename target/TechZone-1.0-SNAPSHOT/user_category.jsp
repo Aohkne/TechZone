@@ -387,8 +387,8 @@
 
 
 
-        <!-- Page trainsition bar -->
-        <div class="page__bar">
+        <!-- Page transition bar -->
+<!--        <div class="page__bar">
             <a href="#" id="prev">&laquo;</a>
             <a href="#" class="page-num active" data-page="1">1</a>
             <a href="#" class="page-num" data-page="2">2</a>
@@ -397,7 +397,7 @@
             <a href="#" class="page-num" data-page="5">5</a>
             <a href="#" class="page-num" data-page="6">6</a>
             <a href="#" id="next">&raquo;</a>
-        </div>
+        </div>-->
     </div>
 
 </div>

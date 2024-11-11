@@ -82,8 +82,8 @@ VALUES
 ('Apple Watch Series 6', 'The Apple Watch Series 6 offers advanced health tracking with a blood oxygen sensor, ECG app, and heart rate monitor.', 10270000, 'America', '2024-10-1', 3, 1),
 ('IPhone 14 Pro', 'The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, Dynamic Island for interactive notifications.', 17590000, 'America', '2024-10-1', 1, 1),
 ('Manami Earphone', 'The Manami Earphone offers clear sound with deep bass, noise isolation, and a comfortable fit.', 100000, 'Japan', '2024-09-30', 2, 2),
-('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display.', 999999, 'America', '2024-09-30', 4, 1),
-('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor.', 5999999, 'America', '2024-09-30', 6, 7),
+('MacBook Air 2022', 'The MacBook Air 2022 is an ultra-portable laptop with the M2 chip, a 13.6-inch Liquid Retina display.', 1000000, 'America', '2024-09-30', 4, 1),
+('Oculus Quest 2', 'The Oculus Quest 2 is a wireless VR headset by Meta with a high-resolution display, Snapdragon XR2 processor.', 6000000, 'America', '2024-09-30', 6, 7),
 ('Bose SoundLink Revolve', 'The Bose SoundLink Revolve is a Bluetooth speaker with 360-degree sound for consistent, uniform coverage.', 5000000, 'America', '2024-10-5', 7, 3);
 
 -- Sale
@@ -109,11 +109,6 @@ CREATE TABLE Product_Details (
     FOREIGN KEY (pro_id) REFERENCES [Product](pro_id)
 );
 
-SELECT * FROM Product_Details
-
-UPDATE Product_Details
-SET quantity = 100
-WHERE proDetail_id = 30;
 
 -- Not sale
 INSERT INTO Product_Details (color_name, quantity, image, pro_id)
@@ -149,7 +144,6 @@ VALUES
 ('white', 180, './asset/img/img_all/img_product/img_earphone/SonyWF1000XM4_white_sale.png', 15),
 ('default', 40, './asset/img/img_all/img_product/img_vr/HTCVivePro2_sale.png', 16);
 
-SELECT * FROM Product_Details Where pro_id = 14 AND color_name != 'default'
 
 
 -- Tạo bảng Users
@@ -257,26 +251,6 @@ BEGIN
 END;
 
 
---cách add
-EXEC AddOrUpdateVoucher 
-    @voucher_name = 'Discount 10%', 
-    @voucher_quantity = 3, 
-    @voucher_discount = 10, 
-    @voucher_expire_date = '2024-12-31', 
-    @voucher_id = 2, 
-    @user_id = 8;
-
-
-
-
-
-select * from [Order]
-select * from Order_Details
-select * from Payment
-
-update Order_Details
-set [status] = 'Delivered'
-where order_detail_id = 3
 
 CREATE TABLE Payment (
     payment_id INT PRIMARY KEY IDENTITY(1,1),
@@ -306,11 +280,7 @@ CREATE TABLE Order_Details (
 	FOREIGN KEY (voucherDetail_id) REFERENCES VoucherDetail(voucherDetail_id),
     FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 );
-drop table Message
-drop table Conversation
 
-select * from Conversation
-select * from Message
 
 
 -- Tạo bảng Conversation
@@ -344,10 +314,14 @@ CREATE TABLE Comment (
 );
 
 
-Select * from Comment
-drop table Comment
-
-
+--cách add voucher
+EXEC AddOrUpdateVoucher 
+    @voucher_name = 'Discount 10%', 
+    @voucher_quantity = 3, 
+    @voucher_discount = 10, 
+    @voucher_expire_date = '2024-12-31', 
+    @voucher_id = 2, 
+    @user_id = 8;
 
 
 

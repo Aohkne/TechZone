@@ -108,7 +108,7 @@
                         class="card-icon"
                         style="background: linear-gradient(60deg, #ffa726, #fb8c00)"
                         >
-                        <i class="fa-solid fa-street-view"></i>
+                        <i class="fa-solid fa-map"></i>
                     </div>
                     <hr />
                 </div>
