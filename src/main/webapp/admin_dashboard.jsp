@@ -93,11 +93,6 @@
         <main>
             <nav>
                 <p class="title">Dashboard</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search" /><i
-                        class="fa-solid fa-magnifying-glass"
-                        ></i>
-                </div>
             </nav>
 
             <div class="card-container">

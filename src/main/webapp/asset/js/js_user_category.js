@@ -18,22 +18,22 @@ pages.forEach(page => {
     });
 });
 
-// Xử lý sự kiện khi nhấn nút trước và sau
-document.getElementById('prev').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (currentPage > 1) {
-        currentPage--;
-        updatePagination();
-    }
-});
-
-document.getElementById('next').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (currentPage < pages.length) {
-        currentPage++;
-        updatePagination();
-    }
-});
+//// Xử lý sự kiện khi nhấn nút trước và sau
+//document.getElementById('prev').addEventListener('click', function (e) {
+//    e.preventDefault();
+//    if (currentPage > 1) {
+//        currentPage--;
+//        updatePagination();
+//    }
+//});
+//
+//document.getElementById('next').addEventListener('click', function (e) {
+//    e.preventDefault();
+//    if (currentPage < pages.length) {
+//        currentPage++;
+//        updatePagination();
+//    }
+//});
 
 // Hàm cập nhật trạng thái pagination khi chuyển trang
 function updatePagination() {
