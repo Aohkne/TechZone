@@ -256,7 +256,6 @@
                                 id="product-sale-price"
                                 placeholder="Product sale price"
                                 name="pro_sale"
-                                required=""
                                 />
                         </label>
                         <label>
