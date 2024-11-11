@@ -1,0 +1,200 @@
+/* Nav */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Calibri', 'Roboto', sans-serif, Helvetica;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+
+
+.nav__container {
+    display: flex;
+    padding: 0 8px;
+    align-items: center;
+    background-color: #242424;
+    width: 33%;
+    border-radius: 14px;
+    margin: 10px 10px;
+
+}
+
+.nav__container i {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    margin-right: 2px;
+    color: #242424;
+    background-color: #FDC62E;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+}
+
+.nav__Btn {
+    display: inline-block;
+    padding-top: 2px;
+}
+
+.nav__Btn img {
+    height: 35px;
+}
+
+.nav__list {
+    height: 100vh;
+    border-right: 1px solid #ddd;
+    text-align: center;
+}
+
+.nav__list li a:hover {
+    background-color: #FDC62E;
+}
+
+.nav__list li a {
+    display: block;
+    text-decoration: none;
+    color: #242424;
+    padding: 5px 10px;
+    border-radius: 8px;
+    width: 120px;
+    margin-left: 50px;
+}
+
+.list__item {
+    list-style-type: none;
+
+    &+.list__item {
+        margin-top: 50px;
+    }
+}
+
+/* Container */
+
+.sercurity {
+    margin: 30px 40px;
+    padding: 10px 30px
+}
+
+.sercurity__form {
+    margin-top: 10px;
+}
+
+.sercurity__header {
+    font-weight: 900;
+}
+
+.sercurity__title {
+    position: relative;
+    width: 100px;
+    padding: 0 5px;
+    margin-left: 85px;
+    background-color: #fff;
+    color: #ACA7A7;
+    font-weight: 500;
+    bottom: -20px;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+.sercurity__title__1 {
+    position: relative;
+    width: 105px;
+    padding: 0 5px;
+    margin-left: 85px;
+    background-color: #fff;
+    color: #ACA7A7;
+    font-weight: 500;
+    bottom: -20px;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+.sercurity__title__2 {
+    position: relative;
+    width: 130px;
+    padding: 0 5px;
+    margin-left: 85px;
+    background-color: #fff;
+    color: #ACA7A7;
+    font-weight: 500;
+    bottom: -20px;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+.sercurity__edit {
+    padding: 10px 70px;
+    width: 56%;
+}
+
+.form__control {
+    width: 100%;
+    padding: 0 10px;
+    height: 50px;
+    border: 2px solid #A8A3A3;
+    border-radius: 12px;
+}
+
+.submit {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    width: 13%;
+    height: 100%;
+    padding: 10px 0px;
+    margin: 10px 70px;
+}
+
+.save__btn {
+    font-size: 20px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: #FDC62E;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.cancle__btn {
+    font-size: 20px;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ACA7A7;
+    cursor: pointer;
+}
+
+.save__btn:hover,
+.cancle__btn:hover {
+}
+
+
+/* Validated Password */
+
+.message{
+    margin: 10px 70px;
+    padding: 15px 0px;
+    font-size: 18px;
+    font-weight: 600px;
+    text-align: center;
+    width: 45%;
+    border-radius: 5px;
+}
+
+.error-message{
+    color: #F42C37;
+    border: 2px solid #F42C37;
+    background-color: #ffd8da;
+}
+
+.sucess-message{
+    color: #2CD06F;
+    border: 2px solid #2CD06F;
+    background-color: #cfffe3;
+}
