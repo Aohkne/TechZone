@@ -7,6 +7,7 @@ SWP391 Technology Sales Web Project
    Nguyễn Thanh Bảo - CE181098 <br>
 
 ## Introduction
+In recent years, people are less likely to go out to shop as online shopping has become the preferred method for many individuals. The convenience of browsing products, comparing prices, and making purchases from the comfort of their homes has changed the way people shop. Many online platforms now offer a wide range of products, detailed customer reviews, and personalized recommendations, making the online experience more appealing. Additionally, with the rise of fast and reliable delivery services, shoppers can get their items quickly without having to go to a physical store. Therefore, We will introduce to everyone the <strong> TechZone Project </strong> - an online technology sales project
 
 
 ## How To Run
@@ -19,9 +20,9 @@ Ensure you have the following installed:
 
 
 ## Document
-Backlog :  <a href="https://docs.google.com/spreadsheets/d/1o3HCyW7pNf2zxSpA1IKrCckMa3-sy34R8nKYX6r7RMw/edit?gid=0#gid=0" target="_blank"> Link </a> <br>
-Final Release Document :  <a href="https://docs.google.com/document/d/1EhXYgWcJi-f390xURMC4PfNbNUtM_pBq/edit" target="_blank"> Link </a> <br>
-Software Design Specification(SDS) :  <a href="https://docs.google.com/document/d/1OGrC1hQ4DxOBXzzYpaCBuc8GxlYcIZQN/edit" target="_blank"> Link </a> <br>
-Software Requirement Specification(SRS) :  <a href="https://docs.google.com/document/d/19zvD6aXkCbY1PfoeYqoq8jcFPEiio1E6/edit" target="_blank"> Link </a> <br>
-Requirement & Design Specification(RDS) :  <a href="https://docs.google.com/document/d/1249DVgptPVjxdQiubYDvgTtdJA7vq_mH/edit" target="_blank"> Link </a> <br>
+Backlog :  <a href="https://docs.google.com/spreadsheets/d/1Sle-1qMT1dikpAlhOsJTfNwApkqfZPlP5HwwddCtXpw/edit?gid=0#gid=0" target="_blank"> Link </a> <br>
+Final Release Document :  <a href="https://docs.google.com/document/d/1aqgpV54ygmqODNexD35FvlmS1_tp3R2G/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
+Software Design Specification(SDS) :  <a href="https://docs.google.com/document/d/18v5f1qEvhDbSzOqS_CDz-fQYn06hGQP2/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
+Software Requirement Specification(SRS) :  <a href="https://docs.google.com/document/d/1Cgv_5UspDBMi1FLYn8FCA-b5qMHdC_zm/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
+Requirement & Design Specification(RDS) :  <a href="https://docs.google.com/document/d/1uIt7JNihkUHe3aO8i9pmUDv1cZkUWWoe/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
 
