@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/main/webapp/asset/img/img_all/logoImage.png" alt="TechZone Logo" />
+</p>
+
 # TechZone
 SWP391 Technology Sales Web Project
 - Members: <br>
@@ -20,6 +24,8 @@ Ensure you have the following installed:
 
 
 ## Document
+Powerpoint :  <a href="https://docs.google.com/presentation/d/1oEnXSKn6Pvh1YPD8EgKuGaphYQO2V7nz/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
+Video Demo :  <a href="https://drive.google.com/file/d/17dZCRn7ZHDZeIeRsYLlxZ801JlK33fH3/view?usp=sharing" target="_blank"> Link </a> <br>
 Backlog :  <a href="https://docs.google.com/spreadsheets/d/1Sle-1qMT1dikpAlhOsJTfNwApkqfZPlP5HwwddCtXpw/edit?gid=0#gid=0" target="_blank"> Link </a> <br>
 Final Release Document :  <a href="https://docs.google.com/document/d/1aqgpV54ygmqODNexD35FvlmS1_tp3R2G/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
 Software Design Specification(SDS) :  <a href="https://docs.google.com/document/d/18v5f1qEvhDbSzOqS_CDz-fQYn06hGQP2/edit?usp=sharing&ouid=103845613501192788324&rtpof=true&sd=true" target="_blank"> Link </a> <br>
